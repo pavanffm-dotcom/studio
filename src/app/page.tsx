@@ -220,7 +220,6 @@ const toolCategories = [
 ];
 
 const combinedTools = [...allTools, ...imageToVideoTools, ...textToVideoTools];
-const trendingTools = combinedTools.filter(tool => tool.isTrending);
 
 
 export default function GalaxyApp() {
@@ -228,6 +227,7 @@ export default function GalaxyApp() {
   const [activeCategory, setActiveCategory] = React.useState('All');
   const [favouritedTools, setFavouritedTools] = React.useState<string[]>(['Runway', 'Pika']);
   const [recentTools, setRecentTools] = React.useState<Tool[]>([]);
+  const [toolClicks, setToolClicks] = React.useState<Record<string, number>>({});
 
   const handleFavouriteToggle = (toolName: string) => {
     setFavouritedTools(prev => 
@@ -238,10 +238,17 @@ export default function GalaxyApp() {
   };
 
   const handleToolClick = (tool: Tool) => {
+    // Update recents
     setRecentTools(prev => {
       const newRecents = [tool, ...prev.filter(t => t.name !== tool.name)];
       return newRecents.slice(0, 5); // Keep only the 5 most recent
     });
+
+    // Update click count for trending
+    setToolClicks(prev => ({
+      ...prev,
+      [tool.name]: (prev[tool.name] || 0) + 1,
+    }));
   };
   
   const getFilteredTools = () => {
@@ -259,6 +266,26 @@ export default function GalaxyApp() {
 
   const filteredTools = getFilteredTools();
   const favouriteToolsList = combinedTools.filter(tool => favouritedTools.includes(tool.name));
+  
+  const trendingTools = React.useMemo(() => {
+    const allToolsWithTrending = [...new Set([...allTools, ...imageToVideoTools, ...textToVideoTools])];
+
+    const sortedTools = allToolsWithTrending
+      .map(tool => ({
+        ...tool,
+        clicks: toolClicks[tool.name] || 0,
+      }))
+      .sort((a, b) => b.clicks - a.clicks);
+
+    // Also include hardcoded isTrending tools at the top if they haven't been clicked
+    const hardcodedTrending = sortedTools.filter(t => t.isTrending && t.clicks === 0);
+    const clickedTools = sortedTools.filter(t => t.clicks > 0);
+    const otherTools = sortedTools.filter(t => !t.isTrending && t.clicks === 0);
+
+    const finalTrendingList = [...new Set([...clickedTools, ...hardcodedTrending, ...otherTools])];
+
+    return finalTrendingList;
+  }, [toolClicks]);
 
 
   return (
