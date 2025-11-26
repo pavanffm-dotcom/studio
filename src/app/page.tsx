@@ -23,6 +23,7 @@ import { GalaxyLogo } from '@/components/galaxy-logo';
 import { BottomNav } from '@/components/bottom-nav';
 import { Badge } from '@/components/ui/badge';
 import Link from 'next/link';
+import { SettingsPage } from '@/components/settings-page';
 
 const popularTools = [
   { name: 'AI Image Generator', icon: <ImageIcon className="w-6 h-6" /> },
@@ -407,10 +408,8 @@ export default function GalaxyApp() {
                 </div>
             </TabsContent>
             
-            <TabsContent value="settings" className="flex-grow overflow-y-auto px-4 pb-4 no-scrollbar mt-0">
-                <div className="text-center py-16 text-muted-foreground">
-                    <p>Settings will be here.</p>
-                </div>
+            <TabsContent value="settings" className="flex-grow overflow-y-auto no-scrollbar mt-0">
+                <SettingsPage />
             </TabsContent>
         </Tabs>
 
