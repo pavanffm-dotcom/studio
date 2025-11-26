@@ -15,6 +15,7 @@ import {
   Type,
   Star,
   TrendingUp,
+  Sparkles,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -24,19 +25,20 @@ import { BottomNav } from '@/components/bottom-nav';
 import { Badge } from '@/components/ui/badge';
 import Link from 'next/link';
 import { SettingsPage } from '@/components/settings-page';
+import { cn } from '@/lib/utils';
 
 const popularTools = [
-  { name: 'AI Image Generator', icon: <ImageIcon className="w-6 h-6" /> },
-  { name: 'AI Video Generator', icon: <Clapperboard className="w-6 h-6" /> },
-  { name: 'AI Music Generator', icon: <Mic className="w-6 h-6" /> },
-  { name: 'AI Voice Cloner', icon: <Image src="https://picsum.photos/seed/voice-clone/48/48" alt="AI Voice Cloner" width={24} height={24} className="rounded-md" data-ai-hint="voice wave" /> },
-  { name: 'AI Icon Generator', icon: <Bot className="w-6 h-6" /> },
+  { name: 'AI Image Generator', icon: <ImageIcon className="w-8 h-8" /> },
+  { name: 'AI Video Generator', icon: <Clapperboard className="w-8 h-8" /> },
+  { name: 'AI Music Generator', icon: <Mic className="w-8 h-8" /> },
+  { name: 'AI Voice Cloner', icon: <Image src="https://picsum.photos/seed/voice-clone/48/48" alt="AI Voice Cloner" width={32} height={32} className="rounded-full" data-ai-hint="voice wave" /> },
+  { name: 'AI Icon Generator', icon: <Bot className="w-8 h-8" /> },
 ];
 
 const libraries = [
-  { name: 'Image Library', color: 'bg-indigo-500/30', icon: <ImageIcon/> },
-  { name: 'Video Library', color: 'bg-red-500/30', icon: <Clapperboard/> },
-  { name: 'Audio Library', color: 'bg-cyan-500/30', icon: <Mic/> },
+  { name: 'Image Library', gradient: 'from-pink-300 to-rose-300', icon: <ImageIcon/> },
+  { name: 'Video Library', gradient: 'from-sky-300 to-blue-300', icon: <Clapperboard/> },
+  { name: 'Audio Library', gradient: 'from-teal-200 to-emerald-300', icon: <Mic/> },
 ];
 
 const allTools = [
@@ -148,7 +150,7 @@ const textToVideoTools = [
   { name: 'DALL-E 3', image: 'https://picsum.photos/seed/dalle3-video/300/200', isTrending: false, category: 'Video', dataAiHint: 'image and video', url: '#' },
   { name: 'Midjourney', image: 'https://picsum.photos/seed/midjourney-video/300/200', isTrending: false, category: 'Video', dataAiHint: 'ai art video', url: 'https://www.midjourney.com/' },
   { name: 'Visla', image: 'https://picsum.photos/seed/visla-video/300/200', isTrending: false, category: 'Video', dataAiHint: 'ai video for teams', url: 'https://www.visla.us/' },
-  { name: 'Synthesia', image: 'https://picsum.photos/seed/synthesia-alt-video/300/200', isTrending: false, category: 'Video', dataAiHint: 'video generation platform', url: 'https://www.synthesia.io/' },
+  { name: 'Synthesia-alt', image: 'https://picsum.photos/seed/synthesia-alt-video/300/200', isTrending: false, category: 'Video', dataAiHint: 'video generation platform', url: 'https://www.synthesia.io/' },
   { name: 'MuseNet', image: 'https://picsum.photos/seed/musenet-video/300/200', isTrending: false, category: 'Video', dataAiHint: 'music video', url: 'https://openai.com/research/musenet' },
   { name: 'Artbreeder', image: 'https://picsum.photos/seed/artbreeder-video/300/200', isTrending: false, category: 'Video', dataAiHint: 'collages video', url: 'https://www.artbreeder.com/' },
   { name: 'RunwayML', image: 'https://picsum.photos/seed/runwayml-video/300/200', isTrending: false, category: 'Video', dataAiHint: 'ai magic tools', url: 'https://runwayml.com/' },
@@ -200,9 +202,9 @@ const textToVideoTools = [
 
 const toolCategories = [
     { name: 'All', icon: <LayoutGrid />, color: 'bg-primary text-primary-foreground' },
-    { name: 'Image', icon: <ImageIcon />, color: 'bg-green-500/20 text-green-400' },
-    { name: 'Video', icon: <Video />, color: 'bg-red-500/20 text-red-400' },
-    { name: 'Text', icon: <Type />, color: 'bg-blue-500/20 text-blue-400' },
+    { name: 'Image', icon: <ImageIcon />, gradient: 'bg-gradient-to-br from-pink-400 to-rose-400 text-white' },
+    { name: 'Video', icon: <Video />, gradient: 'bg-gradient-to-br from-sky-400 to-blue-400 text-white' },
+    { name: 'Text', icon: <Type />, gradient: 'bg-gradient-to-br from-teal-400 to-emerald-400 text-white' },
 ];
 
 const combinedTools = [...allTools, ...imageToVideoTools, ...textToVideoTools];
@@ -238,125 +240,120 @@ export default function GalaxyApp() {
 
 
   return (
-    <div className="bg-background h-screen flex flex-col items-center justify-start font-body relative overflow-hidden">
-        <div className="absolute inset-0 z-0">
-            <Image 
-                src="https://picsum.photos/seed/space/1080/1920"
-                alt="Galaxy background"
-                fill
-                className="object-cover"
-                data-ai-hint="galaxy space"
-            />
-            <div className="absolute inset-0 bg-black/80 backdrop-blur-sm"></div>
+    <div className="bg-background min-h-screen flex flex-col items-center justify-start font-body relative overflow-hidden">
+        <div className="absolute inset-0 z-0 opacity-50">
+             <div className="absolute inset-0 bg-gradient-to-br from-soft-blue via-lavender to-baby-pink"></div>
         </div>
-      <div className="relative z-10 text-center text-white pt-12 pb-4 px-4 w-full max-w-sm shrink-0">
+      <div className="relative z-10 text-center text-foreground pt-16 pb-6 px-4 w-full max-w-sm shrink-0">
         <h1 className="text-3xl font-bold tracking-tight">
           AI Tools for Text, Image, Video & More
         </h1>
+        <p className="text-muted-foreground mt-2">Your cute guide to creative AI tools</p>
       </div>
 
-      <main className="relative z-10 w-full max-w-sm flex-1 bg-card rounded-t-3xl shadow-2xl flex flex-col min-h-0">
-        <div className="flex-shrink-0 px-4 pt-4">
+      <main className="relative z-10 w-full max-w-sm flex-1 bg-card/80 backdrop-blur-3xl rounded-t-[2.5rem] shadow-2xl flex flex-col min-h-0 border-t-2 border-white/50 soft-shadow">
+        <div className="flex-shrink-0 px-6 pt-6">
           <header className="flex justify-between items-center py-2">
             <div className="flex items-center gap-2">
-              <GalaxyLogo className="w-7 h-7" />
-              <span className="text-xl font-bold">Galaxy.ai</span>
+              <GalaxyLogo className="w-8 h-8" />
+              <span className="text-2xl font-bold text-foreground">AI Atlas</span>
             </div>
-            <Button variant="ghost" size="icon">
-              <Search className="w-5 h-5" />
+            <Button variant="ghost" size="icon" className="rounded-full w-12 h-12 bg-white/50 hover:bg-white">
+              <Search className="w-6 h-6 text-foreground/70" />
             </Button>
           </header>
-          <nav className="mt-2">
+          <nav className="mt-4">
             <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
               <TabsList className="grid w-full grid-cols-3 bg-transparent p-0">
-                <TabsTrigger value="home" className="data-[state=active]:border-primary data-[state=active]:text-primary border-b-2 border-transparent rounded-none pb-3">Home</TabsTrigger>
-                <TabsTrigger value="tools" className="data-[state=active]:border-primary data-[state=active]:text-primary border-b-2 border-transparent rounded-none pb-3">Tools</TabsTrigger>
-                <TabsTrigger value="settings" className="data-[state=active]:border-primary data-[state=active]:text-primary border-b-2 border-transparent rounded-none pb-3">Settings</TabsTrigger>
+                <TabsTrigger value="home" className="data-[state=active]:border-primary data-[state=active]:text-primary text-lg font-semibold border-b-4 border-transparent rounded-none pb-3 transition-all duration-300">Home</TabsTrigger>
+                <TabsTrigger value="tools" className="data-[state=active]:border-primary data-[state=active]:text-primary text-lg font-semibold border-b-4 border-transparent rounded-none pb-3 transition-all duration-300">Tools</TabsTrigger>
+                <TabsTrigger value="settings" className="data-[state=active]:border-primary data-[state=active]:text-primary text-lg font-semibold border-b-4 border-transparent rounded-none pb-3 transition-all duration-300">Settings</TabsTrigger>
               </TabsList>
             </Tabs>
           </nav>
         </div>
         
         <Tabs value={activeTab} className="flex-grow flex flex-col overflow-hidden">
-            <TabsContent value="home" className="flex-grow overflow-y-auto px-4 pb-4 no-scrollbar mt-0">
-                <div className="bg-primary text-primary-foreground p-4 rounded-2xl my-4 relative overflow-hidden">
-                    <div className="absolute -right-4 -bottom-10 w-32 h-32 opacity-80">
-                        <Image src="https://picsum.photos/seed/ai-person/200/200" alt="AI illustration" width={128} height={128} className="object-contain" data-ai-hint="AI illustration person"/>
+            <TabsContent value="home" className="flex-grow overflow-y-auto px-6 pb-4 no-scrollbar mt-0">
+                <div className="bg-gradient-to-br from-cute-purple to-lavender text-primary-foreground p-6 rounded-3xl my-4 relative overflow-hidden soft-shadow">
+                    <div className="absolute -right-4 -bottom-10 w-36 h-36 opacity-30">
+                        <Image src="https://picsum.photos/seed/ai-person/200/200" alt="AI illustration" width={144} height={144} className="object-contain" data-ai-hint="AI illustration person"/>
                     </div>
-                    <h3 className="font-bold text-lg">Welcome To Galaxy.ai</h3>
-                    <p className="text-sm opacity-90 mt-1 max-w-[60%]">Discover 2113 powerful AI tools to enhance your productivity</p>
-                    <Button variant="secondary" className="mt-4 bg-white text-primary hover:bg-white/90">Explore Tools</Button>
+                    <Sparkles className="absolute top-4 right-4 w-8 h-8 text-white/50"/>
+                    <h3 className="font-bold text-2xl">Welcome To AI Atlas</h3>
+                    <p className="text-base opacity-90 mt-2 max-w-[65%]">Discover 2113+ powerful AI tools</p>
+                    <Button variant="secondary" className="mt-6 bg-white text-primary hover:bg-white/90 rounded-full h-12 px-6 font-bold text-base glow-shadow">Explore Tools</Button>
                 </div>
 
                 <section>
-                    <div className="flex justify-between items-center mb-2">
-                        <h4 className="font-semibold">Popular Tools</h4>
-                        <Button variant="link" className="text-primary p-0 h-auto">See all</Button>
+                    <div className="flex justify-between items-center mb-3">
+                        <h4 className="font-semibold text-xl">Popular Tools</h4>
+                        <Button variant="link" className="text-primary p-0 h-auto font-semibold">See all</Button>
                     </div>
-                    <div className="flex gap-4 overflow-x-auto no-scrollbar pb-2 -mx-4 px-4">
+                    <div className="flex gap-4 overflow-x-auto no-scrollbar pb-2 -mx-6 px-6">
                         {popularTools.map(tool => (
-                            <div key={tool.name} className="flex flex-col items-center shrink-0 w-20">
-                                <div className="w-16 h-16 rounded-2xl bg-secondary flex items-center justify-center">
+                            <div key={tool.name} className="flex flex-col items-center shrink-0 w-24 text-center">
+                                <div className="w-20 h-20 rounded-3xl bg-secondary flex items-center justify-center text-primary soft-shadow">
                                     {tool.icon}
                                 </div>
-                                <p className="text-xs text-center mt-2 text-muted-foreground">{tool.name}</p>
+                                <p className="text-sm font-medium text-center mt-2 text-muted-foreground">{tool.name}</p>
                             </div>
                         ))}
                     </div>
                 </section>
                 
-                <section className="mt-4">
-                    <h4 className="font-semibold mb-2">Libraries</h4>
-                     <div className="grid grid-cols-3 gap-3">
+                <section className="mt-6">
+                    <h4 className="font-semibold text-xl mb-3">Libraries</h4>
+                     <div className="grid grid-cols-3 gap-4">
                         {libraries.map(lib => (
-                            <div key={lib.name} className={`p-3 rounded-xl flex flex-col justify-between aspect-square ${lib.color}`}>
-                                <div className="bg-white/20 rounded-full w-8 h-8 flex items-center justify-center text-white">
+                            <div key={lib.name} className={cn('p-4 rounded-3xl flex flex-col justify-between aspect-square soft-shadow bg-gradient-to-br', lib.gradient)}>
+                                <div className="bg-white/30 rounded-full w-10 h-10 flex items-center justify-center text-white backdrop-blur-sm">
                                     {lib.icon}
                                 </div>
-                                <p className="text-white font-semibold text-sm mt-4">{lib.name}</p>
+                                <p className="text-white font-semibold text-base mt-4">{lib.name}</p>
                             </div>
                         ))}
                     </div>
                 </section>
                 
-                <section className="mt-4">
+                <section className="mt-6">
                     <Tabs defaultValue="recent" className="w-full">
-                        <TabsList className="grid w-full grid-cols-2 bg-secondary">
-                            <TabsTrigger value="recent">Recent</TabsTrigger>
-                            <TabsTrigger value="favourites">Favourites</TabsTrigger>
+                        <TabsList className="grid w-full grid-cols-2 bg-secondary rounded-full h-12 p-1">
+                            <TabsTrigger value="recent" className="rounded-full h-full text-base">Recent</TabsTrigger>
+                            <TabsTrigger value="favourites" className="rounded-full h-full text-base">Favourites</TabsTrigger>
                         </TabsList>
                         <TabsContent value="recent" className="mt-4">
-                             <Card className="p-3 flex items-center gap-3 bg-secondary">
-                                <Image src="https://picsum.photos/seed/ai-face/80/80" alt="AI Image" width={56} height={56} className="rounded-lg" data-ai-hint="AI face"/>
+                             <Card className="p-4 flex items-center gap-4 bg-white/80 border-none rounded-3xl soft-shadow">
+                                <Image src="https://picsum.photos/seed/ai-face/80/80" alt="AI Image" width={64} height={64} className="rounded-2xl" data-ai-hint="AI face"/>
                                 <div className="flex-grow">
-                                    <h5 className="font-semibold">AI Image Generator</h5>
-                                    <p className="text-xs text-muted-foreground">Produce stunning AI-generated images and artwork to visualize your ideas.</p>
+                                    <h5 className="font-semibold text-lg">AI Image Generator</h5>
+                                    <p className="text-sm text-muted-foreground">Stunning AI-generated images.</p>
                                 </div>
-                                <Button variant="ghost" size="icon" className="text-muted-foreground">
+                                <Button variant="ghost" size="icon" className="text-muted-foreground rounded-full w-10 h-10">
                                     &gt;
                                 </Button>
                              </Card>
                         </TabsContent>
                         <TabsContent value="favourites" className="mt-4">
                             {favouriteToolsList.length > 0 ? (
-                                <div className="space-y-2">
+                                <div className="space-y-3">
                                     {favouriteToolsList.map(tool => (
-                                         <Card key={tool.name} className="p-3 flex items-center gap-3 bg-secondary">
-                                            <Image src={tool.image} alt={tool.name} width={56} height={56} className="rounded-lg" data-ai-hint={tool.dataAiHint} />
+                                         <Card key={tool.name} className="p-3 flex items-center gap-4 bg-white/80 border-none rounded-3xl soft-shadow">
+                                            <Image src={tool.image} alt={tool.name} width={56} height={56} className="rounded-2xl" data-ai-hint={tool.dataAiHint} />
                                             <div className="flex-grow">
-                                                <h5 className="font-semibold">{tool.name}</h5>
-                                                <p className="text-xs text-muted-foreground">{tool.category}</p>
+                                                <h5 className="font-semibold text-base">{tool.name}</h5>
+                                                <p className="text-sm text-muted-foreground">{tool.category}</p>
                                             </div>
-                                            <Button variant="ghost" size="icon" className="text-muted-foreground" onClick={() => handleFavouriteToggle(tool.name)}>
-                                                <Star className="w-5 h-5 text-yellow-400 fill-yellow-400"/>
+                                            <Button variant="ghost" size="icon" className="text-muted-foreground rounded-full w-10 h-10" onClick={() => handleFavouriteToggle(tool.name)}>
+                                                <Star className="w-6 h-6 text-yellow-400 fill-yellow-400"/>
                                             </Button>
                                          </Card>
                                     ))}
                                 </div>
                             ) : (
-                                <div className="text-center py-8 text-muted-foreground">
-                                    <Heart className="mx-auto" />
-                                    <p className="mt-2 text-sm">No Favourites yet.</p>
+                                <div className="text-center py-10 text-muted-foreground">
+                                    <Heart className="mx-auto w-10 h-10" />
+                                    <p className="mt-4 text-base">No Favourites yet.</p>
                                 </div>
                             )}
                         </TabsContent>
@@ -364,14 +361,18 @@ export default function GalaxyApp() {
                 </section>
             </TabsContent>
 
-            <TabsContent value="tools" className="flex-grow overflow-hidden flex flex-col mt-0">
-                <div className="px-4 pt-2 pb-2">
-                    <div className="flex gap-2 overflow-x-auto no-scrollbar">
+            <TabsContent value="tools" className="flex-grow overflow-hidden flex flex-col mt-4">
+                <div className="px-4 pb-2">
+                    <div className="flex gap-3 overflow-x-auto no-scrollbar py-2 -mx-4 px-4">
                         {toolCategories.map(cat => (
                            <Button 
                                 key={cat.name} 
                                 variant={activeCategory === cat.name ? 'default' : 'secondary'}
-                                className={`flex items-center gap-2 rounded-full h-9 ${activeCategory !== cat.name ? cat.color : ''}`}
+                                className={cn(
+                                    'flex items-center gap-2 rounded-full h-12 px-6 text-base font-semibold transition-all duration-300 soft-shadow',
+                                    activeCategory === cat.name ? 'glow-shadow' : 'text-foreground/70',
+                                    activeCategory !== cat.name && cat.gradient
+                                )}
                                 onClick={() => setActiveCategory(cat.name)}
                             >
                                 {cat.icon}
@@ -380,24 +381,24 @@ export default function GalaxyApp() {
                         ))}
                     </div>
                 </div>
-                <div className="flex-grow overflow-y-auto px-4 no-scrollbar">
+                <div className="flex-grow overflow-y-auto px-4 no-scrollbar pt-2 pb-4">
                     <div className="grid grid-cols-2 gap-4">
                         {filteredTools.map(tool => (
                             <Link key={tool.name} href={tool.url} target="_blank" rel="noopener noreferrer">
-                                <Card className="relative overflow-hidden group cursor-pointer bg-secondary border-none h-full">
-                                    <Image src={tool.image} alt={tool.name} width={300} height={200} className="w-full aspect-square object-cover" data-ai-hint={tool.dataAiHint} />
-                                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+                                <Card className="relative overflow-hidden group cursor-pointer bg-white/50 border-white/20 border-2 rounded-3xl h-full soft-shadow transition-transform hover:scale-105 duration-300">
+                                    <Image src={tool.image} alt={tool.name} width={300} height={200} className="w-full aspect-[4/3] object-cover" data-ai-hint={tool.dataAiHint} />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
                                     {tool.isTrending && (
-                                        <Badge className="absolute top-2 left-2 bg-primary/80 text-primary-foreground backdrop-blur-sm text-xs">
+                                        <Badge className="absolute top-2 left-2 bg-cute-purple/80 text-white backdrop-blur-sm text-xs rounded-full border-none shadow-lg">
                                             <TrendingUp className="w-3 h-3 mr-1"/>
                                             Trending
                                         </Badge>
                                     )}
-                                    <div className="absolute bottom-0 left-0 right-0 p-2">
+                                    <div className="absolute bottom-0 left-0 right-0 p-3">
                                         <div className="flex justify-between items-end">
-                                            <h5 className="font-semibold text-white text-sm">{tool.name}</h5>
-                                            <Button variant="ghost" size="icon" className="w-6 h-6 text-white hover:text-yellow-400" onClick={(e) => { e.preventDefault(); e.stopPropagation(); handleFavouriteToggle(tool.name); }}>
-                                                <Star className={`w-4 h-4 ${favouritedTools.includes(tool.name) ? 'fill-yellow-400 text-yellow-400' : 'text-white'}`}/>
+                                            <h5 className="font-semibold text-white text-base leading-tight">{tool.name}</h5>
+                                            <Button variant="ghost" size="icon" className="w-8 h-8 rounded-full text-white bg-white/20 hover:bg-white/30 backdrop-blur-sm" onClick={(e) => { e.preventDefault(); e.stopPropagation(); handleFavouriteToggle(tool.name); }}>
+                                                <Star className={cn('w-5 h-5 transition-all', favouritedTools.includes(tool.name) ? 'fill-yellow-300 text-yellow-300' : 'text-white')}/>
                                             </Button>
                                         </div>
                                     </div>
@@ -408,7 +409,7 @@ export default function GalaxyApp() {
                 </div>
             </TabsContent>
             
-            <TabsContent value="settings" className="flex-grow overflow-y-auto no-scrollbar mt-0">
+            <TabsContent value="settings" className="flex-grow overflow-y-auto no-scrollbar mt-0 bg-secondary/30">
                 <SettingsPage />
             </TabsContent>
         </Tabs>

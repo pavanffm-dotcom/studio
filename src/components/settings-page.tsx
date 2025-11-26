@@ -85,7 +85,7 @@ const settingsConfig = [
     title: "Appearance / Theme",
     icon: Palette,
     options: [
-      { label: "Theme", icon: Sun, value: "Dark" },
+      { label: "Theme", icon: Sun, value: "System" },
       { label: "Font size", icon: Type, value: "Medium" },
       { label: "Accent color", icon: Paintbrush },
     ],
@@ -149,13 +149,13 @@ const settingsConfig = [
 ]
 
 const SettingItem = ({ option }: { option: any }) => (
-  <div className="flex items-center justify-between py-3">
+  <div className="flex items-center justify-between py-4">
     <div className="flex items-center gap-4">
-      <option.icon className={`w-5 h-5 text-muted-foreground ${option.color || ""}`} />
-      <span className={`text-sm ${option.color || ""}`}>{option.label}</span>
+      <option.icon className={`w-6 h-6 text-muted-foreground ${option.color || ""}`} />
+      <span className={`text-base ${option.color || "text-foreground"}`}>{option.label}</span>
     </div>
-    <div className="flex items-center gap-2">
-      {option.value && <span className="text-sm text-muted-foreground">{option.value}</span>}
+    <div className="flex items-center gap-3">
+      {option.value && <span className="text-base text-muted-foreground">{option.value}</span>}
       {option.control === "switch" ? (
         <Switch defaultChecked={option.checked} />
       ) : (
@@ -167,14 +167,16 @@ const SettingItem = ({ option }: { option: any }) => (
 
 export function SettingsPage() {
   return (
-    <div className="p-4 bg-card text-foreground">
+    <div className="p-4">
       <Accordion type="single" collapsible className="w-full" defaultValue="item-0">
         {settingsConfig.map((category, index) => (
-          <AccordionItem value={`item-${index}`} key={index} className="border-b-0 mb-2 rounded-lg bg-secondary/30 px-3">
+          <AccordionItem value={`item-${index}`} key={index} className="border-b-0 mb-3 bg-card/80 backdrop-blur-sm rounded-3xl px-4 soft-shadow">
             <AccordionTrigger className="py-4 hover:no-underline">
               <div className="flex items-center gap-4">
-                <category.icon className="w-6 h-6 text-primary" />
-                <span className="font-semibold text-base">{category.title}</span>
+                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-lavender to-soft-blue flex items-center justify-center">
+                    <category.icon className="w-7 h-7 text-primary" />
+                </div>
+                <span className="font-semibold text-lg text-foreground">{category.title}</span>
               </div>
             </AccordionTrigger>
             <AccordionContent className="pl-1">

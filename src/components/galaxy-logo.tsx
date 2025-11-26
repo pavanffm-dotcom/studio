@@ -12,15 +12,15 @@ export function GalaxyLogo(props: SVGProps<SVGSVGElement>) {
       strokeLinejoin="round"
       {...props}
     >
-      <circle cx="12" cy="12" r="10" fill="url(#logo-gradient-galaxy)" stroke="none" />
-      <circle cx="12" cy="12" r="7" fill="var(--background)" stroke="none" />
-      <circle cx="12" cy="12" r="4" fill="url(#logo-gradient-galaxy)" stroke="none" />
       <defs>
-        <radialGradient id="logo-gradient-galaxy">
-          <stop offset="0%" stopColor="hsl(var(--primary))" />
-          <stop offset="100%" stopColor="hsl(var(--accent))" />
-        </radialGradient>
+        <linearGradient id="logo-gradient-cute" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="hsl(var(--cute-purple))" />
+          <stop offset="100%" stopColor="hsl(var(--baby-pink))" />
+        </linearGradient>
       </defs>
+      <path d="M12 2a10 10 0 1 0 10 10" stroke="url(#logo-gradient-cute)" strokeWidth="2.5" />
+      <path d="M12 22a10 10 0 0 0-9.5-13.5" stroke="url(#logo-gradient-cute)" strokeWidth="2.5" opacity="0.6" />
+      <circle cx="12" cy="12" r="2.5" fill="url(#logo-gradient-cute)" stroke="none" />
     </svg>
   );
 }

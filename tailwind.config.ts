@@ -48,6 +48,11 @@ export default {
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
+        'baby-pink': 'hsl(var(--baby-pink))',
+        'soft-blue': 'hsl(var(--soft-blue))',
+        'lavender': 'hsl(var(--lavender))',
+        'mint': 'hsl(var(--mint))',
+        'cute-purple': 'hsl(var(--cute-purple))',
         chart: {
           '1': 'hsl(var(--chart-1))',
           '2': 'hsl(var(--chart-2))',
@@ -68,8 +73,8 @@ export default {
       },
       borderRadius: {
         lg: 'var(--radius)',
-        md: 'calc(var(--radius) - 2px)',
-        sm: 'calc(var(--radius) - 4px)',
+        md: 'calc(var(--radius) - 4px)',
+        sm: 'calc(var(--radius) - 8px)',
       },
       keyframes: {
         'accordion-down': {

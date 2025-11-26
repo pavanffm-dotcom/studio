@@ -4,57 +4,93 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 240 10% 3.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 240 10% 3.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 240 10% 3.9%;
-    --primary: 262.1 83.3% 57.8%;
-    --primary-foreground: 210 20% 98%;
-    --secondary: 220 13% 91%;
-    --secondary-foreground: 240 5.9% 10%;
-    --muted: 220 9% 46.1%;
-    --muted-foreground: 220 8.9% 46.1%;
-    --accent: 217.2 91.2% 59.8%;
-    --accent-foreground: 210 40% 98%;
+    --background: 255 75% 98%; /* Light Pastel Pink */
+    --foreground: 255 20% 25%; /* Dark Purple */
+
+    --card: 255 100% 100%; /* White */
+    --card-foreground: 255 20% 25%;
+
+    --popover: 255 100% 100%;
+    --popover-foreground: 255 20% 25%;
+
+    /* Cute Purple: #A066FF -> hsl(258, 100%, 70%) */
+    --primary: 258 100% 70%;
+    --primary-foreground: 255 100% 100%;
+
+    /* Lavender: #C9B6FF -> hsl(255, 100%, 86%) */
+    --secondary: 255 100% 95%;
+    --secondary-foreground: 258 100% 70%;
+    
+    --muted: 255 75% 95%;
+    --muted-foreground: 255 20% 45%;
+
+    /* Soft Blue: #AEE6FF -> hsl(200, 100%, 84%) */
+    --accent: 200 100% 95%;
+    --accent-foreground: 198 50% 45%;
+
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 220 13% 91%;
-    --input: 220 13% 91%;
-    --ring: 262.1 83.3% 57.8%;
-    --radius: 0.5rem;
-    --chart-1: 12 76% 61%;
-    --chart-2: 173 58% 39%;
-    --chart-3: 197 37% 24%;
-    --chart-4: 43 74% 66%;
-    --chart-5: 27 87% 67%;
+    --destructive-foreground: 0 0% 98%;
+    
+    /* Mint: #C8FFE0 -> hsl(145, 100%, 90%) as border */
+    --border: 255 100% 90%;
+    --input: 255 100% 90%;
+
+    --ring: 258 100% 70%;
+    --radius: 1.5rem;
+
+    --chart-1: 258 100% 70%; /* Cute Purple */
+    --chart-2: 340 100% 86%; /* Baby Pink */
+    --chart-3: 198 100% 84%; /* Soft Blue */
+    --chart-4: 255 100% 86%; /* Lavender */
+    --chart-5: 145 100% 89%; /* Mint */
+
+    /* Custom Pastel Colors */
+    --baby-pink: 340 100% 86%;
+    --soft-blue: 198 100% 84%;
+    --lavender: 255 100% 86%;
+    --mint: 145 100% 89%;
+    --cute-purple: 258 100% 70%;
   }
+
   .dark {
-    --background: 224 71.4% 4.1%;
-    --foreground: 210 20% 98%;
-    --card: 224 71.4% 4.1%;
-    --card-foreground: 210 20% 98%;
-    --popover: 224 71.4% 4.1%;
-    --popover-foreground: 210 20% 98%;
-    --primary: 263.4 95.2% 58.4%;
-    --primary-foreground: 210 20% 98%;
-    --secondary: 215 27.9% 16.9%;
-    --secondary-foreground: 210 20% 98%;
-    --muted: 215 27.9% 16.9%;
-    --muted-foreground: 217.5 9.8% 65.1%;
-    --accent: 217.2 91.2% 59.8%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 215 27.9% 16.9%;
-    --input: 215 27.9% 16.9%;
-    --ring: 263.4 95.2% 58.4%;
-    --chart-1: 220 70% 50%;
-    --chart-2: 160 60% 45%;
-    --chart-3: 30 80% 55%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%;
+    --background: 251 35% 12%;
+    --foreground: 255 75% 98%;
+
+    --card: 251 35% 18%;
+    --card-foreground: 255 75% 98%;
+
+    --popover: 251 35% 12%;
+    --popover-foreground: 255 75% 98%;
+
+    /* Cute Purple: #A066FF -> hsl(258, 100%, 70%) */
+    --primary: 258 100% 75%;
+    --primary-foreground: 255 100% 100%;
+
+    /* Lavender: #C9B6FF -> hsl(255, 100%, 86%) */
+    --secondary: 255 20% 25%;
+    --secondary-foreground: 258 100% 80%;
+    
+    --muted: 255 20% 22%;
+    --muted-foreground: 255 20% 65%;
+
+    /* Soft Blue: #AEE6FF -> hsl(200, 100%, 84%) */
+    --accent: 200 50% 30%;
+    --accent-foreground: 200 100% 90%;
+
+    --destructive: 0 70% 60%;
+    --destructive-foreground: 0 0% 98%;
+    
+    --border: 255 20% 30%;
+    --input: 255 20% 30%;
+
+    --ring: 258 100% 75%;
+    
+    /* Custom Pastel Colors */
+    --baby-pink: 340 100% 86%;
+    --soft-blue: 198 100% 84%;
+    --lavender: 255 100% 86%;
+    --mint: 145 100% 89%;
+    --cute-purple: 258 100% 70%;
   }
 }
 
@@ -64,5 +100,14 @@
   }
   body {
     @apply bg-background text-foreground;
+    background: linear-gradient(180deg, hsl(var(--soft-blue) / 0.5), hsl(var(--lavender) / 0.5), hsl(var(--baby-pink) / 0.5));
   }
+}
+
+.glow-shadow {
+  filter: drop-shadow(0px 4px 20px hsl(var(--primary) / 0.3));
+}
+
+.soft-shadow {
+  box-shadow: 0px 8px 24px hsla(var(--primary) / 0.1), 0px 4px 12px hsla(var(--primary) / 0.08);
 }
