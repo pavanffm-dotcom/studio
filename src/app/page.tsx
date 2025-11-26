@@ -54,11 +54,11 @@ type ChatMessage = {
 
 
 const popularTools = [
-  { name: 'AI Image Generator', icon: <ImageIcon className="w-8 h-8" />, category: 'Img2vid' },
-  { name: 'AI Video Generator', icon: <Clapperboard className="w-8 h-8" />, category: 'Txt2vid' },
-  { name: 'AI Music Generator', icon: <Mic className="w-8 h-8" />, category: 'Text to Speech' },
-  { name: 'AI Voice Cloner', icon: <Voicemail className="w-8 h-8" />, category: 'Voice Cloning' },
-  { name: 'AI Icon Generator', icon: <UserSquare className="w-8 h-8" />, category: 'AI Avatar' },
+  { name: 'Runway', icon: <Video className="w-8 h-8" />, url: 'https://runwayml.com/' },
+  { name: 'Pika', icon: <Clapperboard className="w-8 h-8" />, url: 'https://pika.art/' },
+  { name: 'ElevenLabs', icon: <Mic className="w-8 h-8" />, url: 'https://elevenlabs.io/' },
+  { name: 'Lensa AI', icon: <UserSquare className="w-8 h-8" />, url: 'https://prisma-ai.com/lensa' },
+  { name: 'Midjourney', icon: <ImageIcon className="w-8 h-8" />, url: 'https://www.midjourney.com/' },
 ];
 
 const libraries = [
@@ -371,11 +371,6 @@ function App() {
     }));
   };
   
-  const handlePopularToolClick = (category: string) => {
-    setActiveTab('tools');
-    setActiveCategory(category);
-  };
-  
   const getFilteredTools = () => {
     switch (activeCategory) {
         case 'All':
@@ -407,58 +402,57 @@ function App() {
       role: 'user',
       content: message,
     };
-    const loadingMessage: ChatMessage = {
-      id: Date.now() + 1,
-      role: 'assistant-loading',
-      content: 'Thinking...',
-    };
+    
+    // Show user message and loading indicator immediately
+    setChatMessages((prev) => [
+      ...prev, 
+      newUserMessage, 
+      { id: Date.now() + 1, role: 'assistant-loading', content: 'Thinking...' }
+    ]);
 
-    setChatMessages((prev) => [...prev, newUserMessage, loadingMessage]);
     setIsGenerating(true);
+
+    let finalAnswer: ChatMessage | null = null;
 
     try {
       // First, try to get a tool suggestion
       const toolSuggestion = await suggestAiTool({ query: message });
       
       if (toolSuggestion && toolSuggestion.toolName && toolSuggestion.url) {
-        const toolMessage: ChatMessage = {
+        finalAnswer = {
           id: Date.now() + 2,
           role: 'tool-suggestion',
           content: toolSuggestion,
         };
-        setChatMessages((prev) => {
-          const newMessages = prev.filter((m) => m.role !== 'assistant-loading');
-          return [...newMessages, toolMessage];
-        });
       } else {
+        // This 'else' block will likely not be hit if the flow is robust,
+        // but it's a good fallback. We'll proceed to the general chat flow.
         throw new Error("No tool suggestion found, fallback to chat.");
       }
     } catch (toolError) {
-      console.log('Tool suggestion failed, falling back to regular chat:', toolError);
+      console.log('Tool suggestion failed or was not specific enough, falling back to regular chat:', toolError);
       try {
         const result = await chat({ message });
-        const assistantMessage: ChatMessage = {
+        finalAnswer = {
           id: Date.now() + 2,
           role: 'assistant',
           content: result.response,
         };
-        setChatMessages((prev) => {
-          const newMessages = prev.filter((m) => m.role !== 'assistant-loading');
-          return [...newMessages, assistantMessage];
-        });
       } catch (chatError) {
         console.error('Error in chat flow:', chatError);
-        const errorMessage: ChatMessage = {
+        finalAnswer = {
           id: Date.now() + 2,
           role: 'assistant',
           content: 'Sorry, I had some trouble. Please try again.',
         };
-        setChatMessages((prev) => {
-          const newMessages = prev.filter((m) => m.role !== 'assistant-loading');
-          return [...newMessages, errorMessage];
-        });
       }
     } finally {
+      if (finalAnswer) {
+         setChatMessages((prev) => {
+            const newMessages = prev.filter((m) => m.role !== 'assistant-loading');
+            return [...newMessages, finalAnswer!];
+        });
+      }
       setIsGenerating(false);
     }
   };
@@ -582,12 +576,12 @@ function App() {
           </div>
           <div className="flex gap-4 overflow-x-auto no-scrollbar pb-2 -mx-6 px-6">
               {popularTools.map(tool => (
-                  <div key={tool.name} className="flex flex-col items-center shrink-0 w-24 text-center cursor-pointer" onClick={() => handlePopularToolClick(tool.category)}>
+                  <Link href={tool.url} target="_blank" rel="noopener noreferrer" key={tool.name} className="flex flex-col items-center shrink-0 w-24 text-center cursor-pointer">
                       <div className="w-20 h-20 rounded-3xl bg-secondary flex items-center justify-center text-primary soft-shadow">
                           {tool.icon}
                       </div>
                       <p className="text-sm font-medium text-center mt-2 text-muted-foreground">{tool.name}</p>
-                  </div>
+                  </Link>
               ))}
           </div>
       </section>
@@ -671,15 +665,15 @@ function App() {
         <div className="absolute inset-0 z-0 opacity-50">
              <div className="absolute inset-0 bg-gradient-to-br from-soft-blue via-lavender to-baby-pink"></div>
         </div>
-      <div className={cn("relative z-10 text-center text-foreground pt-16 pb-6 px-4 w-full max-w-sm shrink-0 transition-all duration-300")}>
-        <h1 className="text-3xl font-bold tracking-tight">
+      <div className={cn("relative z-10 text-center text-foreground pt-16 pb-6 px-4 w-full max-w-sm shrink-0 transition-all duration-300", chatMessages.length > 0 && "pt-6")}>
+        <h1 className={cn("text-3xl font-bold tracking-tight", chatMessages.length > 0 && "hidden")}>
           AI Tools for Text, Image, Video & More
         </h1>
-        <p className="text-muted-foreground mt-2">Your cute guide to creative AI tools</p>
+        <p className={cn("text-muted-foreground mt-2", chatMessages.length > 0 && "hidden")}>Your cute guide to creative AI tools</p>
       </div>
 
       <main className="relative z-10 w-full max-w-sm flex-1 bg-card/80 backdrop-blur-3xl rounded-t-[2.5rem] shadow-2xl flex flex-col min-h-0 border-t-2 border-white/50 soft-shadow">
-        <div className="flex-shrink-0 px-6 pt-6">
+        <div className={cn("flex-shrink-0 px-6 pt-6", chatMessages.length > 0 && "hidden")}>
           <header className="flex justify-between items-center py-2">
             <div className="flex items-center gap-2">
               <GalaxyLogo className="w-8 h-8" />
