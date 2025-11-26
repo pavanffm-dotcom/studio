@@ -53,11 +53,11 @@ type ChatMessage = {
 
 
 const popularTools = [
-  { name: 'AI Image Generator', icon: <ImageIcon className="w-8 h-8" /> },
-  { name: 'AI Video Generator', icon: <Clapperboard className="w-8 h-8" /> },
-  { name: 'AI Music Generator', icon: <Mic className="w-8 h-8" /> },
-  { name: 'AI Voice Cloner', icon: <Image src="https://picsum.photos/seed/voice-clone/48/48" alt="AI Voice Cloner" width={32} height={32} className="rounded-full" data-ai-hint="voice wave" /> },
-  { name: 'AI Icon Generator', icon: <Bot className="w-8 h-8" /> },
+  { name: 'AI Image Generator', icon: <ImageIcon className="w-8 h-8" />, category: 'Img2vid' },
+  { name: 'AI Video Generator', icon: <Clapperboard className="w-8 h-8" />, category: 'Txt2vid' },
+  { name: 'AI Music Generator', icon: <Mic className="w-8 h-8" />, category: 'Text to Speech' },
+  { name: 'AI Voice Cloner', icon: <Voicemail className="w-8 h-8" />, category: 'Voice Cloning' },
+  { name: 'AI Icon Generator', icon: <UserSquare className="w-8 h-8" />, category: 'AI Avatar' },
 ];
 
 const libraries = [
@@ -370,6 +370,11 @@ function App() {
     }));
   };
   
+  const handlePopularToolClick = (category: string) => {
+    setActiveTab('tools');
+    setActiveCategory(category);
+  };
+  
   const getFilteredTools = () => {
     switch (activeCategory) {
         case 'All':
@@ -518,7 +523,7 @@ function App() {
                         </div>
                         <div className="flex gap-4 overflow-x-auto no-scrollbar pb-2 -mx-6 px-6">
                             {popularTools.map(tool => (
-                                <div key={tool.name} className="flex flex-col items-center shrink-0 w-24 text-center">
+                                <div key={tool.name} className="flex flex-col items-center shrink-0 w-24 text-center cursor-pointer" onClick={() => handlePopularToolClick(tool.category)}>
                                     <div className="w-20 h-20 rounded-3xl bg-secondary flex items-center justify-center text-primary soft-shadow">
                                         {tool.icon}
                                     </div>
@@ -744,5 +749,3 @@ export default function GalaxyApp() {
     </AuthGate>
   );
 }
-
-    
