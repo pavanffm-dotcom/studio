@@ -220,6 +220,8 @@ const toolCategories = [
 ];
 
 const combinedTools = [...allTools, ...imageToVideoTools, ...textToVideoTools];
+const trendingTools = combinedTools.filter(tool => tool.isTrending);
+
 
 export default function GalaxyApp() {
   const [activeTab, setActiveTab] = React.useState('tools');
@@ -284,9 +286,10 @@ export default function GalaxyApp() {
           </header>
           <nav className="mt-4">
             <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-              <TabsList className="grid w-full grid-cols-3 bg-transparent p-0">
+              <TabsList className="grid w-full grid-cols-4 bg-transparent p-0">
                 <TabsTrigger value="home" className="data-[state=active]:border-primary data-[state=active]:text-primary text-lg font-semibold border-b-4 border-transparent rounded-none pb-3 transition-all duration-300">Home</TabsTrigger>
                 <TabsTrigger value="tools" className="data-[state=active]:border-primary data-[state=active]:text-primary text-lg font-semibold border-b-4 border-transparent rounded-none pb-3 transition-all duration-300">Tools</TabsTrigger>
+                <TabsTrigger value="trending" className="data-[state=active]:border-primary data-[state=active]:text-primary text-lg font-semibold border-b-4 border-transparent rounded-none pb-3 transition-all duration-300">Trending</TabsTrigger>
                 <TabsTrigger value="settings" className="data-[state=active]:border-primary data-[state=active]:text-primary text-lg font-semibold border-b-4 border-transparent rounded-none pb-3 transition-all duration-300">Settings</TabsTrigger>
               </TabsList>
             </Tabs>
@@ -443,6 +446,25 @@ export default function GalaxyApp() {
                 </div>
             </TabsContent>
             
+            <TabsContent value="trending" className="flex-grow overflow-y-auto no-scrollbar mt-4 px-6 pb-4">
+                <div className="space-y-3">
+                    {trendingTools.map(tool => (
+                        <Card key={tool.name} className="p-3 flex items-center gap-4 bg-white/80 border-none rounded-3xl soft-shadow">
+                            <Image src={tool.image} alt={tool.name} width={56} height={56} className="rounded-2xl" data-ai-hint={tool.dataAiHint} />
+                            <div className="flex-grow">
+                                <h5 className="font-semibold text-base">{tool.name}</h5>
+                                <p className="text-sm text-muted-foreground">{tool.category}</p>
+                            </div>
+                            <Link href={tool.url} target="_blank" onClick={() => handleToolClick(tool)}>
+                                <Button variant="ghost" size="icon" className="text-muted-foreground rounded-full w-10 h-10">
+                                    <ChevronRight />
+                                </Button>
+                            </Link>
+                        </Card>
+                    ))}
+                </div>
+            </TabsContent>
+
             <TabsContent value="settings" className="flex-grow overflow-y-auto no-scrollbar mt-0 bg-secondary/30">
                 <SettingsPage />
             </TabsContent>
@@ -453,5 +475,3 @@ export default function GalaxyApp() {
     </div>
   );
 }
-
-    
