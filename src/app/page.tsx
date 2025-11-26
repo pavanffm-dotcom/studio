@@ -214,8 +214,8 @@ const textToVideoTools: Tool[] = [
 
 const toolCategories = [
     { name: 'All', icon: <LayoutGrid />, color: 'bg-primary text-primary-foreground' },
-    { name: 'Image', icon: <ImageIcon />, gradient: 'bg-gradient-to-br from-pink-400 to-rose-400 text-white' },
-    { name: 'Video', icon: <Video />, gradient: 'bg-gradient-to-br from-sky-400 to-blue-400 text-white' },
+    { name: 'Img2vid', icon: <ImageIcon />, gradient: 'bg-gradient-to-br from-pink-400 to-rose-400 text-white' },
+    { name: 'Txt2vid', icon: <Video />, gradient: 'bg-gradient-to-br from-sky-400 to-blue-400 text-white' },
     { name: 'Text', icon: <Type />, gradient: 'bg-gradient-to-br from-teal-400 to-emerald-400 text-white' },
 ];
 
@@ -255,9 +255,9 @@ export default function GalaxyApp() {
     switch (activeCategory) {
         case 'All':
             return allTools;
-        case 'Image':
+        case 'Img2vid':
             return imageToVideoTools;
-        case 'Video':
+        case 'Txt2vid':
             return textToVideoTools;
         default:
             return allTools.filter(tool => tool.category === activeCategory);
