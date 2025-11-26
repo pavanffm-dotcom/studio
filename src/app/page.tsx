@@ -33,7 +33,7 @@ import Link from 'next/link';
 import { SettingsPage } from '@/components/settings-page';
 import { cn } from '@/lib/utils';
 import { AuthGate } from '@/components/auth-gate';
-import { suggestAiTool, SuggestAiToolOutput } from '@/ai/flows/suggest-ai-tool';
+import { chat, ChatOutput } from '@/ai/flows/chat';
 import { Skeleton } from '@/components/ui/skeleton';
 
 type Tool = {
@@ -48,7 +48,7 @@ type Tool = {
 type ChatMessage = {
   id: number;
   role: 'user' | 'assistant' | 'assistant-loading';
-  content: string | SuggestAiToolOutput;
+  content: string;
 };
 
 
@@ -416,26 +416,22 @@ function App() {
     setIsGenerating(true);
 
     try {
-      const result = await suggestAiTool({ query: message });
+      const result = await chat({ message });
       const assistantMessage: ChatMessage = {
         id: Date.now() + 2,
         role: 'assistant',
-        content: result,
+        content: result.response,
       };
       setChatMessages((prev) => {
         const newMessages = prev.filter((m) => m.role !== 'assistant-loading');
         return [...newMessages, assistantMessage];
       });
     } catch (error) {
-      console.error('Error suggesting AI tool:', error);
+      console.error('Error in chat flow:', error);
       const errorMessage: ChatMessage = {
         id: Date.now() + 2,
         role: 'assistant',
-        content: {
-          toolName: 'Error',
-          url: '#',
-          reason: 'Sorry, I had trouble finding a tool. Please try again.',
-        },
+        content: 'Sorry, I had some trouble. Please try again.',
       };
       setChatMessages((prev) => {
         const newMessages = prev.filter((m) => m.role !== 'assistant-loading');
@@ -612,30 +608,22 @@ function App() {
                       return (
                         <div key={msg.id} className="flex justify-end">
                           <div className="bg-primary text-primary-foreground p-3 rounded-3xl rounded-br-none max-w-xs break-words">
-                            {typeof msg.content === 'string' && msg.content}
+                            {msg.content}
                           </div>
                         </div>
                       );
                     }
                     if (msg.role === 'assistant') {
-                      const content = msg.content as SuggestAiToolOutput;
                       return (
                         <div key={msg.id} className="flex justify-start">
-                          <Card className="p-4 rounded-3xl rounded-bl-none bg-white/80 max-w-xs break-words soft-shadow">
+                           <Card className="p-4 rounded-3xl rounded-bl-none bg-white/80 max-w-xs break-words soft-shadow">
                             <CardContent className="p-0">
-                              <div className="flex items-center gap-3 mb-2">
-                                <div className="w-10 h-10 rounded-xl bg-secondary flex items-center justify-center text-primary soft-shadow">
+                               <div className="flex items-start gap-3">
+                                <div className="w-10 h-10 rounded-xl bg-secondary flex items-center justify-center text-primary soft-shadow flex-shrink-0 mt-1">
                                     <Sparkles className="w-6 h-6"/>
                                 </div>
-                                <h5 className="font-bold text-lg">{content.toolName}</h5>
+                                <p className="text-foreground text-base">{msg.content}</p>
                               </div>
-                              <p className="text-muted-foreground text-sm mb-4">{content.reason}</p>
-                              <a href={content.url} target="_blank" rel="noopener noreferrer" className="block">
-                                <Button className="w-full h-11 glow-shadow">
-                                  <LinkIcon className="mr-2"/>
-                                  Visit Tool
-                                </Button>
-                              </a>
                             </CardContent>
                           </Card>
                         </div>
