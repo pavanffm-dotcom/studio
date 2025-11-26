@@ -16,6 +16,8 @@ import {
   Star,
   TrendingUp,
   Sparkles,
+  ChevronRight,
+  History
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -26,6 +28,16 @@ import { Badge } from '@/components/ui/badge';
 import Link from 'next/link';
 import { SettingsPage } from '@/components/settings-page';
 import { cn } from '@/lib/utils';
+
+type Tool = {
+    name: string;
+    image: string;
+    isTrending: boolean;
+    category: string;
+    dataAiHint: string;
+    url: string;
+};
+
 
 const popularTools = [
   { name: 'AI Image Generator', icon: <ImageIcon className="w-8 h-8" /> },
@@ -41,7 +53,7 @@ const libraries = [
   { name: 'Audio Library', gradient: 'from-teal-200 to-emerald-300', icon: <Mic/> },
 ];
 
-const allTools = [
+const allTools: Tool[] = [
     { name: 'AI Video Generator', image: 'https://picsum.photos/seed/teddy-bear/300/200', isTrending: true, category: 'Video', dataAiHint: 'teddy bear guitar', url: '#' },
     { name: 'AI Image Generator', image: 'https://picsum.photos/seed/eye/300/200', isTrending: true, category: 'Image', dataAiHint: 'eye glitter', url: '#' },
     { name: 'Text to Speech', image: 'https://picsum.photos/seed/tts/300/200', isTrending: true, category: 'Text', dataAiHint: 'woman headphones', url: '#' },
@@ -50,7 +62,7 @@ const allTools = [
     { name: 'AI Clothes Changer', image: 'https://picsum.photos/seed/clothes-changer/300/200', isTrending: true, category: 'Image', dataAiHint: 'man changing clothes', url: '#' },
 ]
 
-const imageToVideoTools = [
+const imageToVideoTools: Tool[] = [
   { name: 'Runway', image: 'https://picsum.photos/seed/runway/300/200', isTrending: true, category: 'Image', dataAiHint: 'abstract animation', url: 'https://runwayml.com/' },
   { name: 'Pika', image: 'https://picsum.photos/seed/pika/300/200', isTrending: true, category: 'Image', dataAiHint: 'cinematic video', url: 'https://pika.art/' },
   { name: 'Kaiber', image: 'https://picsum.photos/seed/kaiber/300/200', isTrending: true, category: 'Image', dataAiHint: 'artistic motion', url: 'https://www.kaiber.ai/' },
@@ -103,7 +115,7 @@ const imageToVideoTools = [
   { name: 'Adobe Premiere Rush', image: 'https://picsum.photos/seed/premiererush/300/200', isTrending: false, category: 'Image', dataAiHint: 'adobe video', url: 'https://www.adobe.com/products/premiere-rush.html' },
 ];
 
-const textToVideoTools = [
+const textToVideoTools: Tool[] = [
   { name: 'Runway', image: 'https://picsum.photos/seed/runway-video/300/200', isTrending: true, category: 'Video', dataAiHint: 'ai video generation', url: 'https://runwayml.com/' },
   { name: 'Pika', image: 'https://picsum.photos/seed/pika-video/300/200', isTrending: true, category: 'Video', dataAiHint: 'text to video', url: 'https://pika.art/' },
   { name: 'InVideo', image: 'https://picsum.photos/seed/invideo-video/300/200', isTrending: true, category: 'Video', dataAiHint: 'ai video editor', url: 'https://invideo.io/' },
@@ -213,6 +225,7 @@ export default function GalaxyApp() {
   const [activeTab, setActiveTab] = React.useState('tools');
   const [activeCategory, setActiveCategory] = React.useState('All');
   const [favouritedTools, setFavouritedTools] = React.useState<string[]>(['Runway', 'Pika']);
+  const [recentTools, setRecentTools] = React.useState<Tool[]>([]);
 
   const handleFavouriteToggle = (toolName: string) => {
     setFavouritedTools(prev => 
@@ -220,6 +233,13 @@ export default function GalaxyApp() {
         ? prev.filter(t => t !== toolName)
         : [...prev, toolName]
     );
+  };
+
+  const handleToolClick = (tool: Tool) => {
+    setRecentTools(prev => {
+      const newRecents = [tool, ...prev.filter(t => t.name !== tool.name)];
+      return newRecents.slice(0, 5); // Keep only the 5 most recent
+    });
   };
   
   const getFilteredTools = () => {
@@ -323,16 +343,30 @@ export default function GalaxyApp() {
                             <TabsTrigger value="favourites" className="rounded-full h-full text-base">Favourites</TabsTrigger>
                         </TabsList>
                         <TabsContent value="recent" className="mt-4">
-                             <Card className="p-4 flex items-center gap-4 bg-white/80 border-none rounded-3xl soft-shadow">
-                                <Image src="https://picsum.photos/seed/ai-face/80/80" alt="AI Image" width={64} height={64} className="rounded-2xl" data-ai-hint="AI face"/>
-                                <div className="flex-grow">
-                                    <h5 className="font-semibold text-lg">AI Image Generator</h5>
-                                    <p className="text-sm text-muted-foreground">Stunning AI-generated images.</p>
+                            {recentTools.length > 0 ? (
+                                <div className="space-y-3">
+                                {recentTools.map(tool => (
+                                    <Card key={tool.name} className="p-3 flex items-center gap-4 bg-white/80 border-none rounded-3xl soft-shadow">
+                                        <Image src={tool.image} alt={tool.name} width={56} height={56} className="rounded-2xl" data-ai-hint={tool.dataAiHint} />
+                                        <div className="flex-grow">
+                                            <h5 className="font-semibold text-base">{tool.name}</h5>
+                                            <p className="text-sm text-muted-foreground">{tool.category}</p>
+                                        </div>
+                                        <Link href={tool.url} target="_blank">
+                                            <Button variant="ghost" size="icon" className="text-muted-foreground rounded-full w-10 h-10">
+                                                <ChevronRight />
+                                            </Button>
+                                        </Link>
+                                    </Card>
+                                ))}
                                 </div>
-                                <Button variant="ghost" size="icon" className="text-muted-foreground rounded-full w-10 h-10">
-                                    &gt;
-                                </Button>
-                             </Card>
+                            ) : (
+                                <div className="text-center py-10 text-muted-foreground">
+                                    <History className="mx-auto w-10 h-10" />
+                                    <p className="mt-4 text-base">No recent tools.</p>
+                                    <p className="text-sm">Tools you visit will appear here.</p>
+                                </div>
+                            )}
                         </TabsContent>
                         <TabsContent value="favourites" className="mt-4">
                             {favouriteToolsList.length > 0 ? (
@@ -384,7 +418,7 @@ export default function GalaxyApp() {
                 <div className="flex-grow overflow-y-auto px-4 no-scrollbar pt-2 pb-4">
                     <div className="grid grid-cols-2 gap-4">
                         {filteredTools.map(tool => (
-                            <Link key={tool.name} href={tool.url} target="_blank" rel="noopener noreferrer">
+                            <Link key={tool.name} href={tool.url} target="_blank" rel="noopener noreferrer" onClick={() => handleToolClick(tool)}>
                                 <Card className="relative overflow-hidden group cursor-pointer bg-white/50 border-white/20 border-2 rounded-3xl h-full soft-shadow transition-transform hover:scale-105 duration-300">
                                     <Image src={tool.image} alt={tool.name} width={300} height={200} className="w-full aspect-[4/3] object-cover" data-ai-hint={tool.dataAiHint} />
                                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
@@ -419,3 +453,5 @@ export default function GalaxyApp() {
     </div>
   );
 }
+
+    
