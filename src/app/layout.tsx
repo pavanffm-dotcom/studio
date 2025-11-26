@@ -3,8 +3,8 @@ import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
 
 export const metadata: Metadata = {
-  title: 'AI Atlas',
-  description: 'A global hub for all AI tools, organized by category.',
+  title: 'Galaxy.ai',
+  description: 'Access 2000+ Powerful AI Tools',
 };
 
 export default function RootLayout({
@@ -21,6 +21,7 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
           rel="stylesheet"
         />
+        <NoScrollbarStyle />
       </head>
       <body className="font-body antialiased">
         {children}
@@ -29,3 +30,13 @@ export default function RootLayout({
     </html>
   );
 }
+
+const NoScrollbarStyle = () => <style>{`
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+.no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+`}</style>;
