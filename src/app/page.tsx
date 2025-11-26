@@ -215,6 +215,24 @@ const textToVideoTools: Tool[] = [
   { name: 'Wonder Dynamics', image: 'https://picsum.photos/seed/wonderdynamics-video/300/200', isTrending: false, category: 'Video', dataAiHint: 'ai animation', url: 'https://wonderdynamics.com/' },
 ];
 
+const textToSpeechTools: Tool[] = [
+    { name: 'Murf.ai', image: 'https://picsum.photos/seed/murf/300/200', isTrending: true, category: 'Text', dataAiHint: 'ai voice', url: 'https://murf.ai/' },
+    { name: 'ElevenLabs', image: 'https://picsum.photos/seed/elevenlabs/300/200', isTrending: true, category: 'Text', dataAiHint: 'voice generator', url: 'https://elevenlabs.io/' },
+    { name: 'Lovo.ai', image: 'https://picsum.photos/seed/lovo/300/200', isTrending: true, category: 'Text', dataAiHint: 'ai voiceover', url: 'https://lovo.ai/' },
+    { name: 'Speechify', image: 'https://picsum.photos/seed/speechify/300/200', isTrending: true, category: 'Text', dataAiHint: 'reading assistant', url: 'https://speechify.com/' },
+    { name: 'Play.ht', image: 'https://picsum.photos/seed/playht/300/200', isTrending: true, category: 'Text', dataAiHint: 'tts audio', url: 'https://play.ht/' },
+    { name: 'Resemble.ai', image: 'https://picsum.photos/seed/resemble/300/200', isTrending: false, category: 'Text', dataAiHint: 'voice cloning', url: 'https://www.resemble.ai/' },
+    { name: 'WellSaid Labs', image: 'https://picsum.photos/seed/wellsaid/300/200', isTrending: false, category: 'Text', dataAiHint: 'professional voice', url: 'https://wellsaidlabs.com/' },
+    { name: 'Descript', image: 'https://picsum.photos/seed/descript-tts/300/200', isTrending: false, category: 'Text', dataAiHint: 'audio editor', url: 'https://www.descript.com/' },
+    { name: 'Synthesys', image: 'https://picsum.photos/seed/synthesys/300/200', isTrending: false, category: 'Text', dataAiHint: 'ai video', url: 'https://synthesys.io/' },
+    { name: 'NaturalReader', image: 'https://picsum.photos/seed/naturalreader/300/200', isTrending: false, category: 'Text', dataAiHint: 'read aloud', url: 'https://www.naturalreaders.com/' },
+    { name: 'Amazon Polly', image: 'https://picsum.photos/seed/polly/300/200', isTrending: false, category: 'Text', dataAiHint: 'aws tts', url: 'https://aws.amazon.com/polly/' },
+    { name: 'Google Cloud TTS', image: 'https://picsum.photos/seed/google-tts/300/200', isTrending: false, category: 'Text', dataAiHint: 'google voice', url: 'https://cloud.google.com/text-to-speech' },
+    { name: 'Microsoft Azure TTS', image: 'https://picsum.photos/seed/azure-tts/300/200', isTrending: false, category: 'Text', dataAiHint: 'azure voice', url: 'https://azure.microsoft.com/en-us/products/cognitive-services/text-to-speech/' },
+    { name: 'Listnr', image: 'https://picsum.photos/seed/listnr/300/200', isTrending: false, category: 'Text', dataAiHint: 'voice generator', url: 'https://www.listnr.tech/' },
+    { name: 'Notevibes', image: 'https://picsum.photos/seed/notevibes/300/200', isTrending: false, category: 'Text', dataAiHint: 'realistic voices', url: 'https://notevibes.com/' },
+];
+
 const toolCategories = [
     { name: 'All', icon: <LayoutGrid />, color: 'bg-primary text-primary-foreground' },
     { name: 'Img2vid', icon: <ImageIcon />, gradient: 'bg-gradient-to-br from-pink-400 to-rose-400 text-white' },
@@ -224,7 +242,7 @@ const toolCategories = [
     { name: 'AI Avatar', icon: <UserSquare />, gradient: 'bg-gradient-to-br from-yellow-400 to-amber-400 text-white' },
 ];
 
-const combinedTools = [...allTools, ...imageToVideoTools, ...textToVideoTools];
+const combinedTools = [...allTools, ...imageToVideoTools, ...textToVideoTools, ...textToSpeechTools];
 
 
 export default function GalaxyApp() {
@@ -264,6 +282,8 @@ export default function GalaxyApp() {
             return imageToVideoTools;
         case 'Txt2vid':
             return textToVideoTools;
+        case 'Text to Speech':
+            return textToSpeechTools;
         default:
             return allTools.filter(tool => tool.category === activeCategory);
     }
@@ -273,7 +293,7 @@ export default function GalaxyApp() {
   const favouriteToolsList = combinedTools.filter(tool => favouritedTools.includes(tool.name));
   
   const trendingTools = React.useMemo(() => {
-    const allToolsWithTrending = [...new Set([...allTools, ...imageToVideoTools, ...textToVideoTools])];
+    const allToolsWithTrending = [...new Set([...allTools, ...imageToVideoTools, ...textToVideoTools, ...textToSpeechTools])];
 
     const sortedTools = allToolsWithTrending
       .map(tool => ({
