@@ -31,6 +31,7 @@ import { Badge } from '@/components/ui/badge';
 import Link from 'next/link';
 import { SettingsPage } from '@/components/settings-page';
 import { cn } from '@/lib/utils';
+import { AuthGate } from '@/components/auth-gate';
 
 type Tool = {
     name: string;
@@ -327,7 +328,7 @@ const toolCategories = [
 const combinedTools = [...allTools, ...imageToVideoTools, ...textToVideoTools, ...textToSpeechTools, ...voiceCloningTools, ...aiAvatarTools];
 
 
-export default function GalaxyApp() {
+function App() {
   const [activeTab, setActiveTab] = React.useState('tools');
   const [activeCategory, setActiveCategory] = React.useState('All');
   const [favouritedTools, setFavouritedTools] = React.useState<string[]>(['Runway', 'Pika']);
@@ -611,5 +612,13 @@ export default function GalaxyApp() {
         <BottomNav />
       </main>
     </div>
+  );
+}
+
+export default function GalaxyApp() {
+  return (
+    <AuthGate>
+      <App />
+    </AuthGate>
   );
 }
