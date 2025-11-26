@@ -417,10 +417,10 @@ function App() {
         role: 'assistant',
         content: result,
       };
-      setChatMessages((prev) => [
-        ...prev.filter((m) => m.role !== 'assistant-loading'),
-        assistantMessage,
-      ]);
+      setChatMessages((prev) => {
+        const newMessages = prev.filter((m) => m.role !== 'assistant-loading');
+        return [...newMessages, assistantMessage];
+      });
     } catch (error) {
       console.error('Error suggesting AI tool:', error);
       const errorMessage: ChatMessage = {
@@ -432,10 +432,10 @@ function App() {
           reason: 'Sorry, I had trouble finding a tool. Please try again.',
         },
       };
-      setChatMessages((prev) => [
-        ...prev.filter((m) => m.role !== 'assistant-loading'),
-        errorMessage,
-      ]);
+      setChatMessages((prev) => {
+        const newMessages = prev.filter((m) => m.role !== 'assistant-loading');
+        return [...newMessages, errorMessage];
+      });
     } finally {
       setIsGenerating(false);
     }
@@ -462,7 +462,7 @@ function App() {
     const finalTrendingList = [...new Set([...clickedTools, ...hardcodedTrending, ...otherTools])];
 
     return finalTrendingList;
-  }, [toolClicks]);
+  }, [toolClicks, combinedTools, favouritedTools]);
 
 
   return (
@@ -470,7 +470,7 @@ function App() {
         <div className="absolute inset-0 z-0 opacity-50">
              <div className="absolute inset-0 bg-gradient-to-br from-soft-blue via-lavender to-baby-pink"></div>
         </div>
-      <div className={cn("relative z-10 text-center text-foreground pt-16 pb-6 px-4 w-full max-w-sm shrink-0 transition-all duration-300", activeTab === 'chat' ? 'max-h-0 p-0 opacity-0' : 'max-h-48 p-4')}>
+      <div className={cn("relative z-10 text-center text-foreground pt-16 pb-6 px-4 w-full max-w-sm shrink-0 transition-all duration-300")}>
         <h1 className="text-3xl font-bold tracking-tight">
           AI Tools for Text, Image, Video & More
         </h1>
@@ -484,9 +484,6 @@ function App() {
               <GalaxyLogo className="w-8 h-8" />
               <span className="text-2xl font-bold text-foreground">AI Atlas</span>
             </div>
-            <Button variant="ghost" size="icon" className="rounded-full w-12 h-12 bg-white/50 hover:bg-white" onClick={() => setActiveTab(activeTab === 'chat' ? 'home' : 'chat')}>
-              {activeTab === 'chat' ? <LayoutGrid className="w-6 h-6 text-foreground/70" /> : <Wand2 className="w-6 h-6 text-foreground/70" /> }
-            </Button>
           </header>
           <nav className="mt-4">
             <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
@@ -501,105 +498,165 @@ function App() {
         </div>
         
         <Tabs value={activeTab} className="flex-grow flex flex-col overflow-hidden">
-            <TabsContent value="home" className="flex-grow overflow-y-auto px-6 pb-4 no-scrollbar mt-0">
-                <div className="bg-gradient-to-br from-cute-purple to-lavender text-primary-foreground p-6 rounded-3xl my-4 relative overflow-hidden soft-shadow">
-                    <div className="absolute -right-4 -bottom-10 w-36 h-36 opacity-30">
-                        <Image src="https://picsum.photos/seed/ai-person/200/200" alt="AI illustration" width={144} height={144} className="object-contain" data-ai-hint="AI illustration person"/>
+            <TabsContent value="home" className="flex-grow overflow-y-auto px-6 pb-4 no-scrollbar mt-0" ref={chatContainerRef}>
+                {chatMessages.length === 0 ? (
+                  <>
+                    <div className="bg-gradient-to-br from-cute-purple to-lavender text-primary-foreground p-6 rounded-3xl my-4 relative overflow-hidden soft-shadow">
+                        <div className="absolute -right-4 -bottom-10 w-36 h-36 opacity-30">
+                            <Image src="https://picsum.photos/seed/ai-person/200/200" alt="AI illustration" width={144} height={144} className="object-contain" data-ai-hint="AI illustration person"/>
+                        </div>
+                        <Sparkles className="absolute top-4 right-4 w-8 h-8 text-white/50"/>
+                        <h3 className="font-bold text-2xl">Welcome To AI Atlas</h3>
+                        <p className="text-base opacity-90 mt-2 max-w-[65%]">Discover 2113+ powerful AI tools</p>
+                        <Button variant="secondary" className="mt-6 bg-white text-primary hover:bg-white/90 rounded-full h-12 px-6 font-bold text-base glow-shadow" onClick={() => setActiveTab('tools')}>Explore Tools</Button>
                     </div>
-                    <Sparkles className="absolute top-4 right-4 w-8 h-8 text-white/50"/>
-                    <h3 className="font-bold text-2xl">Welcome To AI Atlas</h3>
-                    <p className="text-base opacity-90 mt-2 max-w-[65%]">Discover 2113+ powerful AI tools</p>
-                    <Button variant="secondary" className="mt-6 bg-white text-primary hover:bg-white/90 rounded-full h-12 px-6 font-bold text-base glow-shadow" onClick={() => setActiveTab('tools')}>Explore Tools</Button>
-                </div>
 
-                <section>
-                    <div className="flex justify-between items-center mb-3">
-                        <h4 className="font-semibold text-xl">Popular Tools</h4>
-                        <Button variant="link" className="text-primary p-0 h-auto font-semibold" onClick={() => setActiveTab('tools')}>See all</Button>
-                    </div>
-                    <div className="flex gap-4 overflow-x-auto no-scrollbar pb-2 -mx-6 px-6">
-                        {popularTools.map(tool => (
-                            <div key={tool.name} className="flex flex-col items-center shrink-0 w-24 text-center">
-                                <div className="w-20 h-20 rounded-3xl bg-secondary flex items-center justify-center text-primary soft-shadow">
-                                    {tool.icon}
+                    <section>
+                        <div className="flex justify-between items-center mb-3">
+                            <h4 className="font-semibold text-xl">Popular Tools</h4>
+                            <Button variant="link" className="text-primary p-0 h-auto font-semibold" onClick={() => setActiveTab('tools')}>See all</Button>
+                        </div>
+                        <div className="flex gap-4 overflow-x-auto no-scrollbar pb-2 -mx-6 px-6">
+                            {popularTools.map(tool => (
+                                <div key={tool.name} className="flex flex-col items-center shrink-0 w-24 text-center">
+                                    <div className="w-20 h-20 rounded-3xl bg-secondary flex items-center justify-center text-primary soft-shadow">
+                                        {tool.icon}
+                                    </div>
+                                    <p className="text-sm font-medium text-center mt-2 text-muted-foreground">{tool.name}</p>
                                 </div>
-                                <p className="text-sm font-medium text-center mt-2 text-muted-foreground">{tool.name}</p>
-                            </div>
-                        ))}
-                    </div>
-                </section>
-                
-                <section className="mt-6">
-                    <h4 className="font-semibold text-xl mb-3">Libraries</h4>
-                     <div className="grid grid-cols-3 gap-4">
-                        {libraries.map(lib => (
-                            <div key={lib.name} className={cn('p-4 rounded-3xl flex flex-col justify-between aspect-square soft-shadow bg-gradient-to-br', lib.gradient)}>
-                                <div className="bg-white/30 rounded-full w-10 h-10 flex items-center justify-center text-white backdrop-blur-sm">
-                                    {lib.icon}
+                            ))}
+                        </div>
+                    </section>
+                    
+                    <section className="mt-6">
+                        <h4 className="font-semibold text-xl mb-3">Libraries</h4>
+                        <div className="grid grid-cols-3 gap-4">
+                            {libraries.map(lib => (
+                                <div key={lib.name} className={cn('p-4 rounded-3xl flex flex-col justify-between aspect-square soft-shadow bg-gradient-to-br', lib.gradient)}>
+                                    <div className="bg-white/30 rounded-full w-10 h-10 flex items-center justify-center text-white backdrop-blur-sm">
+                                        {lib.icon}
+                                    </div>
+                                    <p className="text-white font-semibold text-base mt-4">{lib.name}</p>
                                 </div>
-                                <p className="text-white font-semibold text-base mt-4">{lib.name}</p>
-                            </div>
-                        ))}
-                    </div>
-                </section>
-                
-                <section className="mt-6">
-                    <Tabs defaultValue="recent" className="w-full">
-                        <TabsList className="grid w-full grid-cols-2 bg-secondary rounded-full h-12 p-1">
-                            <TabsTrigger value="recent" className="rounded-full h-full text-base">Recent</TabsTrigger>
-                            <TabsTrigger value="favourites" className="rounded-full h-full text-base">Favourites</TabsTrigger>
-                        </TabsList>
-                        <TabsContent value="recent" className="mt-4">
-                            {recentTools.length > 0 ? (
-                                <div className="space-y-3">
-                                {recentTools.map(tool => (
-                                    <Card key={tool.name} className="p-3 flex items-center gap-4 bg-white/80 border-none rounded-3xl soft-shadow">
-                                        <Image src={tool.image} alt={tool.name} width={56} height={56} className="rounded-2xl" data-ai-hint={tool.dataAiHint} />
-                                        <div className="flex-grow">
-                                            <h5 className="font-semibold text-base">{tool.name}</h5>
-                                            <p className="text-sm text-muted-foreground">{tool.category}</p>
-                                        </div>
-                                        <Link href={tool.url} target="_blank">
-                                            <Button variant="ghost" size="icon" className="text-muted-foreground rounded-full w-10 h-10">
-                                                <ChevronRight />
-                                            </Button>
-                                        </Link>
-                                    </Card>
-                                ))}
-                                </div>
-                            ) : (
-                                <div className="text-center py-10 text-muted-foreground">
-                                    <History className="mx-auto w-10 h-10" />
-                                    <p className="mt-4 text-base">No recent tools.</p>
-                                    <p className="text-sm">Tools you visit will appear here.</p>
-                                </div>
-                            )}
-                        </TabsContent>
-                        <TabsContent value="favourites" className="mt-4">
-                            {favouriteToolsList.length > 0 ? (
-                                <div className="space-y-3">
-                                    {favouriteToolsList.map(tool => (
-                                         <Card key={tool.name} className="p-3 flex items-center gap-4 bg-white/80 border-none rounded-3xl soft-shadow">
+                            ))}
+                        </div>
+                    </section>
+                    
+                    <section className="mt-6">
+                        <Tabs defaultValue="recent" className="w-full">
+                            <TabsList className="grid w-full grid-cols-2 bg-secondary rounded-full h-12 p-1">
+                                <TabsTrigger value="recent" className="rounded-full h-full text-base">Recent</TabsTrigger>
+                                <TabsTrigger value="favourites" className="rounded-full h-full text-base">Favourites</TabsTrigger>
+                            </TabsList>
+                            <TabsContent value="recent" className="mt-4">
+                                {recentTools.length > 0 ? (
+                                    <div className="space-y-3">
+                                    {recentTools.map(tool => (
+                                        <Card key={tool.name} className="p-3 flex items-center gap-4 bg-white/80 border-none rounded-3xl soft-shadow">
                                             <Image src={tool.image} alt={tool.name} width={56} height={56} className="rounded-2xl" data-ai-hint={tool.dataAiHint} />
                                             <div className="flex-grow">
                                                 <h5 className="font-semibold text-base">{tool.name}</h5>
                                                 <p className="text-sm text-muted-foreground">{tool.category}</p>
                                             </div>
-                                            <Button variant="ghost" size="icon" className="text-muted-foreground rounded-full w-10 h-10" onClick={() => handleFavouriteToggle(tool.name)}>
-                                                <Star className="w-6 h-6 text-yellow-400 fill-yellow-400"/>
-                                            </Button>
-                                         </Card>
+                                            <Link href={tool.url} target="_blank">
+                                                <Button variant="ghost" size="icon" className="text-muted-foreground rounded-full w-10 h-10">
+                                                    <ChevronRight />
+                                                </Button>
+                                            </Link>
+                                        </Card>
                                     ))}
+                                    </div>
+                                ) : (
+                                    <div className="text-center py-10 text-muted-foreground">
+                                        <History className="mx-auto w-10 h-10" />
+                                        <p className="mt-4 text-base">No recent tools.</p>
+                                        <p className="text-sm">Tools you visit will appear here.</p>
+                                    </div>
+                                )}
+                            </TabsContent>
+                            <TabsContent value="favourites" className="mt-4">
+                                {favouriteToolsList.length > 0 ? (
+                                    <div className="space-y-3">
+                                        {favouriteToolsList.map(tool => (
+                                            <Card key={tool.name} className="p-3 flex items-center gap-4 bg-white/80 border-none rounded-3xl soft-shadow">
+                                                <Image src={tool.image} alt={tool.name} width={56} height={56} className="rounded-2xl" data-ai-hint={tool.dataAiHint} />
+                                                <div className="flex-grow">
+                                                    <h5 className="font-semibold text-base">{tool.name}</h5>
+                                                    <p className="text-sm text-muted-foreground">{tool.category}</p>
+                                                </div>
+                                                <Button variant="ghost" size="icon" className="text-muted-foreground rounded-full w-10 h-10" onClick={() => handleFavouriteToggle(tool.name)}>
+                                                    <Star className="w-6 h-6 text-yellow-400 fill-yellow-400"/>
+                                                </Button>
+                                            </Card>
+                                        ))}
+                                    </div>
+                                ) : (
+                                    <div className="text-center py-10 text-muted-foreground">
+                                        <Heart className="mx-auto w-10 h-10" />
+                                        <p className="mt-4 text-base">No Favourites yet.</p>
+                                    </div>
+                                )}
+                            </TabsContent>
+                        </Tabs>
+                    </section>
+                  </>
+                ) : (
+                  <div className="space-y-4">
+                  {chatMessages.map((msg) => {
+                    if (msg.role === 'user') {
+                      return (
+                        <div key={msg.id} className="flex justify-end">
+                          <div className="bg-primary text-primary-foreground p-3 rounded-3xl rounded-br-none max-w-xs break-words">
+                            {typeof msg.content === 'string' && msg.content}
+                          </div>
+                        </div>
+                      );
+                    }
+                    if (msg.role === 'assistant') {
+                      const content = msg.content as SuggestAiToolOutput;
+                      return (
+                        <div key={msg.id} className="flex justify-start">
+                          <Card className="p-4 rounded-3xl rounded-bl-none bg-white/80 max-w-xs break-words soft-shadow">
+                            <CardContent className="p-0">
+                              <div className="flex items-center gap-3 mb-2">
+                                <div className="w-10 h-10 rounded-xl bg-secondary flex items-center justify-center text-primary soft-shadow">
+                                    <Sparkles className="w-6 h-6"/>
                                 </div>
-                            ) : (
-                                <div className="text-center py-10 text-muted-foreground">
-                                    <Heart className="mx-auto w-10 h-10" />
-                                    <p className="mt-4 text-base">No Favourites yet.</p>
+                                <h5 className="font-bold text-lg">{content.toolName}</h5>
+                              </div>
+                              <p className="text-muted-foreground text-sm mb-4">{content.reason}</p>
+                              <a href={content.url} target="_blank" rel="noopener noreferrer" className="block">
+                                <Button className="w-full h-11 glow-shadow">
+                                  <LinkIcon className="mr-2"/>
+                                  Visit Tool
+                                </Button>
+                              </a>
+                            </CardContent>
+                          </Card>
+                        </div>
+                      );
+                    }
+                    if (msg.role === 'assistant-loading') {
+                      return (
+                        <div key={msg.id} className="flex justify-start">
+                          <Card className="p-4 rounded-3xl rounded-bl-none bg-white/80 max-w-xs break-words soft-shadow">
+                              <CardContent className="p-0">
+                                <div className="flex items-center gap-3">
+                                  <Skeleton className="w-10 h-10 rounded-xl"/>
+                                  <div className="space-y-2">
+                                    <Skeleton className="h-4 w-[150px]"/>
+                                    <Skeleton className="h-4 w-[100px]"/>
+                                  </div>
                                 </div>
-                            )}
-                        </TabsContent>
-                    </Tabs>
-                </section>
+                              </CardContent>
+                          </Card>
+                        </div>
+                      );
+                    }
+                    return null;
+                  })}
+                  </div>
+                )}
             </TabsContent>
 
             <TabsContent value="tools" className="flex-grow overflow-hidden flex flex-col mt-4">
@@ -672,61 +729,6 @@ function App() {
             <TabsContent value="settings" className="flex-grow overflow-y-auto no-scrollbar mt-0 bg-secondary/30">
                 <SettingsPage />
             </TabsContent>
-            <TabsContent value="chat" className="flex-grow overflow-y-auto no-scrollbar mt-0 p-6 space-y-4" ref={chatContainerRef}>
-              {chatMessages.map((msg) => {
-                if (msg.role === 'user') {
-                  return (
-                    <div key={msg.id} className="flex justify-end">
-                      <div className="bg-primary text-primary-foreground p-3 rounded-3xl rounded-br-none max-w-xs break-words">
-                        {typeof msg.content === 'string' && msg.content}
-                      </div>
-                    </div>
-                  );
-                }
-                if (msg.role === 'assistant') {
-                  const content = msg.content as SuggestAiToolOutput;
-                  return (
-                    <div key={msg.id} className="flex justify-start">
-                      <Card className="p-4 rounded-3xl rounded-bl-none bg-white/80 max-w-xs break-words soft-shadow">
-                        <CardContent className="p-0">
-                          <div className="flex items-center gap-3 mb-2">
-                             <div className="w-10 h-10 rounded-xl bg-secondary flex items-center justify-center text-primary soft-shadow">
-                                <Sparkles className="w-6 h-6"/>
-                             </div>
-                             <h5 className="font-bold text-lg">{content.toolName}</h5>
-                          </div>
-                          <p className="text-muted-foreground text-sm mb-4">{content.reason}</p>
-                          <a href={content.url} target="_blank" rel="noopener noreferrer" className="block">
-                            <Button className="w-full h-11 glow-shadow">
-                              <LinkIcon className="mr-2"/>
-                              Visit Tool
-                            </Button>
-                          </a>
-                        </CardContent>
-                      </Card>
-                    </div>
-                  );
-                }
-                 if (msg.role === 'assistant-loading') {
-                  return (
-                     <div key={msg.id} className="flex justify-start">
-                       <Card className="p-4 rounded-3xl rounded-bl-none bg-white/80 max-w-xs break-words soft-shadow">
-                          <CardContent className="p-0">
-                            <div className="flex items-center gap-3">
-                              <Skeleton className="w-10 h-10 rounded-xl"/>
-                              <div className="space-y-2">
-                                <Skeleton className="h-4 w-[150px]"/>
-                                <Skeleton className="h-4 w-[100px]"/>
-                              </div>
-                            </div>
-                          </CardContent>
-                       </Card>
-                     </div>
-                  );
-                }
-                return null;
-              })}
-            </TabsContent>
         </Tabs>
 
         <BottomNav onSendMessage={handleSendMessage} isGenerating={isGenerating} />
@@ -742,3 +744,5 @@ export default function GalaxyApp() {
     </AuthGate>
   );
 }
+
+    
