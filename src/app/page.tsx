@@ -46,6 +46,15 @@ const allTools = [
     { name: 'AI Clothes Changer', image: 'https://picsum.photos/seed/clothes-changer/300/200', isFavourite: false, isTrending: true, category: 'Image', dataAiHint: 'man changing clothes' },
 ]
 
+const imageToVideoTools = [
+  { name: 'Runway', image: 'https://picsum.photos/seed/runway/300/200', isFavourite: true, isTrending: true, category: 'Image', dataAiHint: 'abstract animation' },
+  { name: 'Pika', image: 'https://picsum.photos/seed/pika/300/200', isFavourite: true, isTrending: true, category: 'Image', dataAiHint: 'cinematic video' },
+  { name: 'Kaiber', image: 'https://picsum.photos/seed/kaiber/300/200', isFavourite: false, isTrending: true, category: 'Image', dataAiHint: 'artistic motion' },
+  { name: 'D-ID', image: 'https://picsum.photos/seed/d-id/300/200', isFavourite: false, isTrending: true, category: 'Image', dataAiHint: 'talking avatar' },
+  { name: 'HeyGen', image: 'https://picsum.photos/seed/heygen/300/200', isFavourite: false, isTrending: true, category: 'Image', dataAiHint: 'ai presenter' },
+];
+
+
 const toolCategories = [
     { name: 'All', icon: <LayoutGrid />, color: 'bg-primary text-primary-foreground' },
     { name: 'Image', icon: <ImageIcon />, color: 'bg-green-500/20 text-green-400' },
@@ -58,7 +67,18 @@ export default function GalaxyApp() {
   const [activeTab, setActiveTab] = React.useState('tools');
   const [activeCategory, setActiveCategory] = React.useState('All');
 
-  const filteredTools = activeCategory === 'All' ? allTools : allTools.filter(tool => tool.category === activeCategory);
+  const getFilteredTools = () => {
+    switch (activeCategory) {
+        case 'All':
+            return allTools;
+        case 'Image':
+            return imageToVideoTools;
+        default:
+            return allTools.filter(tool => tool.category === activeCategory);
+    }
+  };
+
+  const filteredTools = getFilteredTools();
 
   return (
     <div className="bg-background h-screen flex flex-col items-center justify-start font-body relative overflow-hidden">
