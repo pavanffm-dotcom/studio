@@ -61,7 +61,7 @@ export default function GalaxyApp() {
   const filteredTools = activeCategory === 'All' ? allTools : allTools.filter(tool => tool.category === activeCategory);
 
   return (
-    <div className="bg-background min-h-screen flex flex-col items-center justify-start font-body relative overflow-hidden">
+    <div className="bg-background h-screen flex flex-col items-center justify-start font-body relative overflow-hidden">
         <div className="absolute inset-0 z-0">
             <Image 
                 src="https://picsum.photos/seed/space/1080/1920"
@@ -72,13 +72,13 @@ export default function GalaxyApp() {
             />
             <div className="absolute inset-0 bg-black/80 backdrop-blur-sm"></div>
         </div>
-      <div className="relative z-10 text-center text-white pt-12 pb-4 px-4 w-full max-w-sm">
+      <div className="relative z-10 text-center text-white pt-12 pb-4 px-4 w-full max-w-sm shrink-0">
         <h1 className="text-3xl font-bold tracking-tight">
           AI Tools for Text, Image, Video & More
         </h1>
       </div>
 
-      <main className="relative z-10 w-full max-w-sm h-[calc(100vh-140px)] bg-card rounded-t-3xl shadow-2xl flex flex-col">
+      <main className="relative z-10 w-full max-w-sm flex-1 bg-card rounded-t-3xl shadow-2xl flex flex-col min-h-0">
         <div className="flex-shrink-0 px-4 pt-4">
           <header className="flex justify-between items-center py-2">
             <div className="flex items-center gap-2">
