@@ -17,7 +17,10 @@ import {
   TrendingUp,
   Sparkles,
   ChevronRight,
-  History
+  History,
+  Voicemail,
+  Text,
+  UserSquare,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -216,7 +219,9 @@ const toolCategories = [
     { name: 'All', icon: <LayoutGrid />, color: 'bg-primary text-primary-foreground' },
     { name: 'Img2vid', icon: <ImageIcon />, gradient: 'bg-gradient-to-br from-pink-400 to-rose-400 text-white' },
     { name: 'Txt2vid', icon: <Video />, gradient: 'bg-gradient-to-br from-sky-400 to-blue-400 text-white' },
-    { name: 'Text', icon: <Type />, gradient: 'bg-gradient-to-br from-teal-400 to-emerald-400 text-white' },
+    { name: 'Text to Speech', icon: <Text />, gradient: 'bg-gradient-to-br from-teal-400 to-emerald-400 text-white' },
+    { name: 'Voice Cloning', icon: <Voicemail />, gradient: 'bg-gradient-to-br from-purple-400 to-indigo-400 text-white' },
+    { name: 'AI Avatar', icon: <UserSquare />, gradient: 'bg-gradient-to-br from-yellow-400 to-amber-400 text-white' },
 ];
 
 const combinedTools = [...allTools, ...imageToVideoTools, ...textToVideoTools];
@@ -433,7 +438,7 @@ export default function GalaxyApp() {
                                 key={cat.name} 
                                 variant={activeCategory === cat.name ? 'default' : 'secondary'}
                                 className={cn(
-                                    'flex items-center gap-2 rounded-full h-12 px-6 text-base font-semibold transition-all duration-300 soft-shadow',
+                                    'flex items-center gap-2 rounded-full h-12 px-6 text-base font-semibold transition-all duration-300 soft-shadow whitespace-nowrap',
                                     activeCategory === cat.name ? 'glow-shadow' : 'text-foreground/70',
                                     activeCategory !== cat.name && cat.gradient
                                 )}
