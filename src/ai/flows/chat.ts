@@ -31,15 +31,16 @@ const chatFlow = ai.defineFlow(
     outputSchema: ChatOutputSchema,
   },
   async (input) => {
-    const { output } = await ai.generate({
+    const result = await ai.generate({
       prompt: `You are a friendly and helpful AI assistant named AI Atlas. Respond to the user's message: ${input.message}`,
       model: 'googleai/gemini-2.5-flash',
     });
 
-    if (output === null) {
+    const responseText = result.text;
+    if (!responseText) {
       return { response: 'Sorry, I could not process that.' };
     }
     
-    return { response: output.text ?? "I don't have a response for that." };
+    return { response: responseText };
   }
 );
