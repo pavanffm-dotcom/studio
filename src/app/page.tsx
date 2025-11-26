@@ -21,10 +21,11 @@ import {
   Voicemail,
   Text,
   UserSquare,
+  Link as LinkIcon,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Card } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { GalaxyLogo } from '@/components/galaxy-logo';
 import { BottomNav } from '@/components/bottom-nav';
 import { Badge } from '@/components/ui/badge';
@@ -32,6 +33,8 @@ import Link from 'next/link';
 import { SettingsPage } from '@/components/settings-page';
 import { cn } from '@/lib/utils';
 import { AuthGate } from '@/components/auth-gate';
+import { suggestAiTool, SuggestAiToolOutput } from '@/ai/flows/suggest-ai-tool';
+import { Skeleton } from '@/components/ui/skeleton';
 
 type Tool = {
     name: string;
@@ -40,6 +43,12 @@ type Tool = {
     category: string;
     dataAiHint: string;
     url: string;
+};
+
+type ChatMessage = {
+  id: number;
+  role: 'user' | 'assistant' | 'assistant-loading';
+  content: string | SuggestAiToolOutput;
 };
 
 
@@ -329,11 +338,15 @@ const combinedTools = [...allTools, ...imageToVideoTools, ...textToVideoTools, .
 
 
 function App() {
-  const [activeTab, setActiveTab] = React.useState('tools');
+  const [activeTab, setActiveTab] = React.useState('home');
   const [activeCategory, setActiveCategory] = React.useState('All');
   const [favouritedTools, setFavouritedTools] = React.useState<string[]>(['Runway', 'Pika']);
   const [recentTools, setRecentTools] = React.useState<Tool[]>([]);
   const [toolClicks, setToolClicks] = React.useState<Record<string, number>>({});
+  const [chatMessages, setChatMessages] = React.useState<ChatMessage[]>([]);
+  const [isGenerating, setIsGenerating] = React.useState(false);
+  const chatContainerRef = React.useRef<HTMLDivElement>(null);
+
 
   const handleFavouriteToggle = (toolName: string) => {
     setFavouritedTools(prev => 
@@ -376,6 +389,58 @@ function App() {
     }
   };
 
+  React.useEffect(() => {
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+    }
+  }, [chatMessages]);
+
+  const handleSendMessage = async (message: string) => {
+    const newUserMessage: ChatMessage = {
+      id: Date.now(),
+      role: 'user',
+      content: message,
+    };
+    const loadingMessage: ChatMessage = {
+      id: Date.now() + 1,
+      role: 'assistant-loading',
+      content: 'Thinking...',
+    };
+
+    setChatMessages((prev) => [...prev, newUserMessage, loadingMessage]);
+    setIsGenerating(true);
+
+    try {
+      const result = await suggestAiTool({ query: message });
+      const assistantMessage: ChatMessage = {
+        id: Date.now() + 2,
+        role: 'assistant',
+        content: result,
+      };
+      setChatMessages((prev) => [
+        ...prev.filter((m) => m.role !== 'assistant-loading'),
+        assistantMessage,
+      ]);
+    } catch (error) {
+      console.error('Error suggesting AI tool:', error);
+      const errorMessage: ChatMessage = {
+        id: Date.now() + 2,
+        role: 'assistant',
+        content: {
+          toolName: 'Error',
+          url: '#',
+          reason: 'Sorry, I had trouble finding a tool. Please try again.',
+        },
+      };
+      setChatMessages((prev) => [
+        ...prev.filter((m) => m.role !== 'assistant-loading'),
+        errorMessage,
+      ]);
+    } finally {
+      setIsGenerating(false);
+    }
+  };
+
   const filteredTools = getFilteredTools();
   const favouriteToolsList = combinedTools.filter(tool => favouritedTools.includes(tool.name));
   
@@ -405,7 +470,7 @@ function App() {
         <div className="absolute inset-0 z-0 opacity-50">
              <div className="absolute inset-0 bg-gradient-to-br from-soft-blue via-lavender to-baby-pink"></div>
         </div>
-      <div className="relative z-10 text-center text-foreground pt-16 pb-6 px-4 w-full max-w-sm shrink-0">
+      <div className={cn("relative z-10 text-center text-foreground pt-16 pb-6 px-4 w-full max-w-sm shrink-0 transition-all duration-300", activeTab === 'chat' ? 'max-h-0 p-0 opacity-0' : 'max-h-48 p-4')}>
         <h1 className="text-3xl font-bold tracking-tight">
           AI Tools for Text, Image, Video & More
         </h1>
@@ -419,8 +484,8 @@ function App() {
               <GalaxyLogo className="w-8 h-8" />
               <span className="text-2xl font-bold text-foreground">AI Atlas</span>
             </div>
-            <Button variant="ghost" size="icon" className="rounded-full w-12 h-12 bg-white/50 hover:bg-white">
-              <Search className="w-6 h-6 text-foreground/70" />
+            <Button variant="ghost" size="icon" className="rounded-full w-12 h-12 bg-white/50 hover:bg-white" onClick={() => setActiveTab(activeTab === 'chat' ? 'home' : 'chat')}>
+              {activeTab === 'chat' ? <LayoutGrid className="w-6 h-6 text-foreground/70" /> : <Wand2 className="w-6 h-6 text-foreground/70" /> }
             </Button>
           </header>
           <nav className="mt-4">
@@ -444,13 +509,13 @@ function App() {
                     <Sparkles className="absolute top-4 right-4 w-8 h-8 text-white/50"/>
                     <h3 className="font-bold text-2xl">Welcome To AI Atlas</h3>
                     <p className="text-base opacity-90 mt-2 max-w-[65%]">Discover 2113+ powerful AI tools</p>
-                    <Button variant="secondary" className="mt-6 bg-white text-primary hover:bg-white/90 rounded-full h-12 px-6 font-bold text-base glow-shadow">Explore Tools</Button>
+                    <Button variant="secondary" className="mt-6 bg-white text-primary hover:bg-white/90 rounded-full h-12 px-6 font-bold text-base glow-shadow" onClick={() => setActiveTab('tools')}>Explore Tools</Button>
                 </div>
 
                 <section>
                     <div className="flex justify-between items-center mb-3">
                         <h4 className="font-semibold text-xl">Popular Tools</h4>
-                        <Button variant="link" className="text-primary p-0 h-auto font-semibold">See all</Button>
+                        <Button variant="link" className="text-primary p-0 h-auto font-semibold" onClick={() => setActiveTab('tools')}>See all</Button>
                     </div>
                     <div className="flex gap-4 overflow-x-auto no-scrollbar pb-2 -mx-6 px-6">
                         {popularTools.map(tool => (
@@ -607,9 +672,64 @@ function App() {
             <TabsContent value="settings" className="flex-grow overflow-y-auto no-scrollbar mt-0 bg-secondary/30">
                 <SettingsPage />
             </TabsContent>
+            <TabsContent value="chat" className="flex-grow overflow-y-auto no-scrollbar mt-0 p-6 space-y-4" ref={chatContainerRef}>
+              {chatMessages.map((msg) => {
+                if (msg.role === 'user') {
+                  return (
+                    <div key={msg.id} className="flex justify-end">
+                      <div className="bg-primary text-primary-foreground p-3 rounded-3xl rounded-br-none max-w-xs break-words">
+                        {typeof msg.content === 'string' && msg.content}
+                      </div>
+                    </div>
+                  );
+                }
+                if (msg.role === 'assistant') {
+                  const content = msg.content as SuggestAiToolOutput;
+                  return (
+                    <div key={msg.id} className="flex justify-start">
+                      <Card className="p-4 rounded-3xl rounded-bl-none bg-white/80 max-w-xs break-words soft-shadow">
+                        <CardContent className="p-0">
+                          <div className="flex items-center gap-3 mb-2">
+                             <div className="w-10 h-10 rounded-xl bg-secondary flex items-center justify-center text-primary soft-shadow">
+                                <Sparkles className="w-6 h-6"/>
+                             </div>
+                             <h5 className="font-bold text-lg">{content.toolName}</h5>
+                          </div>
+                          <p className="text-muted-foreground text-sm mb-4">{content.reason}</p>
+                          <a href={content.url} target="_blank" rel="noopener noreferrer" className="block">
+                            <Button className="w-full h-11 glow-shadow">
+                              <LinkIcon className="mr-2"/>
+                              Visit Tool
+                            </Button>
+                          </a>
+                        </CardContent>
+                      </Card>
+                    </div>
+                  );
+                }
+                 if (msg.role === 'assistant-loading') {
+                  return (
+                     <div key={msg.id} className="flex justify-start">
+                       <Card className="p-4 rounded-3xl rounded-bl-none bg-white/80 max-w-xs break-words soft-shadow">
+                          <CardContent className="p-0">
+                            <div className="flex items-center gap-3">
+                              <Skeleton className="w-10 h-10 rounded-xl"/>
+                              <div className="space-y-2">
+                                <Skeleton className="h-4 w-[150px]"/>
+                                <Skeleton className="h-4 w-[100px]"/>
+                              </div>
+                            </div>
+                          </CardContent>
+                       </Card>
+                     </div>
+                  );
+                }
+                return null;
+              })}
+            </TabsContent>
         </Tabs>
 
-        <BottomNav />
+        <BottomNav onSendMessage={handleSendMessage} isGenerating={isGenerating} />
       </main>
     </div>
   );
