@@ -1,3 +1,58 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "vidgen-ai",
+      "description": "AI Video Generator",
+      "imageUrl": "https://images.unsplash.com/photo-1497015289639-54688650d173?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHx2aWRlbyUyMHByb2R1Y3Rpb258ZW58MHx8fHwxNzY0MDc5NTE2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "video production"
+    },
+    {
+      "id": "pixel-perfect",
+      "description": "AI Photo Enhancer",
+      "imageUrl": "https://images.unsplash.com/photo-1720958371916-03809cae5cc5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8Y2FtZXJhJTIwbGVuc3xlbnwwfHx8fDE3NjQxMDE4NTd8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "camera lens"
+    },
+    {
+      "id": "scribe-ai",
+      "description": "AI Writing Assistant",
+      "imageUrl": "https://images.unsplash.com/photo-1654356709115-3f68998bead4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHx3cml0aW5nJTIwZGVza3xlbnwwfHx8fDE3NjQxMjk0OTV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "writing desk"
+    },
+    {
+      "id": "echo-voice",
+      "description": "AI Voice Cloning",
+      "imageUrl": "https://images.unsplash.com/photo-1653082658341-d18280d0c149?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8c291bmQlMjB3YXZlc3xlbnwwfHx8fDE3NjQwNDA0MjV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "sound waves"
+    },
+    {
+      "id": "edit-flow",
+      "description": "AI-powered code editor",
+      "imageUrl": "https://images.unsplash.com/photo-1625535069703-a67ae00bd6de?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxjb2RlJTIwZWRpdG9yfGVufDB8fHx8MTc2NDEwNTA3Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "code editor"
+    },
+    {
+      "id": "task-master",
+      "description": "Productivity assistant",
+      "imageUrl": "https://images.unsplash.com/photo-1748609422318-7301636fb625?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxjaGVja2xpc3QlMjB0YXNrfGVufDB8fHx8MTc2NDE1NTQ0Mnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "checklist task"
+    },
+    {
+      "id": "biz-wizard",
+      "description": "Business analytics platform",
+      "imageUrl": "https://images.unsplash.com/photo-1579226905180-636b76d96082?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxidXNpbmVzcyUyMGNoYXJ0fGVufDB8fHx8MTc2NDE1NTQ0Mnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "business chart"
+    },
+    {
+      "id": "dev-duo",
+      "description": "AI pair programmer",
+      "imageUrl": "https://images.unsplash.com/photo-1653387137517-fbc54d488ed8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxwcm9ncmFtbWluZyUyMGNvZGV8ZW58MHx8fHwxNzY0MTA1MDc2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "programming code"
+    },
+    {
+      "id": "cut-pro",
+      "description": "AI video editing assistant",
+      "imageUrl": "https://images.unsplash.com/photo-1574717024239-25253f4ef40a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHx2aWRlbyUyMGVkaXRpbmd8ZW58MHx8fHwxNzY0MTI0OTIzfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "video editing"
+    }
+  ]
 }
