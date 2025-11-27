@@ -22,6 +22,7 @@ import {
   Text,
   UserSquare,
   Link as LinkIcon,
+  Share2,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -36,6 +37,7 @@ import { AuthGate } from '@/components/auth-gate';
 import { chat, ChatOutput } from '@/ai/flows/chat';
 import { Skeleton } from '@/components/ui/skeleton';
 import { suggestAiTool, SuggestAiToolOutput } from '@/ai/flows/suggest-ai-tool';
+import { useToast } from '@/hooks/use-toast';
 
 type Tool = {
     name: string;
@@ -369,6 +371,7 @@ function App() {
   const [chatMessages, setChatMessages] = React.useState<ChatMessage[]>([]);
   const [isGenerating, setIsGenerating] = React.useState(false);
   const chatContainerRef = React.useRef<HTMLDivElement>(null);
+  const { toast } = useToast();
 
 
   const handleFavouriteToggle = (toolName: string) => {
@@ -377,6 +380,32 @@ function App() {
         ? prev.filter(t => t !== toolName)
         : [...prev, toolName]
     );
+  };
+  
+  const handleShareTool = async (e: React.MouseEvent, tool: Tool) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    const shareData = {
+      title: tool.name,
+      text: `Check out this AI tool: ${tool.name}`,
+      url: tool.url,
+    };
+
+    if (navigator.share) {
+      try {
+        await navigator.share(shareData);
+      } catch (err) {
+        console.error("Error sharing:", err);
+      }
+    } else {
+      // Fallback for browsers that don't support Web Share API
+      navigator.clipboard.writeText(tool.url);
+      toast({
+        title: "Link Copied!",
+        description: `${tool.name}'s URL has been copied to your clipboard.`,
+      });
+    }
   };
 
   const handleToolClick = (tool: Tool) => {
@@ -779,9 +808,14 @@ function App() {
                                     <div className="absolute bottom-0 left-0 right-0 p-3">
                                         <div className="flex justify-between items-end">
                                             <h5 className="font-semibold text-white text-base leading-tight">{tool.name}</h5>
-                                            <Button variant="ghost" size="icon" className="w-8 h-8 rounded-full text-white bg-white/20 hover:bg-white/30 backdrop-blur-sm" onClick={(e) => { e.preventDefault(); e.stopPropagation(); handleFavouriteToggle(tool.name); }}>
-                                                <Star className={cn('w-5 h-5 transition-all', favouritedTools.includes(tool.name) ? 'fill-yellow-300 text-yellow-300' : 'text-white')}/>
-                                            </Button>
+                                             <div className="flex items-center gap-1">
+                                                <Button variant="ghost" size="icon" className="w-8 h-8 rounded-full text-white bg-white/20 hover:bg-white/30 backdrop-blur-sm" onClick={(e) => { e.preventDefault(); e.stopPropagation(); handleShareTool(e, tool); }}>
+                                                    <Share2 className="w-4 h-4" />
+                                                </Button>
+                                                <Button variant="ghost" size="icon" className="w-8 h-8 rounded-full text-white bg-white/20 hover:bg-white/30 backdrop-blur-sm" onClick={(e) => { e.preventDefault(); e.stopPropagation(); handleFavouriteToggle(tool.name); }}>
+                                                    <Star className={cn('w-5 h-5 transition-all', favouritedTools.includes(tool.name) ? 'fill-yellow-300 text-yellow-300' : 'text-white')}/>
+                                                </Button>
+                                            </div>
                                         </div>
                                     </div>
                                 </Card>
