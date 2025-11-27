@@ -585,8 +585,13 @@ function App() {
               ))}
           </div>
       </section>
+
+      <section className="mt-8">
+        <h4 className="font-semibold text-xl mb-3">Quick Tools</h4>
+        {/* Quick tools content will go here */}
+      </section>
       
-      <section className="mt-6">
+      <section className="mt-8">
           <h4 className="font-semibold text-xl mb-3">Libraries</h4>
           <div className="grid grid-cols-3 gap-4">
               {libraries.map(lib => (
