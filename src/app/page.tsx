@@ -51,10 +51,11 @@ import { useLanguage } from '@/lib/language';
 
 type Tool = {
     name: string;
-    image: string;
-    isTrending: boolean;
-    category: string;
-    dataAiHint: string;
+    image?: string;
+    icon?: React.ReactNode;
+    isTrending?: boolean;
+    category?: string;
+    dataAiHint?: string;
     url: string;
 };
 
@@ -71,12 +72,12 @@ type QuickToolCategory = {
   url: string;
 };
 
-const popularTools = [
-  { name: 'Runway', icon: <Video className="w-8 h-8" />, url: 'https://runwayml.com/' },
-  { name: 'Pika', icon: <Clapperboard className="w-8 h-8" />, url: 'https://pika.art/' },
-  { name: 'ElevenLabs', icon: <Mic className="w-8 h-8" />, url: 'https://elevenlabs.io/' },
-  { name: 'Lensa AI', icon: <UserSquare className="w-8 h-8" />, url: 'https://prisma-ai.com/lensa' },
-  { name: 'Midjourney', icon: <ImageIcon className="w-8 h-8" />, url: 'https://www.midjourney.com/' },
+const popularTools: Tool[] = [
+  { name: 'Runway', icon: <Video className="w-8 h-8" />, url: 'https://runwayml.com/', image: 'https://picsum.photos/seed/runway-pop/300/200', category: 'Video', dataAiHint: 'abstract animation' },
+  { name: 'Pika', icon: <Clapperboard className="w-8 h-8" />, url: 'https://pika.art/', image: 'https://picsum.photos/seed/pika-pop/300/200', category: 'Video', dataAiHint: 'cinematic video' },
+  { name: 'ElevenLabs', icon: <Mic className="w-8 h-8" />, url: 'https://elevenlabs.io/', image: 'https://picsum.photos/seed/elevenlabs-pop/300/200', category: 'Audio', dataAiHint: 'sound waves' },
+  { name: 'Lensa AI', icon: <UserSquare className="w-8 h-8" />, url: 'https://prisma-ai.com/lensa', image: 'https://picsum.photos/seed/lensa-pop/300/200', category: 'Image', dataAiHint: 'ai avatar' },
+  { name: 'Midjourney', icon: <ImageIcon className="w-8 h-8" />, url: 'https://www.midjourney.com/', image: 'https://picsum.photos/seed/midjourney-pop/300/200', category: 'Image', dataAiHint: 'generative art' },
 ];
 
 const libraries = [
@@ -85,14 +86,7 @@ const libraries = [
   { name: 'Audio Library', gradient: 'from-teal-200 to-emerald-300', icon: <Mic/> },
 ];
 
-const allTools: Tool[] = [
-    { name: 'AI Video Generator', image: 'https://picsum.photos/seed/teddy-bear/300/200', isTrending: true, category: 'Video', dataAiHint: 'teddy bear guitar', url: '#' },
-    { name: 'AI Image Generator', image: 'https://picsum.photos/seed/eye/300/200', isTrending: true, category: 'Image', dataAiHint: 'eye glitter', url: '#' },
-    { name: 'Text to Speech', image: 'https://picsum.photos/seed/tts/300/200', isTrending: true, category: 'Text', dataAiHint: 'woman headphones', url: '#' },
-    { name: 'AI Voice Changer', image: 'https://picsum.photos/seed/voice-changer/300/200', isTrending: true, category: 'Audio', dataAiHint: 'sound wave', url: '#' },
-    { name: 'AI Voice Cloner', image: 'https://picsum.photos/seed/voice-cloner/300/200', isTrending: true, category: 'Audio', dataAiHint: 'woman voice wave', url: '#' },
-    { name: 'AI Clothes Changer', image: 'https://picsum.photos/seed/clothes-changer/300/200', isTrending: true, category: 'Image', dataAiHint: 'man changing clothes', url: '#' },
-]
+const allTools: Tool[] = popularTools;
 
 const quickToolCategories: QuickToolCategory[] = [
   { name: 'Students Tools', image: 'https://picsum.photos/seed/students/600/400', dataAiHint: 'students studying', url: '/student-tools' },
@@ -684,7 +678,7 @@ function App() {
                       <div className="space-y-3">
                       {recentTools.map(tool => (
                           <Card key={tool.name} className="p-3 flex items-center gap-4 bg-white/80 border-none rounded-3xl soft-shadow">
-                              <Image src={tool.image} alt={tool.name} width={56} height={56} className="rounded-2xl" data-ai-hint={tool.dataAiHint} />
+                              {tool.image && <Image src={tool.image} alt={tool.name} width={56} height={56} className="rounded-2xl" data-ai-hint={tool.dataAiHint} />}
                               <div className="flex-grow">
                                   <h5 className="font-semibold text-base">{tool.name}</h5>
                                   <p className="text-sm text-muted-foreground">{tool.category}</p>
@@ -710,7 +704,7 @@ function App() {
                       <div className="space-y-3">
                           {favouriteToolsList.map(tool => (
                               <Card key={tool.name} className="p-3 flex items-center gap-4 bg-white/80 border-none rounded-3xl soft-shadow">
-                                  <Image src={tool.image} alt={tool.name} width={56} height={56} className="rounded-2xl" data-ai-hint={tool.dataAiHint} />
+                                  {tool.image && <Image src={tool.image} alt={tool.name} width={56} height={56} className="rounded-2xl" data-ai-hint={tool.dataAiHint} />}
                                   <div className="flex-grow">
                                       <h5 className="font-semibold text-base">{tool.name}</h5>
                                       <p className="text-sm text-muted-foreground">{tool.category}</p>
@@ -795,7 +789,7 @@ function App() {
                         {filteredTools.map(tool => (
                             <Link key={tool.name} href={tool.url} target="_blank" rel="noopener noreferrer" onClick={() => handleToolClick(tool)}>
                                 <Card className="relative overflow-hidden group cursor-pointer bg-white/50 border-white/20 border-2 rounded-3xl h-full soft-shadow transition-transform hover:scale-105 duration-300">
-                                    <Image src={tool.image} alt={tool.name} width={300} height={200} className="w-full aspect-[4/3] object-cover" data-ai-hint={tool.dataAiHint} />
+                                    {tool.image && <Image src={tool.image} alt={tool.name} width={300} height={200} className="w-full aspect-[4/3] object-cover" data-ai-hint={tool.dataAiHint} />}
                                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
                                     {tool.isTrending && (
                                         <Badge className="absolute top-2 left-2 bg-cute-purple/80 text-white backdrop-blur-sm text-xs rounded-full border-none shadow-lg">
@@ -890,5 +884,3 @@ export default function GalaxyApp() {
     </AuthGate>
   );
 }
-
-    
