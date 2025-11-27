@@ -86,8 +86,6 @@ const libraries = [
   { name: 'Audio Library', gradient: 'from-teal-200 to-emerald-300', icon: <Mic/> },
 ];
 
-const allTools: Tool[] = popularTools;
-
 const quickToolCategories: QuickToolCategory[] = [
   { name: 'Students Tools', image: 'https://picsum.photos/seed/students/600/400', dataAiHint: 'students studying', url: '/student-tools' },
   { name: 'Business Tools', image: 'https://picsum.photos/seed/business/600/400', dataAiHint: 'business meeting', url: '#' },
@@ -363,7 +361,14 @@ const toolCategories = [
     { name: 'AI Avatar', icon: <UserSquare />, gradient: 'bg-gradient-to-br from-yellow-400 to-amber-400 text-white' },
 ];
 
-const combinedTools = [...allTools, ...imageToVideoTools, ...textToVideoTools, ...textToSpeechTools, ...voiceCloningTools, ...aiAvatarTools];
+const allTools: Tool[] = [
+    ...popularTools,
+    ...imageToVideoTools,
+    ...textToVideoTools,
+    ...textToSpeechTools,
+    ...voiceCloningTools,
+    ...aiAvatarTools
+];
 
 
 function App() {
@@ -519,7 +524,7 @@ function App() {
   };
 
   const filteredTools = getFilteredTools();
-  const favouriteToolsList = combinedTools.filter(tool => favouritedTools.includes(tool.name));
+  const favouriteToolsList = allTools.filter(tool => favouritedTools.includes(tool.name));
   
   const trendingTools: Tool[] = [];
 
