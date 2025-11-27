@@ -1,0 +1,138 @@
+{
+    "header": {
+        "title": "AI Tools for Text, Image, Video & More",
+        "subtitle": "Your cute guide to creative AI tools"
+    },
+    "tabs": {
+        "home": "Home",
+        "tools": "Tools",
+        "trending": "Trending",
+        "settings": "Settings"
+    },
+    "home": {
+        "welcome": {
+            "title": "Welcome To AI Atlas",
+            "subtitle": "Discover 2113+ powerful AI tools",
+            "button": "Explore Tools"
+        },
+        "popularTools": {
+            "title": "Popular Tools"
+        },
+        "quickTools": {
+            "title": "Quick Tools",
+            "categories": {
+                "StudentsTools": "Students Tools",
+                "BusinessTools": "Business Tools",
+                "ContentCreationTools": "Content Creation Tools",
+                "GraphicDesignTools": "Graphic Design Tools",
+                "CodingDeveloperTools": "Coding & Developer Tools",
+                "ProductivityTools": "Productivity Tools",
+                "WritingTools": "Writing Tools",
+                "MarketingSEOTools": "Marketing & SEO Tools",
+                "AudioSpeechTools": "Audio & Speech Tools",
+                "VideoTools": "Video Tools",
+                "ChatAssistantTools": "Chat Assistant Tools",
+                "FinanceInvestingTools": "Finance & Investing Tools",
+                "UtilityTools": "Utility Tools"
+            }
+        },
+        "libraries": {
+            "title": "Libraries",
+            "ImageLibrary": "Image Library",
+            "VideoLibrary": "Video Library",
+            "AudioLibrary": "Audio Library"
+        },
+        "recents": {
+            "title": "Recent",
+            "empty": "No recent tools.",
+            "emptyDescription": "Tools you visit will appear here."
+        },
+        "favourites": {
+            "title": "Favourites",
+            "empty": "No Favourites yet."
+        },
+        "seeAll": "See all"
+    },
+    "tools": {
+        "trendingBadge": "Trending"
+    },
+    "chat": {
+        "toolSuggestion": "Tool Suggestion"
+    },
+    "settings": {
+        "account": {
+            "title": "Account Settings",
+            "profile": "Profile details",
+            "password": "Password change",
+            "delete": "Delete account"
+        },
+        "privacy": {
+            "title": "Privacy & Security",
+            "permissions": "Data permissions",
+            "logs": "Activity logs",
+            "analytics": "App analytics",
+            "twoFactor": "Two-factor authentication"
+        },
+        "notifications": {
+            "title": "Notifications",
+            "push": "Push notifications",
+            "email": "Email alerts",
+            "category": "Category-based notifications",
+            "categoryDescription": "Choose which tool categories you want to receive notifications for. (UI not implemented yet)",
+            "mute": "Mute all"
+        },
+        "appearance": {
+            "title": "Appearance / Theme",
+            "theme": {
+                "title": "Theme",
+                "light": "Light",
+                "dark": "Dark",
+                "system": "System"
+            },
+            "fontSize": {
+                "title": "Font size",
+                "small": "Small",
+                "medium": "Medium",
+                "large": "Large"
+            }
+        },
+        "language": {
+            "title": "Language Settings",
+            "app": "App language",
+            "description": "AI tool description language"
+        },
+        "preferences": {
+            "title": "App Preferences",
+            "defaultCategories": "Default categories",
+            "saveFavourites": "Save favourite tools",
+            "autoUpdate": "Auto-update tool listings",
+            "download": "Download settings"
+        },
+        "billing": {
+            "title": "Subscription / Billing",
+            "status": "Subscription status",
+            "plans": "Upgrade / Downgrade plans",
+            "history": "Payment history"
+        },
+        "sync": {
+            "title": "Backup & Sync",
+            "cloud": "Cloud sync",
+            "backup": "Data backup",
+            "restore": "Restore data"
+        },
+        "support": {
+            "title": "Support & Help",
+            "faq": "FAQs",
+            "contact": "Contact Support",
+            "report": "Report a problem",
+            "tutorials": "App tutorials"
+        },
+        "about": {
+            "title": "About App",
+            "version": "App version",
+            "terms": "Terms & Conditions",
+            "privacy": "Privacy Policy",
+            "developer": "Developer info"
+        }
+    }
+}

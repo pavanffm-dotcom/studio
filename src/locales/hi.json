@@ -1,0 +1,138 @@
+{
+    "header": {
+        "title": "टेक्स्ट, इमेज, वीडियो और अधिक के लिए AI उपकरण",
+        "subtitle": "रचनात्मक AI उपकरणों के लिए आपकी प्यारी गाइड"
+    },
+    "tabs": {
+        "home": "होम",
+        "tools": "उपकरण",
+        "trending": "ट्रेंडिंग",
+        "settings": "सेटिंग्स"
+    },
+    "home": {
+        "welcome": {
+            "title": "AI एटलस में आपका स्वागत है",
+            "subtitle": "2113+ शक्तिशाली AI उपकरण खोजें",
+            "button": "उपकरण खोजें"
+        },
+        "popularTools": {
+            "title": "लोकप्रिय उपकरण"
+        },
+        "quickTools": {
+            "title": "त्वरित उपकरण",
+            "categories": {
+                "StudentsTools": "छात्रों के लिए उपकरण",
+                "BusinessTools": "व्यापार के लिए उपकरण",
+                "ContentCreationTools": "कंटेंट निर्माण उपकरण",
+                "GraphicDesignTools": "ग्राफिक डिजाइन उपकरण",
+                "CodingDeveloperTools": "कोडिंग और डेवलपर उपकरण",
+                "ProductivityTools": "उत्पादकता उपकरण",
+                "WritingTools": "लेखन उपकरण",
+                "MarketingSEOTools": "मार्केटिंग और SEO उपकरण",
+                "AudioSpeechTools": "ऑडियो और भाषण उपकरण",
+                "VideoTools": "वीडियो उपकरण",
+                "ChatAssistantTools": "चैट सहायक उपकरण",
+                "FinanceInvestingTools": "वित्त और निवेश उपकरण",
+                "UtilityTools": "यूटिलिटी उपकरण"
+            }
+        },
+        "libraries": {
+            "title": "लाइब्रेरी",
+            "ImageLibrary": "इमेज लाइब्रेरी",
+            "VideoLibrary": "वीडियो लाइब्रेरी",
+            "AudioLibrary": "ऑडियो लाइब्रेरी"
+        },
+        "recents": {
+            "title": "हाल के",
+            "empty": "कोई हालिया उपकरण नहीं।",
+            "emptyDescription": "आपके द्वारा देखे गए उपकरण यहाँ दिखाई देंगे।"
+        },
+        "favourites": {
+            "title": "पसंदीदा",
+            "empty": "अभी तक कोई पसंदीदा नहीं।"
+        },
+        "seeAll": "सभी देखें"
+    },
+    "tools": {
+        "trendingBadge": "ट्रेंडिंग"
+    },
+    "chat": {
+        "toolSuggestion": "उपकरण सुझाव"
+    },
+    "settings": {
+        "account": {
+            "title": "खाता सेटिंग्स",
+            "profile": "प्रोफ़ाइल विवरण",
+            "password": "पासवर्ड बदलें",
+            "delete": "खाता हटाएं"
+        },
+        "privacy": {
+            "title": "गोपनीयता और सुरक्षा",
+            "permissions": "डेटा अनुमतियाँ",
+            "logs": "गतिविधि लॉग",
+            "analytics": "ऐप एनालिटिक्स",
+            "twoFactor": "दो-कारक प्रमाणीकरण"
+        },
+        "notifications": {
+            "title": "सूचनाएं",
+            "push": "पुश सूचनाएं",
+            "email": "ईमेल अलर्ट",
+            "category": "श्रेणी-आधारित सूचनाएं",
+            "categoryDescription": "चुनें कि आप किन उपकरण श्रेणियों के लिए सूचनाएं प्राप्त करना चाहते हैं। (UI अभी लागू नहीं किया गया है)",
+            "mute": "सभी को म्यूट करें"
+        },
+        "appearance": {
+            "title": "दिखावट / थीम",
+            "theme": {
+                "title": "थीम",
+                "light": "लाइट",
+                "dark": "डार्क",
+                "system": "सिस्टम"
+            },
+            "fontSize": {
+                "title": "फ़ॉन्ट आकार",
+                "small": "छोटा",
+                "medium": "मध्यम",
+                "large": "बड़ा"
+            }
+        },
+        "language": {
+            "title": "भाषा सेटिंग्स",
+            "app": "ऐप भाषा",
+            "description": "AI उपकरण विवरण भाषा"
+        },
+        "preferences": {
+            "title": "ऐप प्राथमिकताएं",
+            "defaultCategories": "डिफ़ॉल्ट श्रेणियाँ",
+            "saveFavourites": "पसंदीदा उपकरण सहेजें",
+            "autoUpdate": "उपकरण सूची ऑटो-अपडेट करें",
+            "download": "डाउनलोड सेटिंग्स"
+        },
+        "billing": {
+            "title": "सदस्यता / बिलिंग",
+            "status": "सदस्यता स्थिति",
+            "plans": "योजनाएं अपग्रेड / डाउनग्रेड करें",
+            "history": "भुगतान इतिहास"
+        },
+        "sync": {
+            "title": "बैकअप और सिंक",
+            "cloud": "क्लाउड सिंक",
+            "backup": "डेटा बैकअप",
+            "restore": "डेटा पुनर्स्थापित करें"
+        },
+        "support": {
+            "title": "समर्थन और सहायता",
+            "faq": "अक्सर पूछे जाने वाले प्रश्न",
+            "contact": "समर्थन से संपर्क करें",
+            "report": "समस्या की रिपोर्ट करें",
+            "tutorials": "ऐप ट्यूटोरियल"
+        },
+        "about": {
+            "title": "ऐप के बारे में",
+            "version": "ऐप संस्करण",
+            "terms": "नियम और शर्तें",
+            "privacy": "गोपनीयता नीति",
+            "developer": "डेवलपर जानकारी"
+        }
+    }
+}

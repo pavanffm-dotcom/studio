@@ -38,6 +38,8 @@ import { chat, ChatOutput } from '@/ai/flows/chat';
 import { Skeleton } from '@/components/ui/skeleton';
 import { suggestAiTool, SuggestAiToolOutput } from '@/ai/flows/suggest-ai-tool';
 import { useToast } from '@/hooks/use-toast';
+import { useLanguage } from '@/lib/language';
+
 
 type Tool = {
     name: string;
@@ -363,6 +365,7 @@ const combinedTools = [...allTools, ...imageToVideoTools, ...textToVideoTools, .
 
 
 function App() {
+  const { t } = useLanguage();
   const [activeTab, setActiveTab] = React.useState('home');
   const [activeCategory, setActiveCategory] = React.useState('All');
   const [favouritedTools, setFavouritedTools] = React.useState<string[]>(['Runway', 'Pika']);
@@ -576,7 +579,7 @@ function App() {
                       <Wand2 className="w-6 h-6"/>
                   </div>
                   <div>
-                    <h4 className="font-semibold text-base text-foreground">Tool Suggestion</h4>
+                    <h4 className="font-semibold text-base text-foreground">{t('chat.toolSuggestion')}</h4>
                     <p className="text-muted-foreground text-sm">{tool.reason}</p>
                   </div>
                 </div>
@@ -620,15 +623,15 @@ function App() {
               <Image src="https://picsum.photos/seed/ai-person/200/200" alt="AI illustration" width={144} height={144} className="object-contain" data-ai-hint="AI illustration person"/>
           </div>
           <Sparkles className="absolute top-4 right-4 w-8 h-8 text-white/50"/>
-          <h3 className="font-bold text-2xl">Welcome To AI Atlas</h3>
-          <p className="text-base opacity-90 mt-2 max-w-[65%]">Discover 2113+ powerful AI tools</p>
-          <Button variant="secondary" className="mt-6 bg-white text-primary hover:bg-white/90 rounded-full h-12 px-6 font-bold text-base glow-shadow" onClick={() => setActiveTab('tools')}>Explore Tools</Button>
+          <h3 className="font-bold text-2xl">{t('home.welcome.title')}</h3>
+          <p className="text-base opacity-90 mt-2 max-w-[65%]">{t('home.welcome.subtitle')}</p>
+          <Button variant="secondary" className="mt-6 bg-white text-primary hover:bg-white/90 rounded-full h-12 px-6 font-bold text-base glow-shadow" onClick={() => setActiveTab('tools')}>{t('home.welcome.button')}</Button>
       </div>
 
       <section>
           <div className="flex justify-between items-center mb-3">
-              <h4 className="font-semibold text-xl">Popular Tools</h4>
-              <Button variant="link" className="text-primary p-0 h-auto font-semibold" onClick={() => setActiveTab('tools')}>See all</Button>
+              <h4 className="font-semibold text-xl">{t('home.popularTools.title')}</h4>
+              <Button variant="link" className="text-primary p-0 h-auto font-semibold" onClick={() => setActiveTab('tools')}>{t('home.seeAll')}</Button>
           </div>
           <div className="flex gap-4 overflow-x-auto no-scrollbar pb-2 -mx-6 px-6">
               {popularTools.map(tool => (
@@ -643,7 +646,7 @@ function App() {
       </section>
 
       <section className="mt-8">
-        <h4 className="font-semibold text-xl mb-4">Quick Tools</h4>
+        <h4 className="font-semibold text-xl mb-4">{t('home.quickTools.title')}</h4>
         <div className="space-y-4">
           {quickToolCategories.map((category) => (
             <Link href="#" key={category.name} className="block group">
@@ -658,7 +661,7 @@ function App() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                 <div className="absolute bottom-0 left-0 p-4">
-                  <h5 className="text-white font-bold text-xl">{category.name}</h5>
+                  <h5 className="text-white font-bold text-xl">{t(`home.quickTools.categories.${category.name.replace(/ & | /g, '')}`)}</h5>
                 </div>
               </Card>
             </Link>
@@ -667,14 +670,14 @@ function App() {
       </section>
       
       <section className="mt-8">
-          <h4 className="font-semibold text-xl mb-3">Libraries</h4>
+          <h4 className="font-semibold text-xl mb-3">{t('home.libraries.title')}</h4>
           <div className="grid grid-cols-3 gap-4">
               {libraries.map(lib => (
                   <div key={lib.name} className={cn('p-4 rounded-3xl flex flex-col justify-between aspect-square soft-shadow bg-gradient-to-br', lib.gradient)}>
                       <div className="bg-white/30 rounded-full w-10 h-10 flex items-center justify-center text-white backdrop-blur-sm">
                           {lib.icon}
                       </div>
-                      <p className="text-white font-semibold text-base mt-4">{lib.name}</p>
+                      <p className="text-white font-semibold text-base mt-4">{t(`home.libraries.${lib.name.replace(' ', '')}`)}</p>
                   </div>
               ))}
           </div>
@@ -683,8 +686,8 @@ function App() {
       <section className="mt-6 mb-16">
           <Tabs defaultValue="recent" className="w-full">
               <TabsList className="grid w-full grid-cols-2 bg-secondary rounded-full h-12 p-1">
-                  <TabsTrigger value="recent" className="rounded-full h-full text-base">Recent</TabsTrigger>
-                  <TabsTrigger value="favourites" className="rounded-full h-full text-base">Favourites</TabsTrigger>
+                  <TabsTrigger value="recent" className="rounded-full h-full text-base">{t('home.recents.title')}</TabsTrigger>
+                  <TabsTrigger value="favourites" className="rounded-full h-full text-base">{t('home.favourites.title')}</TabsTrigger>
               </TabsList>
               <TabsContent value="recent" className="mt-4">
                   {recentTools.length > 0 ? (
@@ -707,8 +710,8 @@ function App() {
                   ) : (
                       <div className="text-center py-10 text-muted-foreground">
                           <History className="mx-auto w-10 h-10" />
-                          <p className="mt-4 text-base">No recent tools.</p>
-                          <p className="text-sm">Tools you visit will appear here.</p>
+                          <p className="mt-4 text-base">{t('home.recents.empty')}</p>
+                          <p className="text-sm">{t('home.recents.emptyDescription')}</p>
                       </div>
                   )}
               </TabsContent>
@@ -731,7 +734,7 @@ function App() {
                   ) : (
                       <div className="text-center py-10 text-muted-foreground">
                           <Heart className="mx-auto w-10 h-10" />
-                          <p className="mt-4 text-base">No Favourites yet.</p>
+                          <p className="mt-4 text-base">{t('home.favourites.empty')}</p>
                       </div>
                   )}
               </TabsContent>
@@ -747,9 +750,9 @@ function App() {
         </div>
       <div className={cn("relative z-10 text-center text-foreground pt-16 pb-6 px-4 w-full max-w-sm shrink-0 transition-all duration-300", chatMessages.length > 0 && "pt-6")}>
         <h1 className={cn("text-3xl font-bold tracking-tight", chatMessages.length > 0 && "hidden")}>
-          AI Tools for Text, Image, Video & More
+          {t('header.title')}
         </h1>
-        <p className={cn("text-muted-foreground mt-2", chatMessages.length > 0 && "hidden")}>Your cute guide to creative AI tools</p>
+        <p className={cn("text-muted-foreground mt-2", chatMessages.length > 0 && "hidden")}>{t('header.subtitle')}</p>
       </div>
 
       <main className="relative z-10 w-full max-w-sm flex-1 bg-card/80 backdrop-blur-3xl rounded-t-[2.5rem] shadow-2xl flex flex-col min-h-0 border-t-2 border-white/50 soft-shadow">
@@ -763,10 +766,10 @@ function App() {
           <nav className="mt-4">
             <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
               <TabsList className="grid w-full grid-cols-4 bg-transparent p-0">
-                <TabsTrigger value="home" className="data-[state=active]:border-primary data-[state=active]:text-primary text-lg font-semibold border-b-4 border-transparent rounded-none pb-3 transition-all duration-300">Home</TabsTrigger>
-                <TabsTrigger value="tools" className="data-[state=active]:border-primary data-[state=active]:text-primary text-lg font-semibold border-b-4 border-transparent rounded-none pb-3 transition-all duration-300">Tools</TabsTrigger>
-                <TabsTrigger value="trending" className="data-[state=active]:border-primary data-[state=active]:text-primary text-lg font-semibold border-b-4 border-transparent rounded-none pb-3 transition-all duration-300">Trending</TabsTrigger>
-                <TabsTrigger value="settings" className="data-[state=active]:border-primary data-[state=active]:text-primary text-lg font-semibold border-b-4 border-transparent rounded-none pb-3 transition-all duration-300">Settings</TabsTrigger>
+                <TabsTrigger value="home" className="data-[state=active]:border-primary data-[state=active]:text-primary text-lg font-semibold border-b-4 border-transparent rounded-none pb-3 transition-all duration-300">{t('tabs.home')}</TabsTrigger>
+                <TabsTrigger value="tools" className="data-[state=active]:border-primary data-[state=active]:text-primary text-lg font-semibold border-b-4 border-transparent rounded-none pb-3 transition-all duration-300">{t('tabs.tools')}</TabsTrigger>
+                <TabsTrigger value="trending" className="data-[state=active]:border-primary data-[state=active]:text-primary text-lg font-semibold border-b-4 border-transparent rounded-none pb-3 transition-all duration-300">{t('tabs.trending')}</TabsTrigger>
+                <TabsTrigger value="settings" className="data-[state=active]:border-primary data-[state=active]:text-primary text-lg font-semibold border-b-4 border-transparent rounded-none pb-3 transition-all duration-300">{t('tabs.settings')}</TabsTrigger>
               </TabsList>
             </Tabs>
           </nav>
@@ -807,7 +810,7 @@ function App() {
                                     {tool.isTrending && (
                                         <Badge className="absolute top-2 left-2 bg-cute-purple/80 text-white backdrop-blur-sm text-xs rounded-full border-none shadow-lg">
                                             <TrendingUp className="w-3 h-3 mr-1"/>
-                                            Trending
+                                            {t('tools.trendingBadge')}
                                         </Badge>
                                     )}
                                     <div className="absolute bottom-0 left-0 right-0 p-3">

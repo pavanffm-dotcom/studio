@@ -64,192 +64,13 @@ import { TwoFactorAuth } from "./two-factor-auth"
 import { RadioGroup, RadioGroupItem } from "./ui/radio-group"
 import { Label } from "./ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select"
-
-const settingsConfig = [
-  {
-    title: "Account Settings",
-    icon: User,
-    options: [
-      { label: "Profile details", icon: User, component: <ProfileDetails /> },
-      { label: "Password change", icon: KeyRound, component: <ChangePassword /> },
-      { label: "Delete account", icon: Trash2, color: "text-red-500", component: <DeleteAccount />, isDialog: true },
-    ],
-  },
-  {
-    title: "Privacy & Security",
-    icon: Shield,
-    options: [
-      { label: "Data permissions", icon: Shield, component: <DataPermissions /> },
-      { label: "Activity logs", icon: FileClock, component: <ActivityLogs /> },
-      { label: "App analytics", icon: BarChart3, control: "switch" },
-      { label: "Two-factor authentication", icon: Fingerprint, component: <TwoFactorAuth /> },
-    ],
-  },
-  {
-    title: "Notifications",
-    icon: Bell,
-    options: [
-      { label: "Push notifications", icon: Bell, control: "switch" },
-      { label: "Email alerts", icon: Mail, control: "switch", checked: true },
-      { label: "Category-based notifications", icon: ListFilter, component: <p className="px-2 text-sm text-muted-foreground">Choose which tool categories you want to receive notifications for. (UI not implemented yet)</p> },
-      { label: "Mute all", icon: BellOff, control: "switch" },
-    ],
-  },
-  {
-    title: "Appearance / Theme",
-    icon: Palette,
-    options: [
-      { label: "Theme", icon: Sun, component: 'theme' },
-      { label: "Font size", icon: Type, component: 'font' },
-    ],
-  },
-  {
-    title: "Language Settings",
-    icon: Languages,
-    options: [
-      { label: "App language", icon: Globe, component: 'language' },
-      { label: "AI tool description language", icon: Globe, value: "English (US)" },
-    ],
-  },
-  {
-    title: "App Preferences",
-    icon: Settings,
-    options: [
-      { label: "Default categories", icon: LayoutGrid },
-      { label: "Save favourite tools", icon: Heart, control: "switch", checked: true },
-      { label: "Auto-update tool listings", icon: RefreshCw, control: "switch", checked: true },
-      { label: "Download settings", icon: Download },
-    ],
-  },
-  {
-    title: "Subscription / Billing",
-    icon: CreditCard,
-    options: [
-      { label: "Subscription status", icon: Star, value: "Pro" },
-      { label: "Upgrade / Downgrade plans", icon: TrendingUp },
-      { label: "Payment history", icon: History },
-    ],
-  },
-  {
-    title: "Backup & Sync",
-    icon: Cloud,
-    options: [
-      { label: "Cloud sync", icon: CloudCog, control: "switch", checked: true },
-      { label: "Data backup", icon: FileText },
-      { label: "Restore data", icon: RefreshCw },
-    ],
-  },
-  {
-    title: "Support & Help",
-    icon: HelpCircle,
-    options: [
-      { label: "FAQs", icon: FileQuestion },
-      { label: "Contact Support", icon: MessageSquare },
-      { label: "Report a problem", icon: Info },
-      { label: "App tutorials", icon: BookOpen },
-    ],
-  },
-  {
-    title: "About App",
-    icon: Info,
-    options: [
-      { label: "App version", icon: GitBranch, value: "1.0.0" },
-      { label: "Terms & Conditions", icon: FileText },
-      { label: "Privacy Policy", icon: Shield },
-      { label: "Developer info", icon: User },
-    ],
-  },
-]
-
-const SettingItem = ({ option, onToggle, isChecked, children }: { option: any; onToggle?: (checked: boolean) => void; isChecked?: boolean, children?: React.ReactNode }) => (
-    <div className="flex items-center justify-between py-4">
-      <div className="flex items-center gap-4">
-        <option.icon className={`w-6 h-6 text-muted-foreground ${option.color || ""}`} />
-        <span className={`text-base ${option.color || "text-foreground"}`}>{option.label}</span>
-      </div>
-      <div className="flex items-center gap-3">
-        {option.value && <span className="text-base text-muted-foreground">{option.value}</span>}
-        {option.control === "switch" ? (
-          <Switch defaultChecked={option.checked} onCheckedChange={onToggle} checked={isChecked} />
-        ) : (
-          !option.component && !children && <ChevronRight className="w-5 h-5 text-muted-foreground" />
-        )}
-      </div>
-    </div>
-  );
-
-const ThemeSelector = () => {
-    const [theme, setTheme] = React.useState('system');
-
-    React.useEffect(() => {
-        const root = window.document.documentElement;
-        root.classList.remove('light', 'dark');
-
-        if (theme === 'system') {
-            const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-            root.classList.add(systemTheme);
-        } else {
-            root.classList.add(theme);
-        }
-    }, [theme]);
-    
-    return (
-        <div className="p-2 space-y-2">
-            <RadioGroup defaultValue="system" onValueChange={setTheme}>
-                <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="light" id="theme-light" />
-                    <Label htmlFor="theme-light" className="flex items-center gap-2"><Sun className="w-4 h-4"/> Light</Label>
-                </div>
-                <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="dark" id="theme-dark" />
-                    <Label htmlFor="theme-dark" className="flex items-center gap-2"><Moon className="w-4 h-4"/> Dark</Label>
-                </div>
-                <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="system" id="theme-system" />
-                    <Label htmlFor="theme-system" className="flex items-center gap-2"><Laptop className="w-4 h-4"/> System</Label>
-                </div>
-            </RadioGroup>
-        </div>
-    )
-}
-
-const FontSizeSelector = () => {
-    const [fontSize, setFontSize] = React.useState('medium');
-
-    React.useEffect(() => {
-        const root = window.document.documentElement;
-        root.classList.remove('font-size-small', 'font-size-medium', 'font-size-large');
-        root.classList.add(`font-size-${fontSize}`);
-    }, [fontSize]);
-
-    return (
-        <div className="p-2 space-y-2">
-            <RadioGroup defaultValue="medium" onValueChange={setFontSize}>
-                <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="small" id="font-small" />
-                    <Label htmlFor="font-small">Small</Label>
-                </div>
-                <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="medium" id="font-medium" />
-                    <Label htmlFor="font-medium">Medium</Label>
-                </div>
-                <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="large" id="font-large" />
-                    <Label htmlFor="font-large">Large</Label>
-                </div>
-            </RadioGroup>
-        </div>
-    )
-}
+import { useLanguage } from "@/lib/language"
 
 const LanguageSelector = () => {
-    const [language, setLanguage] = React.useState('english');
+    const { language, setLanguage, t } = useLanguage();
 
-    // In a real app, you'd use a library like i18next to change the language.
-    // For this demo, we'll just log the change.
     const handleLanguageChange = (value: string) => {
-        setLanguage(value);
-        console.log(`App language changed to: ${value}`);
+        setLanguage(value as 'english' | 'mandarin' | 'hindi' | 'spanish' | 'arabic' | 'french');
     }
     
     return (
@@ -271,28 +92,193 @@ const LanguageSelector = () => {
     )
 }
 
+const ThemeSelector = () => {
+    const [theme, setTheme] = React.useState('system');
+    const { t } = useLanguage();
+
+
+    React.useEffect(() => {
+        const root = window.document.documentElement;
+        root.classList.remove('light', 'dark');
+
+        if (theme === 'system') {
+            const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            root.classList.add(systemTheme);
+        } else {
+            root.classList.add(theme);
+        }
+    }, [theme]);
+    
+    return (
+        <div className="p-2 space-y-2">
+            <RadioGroup defaultValue="system" onValueChange={setTheme}>
+                <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="light" id="theme-light" />
+                    <Label htmlFor="theme-light" className="flex items-center gap-2"><Sun className="w-4 h-4"/> {t('settings.appearance.theme.light')}</Label>
+                </div>
+                <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="dark" id="theme-dark" />
+                    <Label htmlFor="theme-dark" className="flex items-center gap-2"><Moon className="w-4 h-4"/> {t('settings.appearance.theme.dark')}</Label>
+                </div>
+                <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="system" id="theme-system" />
+                    <Label htmlFor="theme-system" className="flex items-center gap-2"><Laptop className="w-4 h-4"/> {t('settings.appearance.theme.system')}</Label>
+                </div>
+            </RadioGroup>
+        </div>
+    )
+}
+
+const FontSizeSelector = () => {
+    const [fontSize, setFontSize] = React.useState('medium');
+    const { t } = useLanguage();
+
+    React.useEffect(() => {
+        const root = window.document.documentElement;
+        root.classList.remove('font-size-small', 'font-size-medium', 'font-size-large');
+        root.classList.add(`font-size-${fontSize}`);
+    }, [fontSize]);
+
+    return (
+        <div className="p-2 space-y-2">
+            <RadioGroup defaultValue="medium" onValueChange={setFontSize}>
+                <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="small" id="font-small" />
+                    <Label htmlFor="font-small">{t('settings.appearance.fontSize.small')}</Label>
+                </div>
+                <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="medium" id="font-medium" />
+                    <Label htmlFor="font-medium">{t('settings.appearance.fontSize.medium')}</Label>
+                </div>
+                <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="large" id="font-large" />
+                    <Label htmlFor="font-large">{t('settings.appearance.fontSize.large')}</Label>
+                </div>
+            </RadioGroup>
+        </div>
+    )
+}
+
+
 
 export function SettingsPage() {
+    const { t } = useLanguage();
     const [analyticsEnabled, setAnalyticsEnabled] = React.useState(false);
     const [pushEnabled, setPushEnabled] = React.useState(false);
     const [emailEnabled, setEmailEnabled] = React.useState(true);
     const [muteAll, setMuteAll] = React.useState(false);
 
+    const settingsConfig = [
+      {
+        title: t('settings.account.title'),
+        icon: User,
+        options: [
+          { label: t('settings.account.profile'), icon: User, component: <ProfileDetails /> },
+          { label: t('settings.account.password'), icon: KeyRound, component: <ChangePassword /> },
+          { label: t('settings.account.delete'), icon: Trash2, color: "text-red-500", component: <DeleteAccount />, isDialog: true },
+        ],
+      },
+      {
+        title: t('settings.privacy.title'),
+        icon: Shield,
+        options: [
+          { label: t('settings.privacy.permissions'), icon: Shield, component: <DataPermissions /> },
+          { label: t('settings.privacy.logs'), icon: FileClock, component: <ActivityLogs /> },
+          { label: t('settings.privacy.analytics'), icon: BarChart3, control: "switch" },
+          { label: t('settings.privacy.twoFactor'), icon: Fingerprint, component: <TwoFactorAuth /> },
+        ],
+      },
+      {
+        title: t('settings.notifications.title'),
+        icon: Bell,
+        options: [
+          { label: t('settings.notifications.push'), icon: Bell, control: "switch" },
+          { label: t('settings.notifications.email'), icon: Mail, control: "switch", checked: true },
+          { label: t('settings.notifications.category'), icon: ListFilter, component: <p className="px-2 text-sm text-muted-foreground">{t('settings.notifications.categoryDescription')}</p> },
+          { label: t('settings.notifications.mute'), icon: BellOff, control: "switch" },
+        ],
+      },
+      {
+        title: t('settings.appearance.title'),
+        icon: Palette,
+        options: [
+          { label: t('settings.appearance.theme.title'), icon: Sun, component: 'theme' },
+          { label: t('settings.appearance.fontSize.title'), icon: Type, component: 'font' },
+        ],
+      },
+      {
+        title: t('settings.language.title'),
+        icon: Languages,
+        options: [
+          { label: t('settings.language.app'), icon: Globe, component: 'language' },
+          { label: t('settings.language.description'), icon: Globe, value: "English (US)" },
+        ],
+      },
+      {
+        title: t('settings.preferences.title'),
+        icon: Settings,
+        options: [
+          { label: t('settings.preferences.defaultCategories'), icon: LayoutGrid },
+          { label: t('settings.preferences.saveFavourites'), icon: Heart, control: "switch", checked: true },
+          { label: t('settings.preferences.autoUpdate'), icon: RefreshCw, control: "switch", checked: true },
+          { label: t('settings.preferences.download'), icon: Download },
+        ],
+      },
+      {
+        title: t('settings.billing.title'),
+        icon: CreditCard,
+        options: [
+          { label: t('settings.billing.status'), icon: Star, value: "Pro" },
+          { label: t('settings.billing.plans'), icon: TrendingUp },
+          { label: t('settings.billing.history'), icon: History },
+        ],
+      },
+      {
+        title: t('settings.sync.title'),
+        icon: Cloud,
+        options: [
+          { label: t('settings.sync.cloud'), icon: CloudCog, control: "switch", checked: true },
+          { label: t('settings.sync.backup'), icon: FileText },
+          { label: t('settings.sync.restore'), icon: RefreshCw },
+        ],
+      },
+      {
+        title: t('settings.support.title'),
+        icon: HelpCircle,
+        options: [
+          { label: t('settings.support.faq'), icon: FileQuestion },
+          { label: t('settings.support.contact'), icon: MessageSquare },
+          { label: t('settings.support.report'), icon: Info },
+          { label: t('settings.support.tutorials'), icon: BookOpen },
+        ],
+      },
+      {
+        title: t('settings.about.title'),
+        icon: Info,
+        options: [
+          { label: t('settings.about.version'), icon: GitBranch, value: "1.0.0" },
+          { label: t('settings.about.terms'), icon: FileText },
+          { label: t('settings.about.privacy'), icon: Shield },
+          { label: t('settings.about.developer'), icon: User },
+        ],
+      },
+    ]
+
     const handleToggle = (label: string, checked: boolean) => {
         switch (label) {
-            case 'App analytics':
+            case t('settings.privacy.analytics'):
               setAnalyticsEnabled(checked);
               console.log(`App analytics ${checked ? 'enabled' : 'disabled'}`);
               break;
-            case 'Push notifications':
+            case t('settings.notifications.push'):
               setPushEnabled(checked);
               console.log(`Push notifications ${checked ? 'enabled' : 'disabled'}`);
               break;
-            case 'Email alerts':
+            case t('settings.notifications.email'):
               setEmailEnabled(checked);
               console.log(`Email alerts ${checked ? 'enabled' : 'disabled'}`);
               break;
-            case 'Mute all':
+            case t('settings.notifications.mute'):
               setMuteAll(checked);
               if (checked) {
                 setPushEnabled(false);
@@ -334,16 +320,16 @@ export function SettingsPage() {
                 const isSwitch = option.control === 'switch';
                 let isChecked;
                 switch (option.label) {
-                    case 'App analytics':
+                    case t('settings.privacy.analytics'):
                         isChecked = analyticsEnabled;
                         break;
-                    case 'Push notifications':
+                    case t('settings.notifications.push'):
                         isChecked = pushEnabled && !muteAll;
                         break;
-                    case 'Email alerts':
+                    case t('settings.notifications.email'):
                         isChecked = emailEnabled && !muteAll;
                         break;
-                    case 'Mute all':
+                    case t('settings.notifications.mute'):
                         isChecked = muteAll;
                         break;
                     default:
@@ -397,3 +383,20 @@ export function SettingsPage() {
     </div>
   )
 }
+
+const SettingItem = ({ option, onToggle, isChecked, children }: { option: any; onToggle?: (checked: boolean) => void; isChecked?: boolean, children?: React.ReactNode }) => (
+    <div className="flex items-center justify-between py-4">
+      <div className="flex items-center gap-4">
+        <option.icon className={`w-6 h-6 text-muted-foreground ${option.color || ""}`} />
+        <span className={`text-base ${option.color || "text-foreground"}`}>{option.label}</span>
+      </div>
+      <div className="flex items-center gap-3">
+        {option.value && <span className="text-base text-muted-foreground">{option.value}</span>}
+        {option.control === "switch" ? (
+          <Switch defaultChecked={option.checked} onCheckedChange={onToggle} checked={isChecked} />
+        ) : (
+          !option.component && !children && <ChevronRight className="w-5 h-5 text-muted-foreground" />
+        )}
+      </div>
+    </div>
+  );
