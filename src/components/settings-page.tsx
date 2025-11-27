@@ -28,7 +28,6 @@ import {
   ListFilter,
   BellOff,
   Sun,
-  Moon,
   Laptop,
   Type,
   Paintbrush,
@@ -59,6 +58,9 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "./ui/alert-dialog"
+import { DataPermissions } from "./data-permissions"
+import { ActivityLogs } from "./activity-logs"
+import { TwoFactorAuth } from "./two-factor-auth"
 
 const settingsConfig = [
   {
@@ -74,10 +76,10 @@ const settingsConfig = [
     title: "Privacy & Security",
     icon: Shield,
     options: [
-      { label: "Data permissions", icon: Shield },
-      { label: "Activity logs", icon: FileClock },
+      { label: "Data permissions", icon: Shield, component: <DataPermissions /> },
+      { label: "Activity logs", icon: FileClock, component: <ActivityLogs /> },
       { label: "App analytics", icon: BarChart3, control: "switch" },
-      { label: "Two-factor authentication", icon: Fingerprint },
+      { label: "Two-factor authentication", icon: Fingerprint, component: <TwoFactorAuth /> },
     ],
   },
   {
@@ -157,24 +159,34 @@ const settingsConfig = [
   },
 ]
 
-const SettingItem = ({ option }: { option: any }) => (
-  <div className="flex items-center justify-between py-4">
-    <div className="flex items-center gap-4">
-      <option.icon className={`w-6 h-6 text-muted-foreground ${option.color || ""}`} />
-      <span className={`text-base ${option.color || "text-foreground"}`}>{option.label}</span>
+const SettingItem = ({ option, onToggle, isChecked }: { option: any; onToggle?: (checked: boolean) => void; isChecked?: boolean }) => (
+    <div className="flex items-center justify-between py-4">
+      <div className="flex items-center gap-4">
+        <option.icon className={`w-6 h-6 text-muted-foreground ${option.color || ""}`} />
+        <span className={`text-base ${option.color || "text-foreground"}`}>{option.label}</span>
+      </div>
+      <div className="flex items-center gap-3">
+        {option.value && <span className="text-base text-muted-foreground">{option.value}</span>}
+        {option.control === "switch" ? (
+          <Switch defaultChecked={option.checked} onCheckedChange={onToggle} checked={isChecked} />
+        ) : (
+          !option.component && <ChevronRight className="w-5 h-5 text-muted-foreground" />
+        )}
+      </div>
     </div>
-    <div className="flex items-center gap-3">
-      {option.value && <span className="text-base text-muted-foreground">{option.value}</span>}
-      {option.control === "switch" ? (
-        <Switch defaultChecked={option.checked} />
-      ) : (
-        !option.component && <ChevronRight className="w-5 h-5 text-muted-foreground" />
-      )}
-    </div>
-  </div>
-)
+  );
 
 export function SettingsPage() {
+    const [analyticsEnabled, setAnalyticsEnabled] = React.useState(false);
+
+    const handleToggle = (label: string, checked: boolean) => {
+        if (label === 'App analytics') {
+          setAnalyticsEnabled(checked);
+          // Here you would typically call an analytics service to enable/disable tracking
+          console.log(`App analytics ${checked ? 'enabled' : 'disabled'}`);
+        }
+      };
+
   return (
     <div className="p-4">
       <Accordion type="single" collapsible className="w-full" defaultValue="item-0">
@@ -189,41 +201,49 @@ export function SettingsPage() {
               </div>
             </AccordionTrigger>
             <AccordionContent className="pl-1">
-              {category.options.map((option, i) => (
-                <div key={i}>
-                 {option.isDialog ? (
-                    <AlertDialog>
-                      <AlertDialogTrigger asChild>
-                        <button className="w-full">
-                          <SettingItem option={option} />
-                        </button>
-                      </AlertDialogTrigger>
-                      <AlertDialogContent>
-                        <AlertDialogHeader>
-                          <AlertDialogTitle>{option.label}</AlertDialogTitle>
-                        </AlertDialogHeader>
-                        {option.component}
-                      </AlertDialogContent>
-                    </AlertDialog>
-                  ) : option.component ? (
-                    <Accordion type="single" collapsible className="w-full">
-                       <AccordionItem value={`option-${i}`} className="border-b-0">
-                          <AccordionTrigger className="hover:no-underline">
-                              <SettingItem option={option} />
-                          </AccordionTrigger>
-                          <AccordionContent className="pb-4">
-                              {option.component}
-                          </AccordionContent>
-                      </AccordionItem>
-                    </Accordion>
-                  ) : (
-                    <>
-                      <SettingItem option={option} />
-                      {i < category.options.length - 1 && <Separator className="bg-border/50"/>}
-                    </>
-                  )}
-                </div>
-              ))}
+              {category.options.map((option, i) => {
+                const isSwitch = option.control === 'switch';
+                const isChecked = option.label === 'App analytics' ? analyticsEnabled : option.checked;
+
+                return (
+                    <div key={i}>
+                    {option.isDialog ? (
+                        <AlertDialog>
+                        <AlertDialogTrigger asChild>
+                            <button className="w-full">
+                            <SettingItem option={option} />
+                            </button>
+                        </AlertDialogTrigger>
+                        <AlertDialogContent>
+                            <AlertDialogHeader>
+                            <AlertDialogTitle>{option.label}</AlertDialogTitle>
+                            </AlertDialogHeader>
+                            {option.component}
+                        </AlertDialogContent>
+                        </AlertDialog>
+                    ) : option.component ? (
+                        <Accordion type="single" collapsible className="w-full">
+                        <AccordionItem value={`option-${i}`} className="border-b-0">
+                            <AccordionTrigger className="hover:no-underline">
+                                <SettingItem option={option} />
+                            </AccordionTrigger>
+                            <AccordionContent className="pb-4">
+                                {option.component}
+                            </AccordionContent>
+                        </AccordionItem>
+                        </Accordion>
+                    ) : (
+                        <>
+                        <SettingItem 
+                            option={option} 
+                            isChecked={isSwitch ? isChecked : undefined}
+                            onToggle={isSwitch ? (checked) => handleToggle(option.label, checked) : undefined}
+                        />
+                        {i < category.options.length - 1 && <Separator className="bg-border/50"/>}
+                        </>
+                    )}
+                    </div>
+              )})}
             </AccordionContent>
           </AccordionItem>
         ))}
