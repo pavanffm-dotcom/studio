@@ -574,7 +574,7 @@ function App() {
                   </div>
                 </div>
                 <Link href={tool.url} target="_blank" rel="noopener noreferrer">
-                  <Button className="w-full h-12 text-base font-bold glow-shadow gap-2">
+                  <Button className="w-full h-12 text-base font-bold glow-shadow gap-2" onClick={(e) => handleShareTool(e, {name: tool.toolName, url: tool.url, image: '', isTrending: false, category: '', dataAiHint: ''})}>
                     <Share2 />
                     {tool.toolName}
                   </Button>
@@ -847,6 +847,28 @@ function App() {
                             </div>
                         </Card>
                     </Link>
+                    <Link href="https://www.producthunt.com/" target="_blank" rel="noopener noreferrer" className="block group">
+                        <Card className="bg-white/80 border-none rounded-3xl soft-shadow overflow-hidden transition-all duration-300 group-hover:scale-[1.02] group-hover:shadow-lg">
+                            <div className="relative">
+                                <Image 
+                                    src="https://picsum.photos/seed/new-ai/600/300"
+                                    alt="New AI Tools"
+                                    width={600}
+                                    height={300}
+                                    className="w-full h-auto object-cover"
+                                    data-ai-hint="rocket launch"
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+                                <div className="absolute top-4 right-4 bg-primary/80 text-primary-foreground rounded-full p-2 backdrop-blur-sm">
+                                    <ExternalLink className="w-5 h-5"/>
+                                </div>
+                            </div>
+                            <div className="p-4">
+                                <h3 className="font-bold text-lg text-foreground">New AI Tools</h3>
+                                <p className="text-muted-foreground text-sm mt-1">Find the latest and greatest AI tools fresh from the launchpad. Provided by Product Hunt.</p>
+                            </div>
+                        </Card>
+                    </Link>
                 </div>
             </TabsContent>
 
@@ -868,3 +890,5 @@ export default function GalaxyApp() {
     </AuthGate>
   );
 }
+
+    
