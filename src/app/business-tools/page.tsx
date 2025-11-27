@@ -28,25 +28,25 @@ import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardTitle } from '@/components/ui/card';
 
 const businessCategories = [
-  { name: 'BEST FREE STARTUP TOOLS', icon: <Briefcase /> },
-  { name: 'BACKEND', icon: <Server /> },
-  { name: 'SCHEDULING', icon: <Calendar /> },
-  { name: 'LOW CODE PLATFORM', icon: <Layers /> },
-  { name: 'MARKETING TOOLS', icon: <Megaphone /> },
-  { name: 'SALES TOOLS', icon: <BarChart /> },
-  { name: 'SEO TOOLS', icon: <BarChart /> },
-  { name: 'INTEGRATIONS', icon: <Link2 /> },
-  { name: 'PROJECT MANAGEMENT', icon: <ListChecks /> },
-  { name: 'PAYMENTS', icon: <CreditCard /> },
-  { name: 'VIDEO CONFERENCING', icon: <Video /> },
-  { name: 'CRM', icon: <Users /> },
-  { name: 'MESSAGING', icon: <MessageSquare /> },
-  { name: 'GRAPHIC DESIGN', icon: <Paintbrush /> },
-  { name: 'BUSINESS PLANNING', icon: <Lightbulb /> },
-  { name: 'RESOURCE PLANNING', icon: <Cpu /> },
-  { name: 'ACCOUNTING', icon: <DollarSign /> },
-  { name: 'HR', icon: <UserCog /> },
-  { name: 'FRAMEWORKS', icon: <Code /> },
+  { name: 'BEST FREE STARTUP TOOLS', icon: <Briefcase />, url: '#' },
+  { name: 'BACKEND', icon: <Server />, url: '/business-tools/backend' },
+  { name: 'SCHEDULING', icon: <Calendar />, url: '#' },
+  { name: 'LOW CODE PLATFORM', icon: <Layers />, url: '#' },
+  { name: 'MARKETING TOOLS', icon: <Megaphone />, url: '#' },
+  { name: 'SALES TOOLS', icon: <BarChart />, url: '#' },
+  { name: 'SEO TOOLS', icon: <BarChart />, url: '#' },
+  { name: 'INTEGRATIONS', icon: <Link2 />, url: '#' },
+  { name: 'PROJECT MANAGEMENT', icon: <ListChecks />, url: '#' },
+  { name: 'PAYMENTS', icon: <CreditCard />, url: '#' },
+  { name: 'VIDEO CONFERENCING', icon: <Video />, url: '#' },
+  { name: 'CRM', icon: <Users />, url: '#' },
+  { name: 'MESSAGING', icon: <MessageSquare />, url: '#' },
+  { name: 'GRAPHIC DESIGN', icon: <Paintbrush />, url: '#' },
+  { name: 'BUSINESS PLANNING', icon: <Lightbulb />, url: '#' },
+  { name: 'RESOURCE PLANNING', icon: <Cpu />, url: '#' },
+  { name: 'ACCOUNTING', icon: <DollarSign />, url: '#' },
+  { name: 'HR', icon: <UserCog />, url: '#' },
+  { name: 'FRAMEWORKS', icon: <Code />, url: '#' },
 ];
 
 export default function BusinessToolsPage() {
@@ -72,7 +72,7 @@ export default function BusinessToolsPage() {
             <div className="flex-grow overflow-y-auto no-scrollbar p-4">
                 <div className="space-y-3">
                     {businessCategories.map((category) => (
-                        <Link href="#" key={category.name} className="block group">
+                        <Link href={category.url} key={category.name} className="block group">
                             <Card className="bg-white/80 border-none rounded-3xl soft-shadow transition-all duration-300 group-hover:scale-[1.02] group-hover:shadow-lg">
                                 <CardHeader className="flex flex-row items-center justify-between p-4">
                                     <div className="flex items-center gap-4">
