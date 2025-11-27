@@ -448,27 +448,31 @@ function App() {
   }, [chatMessages]);
 
   const handleSendMessage = async (message: string) => {
+    if (activeTab !== 'home' || chatMessages.length > 0) {
+      // We are in a chat session
+    } else {
+      // This is the first message from the home screen, treat it as a new chat session
+      setActiveTab('home'); 
+    }
+  
     const newUserMessage: ChatMessage = {
       id: Date.now(),
       role: 'user',
       content: message,
     };
-    
-    // Show user message and loading indicator immediately
+  
     setChatMessages((prev) => [
-      ...prev, 
-      newUserMessage, 
-      { id: Date.now() + 1, role: 'assistant-loading', content: 'Thinking...' }
+      ...prev,
+      newUserMessage,
+      { id: Date.now() + 1, role: 'assistant-loading', content: 'Thinking...' },
     ]);
-
+  
     setIsGenerating(true);
-
+  
     let finalAnswer: ChatMessage | null = null;
-
+  
     try {
-      // First, try to get a tool suggestion
       const toolSuggestion = await suggestAiTool({ query: message });
-      
       if (toolSuggestion && toolSuggestion.toolName && toolSuggestion.url) {
         finalAnswer = {
           id: Date.now() + 2,
@@ -476,12 +480,13 @@ function App() {
           content: toolSuggestion,
         };
       } else {
-        // This 'else' block will likely not be hit if the flow is robust,
-        // but it's a good fallback. We'll proceed to the general chat flow.
-        throw new Error("No tool suggestion found, fallback to chat.");
+        throw new Error('No tool suggestion found, fallback to chat.');
       }
     } catch (toolError) {
-      console.log('Tool suggestion failed or was not specific enough, falling back to regular chat:', toolError);
+      console.log(
+        'Tool suggestion failed or was not specific enough, falling back to regular chat:',
+        toolError
+      );
       try {
         const result = await chat({ message });
         finalAnswer = {
@@ -499,9 +504,9 @@ function App() {
       }
     } finally {
       if (finalAnswer) {
-         setChatMessages((prev) => {
-            const newMessages = prev.filter((m) => m.role !== 'assistant-loading');
-            return [...newMessages, finalAnswer!];
+        setChatMessages((prev) => {
+          const newMessages = prev.filter((m) => m.role !== 'assistant-loading');
+          return [...newMessages, finalAnswer!];
         });
       }
       setIsGenerating(false);
@@ -809,7 +814,7 @@ function App() {
                                         <div className="flex justify-between items-end">
                                             <h5 className="font-semibold text-white text-base leading-tight">{tool.name}</h5>
                                              <div className="flex items-center gap-1">
-                                                <Button variant="ghost" size="icon" className="w-8 h-8 rounded-full text-white bg-white/20 hover:bg-white/30 backdrop-blur-sm" onClick={(e) => { e.preventDefault(); e.stopPropagation(); handleShareTool(e, tool); }}>
+                                                <Button variant="ghost" size="icon" className="w-8 h-8 rounded-full text-white bg-white/20 hover:bg-white/30 backdrop-blur-sm" onClick={(e) => handleShareTool(e, tool)}>
                                                     <Share2 />
                                                 </Button>
                                                 <Button variant="ghost" size="icon" className="w-8 h-8 rounded-full text-white bg-white/20 hover:bg-white/30 backdrop-blur-sm" onClick={(e) => { e.preventDefault(); e.stopPropagation(); handleFavouriteToggle(tool.name); }}>
