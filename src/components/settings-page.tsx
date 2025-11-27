@@ -51,6 +51,14 @@ import { Switch } from "./ui/switch"
 import { Separator } from "./ui/separator"
 import { ProfileDetails } from "./profile-details"
 import { ChangePassword } from "./change-password"
+import { DeleteAccount } from "./delete-account"
+import {
+  AlertDialog,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "./ui/alert-dialog"
 
 const settingsConfig = [
   {
@@ -59,7 +67,7 @@ const settingsConfig = [
     options: [
       { label: "Profile details", icon: User, component: <ProfileDetails /> },
       { label: "Password change", icon: KeyRound, component: <ChangePassword /> },
-      { label: "Delete account", icon: Trash2, color: "text-red-500" },
+      { label: "Delete account", icon: Trash2, color: "text-red-500", component: <DeleteAccount />, isDialog: true },
     ],
   },
   {
@@ -183,7 +191,21 @@ export function SettingsPage() {
             <AccordionContent className="pl-1">
               {category.options.map((option, i) => (
                 <div key={i}>
-                  {option.component ? (
+                 {option.isDialog ? (
+                    <AlertDialog>
+                      <AlertDialogTrigger asChild>
+                        <button className="w-full">
+                          <SettingItem option={option} />
+                        </button>
+                      </AlertDialogTrigger>
+                      <AlertDialogContent>
+                        <AlertDialogHeader>
+                          <AlertDialogTitle>{option.label}</AlertDialogTitle>
+                        </AlertDialogHeader>
+                        {option.component}
+                      </AlertDialogContent>
+                    </AlertDialog>
+                  ) : option.component ? (
                     <Accordion type="single" collapsible className="w-full">
                        <AccordionItem value={`option-${i}`} className="border-b-0">
                           <AccordionTrigger className="hover:no-underline">
