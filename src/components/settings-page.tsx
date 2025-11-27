@@ -49,15 +49,16 @@ import {
 } from "lucide-react"
 import { Switch } from "./ui/switch"
 import { Separator } from "./ui/separator"
+import { ProfileDetails } from "./profile-details"
+import { ChangePassword } from "./change-password"
 
 const settingsConfig = [
   {
     title: "Account Settings",
     icon: User,
     options: [
-      { label: "Profile details", icon: User },
-      { label: "Email / phone update", icon: Mail },
-      { label: "Password change", icon: KeyRound },
+      { label: "Profile details", icon: User, component: <ProfileDetails /> },
+      { label: "Password change", icon: KeyRound, component: <ChangePassword /> },
       { label: "Delete account", icon: Trash2, color: "text-red-500" },
     ],
   },
@@ -159,7 +160,7 @@ const SettingItem = ({ option }: { option: any }) => (
       {option.control === "switch" ? (
         <Switch defaultChecked={option.checked} />
       ) : (
-        <ChevronRight className="w-5 h-5 text-muted-foreground" />
+        !option.component && <ChevronRight className="w-5 h-5 text-muted-foreground" />
       )}
     </div>
   </div>
@@ -181,10 +182,25 @@ export function SettingsPage() {
             </AccordionTrigger>
             <AccordionContent className="pl-1">
               {category.options.map((option, i) => (
-                <React.Fragment key={i}>
-                  <SettingItem option={option} />
-                  {i < category.options.length - 1 && <Separator className="bg-border/50"/>}
-                </React.Fragment>
+                <div key={i}>
+                  {option.component ? (
+                    <Accordion type="single" collapsible className="w-full">
+                       <AccordionItem value={`option-${i}`} className="border-b-0">
+                          <AccordionTrigger className="hover:no-underline">
+                              <SettingItem option={option} />
+                          </AccordionTrigger>
+                          <AccordionContent className="pb-4">
+                              {option.component}
+                          </AccordionContent>
+                      </AccordionItem>
+                    </Accordion>
+                  ) : (
+                    <>
+                      <SettingItem option={option} />
+                      {i < category.options.length - 1 && <Separator className="bg-border/50"/>}
+                    </>
+                  )}
+                </div>
               ))}
             </AccordionContent>
           </AccordionItem>
