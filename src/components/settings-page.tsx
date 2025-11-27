@@ -63,6 +63,7 @@ import { ActivityLogs } from "./activity-logs"
 import { TwoFactorAuth } from "./two-factor-auth"
 import { RadioGroup, RadioGroupItem } from "./ui/radio-group"
 import { Label } from "./ui/label"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select"
 
 const settingsConfig = [
   {
@@ -106,7 +107,7 @@ const settingsConfig = [
     title: "Language Settings",
     icon: Languages,
     options: [
-      { label: "App language", icon: Globe, value: "English" },
+      { label: "App language", icon: Globe, component: 'language' },
       { label: "AI tool description language", icon: Globe, value: "English (US)" },
     ],
   },
@@ -241,6 +242,36 @@ const FontSizeSelector = () => {
     )
 }
 
+const LanguageSelector = () => {
+    const [language, setLanguage] = React.useState('english');
+
+    // In a real app, you'd use a library like i18next to change the language.
+    // For this demo, we'll just log the change.
+    const handleLanguageChange = (value: string) => {
+        setLanguage(value);
+        console.log(`App language changed to: ${value}`);
+    }
+    
+    return (
+        <div className="p-2">
+            <Select onValueChange={handleLanguageChange} defaultValue={language}>
+                <SelectTrigger className="w-full">
+                    <SelectValue placeholder="Select a language" />
+                </SelectTrigger>
+                <SelectContent>
+                    <SelectItem value="english">English</SelectItem>
+                    <SelectItem value="mandarin">Mandarin Chinese</SelectItem>
+                    <SelectItem value="hindi">Hindi</SelectItem>
+                    <SelectItem value="spanish">Spanish</SelectItem>
+                    <SelectItem value="arabic">Arabic</SelectItem>
+                    <SelectItem value="french">French</SelectItem>
+                </SelectContent>
+            </Select>
+        </div>
+    )
+}
+
+
 export function SettingsPage() {
     const [analyticsEnabled, setAnalyticsEnabled] = React.useState(false);
     const [pushEnabled, setPushEnabled] = React.useState(false);
@@ -294,6 +325,8 @@ export function SettingsPage() {
                     componentToRender = <ThemeSelector />;
                 } else if (option.component === 'font') {
                     componentToRender = <FontSizeSelector />;
+                } else if (option.component === 'language') {
+                    componentToRender = <LanguageSelector />;
                 } else {
                     componentToRender = option.component;
                 }
