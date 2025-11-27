@@ -68,6 +68,7 @@ type QuickToolCategory = {
   name: string;
   image: string;
   dataAiHint: string;
+  url: string;
 };
 
 const popularTools = [
@@ -94,18 +95,19 @@ const allTools: Tool[] = [
 ]
 
 const quickToolCategories: QuickToolCategory[] = [
-  { name: 'Business Tools', image: 'https://picsum.photos/seed/business/600/400', dataAiHint: 'business meeting' },
-  { name: 'Content Creation Tools', image: 'https://picsum.photos/seed/content/600/400', dataAiHint: 'creator studio' },
-  { name: 'Graphic Design Tools', image: 'https://picsum.photos/seed/graphic-design/600/400', dataAiHint: 'design tablet' },
-  { name: 'Coding & Developer Tools', image: 'https://picsum.photos/seed/coding/600/400', dataAiHint: 'coding screen' },
-  { name: 'Productivity Tools', image: 'https://picsum.photos/seed/productivity/600/400', dataAiHint: 'focused work' },
-  { name: 'Writing Tools', image: 'https://picsum.photos/seed/writing/600/400', dataAiHint: 'writing hand' },
-  { name: 'Marketing & SEO Tools', image: 'https://picsum.photos/seed/marketing/600/400', dataAiHint: 'seo chart' },
-  { name: 'Audio & Speech Tools', image: 'https://picsum.photos/seed/audio/600/400', dataAiHint: 'microphone audio' },
-  { name: 'Video Tools', image: 'https://picsum.photos/seed/video/600/400', dataAiHint: 'video camera' },
-  { name: 'Chat Assistant Tools', image: 'https://picsum.photos/seed/chat-assistant/600/400', dataAiHint: 'robot chat' },
-  { name: 'Finance & Investing Tools', image: 'https://picsum.photos/seed/finance/600/400', dataAiHint: 'finance chart' },
-  { name: 'Utility Tools', image: 'https://picsum.photos/seed/utility/600/400', dataAiHint: 'tool box' },
+  { name: 'Students Tools', image: 'https://picsum.photos/seed/students/600/400', dataAiHint: 'students studying', url: '/student-tools' },
+  { name: 'Business Tools', image: 'https://picsum.photos/seed/business/600/400', dataAiHint: 'business meeting', url: '#' },
+  { name: 'Content Creation Tools', image: 'https://picsum.photos/seed/content/600/400', dataAiHint: 'creator studio', url: '#' },
+  { name: 'Graphic Design Tools', image: 'https://picsum.photos/seed/graphic-design/600/400', dataAiHint: 'design tablet', url: '#' },
+  { name: 'Coding & Developer Tools', image: 'https://picsum.photos/seed/coding/600/400', dataAiHint: 'coding screen', url: '#' },
+  { name: 'Productivity Tools', image: 'https://picsum.photos/seed/productivity/600/400', dataAiHint: 'focused work', url: '#' },
+  { name: 'Writing Tools', image: 'https://picsum.photos/seed/writing/600/400', dataAiHint: 'writing hand', url: '#' },
+  { name: 'Marketing & SEO Tools', image: 'https://picsum.photos/seed/marketing/600/400', dataAiHint: 'seo chart', url: '#' },
+  { name: 'Audio & Speech Tools', image: 'https://picsum.photos/seed/audio/600/400', dataAiHint: 'microphone audio', url: '#' },
+  { name: 'Video Tools', image: 'https://picsum.photos/seed/video/600/400', dataAiHint: 'video camera', url: '#' },
+  { name: 'Chat Assistant Tools', image: 'https://picsum.photos/seed/chat-assistant/600/400', dataAiHint: 'robot chat', url: '#' },
+  { name: 'Finance & Investing Tools', image: 'https://picsum.photos/seed/finance/600/400', dataAiHint: 'finance chart', url: '#' },
+  { name: 'Utility Tools', image: 'https://picsum.photos/seed/utility/600/400', dataAiHint: 'tool box', url: '#' },
 ];
 
 const imageToVideoTools: Tool[] = [
@@ -654,23 +656,8 @@ function App() {
       <section className="mt-8">
         <h4 className="font-semibold text-xl mb-4">{t('home.quickTools.title')}</h4>
         <div className="space-y-4">
-          <Link href="/student-tools" className="block group">
-            <Card className="bg-card/80 backdrop-blur-sm rounded-3xl soft-shadow p-4 transition-all duration-300 group-hover:scale-[1.02] group-hover:shadow-lg">
-              <CardHeader className="p-2">
-                <CardTitle className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-indigo-200 to-purple-200 flex items-center justify-center text-indigo-600">
-                    <GraduationCap className="w-7 h-7" />
-                  </div>
-                  <span className="text-xl font-bold">{t(`home.quickTools.categories.StudentsTools`)}</span>
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="p-0 pt-2">
-                 <p className="text-muted-foreground">The best AI tools to help you with your studies.</p>
-              </CardContent>
-            </Card>
-          </Link>
           {quickToolCategories.map((category) => (
-            <Link href="#" key={category.name} className="block group">
+            <Link href={category.url} key={category.name} className="block group">
               <Card className="relative overflow-hidden rounded-3xl soft-shadow transition-all duration-300 group-hover:scale-[1.02] group-hover:shadow-lg">
                 <Image
                   src={category.image}
