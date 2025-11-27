@@ -7,6 +7,7 @@ import { ArrowLeft, ExternalLink, Server } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { cn } from '@/lib/utils';
 
 const backendTools = [
   {
@@ -57,9 +58,12 @@ export default function BackendToolsPage() {
       <main className="relative z-10 w-full max-w-sm flex-1 bg-card/80 backdrop-blur-3xl rounded-t-[2.5rem] shadow-2xl flex flex-col min-h-0 border-t-2 border-white/50 soft-shadow mt-6">
         <div className="flex-grow overflow-y-auto no-scrollbar p-4">
           <div className="space-y-4">
-            {backendTools.map((tool) => (
+            {backendTools.map((tool, index) => (
               <Link href={tool.url} key={tool.name} target="_blank" rel="noopener noreferrer" className="block group">
-                <Card className="bg-white/80 border-none rounded-3xl soft-shadow transition-all duration-300 group-hover:scale-[1.02] group-hover:shadow-lg overflow-hidden">
+                <Card 
+                  className="bg-white/80 border-none rounded-3xl soft-shadow transition-all duration-300 group-hover:scale-[1.02] group-hover:shadow-lg overflow-hidden opacity-0 animate-fade-in-up"
+                  style={{ animationDelay: `${index * 100}ms` }}
+                >
                   <div className="relative">
                       <Image
                         src={tool.image}
