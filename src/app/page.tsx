@@ -637,7 +637,7 @@ function App() {
           </div>
       </section>
 
-      <section className="mt-8 mb-16">
+      <section className="mt-8">
         <h4 className="font-semibold text-xl mb-4">Quick Tools</h4>
         <div className="space-y-4">
           {quickToolCategories.map((category) => (
@@ -675,7 +675,7 @@ function App() {
           </div>
       </section>
       
-      <section className="mt-6">
+      <section className="mt-6 mb-16">
           <Tabs defaultValue="recent" className="w-full">
               <TabsList className="grid w-full grid-cols-2 bg-secondary rounded-full h-12 p-1">
                   <TabsTrigger value="recent" className="rounded-full h-full text-base">Recent</TabsTrigger>
@@ -810,7 +810,7 @@ function App() {
                                             <h5 className="font-semibold text-white text-base leading-tight">{tool.name}</h5>
                                              <div className="flex items-center gap-1">
                                                 <Button variant="ghost" size="icon" className="w-8 h-8 rounded-full text-white bg-white/20 hover:bg-white/30 backdrop-blur-sm" onClick={(e) => { e.preventDefault(); e.stopPropagation(); handleShareTool(e, tool); }}>
-                                                    <Share2 className="w-4 h-4" />
+                                                    <Share2 />
                                                 </Button>
                                                 <Button variant="ghost" size="icon" className="w-8 h-8 rounded-full text-white bg-white/20 hover:bg-white/30 backdrop-blur-sm" onClick={(e) => { e.preventDefault(); e.stopPropagation(); handleFavouriteToggle(tool.name); }}>
                                                     <Star className={cn('w-5 h-5 transition-all', favouritedTools.includes(tool.name) ? 'fill-yellow-300 text-yellow-300' : 'text-white')}/>
