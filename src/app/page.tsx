@@ -70,24 +70,6 @@ type QuickToolCategory = {
   dataAiHint: string;
 };
 
-const studentTools = [
-    { name: 'ChatGPT', icon: <Bot className="w-8 h-8" />, url: 'https://chat.openai.com/' },
-    { name: 'Perplexity', icon: <BrainCircuit className="w-8 h-8" />, url: 'https://www.perplexity.ai/' },
-    { name: 'Curipod', icon: <Presentation className="w-8 h-8" />, url: 'https://curipod.com/' },
-    { name: 'Education Copilot', icon: <GraduationCap className="w-8 h-8" />, url: 'https://educationcopilot.com/' },
-    { name: 'Yippity', icon: <Feather className="w-8 h-8" />, url: 'https://yippity.io/' },
-    { name: 'QuillBot', icon: <BookOpen className="w-8 h-8" />, url: 'https://quillbot.com/' },
-    { name: 'Speaker Coach', icon: <Mic className="w-8 h-8" />, url: 'https://support.microsoft.com/en-us/office/rehearse-your-slide-show-with-speaker-coach-cd7fc56a-b262-4f86-84c1-92b641d4a8e8' },
-    { name: 'Grammarly', icon: <BookOpen className="w-8 h-8" />, url: 'https://www.grammarly.com/' },
-    { name: 'Canva BG Remover', icon: <Scissors className="w-8 h-8" />, url: 'https://www.canva.com/background-remover/' },
-    { name: 'YouTube Summary', icon: <Youtube className="w-8 h-8" />, url: 'https://youtubesummary.com/' },
-    { name: 'SlidesAI.io', icon: <Presentation className="w-8 h-8" />, url: 'https://www.slidesai.io/' },
-    { name: 'Adobe BG Remover', icon: <Scissors className="w-8 h-8" />, url: 'https://www.adobe.com/express/feature/image/remove-background' },
-    { name: 'Speechify', icon: <Mic className="w-8 h-8" />, url: 'https://speechify.com/' },
-    { name: 'DALL·E', icon: <Paintbrush className="w-8 h-8" />, url: 'https://openai.com/dall-e-3/' },
-    { name: 'Canva Magic Write', icon: <Feather className="w-8 h-8" />, url: 'https://www.canva.com/magic-write/' },
-  ];
-
 const popularTools = [
   { name: 'Runway', icon: <Video className="w-8 h-8" />, url: 'https://runwayml.com/' },
   { name: 'Pika', icon: <Clapperboard className="w-8 h-8" />, url: 'https://pika.art/' },
@@ -672,7 +654,8 @@ function App() {
       <section className="mt-8">
         <h4 className="font-semibold text-xl mb-4">{t('home.quickTools.title')}</h4>
         <div className="space-y-4">
-            <Card className="bg-card/80 backdrop-blur-sm rounded-3xl soft-shadow p-4">
+          <Link href="/student-tools" className="block group">
+            <Card className="bg-card/80 backdrop-blur-sm rounded-3xl soft-shadow p-4 transition-all duration-300 group-hover:scale-[1.02] group-hover:shadow-lg">
               <CardHeader className="p-2">
                 <CardTitle className="flex items-center gap-3">
                   <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-indigo-200 to-purple-200 flex items-center justify-center text-indigo-600">
@@ -681,19 +664,11 @@ function App() {
                   <span className="text-xl font-bold">{t(`home.quickTools.categories.StudentsTools`)}</span>
                 </CardTitle>
               </CardHeader>
-              <CardContent className="p-0 pt-4">
-                <div className="grid grid-cols-3 sm:grid-cols-4 gap-4">
-                  {studentTools.map((tool) => (
-                    <Link href={tool.url} target="_blank" rel="noopener noreferrer" key={tool.name} className="flex flex-col items-center text-center group">
-                      <div className="w-16 h-16 rounded-2xl bg-secondary flex items-center justify-center text-primary soft-shadow transition-all duration-300 group-hover:scale-105 group-hover:shadow-lg">
-                        {tool.icon}
-                      </div>
-                      <p className="text-xs font-medium text-center mt-2 text-muted-foreground">{tool.name}</p>
-                    </Link>
-                  ))}
-                </div>
+              <CardContent className="p-0 pt-2">
+                 <p className="text-muted-foreground">The best AI tools to help you with your studies.</p>
               </CardContent>
             </Card>
+          </Link>
           {quickToolCategories.map((category) => (
             <Link href="#" key={category.name} className="block group">
               <Card className="relative overflow-hidden rounded-3xl soft-shadow transition-all duration-300 group-hover:scale-[1.02] group-hover:shadow-lg">
