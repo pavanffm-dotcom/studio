@@ -23,10 +23,18 @@ import {
   UserSquare,
   Link as LinkIcon,
   Share2,
+  BookOpen,
+  BrainCircuit,
+  Presentation,
+  Feather,
+  GraduationCap,
+  Scissors,
+  Youtube,
+  Paintbrush,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Card, CardContent } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { GalaxyLogo } from '@/components/galaxy-logo';
 import { BottomNav } from '@/components/bottom-nav';
 import { Badge } from '@/components/ui/badge';
@@ -62,6 +70,23 @@ type QuickToolCategory = {
   dataAiHint: string;
 };
 
+const studentTools = [
+    { name: 'ChatGPT', icon: <Bot className="w-8 h-8" />, url: 'https://chat.openai.com/' },
+    { name: 'Perplexity', icon: <BrainCircuit className="w-8 h-8" />, url: 'https://www.perplexity.ai/' },
+    { name: 'Curipod', icon: <Presentation className="w-8 h-8" />, url: 'https://curipod.com/' },
+    { name: 'Education Copilot', icon: <GraduationCap className="w-8 h-8" />, url: 'https://educationcopilot.com/' },
+    { name: 'Yippity', icon: <Feather className="w-8 h-8" />, url: 'https://yippity.io/' },
+    { name: 'QuillBot', icon: <BookOpen className="w-8 h-8" />, url: 'https://quillbot.com/' },
+    { name: 'Speaker Coach', icon: <Mic className="w-8 h-8" />, url: 'https://support.microsoft.com/en-us/office/rehearse-your-slide-show-with-speaker-coach-cd7fc56a-b262-4f86-84c1-92b641d4a8e8' },
+    { name: 'Grammarly', icon: <BookOpen className="w-8 h-8" />, url: 'https://www.grammarly.com/' },
+    { name: 'Canva BG Remover', icon: <Scissors className="w-8 h-8" />, url: 'https://www.canva.com/background-remover/' },
+    { name: 'YouTube Summary', icon: <Youtube className="w-8 h-8" />, url: 'https://youtubesummary.com/' },
+    { name: 'SlidesAI.io', icon: <Presentation className="w-8 h-8" />, url: 'https://www.slidesai.io/' },
+    { name: 'Adobe BG Remover', icon: <Scissors className="w-8 h-8" />, url: 'https://www.adobe.com/express/feature/image/remove-background' },
+    { name: 'Speechify', icon: <Mic className="w-8 h-8" />, url: 'https://speechify.com/' },
+    { name: 'DALL·E', icon: <Paintbrush className="w-8 h-8" />, url: 'https://openai.com/dall-e-3/' },
+    { name: 'Canva Magic Write', icon: <Feather className="w-8 h-8" />, url: 'https://www.canva.com/magic-write/' },
+  ];
 
 const popularTools = [
   { name: 'Runway', icon: <Video className="w-8 h-8" />, url: 'https://runwayml.com/' },
@@ -87,7 +112,6 @@ const allTools: Tool[] = [
 ]
 
 const quickToolCategories: QuickToolCategory[] = [
-  { name: 'Students Tools', image: 'https://picsum.photos/seed/students/600/400', dataAiHint: 'students learning' },
   { name: 'Business Tools', image: 'https://picsum.photos/seed/business/600/400', dataAiHint: 'business meeting' },
   { name: 'Content Creation Tools', image: 'https://picsum.photos/seed/content/600/400', dataAiHint: 'creator studio' },
   { name: 'Graphic Design Tools', image: 'https://picsum.photos/seed/graphic-design/600/400', dataAiHint: 'design tablet' },
@@ -648,6 +672,28 @@ function App() {
       <section className="mt-8">
         <h4 className="font-semibold text-xl mb-4">{t('home.quickTools.title')}</h4>
         <div className="space-y-4">
+            <Card className="bg-card/80 backdrop-blur-sm rounded-3xl soft-shadow p-4">
+              <CardHeader className="p-2">
+                <CardTitle className="flex items-center gap-3">
+                  <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-indigo-200 to-purple-200 flex items-center justify-center text-indigo-600">
+                    <GraduationCap className="w-7 h-7" />
+                  </div>
+                  <span className="text-xl font-bold">{t(`home.quickTools.categories.StudentsTools`)}</span>
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="p-0 pt-4">
+                <div className="grid grid-cols-3 sm:grid-cols-4 gap-4">
+                  {studentTools.map((tool) => (
+                    <Link href={tool.url} target="_blank" rel="noopener noreferrer" key={tool.name} className="flex flex-col items-center text-center group">
+                      <div className="w-16 h-16 rounded-2xl bg-secondary flex items-center justify-center text-primary soft-shadow transition-all duration-300 group-hover:scale-105 group-hover:shadow-lg">
+                        {tool.icon}
+                      </div>
+                      <p className="text-xs font-medium text-center mt-2 text-muted-foreground">{tool.name}</p>
+                    </Link>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
           {quickToolCategories.map((category) => (
             <Link href="#" key={category.name} className="block group">
               <Card className="relative overflow-hidden rounded-3xl soft-shadow transition-all duration-300 group-hover:scale-[1.02] group-hover:shadow-lg">
@@ -725,7 +771,7 @@ function App() {
                                       <h5 className="font-semibold text-base">{tool.name}</h5>
                                       <p className="text-sm text-muted-foreground">{tool.category}</p>
                                   </div>
-                                  <Button variant="ghost" size="icon" className="text-muted-foreground rounded-full w-10 h-10" onClick={() => handleFavouriteToggle(tool.name)}>
+                                  <Button variant="ghost" size="icon" className="text-muted-foreground rounded-full w-10 h-10" onClick={(e) => { e.preventDefault(); e.stopPropagation(); handleFavouriteToggle(tool.name); }}>
                                       <Star className={cn('w-6 h-6 text-yellow-400 fill-yellow-400')}/>
                                   </Button>
                               </Card>
