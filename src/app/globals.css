@@ -102,6 +102,16 @@
     @apply bg-background text-foreground;
     background: linear-gradient(180deg, hsl(var(--soft-blue) / 0.5), hsl(var(--lavender) / 0.5), hsl(var(--baby-pink) / 0.5));
   }
+
+  .font-size-small {
+    font-size: 14px;
+  }
+  .font-size-medium {
+    font-size: 16px;
+  }
+  .font-size-large {
+    font-size: 18px;
+  }
 }
 
 .glow-shadow {

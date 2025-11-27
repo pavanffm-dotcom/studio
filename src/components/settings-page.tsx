@@ -30,7 +30,7 @@ import {
   Sun,
   Laptop,
   Type,
-  Paintbrush,
+  Moon,
   Globe,
   Heart,
   RefreshCw,
@@ -61,6 +61,8 @@ import {
 import { DataPermissions } from "./data-permissions"
 import { ActivityLogs } from "./activity-logs"
 import { TwoFactorAuth } from "./two-factor-auth"
+import { RadioGroup, RadioGroupItem } from "./ui/radio-group"
+import { Label } from "./ui/label"
 
 const settingsConfig = [
   {
@@ -88,7 +90,7 @@ const settingsConfig = [
     options: [
       { label: "Push notifications", icon: Bell, control: "switch" },
       { label: "Email alerts", icon: Mail, control: "switch", checked: true },
-      { label: "Category-based notifications", icon: ListFilter },
+      { label: "Category-based notifications", icon: ListFilter, component: <p className="px-2 text-sm text-muted-foreground">Choose which tool categories you want to receive notifications for. (UI not implemented yet)</p> },
       { label: "Mute all", icon: BellOff, control: "switch" },
     ],
   },
@@ -96,9 +98,8 @@ const settingsConfig = [
     title: "Appearance / Theme",
     icon: Palette,
     options: [
-      { label: "Theme", icon: Sun, value: "System" },
-      { label: "Font size", icon: Type, value: "Medium" },
-      { label: "Accent color", icon: Paintbrush },
+      { label: "Theme", icon: Sun, component: 'theme' },
+      { label: "Font size", icon: Type, component: 'font' },
     ],
   },
   {
@@ -159,7 +160,7 @@ const settingsConfig = [
   },
 ]
 
-const SettingItem = ({ option, onToggle, isChecked }: { option: any; onToggle?: (checked: boolean) => void; isChecked?: boolean }) => (
+const SettingItem = ({ option, onToggle, isChecked, children }: { option: any; onToggle?: (checked: boolean) => void; isChecked?: boolean, children?: React.ReactNode }) => (
     <div className="flex items-center justify-between py-4">
       <div className="flex items-center gap-4">
         <option.icon className={`w-6 h-6 text-muted-foreground ${option.color || ""}`} />
@@ -170,11 +171,75 @@ const SettingItem = ({ option, onToggle, isChecked }: { option: any; onToggle?: 
         {option.control === "switch" ? (
           <Switch defaultChecked={option.checked} onCheckedChange={onToggle} checked={isChecked} />
         ) : (
-          !option.component && <ChevronRight className="w-5 h-5 text-muted-foreground" />
+          !option.component && !children && <ChevronRight className="w-5 h-5 text-muted-foreground" />
         )}
       </div>
     </div>
   );
+
+const ThemeSelector = () => {
+    const [theme, setTheme] = React.useState('system');
+
+    React.useEffect(() => {
+        const root = window.document.documentElement;
+        root.classList.remove('light', 'dark');
+
+        if (theme === 'system') {
+            const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            root.classList.add(systemTheme);
+        } else {
+            root.classList.add(theme);
+        }
+    }, [theme]);
+    
+    return (
+        <div className="p-2 space-y-2">
+            <RadioGroup defaultValue="system" onValueChange={setTheme}>
+                <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="light" id="theme-light" />
+                    <Label htmlFor="theme-light" className="flex items-center gap-2"><Sun className="w-4 h-4"/> Light</Label>
+                </div>
+                <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="dark" id="theme-dark" />
+                    <Label htmlFor="theme-dark" className="flex items-center gap-2"><Moon className="w-4 h-4"/> Dark</Label>
+                </div>
+                <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="system" id="theme-system" />
+                    <Label htmlFor="theme-system" className="flex items-center gap-2"><Laptop className="w-4 h-4"/> System</Label>
+                </div>
+            </RadioGroup>
+        </div>
+    )
+}
+
+const FontSizeSelector = () => {
+    const [fontSize, setFontSize] = React.useState('medium');
+
+    React.useEffect(() => {
+        const root = window.document.documentElement;
+        root.classList.remove('font-size-small', 'font-size-medium', 'font-size-large');
+        root.classList.add(`font-size-${fontSize}`);
+    }, [fontSize]);
+
+    return (
+        <div className="p-2 space-y-2">
+            <RadioGroup defaultValue="medium" onValueChange={setFontSize}>
+                <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="small" id="font-small" />
+                    <Label htmlFor="font-small">Small</Label>
+                </div>
+                <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="medium" id="font-medium" />
+                    <Label htmlFor="font-medium">Medium</Label>
+                </div>
+                <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="large" id="font-large" />
+                    <Label htmlFor="font-large">Large</Label>
+                </div>
+            </RadioGroup>
+        </div>
+    )
+}
 
 export function SettingsPage() {
     const [analyticsEnabled, setAnalyticsEnabled] = React.useState(false);
@@ -224,6 +289,15 @@ export function SettingsPage() {
             </AccordionTrigger>
             <AccordionContent className="pl-1">
               {category.options.map((option, i) => {
+                let componentToRender;
+                if(option.component === 'theme') {
+                    componentToRender = <ThemeSelector />;
+                } else if (option.component === 'font') {
+                    componentToRender = <FontSizeSelector />;
+                } else {
+                    componentToRender = option.component;
+                }
+
                 const isSwitch = option.control === 'switch';
                 let isChecked;
                 switch (option.label) {
@@ -257,17 +331,17 @@ export function SettingsPage() {
                             <AlertDialogHeader>
                             <AlertDialogTitle>{option.label}</AlertDialogTitle>
                             </AlertDialogHeader>
-                            {option.component}
+                            {componentToRender}
                         </AlertDialogContent>
                         </AlertDialog>
-                    ) : option.component ? (
+                    ) : componentToRender ? (
                         <Accordion type="single" collapsible className="w-full">
                         <AccordionItem value={`option-${i}`} className="border-b-0">
                             <AccordionTrigger className="hover:no-underline">
                                 <SettingItem option={option} />
                             </AccordionTrigger>
                             <AccordionContent className="pb-4">
-                                {option.component}
+                                {componentToRender}
                             </AccordionContent>
                         </AccordionItem>
                         </Accordion>
