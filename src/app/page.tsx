@@ -52,6 +52,12 @@ type ChatMessage = {
   content: string | SuggestAiToolOutput;
 };
 
+type QuickToolCategory = {
+  name: string;
+  image: string;
+  dataAiHint: string;
+};
+
 
 const popularTools = [
   { name: 'Runway', icon: <Video className="w-8 h-8" />, url: 'https://runwayml.com/' },
@@ -75,6 +81,22 @@ const allTools: Tool[] = [
     { name: 'AI Voice Cloner', image: 'https://picsum.photos/seed/voice-cloner/300/200', isTrending: true, category: 'Audio', dataAiHint: 'woman voice wave', url: '#' },
     { name: 'AI Clothes Changer', image: 'https://picsum.photos/seed/clothes-changer/300/200', isTrending: true, category: 'Image', dataAiHint: 'man changing clothes', url: '#' },
 ]
+
+const quickToolCategories: QuickToolCategory[] = [
+  { name: 'Students Tools', image: 'https://picsum.photos/seed/students/600/400', dataAiHint: 'students learning' },
+  { name: 'Business Tools', image: 'https://picsum.photos/seed/business/600/400', dataAiHint: 'business meeting' },
+  { name: 'Content Creation Tools', image: 'https://picsum.photos/seed/content/600/400', dataAiHint: 'creator studio' },
+  { name: 'Graphic Design Tools', image: 'https://picsum.photos/seed/graphic-design/600/400', dataAiHint: 'design tablet' },
+  { name: 'Coding & Developer Tools', image: 'https://picsum.photos/seed/coding/600/400', dataAiHint: 'coding screen' },
+  { name: 'Productivity Tools', image: 'https://picsum.photos/seed/productivity/600/400', dataAiHint: 'focused work' },
+  { name: 'Writing Tools', image: 'https://picsum.photos/seed/writing/600/400', dataAiHint: 'writing hand' },
+  { name: 'Marketing & SEO Tools', image: 'https://picsum.photos/seed/marketing/600/400', dataAiHint: 'seo chart' },
+  { name: 'Audio & Speech Tools', image: 'https://picsum.photos/seed/audio/600/400', dataAiHint: 'microphone audio' },
+  { name: 'Video Tools', image: 'https://picsum.photos/seed/video/600/400', dataAiHint: 'video camera' },
+  { name: 'Chat Assistant Tools', image: 'https://picsum.photos/seed/chat-assistant/600/400', dataAiHint: 'robot chat' },
+  { name: 'Finance & Investing Tools', image: 'https://picsum.photos/seed/finance/600/400', dataAiHint: 'finance chart' },
+  { name: 'Utility Tools', image: 'https://picsum.photos/seed/utility/600/400', dataAiHint: 'tool box' },
+];
 
 const imageToVideoTools: Tool[] = [
   { name: 'Runway', image: 'https://picsum.photos/seed/runway/300/200', isTrending: true, category: 'Image', dataAiHint: 'abstract animation', url: 'https://runwayml.com/' },
@@ -586,9 +608,28 @@ function App() {
           </div>
       </section>
 
-      <section className="mt-8 mb-8">
-        <h4 className="font-semibold text-xl mb-3">Quick Tools</h4>
-        {/* Quick tools content will go here */}
+      <section className="mt-8 mb-16">
+        <h4 className="font-semibold text-xl mb-4">Quick Tools</h4>
+        <div className="space-y-4">
+          {quickToolCategories.map((category) => (
+            <Link href="#" key={category.name} className="block group">
+              <Card className="relative overflow-hidden rounded-3xl soft-shadow transition-all duration-300 group-hover:scale-[1.02] group-hover:shadow-lg">
+                <Image
+                  src={category.image}
+                  alt={category.name}
+                  width={600}
+                  height={400}
+                  className="w-full h-auto aspect-[3/1] object-cover"
+                  data-ai-hint={category.dataAiHint}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                <div className="absolute bottom-0 left-0 p-4">
+                  <h5 className="text-white font-bold text-xl">{category.name}</h5>
+                </div>
+              </Card>
+            </Link>
+          ))}
+        </div>
       </section>
       
       <section className="mt-8">
