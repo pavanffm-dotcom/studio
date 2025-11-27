@@ -21,7 +21,6 @@ import {
   Voicemail,
   Text,
   UserSquare,
-  Link as LinkIcon,
   Share2,
   BookOpen,
   BrainCircuit,
@@ -527,25 +526,7 @@ function App() {
   const filteredTools = getFilteredTools();
   const favouriteToolsList = combinedTools.filter(tool => favouritedTools.includes(tool.name));
   
-  const trendingTools = React.useMemo(() => {
-    const allUniqueTools = [...new Map(combinedTools.map(item => [item['name'], item])).values()];
-
-    const sortedTools = allUniqueTools
-      .map(tool => ({
-        ...tool,
-        clicks: toolClicks[tool.name] || 0,
-      }))
-      .sort((a, b) => b.clicks - a.clicks);
-
-    // Also include hardcoded isTrending tools at the top if they haven't been clicked
-    const hardcodedTrending = sortedTools.filter(t => t.isTrending && t.clicks === 0);
-    const clickedTools = sortedTools.filter(t => t.clicks > 0);
-    const otherTools = sortedTools.filter(t => !t.isTrending && t.clicks === 0);
-
-    const finalTrendingList = [...new Set([...clickedTools, ...hardcodedTrending, ...otherTools])];
-
-    return finalTrendingList;
-  }, [toolClicks, combinedTools, favouritedTools]);
+  const trendingTools: Tool[] = [];
 
 
   const renderChatInterface = () => (
@@ -593,7 +574,7 @@ function App() {
                 </div>
                 <Link href={tool.url} target="_blank" rel="noopener noreferrer">
                   <Button className="w-full h-12 text-base font-bold glow-shadow gap-2">
-                    <LinkIcon />
+                    <Share2 />
                     {tool.toolName}
                   </Button>
                 </Link>
