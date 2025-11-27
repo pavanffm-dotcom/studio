@@ -361,14 +361,42 @@ const toolCategories = [
     { name: 'AI Avatar', icon: <UserSquare />, gradient: 'bg-gradient-to-br from-yellow-400 to-amber-400 text-white' },
 ];
 
-const allTools: Tool[] = [
+const allTools: Tool[] = Array.from(new Set([
     ...popularTools,
     ...imageToVideoTools,
     ...textToVideoTools,
     ...textToSpeechTools,
     ...voiceCloningTools,
     ...aiAvatarTools
-];
+].map(t => t.name))).map(name => {
+    return [
+        ...popularTools,
+        ...imageToVideoTools,
+        ...textToVideoTools,
+        ...textToSpeechTools,
+        ...voiceCloningTools,
+        ...aiAvatarTools
+    ].find(t => t.name === name)!
+});
+
+const getFilteredTools = (activeCategory: string): Tool[] => {
+    switch (activeCategory) {
+        case 'All':
+            return allTools;
+        case 'Img2vid':
+            return imageToVideoTools;
+        case 'Txt2vid':
+            return textToVideoTools;
+        case 'Text to Speech':
+            return textToSpeechTools;
+        case 'Voice Cloning':
+            return voiceCloningTools;
+        case 'AI Avatar':
+            return aiAvatarTools;
+        default:
+            return allTools.filter(tool => tool.category === activeCategory);
+    }
+};
 
 
 const ToolCard = React.memo(({ tool, isFavourited, onFavouriteToggle, onShare, t }: { tool: Tool, isFavourited: boolean, onFavouriteToggle: (toolName: string) => void, onShare: (e: React.MouseEvent, tool: Tool) => void, t: (key: string) => string }) => {
@@ -470,25 +498,6 @@ function App() {
       [tool.name]: (prev[tool.name] || 0) + 1,
     }));
   }, []);
-  
-  const getFilteredTools = useCallback(() => {
-    switch (activeCategory) {
-        case 'All':
-            return allTools;
-        case 'Img2vid':
-            return imageToVideoTools;
-        case 'Txt2vid':
-            return textToVideoTools;
-        case 'Text to Speech':
-            return textToSpeechTools;
-        case 'Voice Cloning':
-            return voiceCloningTools;
-        case 'AI Avatar':
-            return aiAvatarTools;
-        default:
-            return allTools.filter(tool => tool.category === activeCategory);
-    }
-  }, [activeCategory]);
 
   React.useEffect(() => {
     if (chatContainerRef.current) {
@@ -562,7 +571,7 @@ function App() {
     }
   }, [activeTab, chatMessages.length]);
 
-  const filteredTools = getFilteredTools();
+  const filteredTools = useMemo(() => getFilteredTools(activeCategory), [activeCategory]);
   const favouriteToolsList = useMemo(() => allTools.filter(tool => favouritedTools.has(tool.name)), [favouritedTools]);
   
   const trendingTools: Tool[] = [];
