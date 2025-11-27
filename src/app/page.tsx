@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useCallback, useMemo } from 'react';
 import Image from 'next/image';
 import {
   Clapperboard,
@@ -371,11 +371,49 @@ const allTools: Tool[] = [
 ];
 
 
+const ToolCard = React.memo(({ tool, isFavourited, onFavouriteToggle, onShare, t }: { tool: Tool, isFavourited: boolean, onFavouriteToggle: (toolName: string) => void, onShare: (e: React.MouseEvent, tool: Tool) => void, t: (key: string) => string }) => {
+  const handleFavouriteClick = useCallback((e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    onFavouriteToggle(tool.name);
+  }, [tool.name, onFavouriteToggle]);
+
+  return (
+    <Link href={tool.url} target="_blank" rel="noopener noreferrer">
+      <Card className="relative overflow-hidden group cursor-pointer bg-white/50 border-white/20 border-2 rounded-3xl h-full soft-shadow transition-transform hover:scale-105 duration-300">
+        {tool.image && <Image src={tool.image} alt={tool.name} width={300} height={200} className="w-full aspect-[4/3] object-cover" data-ai-hint={tool.dataAiHint} />}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+        {tool.isTrending && (
+          <Badge className="absolute top-2 left-2 bg-cute-purple/80 text-white backdrop-blur-sm text-xs rounded-full border-none shadow-lg">
+            <TrendingUp className="w-3 h-3 mr-1"/>
+            {t('tools.trendingBadge')}
+          </Badge>
+        )}
+        <div className="absolute bottom-0 left-0 right-0 p-3">
+          <div className="flex justify-between items-end">
+            <h5 className="font-semibold text-white text-base leading-tight">{tool.name}</h5>
+            <div className="flex items-center gap-1">
+              <Button variant="ghost" size="icon" className="w-8 h-8 rounded-full text-white bg-white/20 hover:bg-white/30 backdrop-blur-sm" onClick={onShare}>
+                <Share2 />
+              </Button>
+              <Button variant="ghost" size="icon" className="w-8 h-8 rounded-full text-white bg-white/20 hover:bg-white/30 backdrop-blur-sm" onClick={handleFavouriteClick}>
+                <Star className={cn('w-5 h-5 transition-all', isFavourited ? 'fill-yellow-300 text-yellow-300' : 'text-white')}/>
+              </Button>
+            </div>
+          </div>
+        </div>
+      </Card>
+    </Link>
+  );
+});
+ToolCard.displayName = 'ToolCard';
+
+
 function App() {
   const { t } = useLanguage();
   const [activeTab, setActiveTab] = React.useState('home');
   const [activeCategory, setActiveCategory] = React.useState('All');
-  const [favouritedTools, setFavouritedTools] = React.useState<string[]>(['Runway', 'Pika']);
+  const [favouritedTools, setFavouritedTools] = React.useState<Set<string>>(() => new Set(['Runway', 'Pika']));
   const [recentTools, setRecentTools] = React.useState<Tool[]>([]);
   const [toolClicks, setToolClicks] = React.useState<Record<string, number>>({});
   const [chatMessages, setChatMessages] = React.useState<ChatMessage[]>([]);
@@ -384,15 +422,19 @@ function App() {
   const { toast } = useToast();
 
 
-  const handleFavouriteToggle = (toolName: string) => {
-    setFavouritedTools(prev => 
-      prev.includes(toolName) 
-        ? prev.filter(t => t !== toolName)
-        : [...prev, toolName]
-    );
-  };
+  const handleFavouriteToggle = useCallback((toolName: string) => {
+    setFavouritedTools(prev => {
+      const newFavourites = new Set(prev);
+      if (newFavourites.has(toolName)) {
+        newFavourites.delete(toolName);
+      } else {
+        newFavourites.add(toolName);
+      }
+      return newFavourites;
+    });
+  }, []);
   
-  const handleShareTool = async (e: React.MouseEvent, tool: Tool) => {
+  const handleShareTool = useCallback(async (e: React.MouseEvent, tool: Tool) => {
     e.preventDefault();
     e.stopPropagation();
 
@@ -409,30 +451,27 @@ function App() {
         console.error("Error sharing:", err);
       }
     } else {
-      // Fallback for browsers that don't support Web Share API
       navigator.clipboard.writeText(tool.url);
       toast({
         title: "Link Copied!",
         description: `${tool.name}'s URL has been copied to your clipboard.`,
       });
     }
-  };
+  }, [toast]);
 
-  const handleToolClick = (tool: Tool) => {
-    // Update recents
+  const handleToolClick = useCallback((tool: Tool) => {
     setRecentTools(prev => {
       const newRecents = [tool, ...prev.filter(t => t.name !== tool.name)];
-      return newRecents.slice(0, 5); // Keep only the 5 most recent
+      return newRecents.slice(0, 5); 
     });
 
-    // Update click count for trending
     setToolClicks(prev => ({
       ...prev,
       [tool.name]: (prev[tool.name] || 0) + 1,
     }));
-  };
+  }, []);
   
-  const getFilteredTools = () => {
+  const getFilteredTools = useCallback(() => {
     switch (activeCategory) {
         case 'All':
             return allTools;
@@ -449,7 +488,7 @@ function App() {
         default:
             return allTools.filter(tool => tool.category === activeCategory);
     }
-  };
+  }, [activeCategory]);
 
   React.useEffect(() => {
     if (chatContainerRef.current) {
@@ -457,7 +496,7 @@ function App() {
     }
   }, [chatMessages]);
 
-  const handleSendMessage = async (message: string) => {
+  const handleSendMessage = useCallback(async (message: string) => {
     if (activeTab !== 'home' || chatMessages.length > 0) {
       // We are in a chat session
     } else {
@@ -521,10 +560,10 @@ function App() {
       }
       setIsGenerating(false);
     }
-  };
+  }, [activeTab, chatMessages.length]);
 
   const filteredTools = getFilteredTools();
-  const favouriteToolsList = allTools.filter(tool => favouritedTools.includes(tool.name));
+  const favouriteToolsList = useMemo(() => allTools.filter(tool => favouritedTools.has(tool.name)), [favouritedTools]);
   
   const trendingTools: Tool[] = [];
 
@@ -559,6 +598,7 @@ function App() {
       }
       if (msg.role === 'tool-suggestion') {
         const tool = msg.content as SuggestAiToolOutput;
+        const fullTool = { name: tool.toolName, url: tool.url, image: '', isTrending: false, category: '', dataAiHint: '' };
         return (
           <div key={msg.id} className="flex justify-start">
             <Card className="p-4 rounded-3xl rounded-bl-none bg-white/80 w-full max-w-xs break-words soft-shadow">
@@ -573,7 +613,7 @@ function App() {
                   </div>
                 </div>
                 <Link href={tool.url} target="_blank" rel="noopener noreferrer">
-                  <Button className="w-full h-12 text-base font-bold glow-shadow gap-2" onClick={(e) => handleShareTool(e, {name: tool.toolName, url: tool.url, image: '', isTrending: false, category: '', dataAiHint: ''})}>
+                  <Button className="w-full h-12 text-base font-bold glow-shadow gap-2" onClick={(e) => handleShareTool(e, fullTool)}>
                     <Share2 />
                     {tool.toolName}
                   </Button>
@@ -714,7 +754,7 @@ function App() {
                                       <h5 className="font-semibold text-base">{tool.name}</h5>
                                       <p className="text-sm text-muted-foreground">{tool.category}</p>
                                   </div>
-                                  <Button variant="ghost" size="icon" className="text-muted-foreground rounded-full w-10 h-10" onClick={(e) => { e.preventDefault(); e.stopPropagation(); handleFavouriteToggle(tool.name); }}>
+                                  <Button variant="ghost" size="icon" className="text-muted-foreground rounded-full w-10 h-10" onClick={() => handleFavouriteToggle(tool.name)}>
                                       <Star className={cn('w-6 h-6 text-yellow-400 fill-yellow-400')}/>
                                   </Button>
                               </Card>
@@ -792,31 +832,14 @@ function App() {
                 <div className="flex-grow overflow-y-auto px-4 no-scrollbar pt-2 pb-4">
                     <div className="grid grid-cols-2 gap-4">
                         {filteredTools.map(tool => (
-                            <Link key={tool.name} href={tool.url} target="_blank" rel="noopener noreferrer" onClick={() => handleToolClick(tool)}>
-                                <Card className="relative overflow-hidden group cursor-pointer bg-white/50 border-white/20 border-2 rounded-3xl h-full soft-shadow transition-transform hover:scale-105 duration-300">
-                                    {tool.image && <Image src={tool.image} alt={tool.name} width={300} height={200} className="w-full aspect-[4/3] object-cover" data-ai-hint={tool.dataAiHint} />}
-                                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                                    {tool.isTrending && (
-                                        <Badge className="absolute top-2 left-2 bg-cute-purple/80 text-white backdrop-blur-sm text-xs rounded-full border-none shadow-lg">
-                                            <TrendingUp className="w-3 h-3 mr-1"/>
-                                            {t('tools.trendingBadge')}
-                                        </Badge>
-                                    )}
-                                    <div className="absolute bottom-0 left-0 right-0 p-3">
-                                        <div className="flex justify-between items-end">
-                                            <h5 className="font-semibold text-white text-base leading-tight">{tool.name}</h5>
-                                             <div className="flex items-center gap-1">
-                                                <Button variant="ghost" size="icon" className="w-8 h-8 rounded-full text-white bg-white/20 hover:bg-white/30 backdrop-blur-sm" onClick={(e) => handleShareTool(e, tool)}>
-                                                    <Share2 />
-                                                </Button>
-                                                <Button variant="ghost" size="icon" className="w-8 h-8 rounded-full text-white bg-white/20 hover:bg-white/30 backdrop-blur-sm" onClick={(e) => { e.preventDefault(); e.stopPropagation(); handleFavouriteToggle(tool.name); }}>
-                                                    <Star className={cn('w-5 h-5 transition-all', favouritedTools.includes(tool.name) ? 'fill-yellow-300 text-yellow-300' : 'text-white')}/>
-                                                </Button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </Card>
-                            </Link>
+                            <ToolCard
+                                key={tool.name}
+                                tool={tool}
+                                isFavourited={favouritedTools.has(tool.name)}
+                                onFavouriteToggle={handleFavouriteToggle}
+                                onShare={(e) => handleShareTool(e, tool)}
+                                t={t}
+                            />
                         ))}
                     </div>
                 </div>
