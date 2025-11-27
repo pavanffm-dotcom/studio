@@ -586,7 +586,7 @@ function App() {
           </div>
       </section>
 
-      <section className="mt-8">
+      <section className="mt-8 mb-8">
         <h4 className="font-semibold text-xl mb-3">Quick Tools</h4>
         {/* Quick tools content will go here */}
       </section>
@@ -648,7 +648,7 @@ function App() {
                                       <p className="text-sm text-muted-foreground">{tool.category}</p>
                                   </div>
                                   <Button variant="ghost" size="icon" className="text-muted-foreground rounded-full w-10 h-10" onClick={() => handleFavouriteToggle(tool.name)}>
-                                      <Star className="w-6 h-6 text-yellow-400 fill-yellow-400"/>
+                                      <Star className={cn('w-6 h-6 text-yellow-400 fill-yellow-400')}/>
                                   </Button>
                               </Card>
                           ))}
