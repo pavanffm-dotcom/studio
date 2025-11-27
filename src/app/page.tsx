@@ -30,6 +30,7 @@ import {
   Scissors,
   Youtube,
   Paintbrush,
+  ExternalLink,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -823,21 +824,29 @@ function App() {
             </TabsContent>
             
             <TabsContent value="trending" className="flex-grow overflow-y-auto no-scrollbar mt-4 px-6 pb-4">
-                <div className="space-y-3">
-                    {trendingTools.map(tool => (
-                        <Card key={tool.name} className="p-3 flex items-center gap-4 bg-white/80 border-none rounded-3xl soft-shadow">
-                            <Image src={tool.image} alt={tool.name} width={56} height={56} className="rounded-2xl" data-ai-hint={tool.dataAiHint} />
-                            <div className="flex-grow">
-                                <h5 className="font-semibold text-base">{tool.name}</h5>
-                                <p className="text-sm text-muted-foreground">{tool.category}</p>
+                <div className="space-y-4">
+                    <Link href="https://explodingtopics.com/blog/most-popular-ai-tools" target="_blank" rel="noopener noreferrer" className="block group">
+                        <Card className="bg-white/80 border-none rounded-3xl soft-shadow overflow-hidden transition-all duration-300 group-hover:scale-[1.02] group-hover:shadow-lg">
+                            <div className="relative">
+                                <Image 
+                                    src="https://picsum.photos/seed/trending-ai/600/300"
+                                    alt="Trending AI Tools"
+                                    width={600}
+                                    height={300}
+                                    className="w-full h-auto object-cover"
+                                    data-ai-hint="data chart"
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+                                <div className="absolute top-4 right-4 bg-primary/80 text-primary-foreground rounded-full p-2 backdrop-blur-sm">
+                                    <ExternalLink className="w-5 h-5"/>
+                                </div>
                             </div>
-                            <Link href={tool.url} target="_blank" onClick={() => handleToolClick(tool)}>
-                                <Button variant="ghost" size="icon" className="text-muted-foreground rounded-full w-10 h-10">
-                                    <ChevronRight />
-                                </Button>
-                            </Link>
+                            <div className="p-4">
+                                <h3 className="font-bold text-lg text-foreground">Trending AI Tools</h3>
+                                <p className="text-muted-foreground text-sm mt-1">Discover the fastest-growing AI tools of the past months. Provided by Exploding Topics.</p>
+                            </div>
                         </Card>
-                    ))}
+                    </Link>
                 </div>
             </TabsContent>
 
