@@ -178,13 +178,35 @@ const SettingItem = ({ option, onToggle, isChecked }: { option: any; onToggle?: 
 
 export function SettingsPage() {
     const [analyticsEnabled, setAnalyticsEnabled] = React.useState(false);
+    const [pushEnabled, setPushEnabled] = React.useState(false);
+    const [emailEnabled, setEmailEnabled] = React.useState(true);
+    const [muteAll, setMuteAll] = React.useState(false);
 
     const handleToggle = (label: string, checked: boolean) => {
-        if (label === 'App analytics') {
-          setAnalyticsEnabled(checked);
-          // Here you would typically call an analytics service to enable/disable tracking
-          console.log(`App analytics ${checked ? 'enabled' : 'disabled'}`);
-        }
+        switch (label) {
+            case 'App analytics':
+              setAnalyticsEnabled(checked);
+              console.log(`App analytics ${checked ? 'enabled' : 'disabled'}`);
+              break;
+            case 'Push notifications':
+              setPushEnabled(checked);
+              console.log(`Push notifications ${checked ? 'enabled' : 'disabled'}`);
+              break;
+            case 'Email alerts':
+              setEmailEnabled(checked);
+              console.log(`Email alerts ${checked ? 'enabled' : 'disabled'}`);
+              break;
+            case 'Mute all':
+              setMuteAll(checked);
+              if (checked) {
+                setPushEnabled(false);
+                setEmailEnabled(false);
+              }
+              console.log(`Mute all ${checked ? 'enabled' : 'disabled'}`);
+              break;
+            default:
+              break;
+          }
       };
 
   return (
@@ -203,7 +225,24 @@ export function SettingsPage() {
             <AccordionContent className="pl-1">
               {category.options.map((option, i) => {
                 const isSwitch = option.control === 'switch';
-                const isChecked = option.label === 'App analytics' ? analyticsEnabled : option.checked;
+                let isChecked;
+                switch (option.label) {
+                    case 'App analytics':
+                        isChecked = analyticsEnabled;
+                        break;
+                    case 'Push notifications':
+                        isChecked = pushEnabled && !muteAll;
+                        break;
+                    case 'Email alerts':
+                        isChecked = emailEnabled && !muteAll;
+                        break;
+                    case 'Mute all':
+                        isChecked = muteAll;
+                        break;
+                    default:
+                        isChecked = option.checked;
+                        break;
+                }
 
                 return (
                     <div key={i}>
