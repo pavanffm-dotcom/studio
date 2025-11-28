@@ -47,7 +47,7 @@ export default function GraphicDesignToolsPage() {
           <div className='flex items-center gap-2'>
             <Paintbrush className="w-6 h-6 text-foreground" />
             <h1 className="text-2xl font-bold text-foreground">
-              Graphic Design Tools
+              Graphic Design
             </h1>
           </div>
         </header>
