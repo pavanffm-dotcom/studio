@@ -559,6 +559,42 @@ const ToolCard = React.memo(({ tool, isFavourited, onFavouriteToggle, onShare, o
 });
 ToolCard.displayName = 'ToolCard';
 
+const ChatInputComponent = ({ chatInput, setChatInput, handleSendMessage, isGenerating }: { chatInput: string, setChatInput: (value: string) => void, handleSendMessage: (message: string) => void, isGenerating: boolean }) => {
+    const handleSend = () => {
+        handleSendMessage(chatInput);
+    };
+
+    const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+        if (event.key === 'Enter' && !isGenerating) {
+            handleSend();
+        }
+    };
+
+    return (
+        <div className="my-4">
+            <label className="block text-center text-muted-foreground text-sm mb-2">Ask what AI you want</label>
+            <div className="relative">
+                <Input
+                    placeholder="e.g. 'Make an image of a cat riding a skateboard'"
+                    className="bg-background rounded-full h-14 text-base pl-5 pr-14 border-2 border-primary/20 shadow-lg"
+                    value={chatInput}
+                    onChange={(e) => setChatInput(e.target.value)}
+                    onKeyDown={handleKeyPress}
+                    disabled={isGenerating}
+                />
+                <Button
+                    size="icon"
+                    className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full w-10 h-10 bg-gradient-to-br from-cute-purple to-lavender glow-shadow"
+                    onClick={handleSend}
+                    disabled={isGenerating}
+                >
+                    <Send className="w-5 h-5"/>
+                </Button>
+            </div>
+        </div>
+    );
+};
+
 
 function App() {
   const { t } = useLanguage();
@@ -690,43 +726,6 @@ function App() {
     setChatMessages([]);
   }
 
-  const ChatInputComponent = () => {
-    const handleSend = () => {
-        handleSendMessage(chatInput);
-    };
-
-    const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
-        if (event.key === 'Enter' && !isGenerating) {
-            handleSend();
-        }
-    };
-
-    return (
-        <div className="my-4">
-            <label className="block text-center text-muted-foreground text-sm mb-2">Ask what AI you want</label>
-            <div className="relative">
-                <Input
-                    placeholder="e.g. 'Make an image of a cat riding a skateboard'"
-                    className="bg-background rounded-full h-14 text-base pl-5 pr-14 border-2 border-primary/20 shadow-lg"
-                    value={chatInput}
-                    onChange={(e) => setChatInput(e.target.value)}
-                    onKeyDown={handleKeyPress}
-                    disabled={isGenerating}
-                />
-                <Button
-                    size="icon"
-                    className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full w-10 h-10 bg-gradient-to-br from-cute-purple to-lavender glow-shadow"
-                    onClick={handleSend}
-                    disabled={isGenerating}
-                >
-                    <Send className="w-5 h-5"/>
-                </Button>
-            </div>
-        </div>
-    );
-};
-
-
   const renderChatInterface = () => (
     <div className="space-y-4">
     {chatMessages.map((msg) => {
@@ -812,7 +811,12 @@ function App() {
   
   const renderHomeScreen = () => (
     <>
-      <ChatInputComponent />
+      <ChatInputComponent
+        chatInput={chatInput}
+        setChatInput={setChatInput}
+        handleSendMessage={handleSendMessage}
+        isGenerating={isGenerating}
+      />
       
       <div className="bg-gradient-to-br from-cute-purple to-lavender text-primary-foreground p-6 rounded-3xl my-4 relative overflow-hidden soft-shadow">
           <div className="absolute -right-4 -bottom-10 w-36 h-36 opacity-30">
@@ -984,7 +988,12 @@ function App() {
                 {(showChat || chatMessages.length > 0) ? renderChatInterface() : renderHomeScreen()}
                  {(showChat || chatMessages.length > 0) &&
                     <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-sm p-4 bg-card/80 backdrop-blur-3xl">
-                        <ChatInputComponent />
+                        <ChatInputComponent
+                          chatInput={chatInput}
+                          setChatInput={setChatInput}
+                          handleSendMessage={handleSendMessage}
+                          isGenerating={isGenerating}
+                        />
                     </div>
                 }
             </TabsContent>
