@@ -10,6 +10,7 @@ import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
 import { useToast } from '@/hooks/use-toast';
 import { useLanguage } from '@/lib/language';
+import { useFavourites } from '@/context/favourites-context';
 
 type Tool = {
     name: string;
@@ -102,39 +103,7 @@ ToolCard.displayName = 'ToolCard';
 export default function PopularToolsPage() {
     const { t } = useLanguage();
     const { toast } = useToast();
-    const [favouritedTools, setFavouritedTools] = React.useState<Set<string>>(() => new Set());
-
-    React.useEffect(() => {
-        try {
-            const savedFavourites = localStorage.getItem('favouritedTools');
-            if (savedFavourites) {
-                setFavouritedTools(new Set(JSON.parse(savedFavourites)));
-            }
-        } catch (error) {
-            console.error("Failed to load favourites from localStorage", error);
-        }
-    }, []);
-
-    React.useEffect(() => {
-        try {
-            localStorage.setItem('favouritedTools', JSON.stringify(Array.from(favouritedTools)));
-        } catch (error) {
-            console.error("Failed to save favourites to localStorage", error);
-        }
-    }, [favouritedTools]);
-
-
-    const handleFavouriteToggle = React.useCallback((toolName: string) => {
-        setFavouritedTools(prev => {
-          const newFavourites = new Set(prev);
-          if (newFavourites.has(toolName)) {
-            newFavourites.delete(toolName);
-          } else {
-            newFavourites.add(toolName);
-          }
-          return newFavourites;
-        });
-    }, []);
+    const { favouritedTools, handleFavouriteToggle } = useFavourites();
 
     const handleShareTool = React.useCallback(async (e: React.MouseEvent, tool: Tool) => {
         e.preventDefault();

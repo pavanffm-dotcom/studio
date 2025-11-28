@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
+import { useFavourites } from '@/context/favourites-context';
 
 const contentCreationTools = [
   { name: 'Canva', url: 'https://www.canva.com/', dataAiHint: 'graphic design' },
@@ -64,40 +65,7 @@ const contentCreationTools = [
 
 export default function ContentCreationToolsPage() {
     const { toast } = useToast();
-    const [favouritedTools, setFavouritedTools] = React.useState<Set<string>>(() => new Set());
-
-    React.useEffect(() => {
-        try {
-            const savedFavourites = localStorage.getItem('favouritedTools');
-            if (savedFavourites) {
-                setFavouritedTools(new Set(JSON.parse(savedFavourites)));
-            }
-        } catch (error) {
-            console.error("Failed to load favourites from localStorage", error);
-        }
-    }, []);
-
-    React.useEffect(() => {
-        try {
-            localStorage.setItem('favouritedTools', JSON.stringify(Array.from(favouritedTools)));
-        } catch (error) {
-            console.error("Failed to save favourites to localStorage", error);
-        }
-    }, [favouritedTools]);
-
-    const handleFavouriteToggle = React.useCallback((e: React.MouseEvent, toolName: string) => {
-        e.preventDefault();
-        e.stopPropagation();
-        setFavouritedTools(prev => {
-          const newFavourites = new Set(prev);
-          if (newFavourites.has(toolName)) {
-            newFavourites.delete(toolName);
-          } else {
-            newFavourites.add(toolName);
-          }
-          return newFavourites;
-        });
-    }, []);
+    const { favouritedTools, handleFavouriteToggle } = useFavourites();
 
     const handleShareTool = React.useCallback(async (e: React.MouseEvent, tool: typeof contentCreationTools[0]) => {
         e.preventDefault();
@@ -123,6 +91,12 @@ export default function ContentCreationToolsPage() {
           });
         }
     }, [toast]);
+
+    const handleFavouriteClick = (e: React.MouseEvent, toolName: string) => {
+        e.preventDefault();
+        e.stopPropagation();
+        handleFavouriteToggle(toolName);
+    };
 
   return (
     <div className="bg-background min-h-screen flex flex-col items-center justify-start font-body relative overflow-hidden">
@@ -175,7 +149,7 @@ export default function ContentCreationToolsPage() {
                             <Button variant="ghost" size="icon" className="w-8 h-8 rounded-full text-foreground/80 bg-white/30 hover:bg-white/50" onClick={(e) => handleShareTool(e, tool)}>
                                 <Share2 className="w-4 h-4" />
                             </Button>
-                            <Button variant="ghost" size="icon" className="w-8 h-8 rounded-full text-foreground/80 bg-white/30 hover:bg-white/50" onClick={(e) => handleFavouriteToggle(e, tool.name)}>
+                            <Button variant="ghost" size="icon" className="w-8 h-8 rounded-full text-foreground/80 bg-white/30 hover:bg-white/50" onClick={(e) => handleFavouriteClick(e, tool.name)}>
                                 <Star className={cn('w-5 h-5 transition-all', favouritedTools.has(tool.name) ? 'fill-yellow-300 text-yellow-300' : 'text-foreground/60')}/>
                             </Button>
                         </div>

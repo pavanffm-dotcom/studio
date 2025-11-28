@@ -51,6 +51,7 @@ import { suggestAiTool, SuggestAiToolOutput } from '@/ai/flows/suggest-ai-tool';
 import { useToast } from '@/hooks/use-toast';
 import { useLanguage } from '@/lib/language';
 import { FloatingChatButton } from '@/components/floating-chat-button';
+import { useFavourites } from '@/context/favourites-context';
 
 
 type Tool = {
@@ -561,9 +562,9 @@ ToolCard.displayName = 'ToolCard';
 
 function App() {
   const { t } = useLanguage();
+  const { favouritedTools, handleFavouriteToggle } = useFavourites();
   const [activeTab, setActiveTab] = React.useState('home');
   const [activeCategory, setActiveCategory] = React.useState('All');
-  const [favouritedTools, setFavouritedTools] = React.useState<Set<string>>(() => new Set());
   const [recentTools, setRecentTools] = React.useState<Tool[]>([]);
   const [toolClicks, setToolClicks] = React.useState<Record<string, number>>({});
   const [chatMessages, setChatMessages] = React.useState<ChatMessage[]>([]);
@@ -571,42 +572,6 @@ function App() {
   const [showChat, setShowChat] = React.useState(false);
   const chatContainerRef = React.useRef<HTMLDivElement>(null);
   const { toast } = useToast();
-
-  React.useEffect(() => {
-    try {
-      const savedFavourites = localStorage.getItem('favouritedTools');
-      if (savedFavourites) {
-        setFavouritedTools(new Set(JSON.parse(savedFavourites)));
-      } else {
-        // Pre-favourite some tools for new users
-        setFavouritedTools(new Set(['Runway', 'Pika']));
-      }
-    } catch (error) {
-        console.error("Failed to load favourites from localStorage", error);
-        setFavouritedTools(new Set(['Runway', 'Pika']));
-    }
-  }, []);
-
-  React.useEffect(() => {
-    try {
-        localStorage.setItem('favouritedTools', JSON.stringify(Array.from(favouritedTools)));
-    } catch (error) {
-        console.error("Failed to save favourites to localStorage", error);
-    }
-  }, [favouritedTools]);
-
-
-  const handleFavouriteToggle = useCallback((toolName: string) => {
-    setFavouritedTools(prev => {
-      const newFavourites = new Set(prev);
-      if (newFavourites.has(toolName)) {
-        newFavourites.delete(toolName);
-      } else {
-        newFavourites.add(toolName);
-      }
-      return newFavourites;
-    });
-  }, []);
   
   const handleShareTool = useCallback(async (e: React.MouseEvent, tool: Tool) => {
     e.preventDefault();
