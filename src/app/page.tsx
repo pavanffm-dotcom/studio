@@ -31,6 +31,7 @@ import {
   Youtube,
   Paintbrush,
   ExternalLink,
+  X,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -786,22 +787,28 @@ function App() {
         <div className="absolute inset-0 z-0 opacity-50">
              <div className="absolute inset-0 bg-gradient-to-br from-soft-blue via-lavender to-baby-pink"></div>
         </div>
-      <div className={cn("relative z-10 text-center text-foreground pt-16 pb-6 px-4 w-full max-w-sm shrink-0 transition-all duration-300", chatMessages.length > 0 && "pt-6")}>
-        <h1 className={cn("text-3xl font-bold tracking-tight", chatMessages.length > 0 && "hidden")}>
+      <div className={cn("relative z-10 text-center text-foreground pt-16 pb-6 px-4 w-full max-w-sm shrink-0 transition-all duration-300", chatMessages.length > 0 && "pt-6 hidden")}>
+        <h1 className={cn("text-3xl font-bold tracking-tight")}>
           {t('header.title')}
         </h1>
-        <p className={cn("text-muted-foreground mt-2", chatMessages.length > 0 && "hidden")}>{t('header.subtitle')}</p>
+        <p className={cn("text-muted-foreground mt-2")}>{t('header.subtitle')}</p>
       </div>
 
       <main className="relative z-10 w-full max-w-sm flex-1 bg-card/80 backdrop-blur-3xl rounded-t-[2.5rem] shadow-2xl flex flex-col min-h-0 border-t-2 border-white/50 soft-shadow">
-        <div className={cn("flex-shrink-0 px-6 pt-6", chatMessages.length > 0 && "hidden")}>
+        <div className={cn("flex-shrink-0 px-6 pt-6")}>
           <header className="flex justify-between items-center py-2">
             <div className="flex items-center gap-2">
               <GalaxyLogo className="w-8 h-8" />
               <span className="text-2xl font-bold text-foreground">AI Atlas</span>
             </div>
+            {chatMessages.length > 0 && (
+                <Button variant="ghost" size="icon" onClick={() => setChatMessages([])} className='rounded-full w-10 h-10'>
+                    <X className="w-6 h-6"/>
+                    <span className="sr-only">End Chat</span>
+                </Button>
+            )}
           </header>
-          <nav className="mt-4">
+          <nav className={cn("mt-4", chatMessages.length > 0 && 'hidden')}>
             <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
               <TabsList className="grid w-full grid-cols-4 bg-transparent p-0">
                 <TabsTrigger value="home" className="data-[state=active]:border-primary data-[state=active]:text-primary text-lg font-semibold border-b-4 border-transparent rounded-none pb-3 transition-all duration-300">{t('tabs.home')}</TabsTrigger>
