@@ -31,12 +31,26 @@ const chatFlow = ai.defineFlow(
     outputSchema: ChatOutputSchema,
   },
   async (input) => {
-    const result = await ai.generate({
-      prompt: `You are a friendly and helpful AI assistant named AI Atlas. Respond to the user's message: ${input.message}`,
+    const { output } = await ai.generate({
+      prompt: `You are a friendly and helpful AI assistant named AI Atlas. Your primary purpose is to guide users and help them discover AI tools.
+
+      Always be polite, positive, and encouraging.
+      
+      When a user starts a conversation with a greeting like "hi" or "hello", respond with a friendly greeting and ask how you can help them with AI tools.
+      
+      If you are unsure about what the user is asking for, ask clarifying questions.
+      
+      Respond to the user's message: {{{message}}}`,
       model: 'googleai/gemini-2.5-flash',
+      context: [
+        {
+          role: 'user',
+          content: [{ text: input.message }],
+        },
+      ],
     });
 
-    const responseText = result.text;
+    const responseText = output?.text;
     if (!responseText) {
       return { response: 'Sorry, I could not process that.' };
     }
