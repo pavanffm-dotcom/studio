@@ -37,7 +37,7 @@ export function FloatingChatButton({ onSendMessage, isGenerating, onButtonClick,
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-50">
+    <div className="fixed top-1/2 -translate-y-1/2 right-6 z-50">
       <div className={cn("relative transition-all duration-300 ease-in-out", showInput ? 'w-80' : 'w-16')}>
         <div className={cn(
             "absolute bottom-0 right-0 transition-all duration-300 ease-in-out",
