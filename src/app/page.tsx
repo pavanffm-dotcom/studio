@@ -32,12 +32,12 @@ import {
   Paintbrush,
   ExternalLink,
   X,
+  MessageSquare,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { GalaxyLogo } from '@/components/galaxy-logo';
-import { BottomNav } from '@/components/bottom-nav';
 import { Badge } from '@/components/ui/badge';
 import Link from 'next/link';
 import { SettingsPage } from '@/components/settings-page';
@@ -48,6 +48,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { suggestAiTool, SuggestAiToolOutput } from '@/ai/flows/suggest-ai-tool';
 import { useToast } from '@/hooks/use-toast';
 import { useLanguage } from '@/lib/language';
+import { FloatingChatButton } from '@/components/floating-chat-button';
 
 
 type Tool = {
@@ -447,6 +448,7 @@ function App() {
   const [toolClicks, setToolClicks] = React.useState<Record<string, number>>({});
   const [chatMessages, setChatMessages] = React.useState<ChatMessage[]>([]);
   const [isGenerating, setIsGenerating] = React.useState(false);
+  const [showChat, setShowChat] = React.useState(false);
   const chatContainerRef = React.useRef<HTMLDivElement>(null);
   const { toast } = useToast();
 
@@ -507,13 +509,8 @@ function App() {
   }, [chatMessages]);
 
   const handleSendMessage = useCallback(async (message: string) => {
-    if (activeTab !== 'home' || chatMessages.length > 0) {
-      // We are in a chat session
-    } else {
-      // This is the first message from the home screen, treat it as a new chat session
-      setActiveTab('home'); 
-    }
-  
+    if (!showChat) setShowChat(true);
+
     const newUserMessage: ChatMessage = {
       id: Date.now(),
       role: 'user',
@@ -570,12 +567,22 @@ function App() {
       }
       setIsGenerating(false);
     }
-  }, [activeTab, chatMessages.length]);
+  }, [showChat]);
 
   const filteredTools = useMemo(() => getFilteredTools(activeCategory), [activeCategory]);
   const favouriteToolsList = useMemo(() => allTools.filter(tool => favouritedTools.has(tool.name)), [favouritedTools]);
   
   const trendingTools: Tool[] = [];
+
+  const handleChatButtonClick = () => {
+    setShowChat(true);
+    setActiveTab('home');
+  };
+
+  const handleCloseChat = () => {
+    setShowChat(false);
+    setChatMessages([]);
+  }
 
 
   const renderChatInterface = () => (
@@ -784,10 +791,10 @@ function App() {
 
   return (
     <div className="bg-background min-h-screen flex flex-col items-center justify-start font-body relative overflow-hidden">
-        <div className="absolute inset-0 z-0 opacity-50">
-             <div className="absolute inset-0 bg-gradient-to-br from-soft-blue via-lavender to-baby-pink"></div>
-        </div>
-      <div className={cn("relative z-10 text-center text-foreground pt-16 pb-6 px-4 w-full max-w-sm shrink-0 transition-all duration-300", chatMessages.length > 0 && "pt-6 hidden")}>
+      <div className="absolute inset-0 z-0 opacity-50">
+        <div className="absolute inset-0 bg-gradient-to-br from-soft-blue via-lavender to-baby-pink"></div>
+      </div>
+      <div className={cn("relative z-10 text-center text-foreground pt-16 pb-6 px-4 w-full max-w-sm shrink-0 transition-all duration-300", (showChat || chatMessages.length > 0) && "pt-6 hidden")}>
         <h1 className={cn("text-3xl font-bold tracking-tight")}>
           {t('header.title')}
         </h1>
@@ -801,14 +808,14 @@ function App() {
               <GalaxyLogo className="w-8 h-8" />
               <span className="text-2xl font-bold text-foreground">AI Atlas</span>
             </div>
-            {chatMessages.length > 0 && (
-                <Button variant="ghost" size="icon" onClick={() => setChatMessages([])} className='rounded-full w-10 h-10'>
+            {(showChat || chatMessages.length > 0) && (
+                <Button variant="ghost" size="icon" onClick={handleCloseChat} className='rounded-full w-10 h-10'>
                     <X className="w-6 h-6"/>
                     <span className="sr-only">End Chat</span>
                 </Button>
             )}
           </header>
-          <nav className={cn("mt-4", chatMessages.length > 0 && 'hidden')}>
+          <nav className={cn("mt-4", (showChat || chatMessages.length > 0) && 'hidden')}>
             <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
               <TabsList className="grid w-full grid-cols-4 bg-transparent p-0">
                 <TabsTrigger value="home" className="data-[state=active]:border-primary data-[state=active]:text-primary text-lg font-semibold border-b-4 border-transparent rounded-none pb-3 transition-all duration-300">{t('tabs.home')}</TabsTrigger>
@@ -821,11 +828,11 @@ function App() {
         </div>
         
         <Tabs value={activeTab} className="flex-grow flex flex-col overflow-hidden">
-            <TabsContent value="home" className="flex-grow overflow-y-auto px-6 pb-4 no-scrollbar mt-0" ref={chatContainerRef}>
-                {chatMessages.length === 0 ? renderHomeScreen() : renderChatInterface()}
+            <TabsContent value="home" className="flex-grow overflow-y-auto px-6 pb-24 no-scrollbar mt-0" ref={chatContainerRef}>
+                {(showChat || chatMessages.length > 0) ? renderChatInterface() : renderHomeScreen()}
             </TabsContent>
 
-            <TabsContent value="tools" className="flex-grow overflow-hidden flex flex-col mt-4">
+            <TabsContent value="tools" className="flex-grow overflow-hidden flex flex-col mt-4 pb-24">
                 <div className="px-4 pb-2">
                     <div className="flex gap-3 overflow-x-auto no-scrollbar py-2 -mx-4 px-4">
                         {toolCategories.map(cat => (
@@ -861,7 +868,7 @@ function App() {
                 </div>
             </TabsContent>
             
-            <TabsContent value="trending" className="flex-grow overflow-y-auto no-scrollbar mt-4 px-6 pb-4">
+            <TabsContent value="trending" className="flex-grow overflow-y-auto no-scrollbar mt-4 px-6 pb-24">
                 <div className="space-y-4">
                     <Link href="https://explodingtopics.com/blog/most-popular-ai-tools" target="_blank" rel="noopener noreferrer" className="block group">
                         <Card className="bg-white/80 border-none rounded-3xl soft-shadow overflow-hidden transition-all duration-300 group-hover:scale-[1.02] group-hover:shadow-lg">
@@ -910,12 +917,17 @@ function App() {
                 </div>
             </TabsContent>
 
-            <TabsContent value="settings" className="flex-grow overflow-y-auto no-scrollbar mt-0 bg-secondary/30">
+            <TabsContent value="settings" className="flex-grow overflow-y-auto no-scrollbar mt-0 bg-secondary/30 pb-24">
                 <SettingsPage />
             </TabsContent>
         </Tabs>
 
-        <BottomNav onSendMessage={handleSendMessage} isGenerating={isGenerating} />
+        <FloatingChatButton 
+            onSendMessage={handleSendMessage}
+            isGenerating={isGenerating}
+            onButtonClick={handleChatButtonClick}
+            showInput={showChat || chatMessages.length > 0}
+        />
       </main>
     </div>
   );
