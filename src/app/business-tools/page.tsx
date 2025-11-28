@@ -39,7 +39,7 @@ const businessCategories = [
   { name: 'PROJECT MANAGEMENT', icon: <ListChecks />, url: '#' },
   { name: 'PAYMENTS', icon: <CreditCard />, url: '#' },
   { name: 'VIDEO CONFERENCING', icon: <Video />, url: '#' },
-  { name: 'CRM', icon: <Users />, url: '#' },
+  { name: 'CRM', icon: <Users />, url: '/business-tools/crm' },
   { name: 'MESSAGING', icon: <MessageSquare />, url: '#' },
   { name: 'GRAPHIC DESIGN', icon: <Paintbrush />, url: '#' },
   { name: 'BUSINESS PLANNING', icon: <Lightbulb />, url: '#' },
