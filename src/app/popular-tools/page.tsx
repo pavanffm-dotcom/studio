@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ArrowLeft, Share2, Star, TrendingUp } from 'lucide-react';
+import { ArrowLeft, Share2, Star, TrendingUp, Video } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -21,12 +21,13 @@ type Tool = {
     url: string;
 };
 
-const popularTools: Tool[] = [
+const textToVideoTools: Tool[] = [
   { name: 'Runway', url: 'https://runwayml.com/', image: 'https://picsum.photos/seed/runway-pop/300/200', category: 'Video', dataAiHint: 'abstract animation', isTrending: true },
   { name: 'Pika', url: 'https://pika.art/', image: 'https://picsum.photos/seed/pika-pop/300/200', category: 'Video', dataAiHint: 'cinematic video', isTrending: true },
-  { name: 'ElevenLabs', url: 'https://elevenlabs.io/', image: 'https://picsum.photos/seed/elevenlabs-pop/300/200', category: 'Audio', dataAiHint: 'sound waves', isTrending: true },
-  { name: 'Lensa AI', url: 'https://prisma-ai.com/lensa', image: 'https://picsum.photos/seed/lensa-pop/300/200', category: 'Image', dataAiHint: 'ai avatar', isTrending: true },
-  { name: 'Midjourney', url: 'https://www.midjourney.com/', image: 'https://picsum.photos/seed/midjourney-pop/300/200', category: 'Image', dataAiHint: 'generative art', isTrending: true },
+  { name: 'InVideo', url: 'https://invideo.io/', image: 'https://picsum.photos/seed/invideo-video/300/200', category: 'Video', dataAiHint: 'ai video editor', isTrending: true },
+  { name: 'Synthesia', url: 'https://www.synthesia.io/', image: 'https://picsum.photos/seed/synthesia-video/300/200', category: 'Video', dataAiHint: 'ai avatars', isTrending: true },
+  { name: 'HeyGen', url: 'https://www.heygen.com/', image: 'https://picsum.photos/seed/heygen-video/300/200', category: 'Video', dataAiHint: 'generative video', isTrending: true },
+  { name: 'Pictory', url: 'https://pictory.ai/', image: 'https://picsum.photos/seed/pictory-video/300/200', category: 'Video', dataAiHint: 'video from script', isTrending: true },
 ];
 
 const ToolCard = React.memo(({ tool, isFavourited, onFavouriteToggle, onShare, t }: { tool: Tool, isFavourited: boolean, onFavouriteToggle: (toolName: string) => void, onShare: (e: React.MouseEvent, tool: Tool) => void, t: (key: string) => string }) => {
@@ -37,7 +38,7 @@ const ToolCard = React.memo(({ tool, isFavourited, onFavouriteToggle, onShare, t
   }, [tool.name, onFavouriteToggle]);
 
   return (
-    <Link href={tool.url} target="_blank" rel="noopener noreferrer">
+    <Link href={tool.url} target="_blank" rel="noopener noreferrer" className="block w-40 shrink-0">
       <Card className="relative overflow-hidden group cursor-pointer bg-white/50 border-white/20 border-2 rounded-3xl h-full soft-shadow transition-transform hover:scale-105 duration-300">
         {tool.image && <Image src={tool.image} alt={tool.name} width={300} height={200} className="w-full aspect-[4/3] object-cover" data-ai-hint={tool.dataAiHint} />}
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
@@ -47,15 +48,15 @@ const ToolCard = React.memo(({ tool, isFavourited, onFavouriteToggle, onShare, t
             {t('tools.trendingBadge')}
           </Badge>
         )}
-        <div className="absolute bottom-0 left-0 right-0 p-3">
+        <div className="absolute bottom-0 left-0 right-0 p-2">
           <div className="flex justify-between items-end">
-            <h5 className="font-semibold text-white text-base leading-tight">{tool.name}</h5>
-            <div className="flex items-center gap-1">
-              <Button variant="ghost" size="icon" className="w-8 h-8 rounded-full text-white bg-white/20 hover:bg-white/30 backdrop-blur-sm" onClick={(e) => onShare(e, tool)}>
-                <Share2 className="w-4 h-4" />
+            <h5 className="font-semibold text-white text-sm leading-tight">{tool.name}</h5>
+            <div className="flex items-center gap-1 scale-90">
+              <Button variant="ghost" size="icon" className="w-7 h-7 rounded-full text-white bg-white/20 hover:bg-white/30 backdrop-blur-sm" onClick={(e) => onShare(e, tool)}>
+                <Share2 className="w-3 h-3" />
               </Button>
-              <Button variant="ghost" size="icon" className="w-8 h-8 rounded-full text-white bg-white/20 hover:bg-white/30 backdrop-blur-sm" onClick={handleFavouriteClick}>
-                <Star className={cn('w-5 h-5 transition-all', isFavourited ? 'fill-yellow-300 text-yellow-300' : 'text-white')}/>
+              <Button variant="ghost" size="icon" className="w-7 h-7 rounded-full text-white bg-white/20 hover:bg-white/30 backdrop-blur-sm" onClick={handleFavouriteClick}>
+                <Star className={cn('w-4 h-4 transition-all', isFavourited ? 'fill-yellow-300 text-yellow-300' : 'text-white')}/>
               </Button>
             </div>
           </div>
@@ -152,19 +153,29 @@ export default function PopularToolsPage() {
       </div>
 
       <main className="relative z-10 w-full max-w-sm flex-1 bg-card/80 backdrop-blur-3xl rounded-t-[2.5rem] shadow-2xl flex flex-col min-h-0 border-t-2 border-white/50 soft-shadow mt-6">
-        <div className="flex-grow overflow-y-auto no-scrollbar p-4">
-            <div className="grid grid-cols-2 gap-4">
-                {popularTools.map((tool) => (
-                    <ToolCard
-                        key={tool.name}
-                        tool={tool}
-                        isFavourited={favouritedTools.has(tool.name)}
-                        onFavouriteToggle={handleFavouriteToggle}
-                        onShare={(e) => handleShareTool(e, tool)}
-                        t={t}
-                    />
-                ))}
-            </div>
+        <div className="flex-grow overflow-y-auto no-scrollbar p-4 space-y-6">
+            <section>
+                <div className="flex justify-between items-center mb-3">
+                    <h2 className="font-semibold text-xl flex items-center gap-2">
+                        <Video className="w-5 h-5 text-primary"/>
+                        Text to Video
+                    </h2>
+                    <Button variant="link" className="text-primary p-0 h-auto font-semibold">{t('home.seeAll')}</Button>
+                </div>
+                <div className="flex gap-4 overflow-x-auto no-scrollbar pb-2 -mx-4 px-4">
+                    {textToVideoTools.map((tool) => (
+                        <ToolCard
+                            key={tool.name}
+                            tool={tool}
+                            isFavourited={favouritedTools.has(tool.name)}
+                            onFavouriteToggle={handleFavouriteToggle}
+                            onShare={(e) => handleShareTool(e, tool)}
+                            t={t}
+                        />
+                    ))}
+                </div>
+            </section>
+             {/* Future categories will be added here */}
         </div>
       </main>
     </div>
