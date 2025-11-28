@@ -515,6 +515,41 @@ const getFilteredTools = (activeCategory: string): Tool[] => {
     }
 };
 
+const ChatInputComponent = ({ chatInput, setChatInput, handleSendMessage, isGenerating }: { chatInput: string, setChatInput: (value: string) => void, handleSendMessage: (message: string) => void, isGenerating: boolean }) => {
+    const handleSend = () => {
+        handleSendMessage(chatInput);
+    };
+
+    const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+        if (event.key === 'Enter' && !isGenerating) {
+            handleSend();
+        }
+    };
+
+    return (
+        <div className="my-4">
+            <label className="block text-center text-muted-foreground text-sm mb-2">Ask what AI you want</label>
+            <div className="relative">
+                <Input
+                    placeholder="e.g. 'AI to clone my voice for free?'"
+                    className="bg-background rounded-full h-14 text-base pl-5 pr-14 border-2 border-primary/20 shadow-lg"
+                    value={chatInput}
+                    onChange={(e) => setChatInput(e.target.value)}
+                    onKeyDown={handleKeyPress}
+                    disabled={isGenerating}
+                />
+                <Button
+                    size="icon"
+                    className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full w-10 h-10 bg-gradient-to-br from-cute-purple to-lavender glow-shadow"
+                    onClick={handleSend}
+                    disabled={isGenerating}
+                >
+                    <Send className="w-5 h-5"/>
+                </Button>
+            </div>
+        </div>
+    );
+};
 
 const ToolCard = React.memo(({ tool, isFavourited, onFavouriteToggle, onShare, onClick, t }: { tool: Tool, isFavourited: boolean, onFavouriteToggle: (toolName: string) => void, onShare: (e: React.MouseEvent, tool: Tool) => void, onClick: (tool: Tool) => void, t: (key: string) => string }) => {
     const handleFavouriteClick = useCallback((e: React.MouseEvent) => {
@@ -544,7 +579,7 @@ const ToolCard = React.memo(({ tool, isFavourited, onFavouriteToggle, onShare, o
             <div className="flex justify-between items-end">
               <h5 className="font-semibold text-white text-base leading-tight">{tool.name}</h5>
               <div className="flex items-center gap-1">
-                <Button variant="ghost" size="icon" className="w-8 h-8 rounded-full text-white bg-white/20 hover:bg-white/30 backdrop-blur-sm" onClick={onShare}>
+                <Button variant="ghost" size="icon" className="w-8 h-8 rounded-full text-white bg-white/20 hover:bg-white/30 backdrop-blur-sm" onClick={(e) => onShare(e, tool)}>
                   <Share2 />
                 </Button>
                 <Button variant="ghost" size="icon" className="w-8 h-8 rounded-full text-white bg-white/20 hover:bg-white/30 backdrop-blur-sm" onClick={handleFavouriteClick}>
@@ -558,42 +593,6 @@ const ToolCard = React.memo(({ tool, isFavourited, onFavouriteToggle, onShare, o
     );
 });
 ToolCard.displayName = 'ToolCard';
-
-const ChatInputComponent = ({ chatInput, setChatInput, handleSendMessage, isGenerating }: { chatInput: string, setChatInput: (value: string) => void, handleSendMessage: (message: string) => void, isGenerating: boolean }) => {
-    const handleSend = () => {
-        handleSendMessage(chatInput);
-    };
-
-    const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
-        if (event.key === 'Enter' && !isGenerating) {
-            handleSend();
-        }
-    };
-
-    return (
-        <div className="my-4">
-            <label className="block text-center text-muted-foreground text-sm mb-2">Ask what AI you want</label>
-            <div className="relative">
-                <Input
-                    placeholder="e.g. 'Make an image of a cat riding a skateboard'"
-                    className="bg-background rounded-full h-14 text-base pl-5 pr-14 border-2 border-primary/20 shadow-lg"
-                    value={chatInput}
-                    onChange={(e) => setChatInput(e.target.value)}
-                    onKeyDown={handleKeyPress}
-                    disabled={isGenerating}
-                />
-                <Button
-                    size="icon"
-                    className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full w-10 h-10 bg-gradient-to-br from-cute-purple to-lavender glow-shadow"
-                    onClick={handleSend}
-                    disabled={isGenerating}
-                >
-                    <Send className="w-5 h-5"/>
-                </Button>
-            </div>
-        </div>
-    );
-};
 
 
 function App() {
