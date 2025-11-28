@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ArrowLeft, Share2, Star, TrendingUp, Video, ImageIcon } from 'lucide-react';
+import { ArrowLeft, Share2, Star, TrendingUp, Video, ImageIcon, Film } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -36,6 +36,14 @@ const textToImageTools: Tool[] = [
     { name: 'Canva AI', url: 'https://www.canva.com/ai-image-generator/', image: 'https://picsum.photos/seed/canva-ai/300/200', category: 'Image', dataAiHint: 'design tool', isTrending: true },
     { name: 'Stable Diffusion Online', url: 'https://stablediffusionweb.com/', image: 'https://picsum.photos/seed/stable-diffusion/300/200', category: 'Image', dataAiHint: 'open source ai', isTrending: false },
     { name: 'Leonardo AI', url: 'https://leonardo.ai/', image: 'https://picsum.photos/seed/leonardo-ai/300/200', category: 'Image', dataAiHint: 'game assets', isTrending: true },
+];
+
+const imageToVideoTools: Tool[] = [
+    { name: 'Pika Labs', url: 'https://pika.art/', image: 'https://picsum.photos/seed/pika-labs/300/200', category: 'Video', dataAiHint: 'generative video', isTrending: true },
+    { name: 'Runway Gen-2', url: 'https://runwayml.com/', image: 'https://picsum.photos/seed/runway-gen2/300/200', category: 'Video', dataAiHint: 'ai magic tools', isTrending: true },
+    { name: 'Kaiber AI', url: 'https://www.kaiber.ai/', image: 'https://picsum.photos/seed/kaiber-ai/300/200', category: 'Video', dataAiHint: 'visual storytelling', isTrending: true },
+    { name: 'CapCut', url: 'https://www.capcut.com/', image: 'https://picsum.photos/seed/capcut-anim/300/200', category: 'Video', dataAiHint: 'image animation', isTrending: true },
+    { name: 'Animaker AI', url: 'https://www.animaker.com/', image: 'https://picsum.photos/seed/animaker-ai/300/200', category: 'Video', dataAiHint: 'animation maker', isTrending: false },
 ];
 
 const ToolCard = React.memo(({ tool, isFavourited, onFavouriteToggle, onShare, t }: { tool: Tool, isFavourited: boolean, onFavouriteToggle: (toolName: string) => void, onShare: (e: React.MouseEvent, tool: Tool) => void, t: (key: string) => string }) => {
@@ -194,6 +202,28 @@ export default function PopularToolsPage() {
                 </div>
                 <div className="flex gap-4 overflow-x-auto no-scrollbar pb-2 -mx-4 px-4">
                     {textToImageTools.map((tool) => (
+                        <ToolCard
+                            key={tool.name}
+                            tool={tool}
+                            isFavourited={favouritedTools.has(tool.name)}
+                            onFavouriteToggle={handleFavouriteToggle}
+                            onShare={(e) => handleShareTool(e, tool)}
+                            t={t}
+                        />
+                    ))}
+                </div>
+            </section>
+            
+            <section>
+                <div className="flex justify-between items-center mb-3">
+                    <h2 className="font-semibold text-xl flex items-center gap-2">
+                        <Film className="w-5 h-5 text-primary"/>
+                        Image to video
+                    </h2>
+                    <Button variant="link" className="text-primary p-0 h-auto font-semibold">{t('home.seeAll')}</Button>
+                </div>
+                <div className="flex gap-4 overflow-x-auto no-scrollbar pb-2 -mx-4 px-4">
+                    {imageToVideoTools.map((tool) => (
                         <ToolCard
                             key={tool.name}
                             tool={tool}
