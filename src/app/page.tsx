@@ -50,8 +50,8 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { suggestAiTool, SuggestAiToolOutput } from '@/ai/flows/suggest-ai-tool';
 import { useToast } from '@/hooks/use-toast';
 import { useLanguage } from '@/lib/language';
-import { FloatingChatButton } from '@/components/floating-chat-button';
-import { useFavourites } from '@/context/favourites-context';
+import { FavouritesProvider, useFavourites } from '@/context/favourites-context';
+import { Input } from '@/components/ui/input';
 
 
 type Tool = {
@@ -570,6 +570,7 @@ function App() {
   const [chatMessages, setChatMessages] = React.useState<ChatMessage[]>([]);
   const [isGenerating, setIsGenerating] = React.useState(false);
   const [showChat, setShowChat] = React.useState(false);
+  const [chatInput, setChatInput] = React.useState('');
   const chatContainerRef = React.useRef<HTMLDivElement>(null);
   const { toast } = useToast();
   
@@ -617,6 +618,7 @@ function App() {
   }, [chatMessages]);
 
   const handleSendMessage = useCallback(async (message: string) => {
+    if (!message.trim()) return;
     if (!showChat) setShowChat(true);
 
     const newUserMessage: ChatMessage = {
@@ -632,6 +634,7 @@ function App() {
     ]);
   
     setIsGenerating(true);
+    setChatInput('');
   
     let finalAnswer: ChatMessage | null = null;
   
@@ -682,15 +685,46 @@ function App() {
   
   const trendingTools: Tool[] = [];
 
-  const handleChatButtonClick = () => {
-    setShowChat(true);
-    setActiveTab('home');
-  };
-
   const handleCloseChat = () => {
     setShowChat(false);
     setChatMessages([]);
   }
+
+  const ChatInputComponent = () => {
+    const handleSend = () => {
+        handleSendMessage(chatInput);
+    };
+
+    const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+        if (event.key === 'Enter' && !isGenerating) {
+            handleSend();
+        }
+    };
+
+    return (
+        <div className="my-4">
+            <label className="block text-center text-muted-foreground text-sm mb-2">Ask what AI you want</label>
+            <div className="relative">
+                <Input
+                    placeholder="e.g. 'Make an image of a cat riding a skateboard'"
+                    className="bg-background rounded-full h-14 text-base pl-5 pr-14 border-2 border-primary/20 shadow-lg"
+                    value={chatInput}
+                    onChange={(e) => setChatInput(e.target.value)}
+                    onKeyDown={handleKeyPress}
+                    disabled={isGenerating}
+                />
+                <Button
+                    size="icon"
+                    className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full w-10 h-10 bg-gradient-to-br from-cute-purple to-lavender glow-shadow"
+                    onClick={handleSend}
+                    disabled={isGenerating}
+                >
+                    <Send className="w-5 h-5"/>
+                </Button>
+            </div>
+        </div>
+    );
+};
 
 
   const renderChatInterface = () => (
@@ -778,6 +812,8 @@ function App() {
   
   const renderHomeScreen = () => (
     <>
+      <ChatInputComponent />
+      
       <div className="bg-gradient-to-br from-cute-purple to-lavender text-primary-foreground p-6 rounded-3xl my-4 relative overflow-hidden soft-shadow">
           <div className="absolute -right-4 -bottom-10 w-36 h-36 opacity-30">
               <Image src="https://picsum.photos/seed/ai-person/200/200" alt="AI illustration" width={144} height={144} className="object-contain" data-ai-hint="AI illustration person"/>
@@ -946,6 +982,11 @@ function App() {
         <Tabs value={activeTab} className="flex-grow flex flex-col overflow-hidden">
             <TabsContent value="home" className="flex-grow overflow-y-auto px-6 pb-24 no-scrollbar mt-0" ref={chatContainerRef}>
                 {(showChat || chatMessages.length > 0) ? renderChatInterface() : renderHomeScreen()}
+                 {(showChat || chatMessages.length > 0) &&
+                    <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-sm p-4 bg-card/80 backdrop-blur-3xl">
+                        <ChatInputComponent />
+                    </div>
+                }
             </TabsContent>
 
             <TabsContent value="tools" className="flex-grow overflow-hidden flex flex-col mt-4 pb-24">
@@ -1038,13 +1079,6 @@ function App() {
                 <SettingsPage />
             </TabsContent>
         </Tabs>
-
-        <FloatingChatButton 
-            onSendMessage={handleSendMessage}
-            isGenerating={isGenerating}
-            onButtonClick={handleChatButtonClick}
-            showInput={showChat || chatMessages.length > 0}
-        />
       </main>
     </div>
   );
@@ -1053,7 +1087,9 @@ function App() {
 export default function GalaxyApp() {
   return (
     <AuthGate>
-      <App />
+        <FavouritesProvider>
+            <App />
+        </FavouritesProvider>
     </AuthGate>
   );
 }
