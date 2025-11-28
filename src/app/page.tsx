@@ -790,7 +790,9 @@ function App() {
       <section>
           <div className="flex justify-between items-center mb-3">
               <h4 className="font-semibold text-xl">{t('home.popularTools.title')}</h4>
-              <Button variant="link" className="text-primary p-0 h-auto font-semibold" onClick={() => setActiveTab('tools')}>{t('home.seeAll')}</Button>
+              <Link href="/popular-tools" passHref>
+                <Button variant="link" className="text-primary p-0 h-auto font-semibold">{t('home.seeAll')}</Button>
+              </Link>
           </div>
           <div className="flex gap-4 overflow-x-auto no-scrollbar pb-2 -mx-6 px-6">
               {popularTools.map(tool => (
