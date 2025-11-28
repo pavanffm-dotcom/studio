@@ -51,8 +51,8 @@ const ToolCard = React.memo(({ tool, isFavourited, onFavouriteToggle, onShare, t
           <div className="flex justify-between items-end">
             <h5 className="font-semibold text-white text-base leading-tight">{tool.name}</h5>
             <div className="flex items-center gap-1">
-              <Button variant="ghost" size="icon" className="w-8 h-8 rounded-full text-white bg-white/20 hover:bg-white/30 backdrop-blur-sm" onClick={onShare}>
-                <Share2 />
+              <Button variant="ghost" size="icon" className="w-8 h-8 rounded-full text-white bg-white/20 hover:bg-white/30 backdrop-blur-sm" onClick={(e) => onShare(e, tool)}>
+                <Share2 className="w-4 h-4" />
               </Button>
               <Button variant="ghost" size="icon" className="w-8 h-8 rounded-full text-white bg-white/20 hover:bg-white/30 backdrop-blur-sm" onClick={handleFavouriteClick}>
                 <Star className={cn('w-5 h-5 transition-all', isFavourited ? 'fill-yellow-300 text-yellow-300' : 'text-white')}/>
@@ -70,7 +70,27 @@ ToolCard.displayName = 'ToolCard';
 export default function PopularToolsPage() {
     const { t } = useLanguage();
     const { toast } = useToast();
-    const [favouritedTools, setFavouritedTools] = React.useState<Set<string>>(() => new Set(['Runway', 'Pika']));
+    const [favouritedTools, setFavouritedTools] = React.useState<Set<string>>(() => new Set());
+
+    React.useEffect(() => {
+        try {
+            const savedFavourites = localStorage.getItem('favouritedTools');
+            if (savedFavourites) {
+                setFavouritedTools(new Set(JSON.parse(savedFavourites)));
+            }
+        } catch (error) {
+            console.error("Failed to load favourites from localStorage", error);
+        }
+    }, []);
+
+    React.useEffect(() => {
+        try {
+            localStorage.setItem('favouritedTools', JSON.stringify(Array.from(favouritedTools)));
+        } catch (error) {
+            console.error("Failed to save favourites to localStorage", error);
+        }
+    }, [favouritedTools]);
+
 
     const handleFavouriteToggle = React.useCallback((toolName: string) => {
         setFavouritedTools(prev => {

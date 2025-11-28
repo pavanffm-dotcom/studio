@@ -3,9 +3,11 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ArrowLeft, ExternalLink, Paintbrush } from 'lucide-react';
+import { ArrowLeft, ExternalLink, Paintbrush, Star, Share2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardTitle } from '@/components/ui/card';
+import { useToast } from '@/hooks/use-toast';
+import { cn } from '@/lib/utils';
 
 const graphicDesignTools = [
   {
@@ -32,6 +34,67 @@ const graphicDesignTools = [
 ];
 
 export default function GraphicDesignToolsPage() {
+    const { toast } = useToast();
+    const [favouritedTools, setFavouritedTools] = React.useState<Set<string>>(() => new Set());
+
+    React.useEffect(() => {
+        try {
+            const savedFavourites = localStorage.getItem('favouritedTools');
+            if (savedFavourites) {
+                setFavouritedTools(new Set(JSON.parse(savedFavourites)));
+            }
+        } catch (error) {
+            console.error("Failed to load favourites from localStorage", error);
+        }
+    }, []);
+
+    React.useEffect(() => {
+        try {
+            localStorage.setItem('favouritedTools', JSON.stringify(Array.from(favouritedTools)));
+        } catch (error) {
+            console.error("Failed to save favourites to localStorage", error);
+        }
+    }, [favouritedTools]);
+
+    const handleFavouriteToggle = React.useCallback((e: React.MouseEvent, toolName: string) => {
+        e.preventDefault();
+        e.stopPropagation();
+        setFavouritedTools(prev => {
+          const newFavourites = new Set(prev);
+          if (newFavourites.has(toolName)) {
+            newFavourites.delete(toolName);
+          } else {
+            newFavourites.add(toolName);
+          }
+          return newFavourites;
+        });
+    }, []);
+
+    const handleShareTool = React.useCallback(async (e: React.MouseEvent, tool: typeof graphicDesignTools[0]) => {
+        e.preventDefault();
+        e.stopPropagation();
+    
+        const shareData = {
+          title: tool.name,
+          text: `Check out this AI tool: ${tool.name}`,
+          url: tool.url,
+        };
+    
+        if (navigator.share) {
+          try {
+            await navigator.share(shareData);
+          } catch (err) {
+            console.error("Error sharing:", err);
+          }
+        } else {
+          navigator.clipboard.writeText(tool.url);
+          toast({
+            title: "Link Copied!",
+            description: `${tool.name}'s URL has been copied to your clipboard.`,
+          });
+        }
+    }, [toast]);
+
   return (
     <div className="bg-background min-h-screen flex flex-col items-center justify-start font-body relative overflow-hidden">
       <div className="absolute inset-0 z-0 opacity-50">
@@ -77,8 +140,20 @@ export default function GraphicDesignToolsPage() {
                       </div>
                   </div>
                   <div className='p-4'>
-                    <CardTitle className="text-lg font-bold text-foreground">{tool.name}</CardTitle>
-                    <p className="text-sm text-muted-foreground mt-1">{tool.description}</p>
+                    <div className="flex justify-between items-start">
+                        <div>
+                            <CardTitle className="text-lg font-bold text-foreground">{tool.name}</CardTitle>
+                            <p className="text-sm text-muted-foreground mt-1">{tool.description}</p>
+                        </div>
+                        <div className="flex items-center gap-1 shrink-0 pl-2">
+                            <Button variant="ghost" size="icon" className="w-8 h-8 rounded-full text-foreground/80 bg-white/30 hover:bg-white/50" onClick={(e) => handleShareTool(e, tool)}>
+                                <Share2 className="w-4 h-4" />
+                            </Button>
+                            <Button variant="ghost" size="icon" className="w-8 h-8 rounded-full text-foreground/80 bg-white/30 hover:bg-white/50" onClick={(e) => handleFavouriteToggle(e, tool.name)}>
+                                <Star className={cn('w-5 h-5 transition-all', favouritedTools.has(tool.name) ? 'fill-yellow-300 text-yellow-300' : 'text-foreground/60')}/>
+                            </Button>
+                        </div>
+                    </div>
                   </div>
                 </Card>
               </Link>
