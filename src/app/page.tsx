@@ -743,12 +743,18 @@ function App() {
                     <p className="text-muted-foreground text-sm">{tool.reason}</p>
                   </div>
                 </div>
-                <Link href={tool.url} target="_blank" rel="noopener noreferrer">
-                  <Button className="w-full h-12 text-base font-bold glow-shadow gap-2" onClick={(e) => handleShareTool(e, fullTool)}>
+                <div className="flex flex-col space-y-2">
+                  <Link href={tool.url} target="_blank" rel="noopener noreferrer">
+                    <Button className="w-full h-12 text-base font-bold glow-shadow gap-2">
+                      <ExternalLink />
+                      Open {tool.toolName}
+                    </Button>
+                  </Link>
+                  <Button variant="outline" className="w-full h-12 text-base gap-2" onClick={(e) => handleShareTool(e, fullTool)}>
                     <Share2 />
-                    {tool.toolName}
+                    Share
                   </Button>
-                </Link>
+                </div>
               </CardContent>
             </Card>
           </div>
