@@ -522,12 +522,14 @@ const ToolCard = React.memo(({ tool, isFavourited, onFavouriteToggle, onShare, o
       onFavouriteToggle(tool.name);
     }, [tool.name, onFavouriteToggle]);
   
-    const handleCardClick = useCallback(() => {
+    const handleCardClick = useCallback((e: React.MouseEvent) => {
+        e.preventDefault();
         onClick(tool);
+        window.open(tool.url, '_blank', 'noopener,noreferrer');
     }, [tool, onClick]);
   
     return (
-      <Link href={tool.url} target="_blank" rel="noopener noreferrer" onClick={handleCardClick}>
+      <a href={tool.url} target="_blank" rel="noopener noreferrer" onClick={handleCardClick}>
         <Card className="relative overflow-hidden group cursor-pointer bg-white/50 border-white/20 border-2 rounded-3xl h-full soft-shadow transition-transform hover:scale-105 duration-300">
           {tool.image && <Image src={tool.image} alt={tool.name} width={300} height={200} className="w-full aspect-[4/3] object-cover" data-ai-hint={tool.dataAiHint} />}
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
@@ -551,7 +553,7 @@ const ToolCard = React.memo(({ tool, isFavourited, onFavouriteToggle, onShare, o
             </div>
           </div>
         </Card>
-      </Link>
+      </a>
     );
 });
 ToolCard.displayName = 'ToolCard';
@@ -561,7 +563,7 @@ function App() {
   const { t } = useLanguage();
   const [activeTab, setActiveTab] = React.useState('home');
   const [activeCategory, setActiveCategory] = React.useState('All');
-  const [favouritedTools, setFavouritedTools] = React.useState<Set<string>>(() => new Set(['Runway', 'Pika']));
+  const [favouritedTools, setFavouritedTools] = React.useState<Set<string>>(() => new Set());
   const [recentTools, setRecentTools] = React.useState<Tool[]>([]);
   const [toolClicks, setToolClicks] = React.useState<Record<string, number>>({});
   const [chatMessages, setChatMessages] = React.useState<ChatMessage[]>([]);
@@ -569,6 +571,29 @@ function App() {
   const [showChat, setShowChat] = React.useState(false);
   const chatContainerRef = React.useRef<HTMLDivElement>(null);
   const { toast } = useToast();
+
+  React.useEffect(() => {
+    try {
+      const savedFavourites = localStorage.getItem('favouritedTools');
+      if (savedFavourites) {
+        setFavouritedTools(new Set(JSON.parse(savedFavourites)));
+      } else {
+        // Pre-favourite some tools for new users
+        setFavouritedTools(new Set(['Runway', 'Pika']));
+      }
+    } catch (error) {
+        console.error("Failed to load favourites from localStorage", error);
+        setFavouritedTools(new Set(['Runway', 'Pika']));
+    }
+  }, []);
+
+  React.useEffect(() => {
+    try {
+        localStorage.setItem('favouritedTools', JSON.stringify(Array.from(favouritedTools)));
+    } catch (error) {
+        console.error("Failed to save favourites to localStorage", error);
+    }
+  }, [favouritedTools]);
 
 
   const handleFavouriteToggle = useCallback((toolName: string) => {
@@ -807,12 +832,12 @@ function App() {
           </div>
           <div className="flex gap-4 overflow-x-auto no-scrollbar pb-2 -mx-6 px-6">
               {popularTools.map(tool => (
-                  <Link href={tool.url} target="_blank" rel="noopener noreferrer" key={tool.name} className="flex flex-col items-center shrink-0 w-24 text-center cursor-pointer" onClick={() => handleToolClick(tool)}>
+                  <a href={tool.url} target="_blank" rel="noopener noreferrer" key={tool.name} className="flex flex-col items-center shrink-0 w-24 text-center cursor-pointer" onClick={() => handleToolClick(tool)}>
                       <div className="w-20 h-20 rounded-3xl bg-secondary flex items-center justify-center text-primary soft-shadow">
                           {tool.icon}
                       </div>
                       <p className="text-sm font-medium text-center mt-2 text-muted-foreground">{tool.name}</p>
-                  </Link>
+                  </a>
               ))}
           </div>
       </section>
