@@ -50,7 +50,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { suggestAiTool, SuggestAiToolOutput } from '@/ai/flows/suggest-ai-tool';
 import { useToast } from '@/hooks/use-toast';
 import { useLanguage } from '@/lib/language';
-import { FavouritesProvider, useFavourites } from '@/context/favourites-context';
+import { useFavourites } from '@/context/favourites-context';
 import { Input } from '@/components/ui/input';
 
 
@@ -517,7 +517,9 @@ const getFilteredTools = (activeCategory: string): Tool[] => {
 
 const ChatInputComponent = ({ chatInput, setChatInput, handleSendMessage, isGenerating }: { chatInput: string, setChatInput: (value: string) => void, handleSendMessage: (message: string) => void, isGenerating: boolean }) => {
     const handleSend = () => {
-        handleSendMessage(chatInput);
+        if (!isGenerating) {
+            handleSendMessage(chatInput);
+        }
     };
 
     const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -1095,9 +1097,7 @@ function App() {
 export default function GalaxyApp() {
   return (
     <AuthGate>
-        <FavouritesProvider>
-            <App />
-        </FavouritesProvider>
+      <App />
     </AuthGate>
   );
 }
