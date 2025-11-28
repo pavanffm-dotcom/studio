@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ArrowLeft, Share2, Star, TrendingUp, Video, ImageIcon, Film, Mic } from 'lucide-react';
+import { ArrowLeft, Share2, Star, TrendingUp, Video, ImageIcon, Film, Mic, Voicemail } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -52,6 +52,13 @@ const textToSpeechTools: Tool[] = [
     { name: 'Google TTS', url: 'https://cloud.google.com/text-to-speech', image: 'https://picsum.photos/seed/google-tts/300/200', category: 'Audio', dataAiHint: 'cloud voice', isTrending: false },
     { name: 'Murf.ai', url: 'https://murf.ai/', image: 'https://picsum.photos/seed/murf-tts/300/200', category: 'Audio', dataAiHint: 'voiceover', isTrending: true },
     { name: 'TTSMaker', url: 'https://ttsmaker.com/', image: 'https://picsum.photos/seed/ttsmaker-tts/300/200', category: 'Audio', dataAiHint: 'free tts', isTrending: false },
+];
+
+const voiceCloningTools: Tool[] = [
+    { name: 'ElevenLabs', url: 'https://elevenlabs.io/', image: 'https://picsum.photos/seed/elevenlabs-vc/300/200', category: 'Audio', dataAiHint: 'voice cloning', isTrending: true },
+    { name: 'Voicemod', url: 'https://www.voicemod.net/', image: 'https://picsum.photos/seed/voicemod-vc/300/200', category: 'Audio', dataAiHint: 'ai voice', isTrending: true },
+    { name: 'Resemble AI', url: 'https://www.resemble.ai/', image: 'https://picsum.photos/seed/resemble-vc/300/200', category: 'Audio', dataAiHint: 'custom voice', isTrending: false },
+    { name: 'Uberduck', url: 'https://uberduck.ai/', image: 'https://picsum.photos/seed/uberduck-vc/300/200', category: 'Audio', dataAiHint: 'text to rap', isTrending: false },
 ];
 
 const ToolCard = React.memo(({ tool, isFavourited, onFavouriteToggle, onShare, t }: { tool: Tool, isFavourited: boolean, onFavouriteToggle: (toolName: string) => void, onShare: (e: React.MouseEvent, tool: Tool) => void, t: (key: string) => string }) => {
@@ -264,7 +271,27 @@ export default function PopularToolsPage() {
                     ))}
                 </div>
             </section>
-             {/* Future categories will be added here */}
+             <section>
+                <div className="flex justify-between items-center mb-3">
+                    <h2 className="font-semibold text-xl flex items-center gap-2">
+                        <Voicemail className="w-5 h-5 text-primary"/>
+                        Voice Cloning
+                    </h2>
+                    <Button variant="link" className="text-primary p-0 h-auto font-semibold">{t('home.seeAll')}</Button>
+                </div>
+                <div className="flex gap-4 overflow-x-auto no-scrollbar pb-2 -mx-4 px-4">
+                    {voiceCloningTools.map((tool) => (
+                        <ToolCard
+                            key={tool.name}
+                            tool={tool}
+                            isFavourited={favouritedTools.has(tool.name)}
+                            onFavouriteToggle={handleFavouriteToggle}
+                            onShare={(e) => handleShareTool(e, tool)}
+                            t={t}
+                        />
+                    ))}
+                </div>
+            </section>
         </div>
       </main>
     </div>
