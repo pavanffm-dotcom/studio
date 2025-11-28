@@ -31,7 +31,7 @@ const businessCategories = [
   { name: 'BEST FREE STARTUP TOOLS', icon: <Briefcase />, url: '#' },
   { name: 'BACKEND', icon: <Server />, url: '/business-tools/backend' },
   { name: 'SCHEDULING', icon: <Calendar />, url: '/business-tools/scheduling' },
-  { name: 'LOW CODE PLATFORM', icon: <Layers />, url: '#' },
+  { name: 'LOW CODE PLATFORM', icon: <Layers />, url: '/business-tools/low-code-platform' },
   { name: 'MARKETING TOOLS', icon: <Megaphone />, url: '#' },
   { name: 'SALES TOOLS', icon: <BarChart />, url: '#' },
   { name: 'SEO TOOLS', icon: <BarChart />, url: '#' },
