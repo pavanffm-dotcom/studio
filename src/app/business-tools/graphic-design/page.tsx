@@ -4,7 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { 
-    ArrowLeft, ExternalLink, Paintbrush, Star, Share2, Palette, Instagram, Youtube, Clapperboard, Megaphone, Tv, Brush, Layout, PenTool, SwatchBook, Workflow, Scan, Sparkles, Wand2, Film, Package, Tag, GlassWater, Utensils, Pencil, Bot, CircleDashed, Book, Newspaper, FileText, FilePieChart, Car, Building2, Ticket, Printer, ThumbsUp, Code, Presentation, DraftingCompass, Wind, Box, Lightbulb, Users, BarChart
+    ArrowLeft, ExternalLink, Paintbrush, Star, Share2, Palette, Instagram, Youtube, Clapperboard, Megaphone
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardTitle } from '@/components/ui/card';
@@ -105,54 +105,6 @@ const toolData: ToolCategory[] = [
             { name: 'Shuttlerock', description: 'Mobile-first video ad creatives made easy.', url: 'https://www.shuttlerock.com/', image: 'https://picsum.photos/seed/shuttlerock-ads/600/400', dataAiHint: 'mobile creative' },
             { name: 'Bannersnack', description: 'Now part of Creatopy, an online banner maker.', url: 'https://www.creatopy.com/online-banner-maker/', image: 'https://picsum.photos/seed/bannersnack-ads/600/400', dataAiHint: 'banner maker' },
             { name: 'Marpipe', description: 'Test your ad creatives at scale to find what works.', url: 'https://www.marpipe.com/', image: 'https://picsum.photos/seed/marpipe-ads/600/400', dataAiHint: 'creative testing' },
-        ]
-    },
-     {
-        title: "Social Media Graphics",
-        icon: <ThumbsUp className="w-5 h-5 text-primary"/>,
-        tools: [
-            { name: 'Canva', description: 'The go-to tool for creating any kind of social media graphic.', url: 'https://www.canva.com/create/social-media-graphics/', image: 'https://picsum.photos/seed/canva-social/600/400', dataAiHint: 'social media' },
-            { name: 'Adobe Express', description: 'Free social media content creator with powerful features.', url: 'https://www.adobe.com/express/create/social-media-graphic', image: 'https://picsum.photos/seed/adobe-social/600/400', dataAiHint: 'creative cloud' },
-            { name: 'Visme', description: 'Create social media graphics that are anything but boring.', url: 'https://www.visme.co/social-media-graphics/', image: 'https://picsum.photos/seed/visme-social/600/400', dataAiHint: 'engaging graphics' },
-            { name: 'Fotor', description: 'AI-powered social media post maker and designer.', url: 'https://www.fotor.com/create/social-media.html', image: 'https://picsum.photos/seed/fotor-social/600/400', dataAiHint: 'ai posts' },
-            { name: 'Piktochart', description: 'Turn text or data into engaging social graphics.', url: 'https://piktochart.com/formats/social-media-graphics/', image: 'https://picsum.photos/seed/piktochart-social/600/400', dataAiHint: 'infographics' },
-            { name: 'Snappa', description: 'The fastest way to create graphics for social media.', url: 'https://snappa.com/', image: 'https://picsum.photos/seed/snappa-social/600/400', dataAiHint: 'quick graphics' },
-            { name: 'Pablo by Buffer', description: 'Design engaging social media images in under 30 seconds.', url: 'https://pablo.buffer.com/', image: 'https://picsum.photos/seed/pablo-social/600/400', dataAiHint: 'fast images' },
-            { name: 'Pixlr', description: 'A suite of online photo editors for quick edits and designs.', url: 'https://pixlr.com/', image: 'https://picsum.photos/seed/pixlr-social/600/400', dataAiHint: 'online editor' },
-            { name: 'Glorify', description: 'Product-focused social media graphics for e-commerce.', url: 'https://www.glorify.com/', image: 'https://picsum.photos/seed/glorify-social/600/400', dataAiHint: 'ecommerce graphics' },
-            { name: 'Easil', description: 'Brand-locked templates to maintain consistency.', url: 'https://about.easil.com/', image: 'https://picsum.photos/seed/easil-social/600/400', dataAiHint: 'brand templates' },
-        ]
-    },
-    {
-        title: "Website Design",
-        icon: <Code className="w-5 h-5 text-primary"/>,
-        tools: [
-            { name: 'Figma', description: 'The collaborative interface design tool.', url: 'https://www.figma.com/', image: 'https://picsum.photos/seed/figma-web/600/400', dataAiHint: 'ui design' },
-            { name: 'Uizard', description: 'AI-powered design tool to go from idea to mockup in minutes.', url: 'https://uizard.io/', image: 'https://picsum.photos/seed/uizard-web/600/400', dataAiHint: 'ai wireframe' },
-            { name: 'Wix ADI', description: 'Artificial Design Intelligence that builds a website for you.', url: 'https://www.wix.com/adi', image: 'https://picsum.photos/seed/wix-web/600/400', dataAiHint: 'ai website' },
-            { name: 'Framer AI', description: 'Generate and publish your site with AI in seconds.', url: 'https://www.framer.com/ai', image: 'https://picsum.photos/seed/framer-web/600/400', dataAiHint: 'ai publish' },
-            { name: 'Webflow', description: 'Build professional websites with no code.', url: 'https://webflow.com/', image: 'https://picsum.photos/seed/webflow-web/600/400', dataAiHint: 'no-code' },
-            { name: 'Sketch', description: 'The design platform for digital experiences (macOS only).', url: 'https://www.sketch.com/', image: 'https://picsum.photos/seed/sketch-web/600/400', dataAiHint: 'vector design' },
-            { name: 'Adobe XD', description: 'A powerful vector-based tool for designing and prototyping.', url: 'https://www.adobe.com/products/xd.html', image: 'https://picsum.photos/seed/xd-web/600/400', dataAiHint: 'prototyping' },
-            { name: 'Durable', description: 'The AI website builder that generates a site in 30 seconds.', url: 'https://durable.co/', image: 'https://picsum.photos/seed/durable-web/600/400', dataAiHint: 'fast website' },
-            { name: 'Squarespace', description: 'All-in-one platform to build a beautiful online presence.', url: 'https://www.squarespace.com/', image: 'https://picsum.photos/seed/squarespace-web/600/400', dataAiHint: 'website builder' },
-            { name: 'Bubble', description: 'The most powerful no-code platform for creating web apps.', url: 'https://bubble.io/', image: 'https://picsum.photos/seed/bubble-web/600/400', dataAiHint: 'web app' },
-        ]
-    },
-    {
-        title: "3D Modeling",
-        icon: <Box className="w-5 h-5 text-primary"/>,
-        tools: [
-            { name: 'Blender', description: 'Free and open source 3D creation suite.', url: 'https://www.blender.org/', image: 'https://picsum.photos/seed/blender-3d/600/400', dataAiHint: '3d animation' },
-            { name: 'Spline', description: 'A collaborative 3D design tool for the web.', url: 'https://spline.design/', image: 'https://picsum.photos/seed/spline-3d/600/400', dataAiHint: 'web 3d' },
-            { name: 'Luma AI', description: 'Capture realistic 3D models from your phone.', url: 'https://lumalabs.ai/', image: 'https://picsum.photos/seed/luma-3d/600/400', dataAiHint: '3d capture' },
-            { name: 'Masterpiece Studio', description: 'The complete VR 3D creative suite.', url: 'https://masterpiecestudio.com/', image: 'https://picsum.photos/seed/masterpiece-3d/600/400', dataAiHint: 'vr creation' },
-            { name: 'Meshy', description: 'Create 3D assets from text or images with AI.', url: 'https://www.meshy.ai/', image: 'https://picsum.photos/seed/meshy-3d/600/400', dataAiHint: 'ai 3d' },
-            { name: 'Tinkercad', description: 'A free, easy-to-use app for 3D design, electronics, and coding.', url: 'https://www.tinkercad.com/', image: 'https://picsum.photos/seed/tinkercad-3d/600/400', dataAiHint: 'beginner 3d' },
-            { name: 'SketchUp Free', description: 'The easiest way to draw in 3D, now in your browser.', url: 'https://www.sketchup.com/plans-and-pricing/sketchup-free', image: 'https://picsum.photos/seed/sketchup-3d/600/400', dataAiHint: 'architecture 3d' },
-            { name: 'Vectary', description: 'The online 3D & AR design platform.', url: 'https://www.vectary.com/', image: 'https://picsum.photos/seed/vectary-3d/600/400', dataAiHint: 'ar design' },
-            { name: '3D Slash', description: 'Unique 3D modeling app with a building-block concept.', url: 'https://www.3dslash.net/', image: 'https://picsum.photos/seed/3dslash-3d/600/400', dataAiHint: 'easy modeling' },
-            { name: 'Kaedim', description: 'Generate 3D models from 2D images in minutes.', url: 'https://www.kaedim3d.com/', image: 'https://picsum.photos/seed/kaedim-3d/600/400', dataAiHint: 'image to 3d' },
         ]
     }
 ];
@@ -274,5 +226,3 @@ export default function GraphicDesignToolsPage() {
     </div>
   );
 }
-
-    
