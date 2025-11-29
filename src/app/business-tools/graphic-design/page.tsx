@@ -4,7 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { 
-    ArrowLeft, ExternalLink, Paintbrush, Star, Share2, Palette, Instagram, Youtube, Clapperboard, Megaphone, Tv, Layout, FileText, Globe, Gem, Braces, Smartphone, LayoutDashboard, BookOpen, Contact, Type, PenTool, ImagePlay, Sparkles, Shapes, UserCircle, BrainCircuit, Newspaper, BoxSelect, MousePointerClick
+    ArrowLeft, ExternalLink, Paintbrush, Star, Share2, Palette, Instagram, Youtube, Clapperboard, Megaphone, Tv, Layout, FileText, Globe, Gem, Braces, Smartphone, LayoutDashboard, BookOpen, Contact, Type, PenTool, ImagePlay, Sparkles, Shapes, UserCircle, BrainCircuit, Newspaper, BoxSelect, MousePointerClick, BookCopy, Wall, Car, Store, Tower3d, Cube, Truck, Film
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardTitle } from '@/components/ui/card';
@@ -263,7 +263,7 @@ const toolData: ToolCategory[] = [
             { name: 'Canva', description: 'Design professional brochures with free templates.', url: 'https://www.canva.com/create/brochures/', image: 'https://picsum.photos/seed/canva-brochure/600/400', dataAiHint: 'brochure template' },
             { name: 'Adobe Express', description: 'Free online brochure maker with stunning layouts.', url: 'https://www.adobe.com/express/create/brochure', image: 'https://picsum.photos/seed/adobe-brochure/600/400', dataAiHint: 'layout design' },
             { name: 'VistaCreate', description: 'Create brochures for your business in minutes.', url: 'https://create.vista.com/create/brochure/', image: 'https://picsum.photos/seed/vista-brochure/600/400', dataAiHint: 'business brochure' },
-            { name: 'Lucidpress (Marq)', description: 'Brand templating platform to create on-brand brochures.', url: 'https://www.marq.com/pages/brochures', image: 'https://picsum.photos/seed/lucidpress-brochure/600/400', dataAiHint: 'brand templates' },
+            { name: 'Marq (Lucidpress)', description: 'Brand templating platform to create on-brand brochures.', url: 'https://www.marq.com/pages/brochures', image: 'https://picsum.photos/seed/lucidpress-brochure/600/400', dataAiHint: 'brand templates' },
             { name: 'MyCreativeShop', description: 'The easiest way to create amazing brochures.', url: 'https://www.mycreativeshop.com/brochure-maker.html', image: 'https://picsum.photos/seed/mycreative-brochure/600/400', dataAiHint: 'custom brochure' },
             { name: 'Flipsnack', description: 'Turn your PDFs into interactive digital brochures.', url: 'https://www.flipsnack.com/brochure-maker', image: 'https://picsum.photos/seed/flipsnack-brochure/600/400', dataAiHint: 'digital brochure' },
             { name: 'Venngage', description: 'The simple design tool for business communications.', url: 'https://venngage.com/features/brochure-maker', image: 'https://picsum.photos/seed/venngage-brochure/600/400', dataAiHint: 'infographic brochure' },
@@ -449,7 +449,7 @@ const toolData: ToolCategory[] = [
         ]
     },
     {
-        title: "Comics &amp; Manga",
+        title: "Comics & Manga",
         icon: <BookOpen className="w-5 h-5 text-primary"/>,
         tools: [
             { name: 'Clip Studio Paint', description: 'The all-in-one tool for creating comics and manga.', url: 'https://www.clipstudio.net/en/', image: 'https://picsum.photos/seed/clipstudio-comic/600/400', dataAiHint: 'manga art' },
@@ -510,6 +510,150 @@ const toolData: ToolCategory[] = [
             { name: 'Madmagz', description: 'Create magazines collaboratively, in print or web format.', url: 'https://madmagz.com/ ', image: 'https://picsum.photos/seed/madmagz/600/400', dataAiHint: 'collaborative' },
             { name: 'QuarkXPress', description: 'The powerful page layout and digital publishing software.', url: 'https://www.quark.com/', image: 'https://picsum.photos/seed/quark-mag/600/400', dataAiHint: 'content design' },
             { name: 'MagLoft', description: 'Digital magazine publishing software for mobile apps.', url: 'https://www.magloft.com/', image: 'https://picsum.photos/seed/magloft/600/400', dataAiHint: 'mobile publishing' },
+        ]
+    },
+    {
+        title: "Catalogs",
+        icon: <BookCopy className="w-5 h-5 text-primary"/>,
+        tools: [
+            { name: 'Flipsnack', description: 'Create stunning digital catalogs and brochures.', url: 'https://www.flipsnack.com/catalog-maker', image: 'https://picsum.photos/seed/flipsnack-cat/600/400', dataAiHint: 'digital catalog' },
+            { name: 'Publitas', description: 'Publish your catalogs online with a seamless experience.', url: 'https://www.publitas.com/', image: 'https://picsum.photos/seed/publitas-cat/600/400', dataAiHint: 'online catalog' },
+            { name: 'Canva', description: 'Design professional product catalogs with ease.', url: 'https://www.canva.com/create/catalogs/', image: 'https://picsum.photos/seed/canva-cat/600/400', dataAiHint: 'product catalog' },
+            { name: 'Adobe InDesign', description: 'Industry-standard software for creating print and digital catalogs.', url: 'https://www.adobe.com/products/indesign.html', image: 'https://picsum.photos/seed/indesign-cat/600/400', dataAiHint: 'print design' },
+            { name: 'Marq (Lucidpress)', description: 'Brand templating platform to create consistent catalogs.', url: 'https://www.marq.com/', image: 'https://picsum.photos/seed/marq-cat/600/400', dataAiHint: 'brand templates' },
+            { name: 'DCatalog', description: 'Digital publishing platform to convert PDFs to catalogs.', url: 'https://www.dcatalog.com/', image: 'https://picsum.photos/seed/dcatalog-cat/600/400', dataAiHint: 'pdf conversion' },
+            { name: 'FlippingBook', description: 'Create professional online catalogs with a realistic page-flip effect.', url: 'https://flippingbook.com/online-catalog-maker', image: 'https://picsum.photos/seed/flippingbook-cat/600/400', dataAiHint: 'page flip' },
+            { name: 'Catalog Machine', description: 'A simple solution for creating and sharing product catalogs.', url: 'https://www.catalogmachine.com/', image: 'https://picsum.photos/seed/catalogmachine-cat/600/400', dataAiHint: 'product database' },
+            { name: 'Akeneo', description: 'Product Information Management (PIM) for creating catalogs.', url: 'https://www.akeneo.com/', image: 'https://picsum.photos/seed/akeneo-cat/600/400', dataAiHint: 'pim software' },
+            { name: 'Salsify', description: 'A commerce experience management platform.', url: 'https://www.salsify.com/', image: 'https://picsum.photos/seed/salsify-cat/600/400', dataAiHint: 'commerce management' },
+        ]
+    },
+    {
+        title: "Wall Graphics",
+        icon: <Wall className="w-5 h-5 text-primary"/>,
+        tools: [
+            { name: 'Walls.io', description: 'Create large-scale wall murals and graphics.', url: 'https://walls.io/', image: 'https://picsum.photos/seed/wallsio-wall/600/400', dataAiHint: 'social wall' },
+            { name: 'MegaPrint', description: 'Large format printing for custom wall graphics and decals.', url: 'https://www.megaprint.com/wall-graphics.php', image: 'https://picsum.photos/seed/megaprint-wall/600/400', dataAiHint: 'large format' },
+            { name: 'WallMonkeys', description: 'Peel and stick wall decals and murals.', url: 'https://www.wallmonkeys.com/', image: 'https://picsum.photos/seed/wallmonkeys-wall/600/400', dataAiHint: 'wall decal' },
+            { name: 'Signs.com', description: 'Design custom wall graphics and lettering online.', url: 'https://www.signs.com/wall-graphics/', image: 'https://picsum.photos/seed/signscom-wall/600/400', dataAiHint: 'vinyl lettering' },
+            { name: 'Fathead', description: 'Life-size wall decals and graphics.', url: 'https://fathead.com/', image: 'https://picsum.photos/seed/fathead-wall/600/400', dataAiHint: 'life-size decal' },
+            { name: 'Canva', description: 'Design custom wall art and prints.', url: 'https://www.canva.com/create/wall-art/', image: 'https://picsum.photos/seed/canva-wall/600/400', dataAiHint: 'custom art' },
+            { name: 'Adobe Illustrator', description: 'Professional tool for creating scalable vector graphics.', url: 'https://www.adobe.com/products/illustrator.html', image: 'https://picsum.photos/seed/illustrator-wall/600/400', dataAiHint: 'vector graphic' },
+            { name: 'Photowall', description: 'Create custom wallpaper and murals from your images.', url: 'https://www.photowall.com/', image: 'https://picsum.photos/seed/photowall-wall/600/400', dataAiHint: 'custom wallpaper' },
+            { name: 'Murals Your Way', description: 'Custom wallpaper murals for any space.', url: 'https://www.muralsyourway.com/', image: 'https://picsum.photos/seed/muralsyourway-wall/600/400', dataAiHint: 'wallpaper mural' },
+            { name: 'UPrinting', description: 'Print custom wall decals and graphics.', url: 'https://www.uprinting.com/wall-decal-printing.html', image: 'https://picsum.photos/seed/uprinting-wall/600/400', dataAiHint: 'decal printing' },
+        ]
+    },
+    {
+        title: "Vehicle Wraps",
+        icon: <Car className="w-5 h-5 text-primary"/>,
+        tools: [
+            { name: 'Wrapmate', description: 'Design, print, and install vehicle wraps online.', url: 'https://wrapmate.com/', image: 'https://picsum.photos/seed/wrapmate-wrap/600/400', dataAiHint: 'car wrap' },
+            { name: '3M Graphics', description: 'Materials and solutions for vehicle wraps.', url: 'https://www.3m.com/3M/en_US/graphics-signage-us/applications/vehicles-and-wraps/', image: 'https://picsum.photos/seed/3m-wrap/600/400', dataAiHint: 'wrap material' },
+            { name: 'Avery Dennison', description: 'Vinyl wrap films and materials.', url: 'https://graphics.averydennison.com/en/home/uses-and-applications/vehicle-wrapping.html', image: 'https://picsum.photos/seed/avery-wrap/600/400', dataAiHint: 'vinyl film' },
+            { name: 'Car Wrapper', description: 'Online tool to visualize vehicle wraps.', url: 'https://www.car-wrapper.com/', image: 'https://picsum.photos/seed/carwrapper-wrap/600/400', dataAiHint: 'wrap visualizer' },
+            { name: 'The Bad Wrap', description: 'Vehicle wrap design templates and software.', url: 'https://thebadwrap.com/', image: 'https://picsum.photos/seed/thebadwrap-wrap/600/400', dataAiHint: 'wrap template' },
+            { name: 'Adobe Illustrator', description: 'Professional design tool for creating wrap graphics.', url: 'https://www.adobe.com/products/illustrator.html', image: 'https://picsum.photos/seed/illustrator-wrap/600/400', dataAiHint: 'vector design' },
+            { name: 'CorelDRAW', description: 'Graphic design software for vehicle wrap design.', url: 'https://www.coreldraw.com/', image: 'https://picsum.photos/seed/coreldraw-wrap/600/400', dataAiHint: 'graphic software' },
+            { name: 'Vehicle Templates', description: 'A library of vehicle outlines for design.', url: 'https://www.vehicle-templates.com/', image: 'https://picsum.photos/seed/vehicletemplates-wrap/600/400', dataAiHint: 'car template' },
+            { name: 'Signs.com', description: 'Custom vehicle magnets and decals.', url: 'https://www.signs.com/vehicle-magnets/', image: 'https://picsum.photos/seed/signscom-wrap/600/400', dataAiHint: 'car magnet' },
+            { name: 'VistaPrint', description: 'Car door decals and vehicle advertising.', url: 'https://www.vistaprint.com/signs-posters/car-signs', image: 'https://picsum.photos/seed/vistaprint-wrap/600/400', dataAiHint: 'car decal' },
+        ]
+    },
+    {
+        title: "Exhibition Design",
+        icon: <Store className="w-5 h-5 text-primary"/>,
+        tools: [
+            { name: 'SketchUp', description: '3D modeling software for exhibition and booth design.', url: 'https://www.sketchup.com/', image: 'https://picsum.photos/seed/sketchup-exhibit/600/400', dataAiHint: '3d model' },
+            { name: 'AutoCAD', description: 'CAD software for precise 2D and 3D drafting.', url: 'https://www.autodesk.com/products/autocad/overview', image: 'https://picsum.photos/seed/autocad-exhibit/600/400', dataAiHint: 'cad software' },
+            { name: 'Vectorworks', description: 'All-in-one design software for entertainment and events.', url: 'https://www.vectorworks.net/', image: 'https://picsum.photos/seed/vectorworks-exhibit/600/400', dataAiHint: 'event design' },
+            { name: 'ExhibitCore', description: 'Online trade show floor plan and design tool.', url: 'https://www.exhibitcore.com/', image: 'https://picsum.photos/seed/exhibitcore-exhibit/600/400', dataAiHint: 'floor plan' },
+            { name: 'Expocad', description: 'Floor plan management software for expos.', url: 'https://www.expocad.com/', image: 'https://picsum.photos/seed/expocad-exhibit/600/400', dataAiHint: 'expo management' },
+            { name: 'BricsCAD', description: 'A powerful CAD platform with familiar features.', url: 'https://www.bricsys.com/en-intl/bricscad/', image: 'https://picsum.photos/seed/bricscad-exhibit/600/400', dataAiHint: 'cad platform' },
+            { name: 'Canva', description: 'Design banners, posters, and materials for your exhibit.', url: 'https://www.canva.com/', image: 'https://picsum.photos/seed/canva-exhibit/600/400', dataAiHint: 'exhibit materials' },
+            { name: 'Adobe Illustrator', description: 'Create graphics and signage for your booth.', url: 'https://www.adobe.com/products/illustrator.html', image: 'https://picsum.photos/seed/illustrator-exhibit/600/400', dataAiHint: 'booth graphics' },
+            { name: 'formZ', description: '3D design application for modeling and rendering.', url: 'http://www.formz.com/', image: 'https://picsum.photos/seed/formz-exhibit/600/400', dataAiHint: '3d design' },
+            { name: 'Cinema 4D', description: '3D modeling, animation, and rendering software.', url: 'https://www.maxon.net/en/cinema-4d', image: 'https://picsum.photos/seed/cinema4d-exhibit/600/400', dataAiHint: '3d animation' },
+        ]
+    },
+    {
+        title: "Signage",
+        icon: <Signage className="w-5 h-5 text-primary"/>,
+        tools: [
+            { name: 'Signs.com', description: 'Design and order custom signs online.', url: 'https://www.signs.com/', image: 'https://picsum.photos/seed/signscom-sign/600/400', dataAiHint: 'custom signs' },
+            { name: 'Canva', description: 'Create printable signs for business and events.', url: 'https://www.canva.com/create/signs/', image: 'https://picsum.photos/seed/canva-sign/600/400', dataAiHint: 'printable signs' },
+            { name: 'Adobe Illustrator', description: 'Professional design software for creating signage.', url: 'https://www.adobe.com/products/illustrator.html', image: 'https://picsum.photos/seed/illustrator-sign/600/400', dataAiHint: 'vector design' },
+            { name: 'VistaPrint', description: 'Custom signs, banners, and marketing materials.', url: 'https://www.vistaprint.com/signs-posters', image: 'https://picsum.photos/seed/vistaprint-sign/600/400', dataAiHint: 'business signs' },
+            { name: 'Sign.com', description: 'A platform to find and work with local sign companies.', url: 'https://www.sign.com/', image: 'https://picsum.photos/seed/signcom-sign/600/400', dataAiHint: 'local signs' },
+            { name: 'EasySigns', description: 'Online sign printing with fast turnaround.', url: 'https://www.easysigns.com/', image: 'https://picsum.photos/seed/easysigns-sign/600/400', dataAiHint: 'sign printing' },
+            { name: 'CorelDRAW', description: 'Graphic design software for professional sign making.', url: 'https://www.coreldraw.com/', image: 'https://picsum.photos/seed/coreldraw-sign/600/400', dataAiHint: 'graphic software' },
+            { name: 'BuildASign', description: 'Custom signs and banners for personal and business use.', url: 'https://www.buildasign.com/', image: 'https://picsum.photos/seed/buildasign-sign/600/400', dataAiHint: 'online signs' },
+            { name: 'FedEx Office', description: 'Printing services for signs, posters, and banners.', url: 'https://www.office.fedex.com/default/signs-posters.html', image: 'https://picsum.photos/seed/fedex-sign/600/400', dataAiHint: 'printing services' },
+            { name: 'SmartDraw', description: 'Create diagrams and signs with templates.', url: 'https://www.smartdraw.com/', image: 'https://picsum.photos/seed/smartdraw-sign/600/400', dataAiHint: 'diagram maker' },
+        ]
+    },
+    {
+        title: "3D Posters",
+        icon: <Tower3d className="w-5 h-5 text-primary"/>,
+        tools: [
+            { name: 'Adobe Dimension', description: 'Create photorealistic 3D images and posters.', url: 'https://www.adobe.com/products/dimension.html', image: 'https://picsum.photos/seed/dimension-3d/600/400', dataAiHint: '3d design' },
+            { name: 'Blender', description: 'Free and open-source 3D creation suite.', url: 'https://www.blender.org/', image: 'https://picsum.photos/seed/blender-3d/600/400', dataAiHint: '3d modeling' },
+            { name: 'Cinema 4D', description: 'Professional 3D modeling, animation, and rendering software.', url: 'https://www.maxon.net/en/cinema-4d', image: 'https://picsum.photos/seed/cinema4d-3d/600/400', dataAiHint: 'motion graphics' },
+            { name: 'Vectary', description: 'Online 3D design and augmented reality platform.', url: 'https://www.vectary.com/', image: 'https://picsum.photos/seed/vectary-3d/600/400', dataAiHint: 'ar design' },
+            { name: 'Spline', description: 'A friendly 3D design tool for the web.', url: 'https://spline.design/', image: 'https://picsum.photos/seed/spline-3d/600/400', dataAiHint: 'web 3d' },
+            { name: 'Photoshop', description: 'Use 3D features to create posters with depth.', url: 'https://www.adobe.com/products/photoshop.html', image: 'https://picsum.photos/seed/photoshop-3d/600/400', dataAiHint: 'image editing' },
+            { name: 'Canva', description: 'Add 3D elements and text effects to your posters.', url: 'https://www.canva.com/', image: 'https://picsum.photos/seed/canva-3d/600/400', dataAiHint: 'design elements' },
+            { name: 'Fotor', description: 'Create 3D text and effects for your designs.', url: 'https://www.fotor.com/', image: 'https://picsum.photos/seed/fotor-3d/600/400', dataAiHint: 'text effects' },
+            { name: 'Postermywall', description: 'Add 3D text and shapes to your poster designs.', url: 'https://www.postermywall.com/', image: 'https://picsum.photos/seed/postermywall-3d/600/400', dataAiHint: 'poster maker' },
+            { name: 'Womp', description: 'A fun and easy 3D creation tool.', url: 'https://womp.com/', image: 'https://picsum.photos/seed/womp-3d/600/400', dataAiHint: 'easy 3d' },
+        ]
+    },
+    {
+        title: "3D Modeling",
+        icon: <Cube className="w-5 h-5 text-primary"/>,
+        tools: [
+            { name: 'Blender', description: 'Free and open source 3D creation suite.', url: 'https://www.blender.org/', image: 'https://picsum.photos/seed/blender-model/600/400', dataAiHint: '3d suite' },
+            { name: 'Autodesk Maya', description: '3D computer animation, modeling, simulation, and rendering software.', url: 'https://www.autodesk.com/products/maya/overview', image: 'https://picsum.photos/seed/maya-model/600/400', dataAiHint: '3d animation' },
+            { name: 'Cinema 4D', description: 'Professional 3D software for modeling, animation, and rendering.', url: 'https://www.maxon.net/en/cinema-4d', image: 'https://picsum.photos/seed/cinema4d-model/600/400', dataAiHint: 'motion graphics' },
+            { name: 'ZBrush', description: 'The industry standard for digital sculpting and painting.', url: 'https://www.maxon.net/en/zbrush', image: 'https://picsum.photos/seed/zbrush-model/600/400', dataAiHint: 'digital sculpting' },
+            { name: 'SketchUp', description: 'Easy-to-use 3D modeling software.', url: 'https://www.sketchup.com/', image: 'https://picsum.photos/seed/sketchup-model/600/400', dataAiHint: 'architectural design' },
+            { name: '3ds Max', description: '3D modeling and rendering software for design visualization.', url: 'https://www.autodesk.com/products/3ds-max/overview', image: 'https://picsum.photos/seed/3dsmax-model/600/400', dataAiHint: 'game assets' },
+            { name: 'Houdini', description: 'Advanced 3D animation and visual effects software.', url: 'https://www.sidefx.com/', image: 'https://picsum.photos/seed/houdini-model/600/400', dataAiHint: 'visual effects' },
+            { name: 'Modo', description: 'A powerful and flexible 3D modeling, texturing, and rendering toolset.', url: 'https://www.foundry.com/products/modo', image: 'https://picsum.photos/seed/modo-model/600/400', dataAiHint: '3d toolset' },
+            { name: 'Vectary', description: 'The online 3D design and augmented reality platform.', url: 'https://www.vectary.com/', image: 'https://picsum.photos/seed/vectary-model/600/400', dataAiHint: 'online 3d' },
+            { name: 'Tinkercad', description: 'A free, easy-to-use app for 3D design, electronics, and coding.', url: 'https://www.tinkercad.com/', image: 'https://picsum.photos/seed/tinkercad-model/600/400', dataAiHint: 'beginner 3d' },
+        ]
+    },
+    {
+        title: "3D Product Render",
+        icon: <Truck className="w-5 h-5 text-primary"/>,
+        tools: [
+            { name: 'Keyshot', description: 'Real-time 3D rendering software to create amazing visuals.', url: 'https://www.keyshot.com/', image: 'https://picsum.photos/seed/keyshot-render/600/400', dataAiHint: 'product rendering' },
+            { name: 'Blender (Cycles)', description: 'Powerful rendering engine within the free Blender suite.', url: 'https://www.blender.org/', image: 'https://picsum.photos/seed/blender-render/600/400', dataAiHint: 'ray tracing' },
+            { name: 'V-Ray', description: 'A leading rendering plugin for major 3D design software.', url: 'https://www.chaos.com/vray', image: 'https://picsum.photos/seed/vray-render/600/400', dataAiHint: 'photorealistic rendering' },
+            { name: 'Marmoset Toolbag', description: 'A full-featured 3D real-time rendering and animation tool.', url: 'https://marmoset.co/toolbag/', image: 'https://picsum.photos/seed/marmoset-render/600/400', dataAiHint: 'real-time rendering' },
+            { name: 'Adobe Dimension', description: 'Easy-to-use 3D rendering for graphic designers.', url: 'https://www.adobe.com/products/dimension.html', image: 'https://picsum.photos/seed/dimension-render/600/400', dataAiHint: '3d mockup' },
+            { name: 'Substance 3D Stager', description: 'Compose and render photorealistic 3D scenes.', url: 'https://www.adobe.com/products/substance3d-stager.html', image: 'https://picsum.photos/seed/stager-render/600/400', dataAiHint: 'scene composition' },
+            { name: 'Octane Render', description: 'The world’s first and fastest unbiased, spectrally correct GPU render engine.', url: 'https://home.otoy.com/render/octane-render/', image: 'https://picsum.photos/seed/octane-render/600/400', dataAiHint: 'gpu rendering' },
+            { name: 'Redshift', description: 'A powerful GPU-accelerated renderer, built to meet the demands of contemporary high-end production rendering.', url: 'https://www.maxon.net/en/redshift', image: 'https://picsum.photos/seed/redshift-render/600/400', dataAiHint: 'production rendering' },
+            { name: 'Arnold', description: 'An advanced Monte Carlo ray tracing renderer.', url: 'https://www.autodesk.com/products/arnold/overview', image: 'https://picsum.photos/seed/arnold-render/600/400', dataAiHint: 'ray tracing' },
+            { name: 'Corona Renderer', description: 'A modern high-performance photorealistic renderer.', url: 'https://corona-renderer.com/', image: 'https://picsum.photos/seed/corona-render/600/400', dataAiHint: 'photorealistic' },
+        ]
+    },
+    {
+        title: "CGI Graphics",
+        icon: <Film className="w-5 h-5 text-primary"/>,
+        tools: [
+            { name: 'Houdini', description: 'Node-based software for 3D animation and visual effects.', url: 'https://www.sidefx.com/', image: 'https://picsum.photos/seed/houdini-cgi/600/400', dataAiHint: 'visual effects' },
+            { name: 'Autodesk Maya', description: 'Comprehensive 3D software for animation, modeling, and VFX.', url: 'https://www.autodesk.com/products/maya/overview', image: 'https://picsum.photos/seed/maya-cgi/600/400', dataAiHint: '3d animation' },
+            { name: 'Blender', description: 'Free and open-source 3D suite for modeling, VFX, and animation.', url: 'https://www.blender.org/', image: 'https://picsum.photos/seed/blender-cgi/600/400', dataAiHint: 'open source' },
+            { name: 'Nuke', description: 'The industry-standard node-based compositing toolkit.', url: 'https://www.foundry.com/products/nuke', image: 'https://picsum.photos/seed/nuke-cgi/600/400', dataAiHint: 'compositing' },
+            { name: 'Adobe After Effects', description: 'Motion graphics and visual effects software.', url: 'https://www.adobe.com/products/aftereffects.html', image: 'https://picsum.photos/seed/aftereffects-cgi/600/400', dataAiHint: 'motion graphics' },
+            { name: 'ZBrush', description: 'Digital sculpting tool for creating high-resolution models.', url: 'https://www.maxon.net/en/zbrush', image: 'https://picsum.photos/seed/zbrush-cgi/600/400', dataAiHint: 'digital sculpting' },
+            { name: 'Substance 3D Painter', description: '3D painting software for texturing models.', url: 'https://www.adobe.com/products/substance3d-painter.html', image: 'https://picsum.photos/seed/painter-cgi/600/400', dataAiHint: '3d painting' },
+            { name: 'Unreal Engine', description: 'Real-time 3D creation tool for realistic visuals.', url: 'https://www.unrealengine.com/', image: 'https://picsum.photos/seed/unreal-cgi/600/400', dataAiHint: 'real-time rendering' },
+            { name: 'Unity', description: 'Real-time development platform for creating 2D and 3D experiences.', url: 'https://unity.com/', image: 'https://picsum.photos/seed/unity-cgi/600/400', dataAiHint: 'game engine' },
+            { name: 'Foundry Mari', description: 'High-resolution 3D painting and texturing.', url: 'https://www.foundry.com/products/mari', image: 'https://picsum.photos/seed/mari-cgi/600/400', dataAiHint: 'texture painting' },
         ]
     }
 ];
