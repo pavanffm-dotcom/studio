@@ -4,7 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { 
-    ArrowLeft, ExternalLink, Paintbrush, Star, Share2, Palette, Instagram, Youtube, Clapperboard, Megaphone, Tv, Layout, FileText, Globe, Gem, Braces, Smartphone, LayoutDashboard, BookOpen, Contact, Type, PenTool, ImagePlay, Sparkles, Shapes, UserCircle, BrainCircuit, Newspaper, BoxSelect, MousePointerClick, BookCopy, Wall, Car, Store, TowerControl, Box, Truck, Film, SquareParking
+    ArrowLeft, ExternalLink, Paintbrush, Star, Share2, Palette, Instagram, Youtube, Clapperboard, Megaphone, Tv, Layout, FileText, Globe, Gem, Braces, Smartphone, LayoutDashboard, BookOpen, Contact, Type, PenTool, ImagePlay, Sparkles, Shapes, UserCircle, BrainCircuit, Newspaper, BoxSelect, MousePointerClick, BookCopy, Wallpaper, Car, Store, TowerControl, Box, Truck, Film, SquareParking
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardTitle } from '@/components/ui/card';
@@ -530,7 +530,7 @@ const toolData: ToolCategory[] = [
     },
     {
         title: "Wall Graphics",
-        icon: <Wall className="w-5 h-5 text-primary"/>,
+        icon: <Wallpaper className="w-5 h-5 text-primary"/>,
         tools: [
             { name: 'Walls.io', description: 'Create large-scale wall murals and graphics.', url: 'https://walls.io/', image: 'https://picsum.photos/seed/wallsio-wall/600/400', dataAiHint: 'social wall' },
             { name: 'MegaPrint', description: 'Large format printing for custom wall graphics and decals.', url: 'https://www.megaprint.com/wall-graphics.php', image: 'https://picsum.photos/seed/megaprint-wall/600/400', dataAiHint: 'large format' },
