@@ -359,7 +359,7 @@ function App() {
                             <p className="font-bold text-foreground">{tool.toolName}</p>
                             <ExternalLink className="w-4 h-4 text-muted-foreground ml-2 shrink-0"/>
                         </div>
-                        <p className="text-sm text-muted-foreground mt-1 line-clamp-2">{tool.reason}</p>
+                        <p className="text-sm text-muted-foreground mt-1">{tool.reason}</p>
                       </Card>
                     </Link>
                   ))}
@@ -546,12 +546,20 @@ function App() {
               <GalaxyLogo className="w-8 h-8" />
               <span className="text-2xl font-bold text-foreground">AI Atlas</span>
             </div>
-            {(showChat || chatMessages.length > 0) && (
-                <Button variant="ghost" size="icon" onClick={handleCloseChat} className='rounded-full w-10 h-10'>
-                    <X className="w-6 h-6"/>
-                    <span className="sr-only">End Chat</span>
-                </Button>
-            )}
+            <div className='flex items-center gap-2'>
+              {(showChat || chatMessages.length > 0) ? (
+                  <Button variant="ghost" size="icon" onClick={handleCloseChat} className='rounded-full w-10 h-10'>
+                      <X className="w-6 h-6"/>
+                      <span className="sr-only">End Chat</span>
+                  </Button>
+              ) : (
+                <Link href="/mode" passHref>
+                  <Button variant="ghost" size="icon" className="rounded-full w-10 h-10 bg-secondary">
+                    <Wand2 className="w-5 h-5 text-primary"/>
+                  </Button>
+                </Link>
+              )}
+            </div>
           </header>
           <nav className={cn("mt-4", (showChat || chatMessages.length > 0) && 'hidden')}>
             <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
@@ -686,6 +694,7 @@ export default function GalaxyApp() {
 }
 
     
+
 
 
 
