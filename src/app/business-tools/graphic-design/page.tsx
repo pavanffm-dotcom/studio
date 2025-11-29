@@ -4,7 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { 
-    ArrowLeft, ExternalLink, Paintbrush, Star, Share2, Palette, Instagram, Youtube, Clapperboard, Megaphone, Tv, Layout, FileText, Globe, Gem, Braces, Smartphone, LayoutDashboard, BookOpen, Contact, Type, PenTool, ImagePlay, Sparkles, Shapes, UserCircle, BrainCircuit, Newspaper, BoxSelect, MousePointerClick, BookCopy, Wall, Car, Store, Tower3d, Box, Truck, Film, SquareParking
+    ArrowLeft, ExternalLink, Paintbrush, Star, Share2, Palette, Instagram, Youtube, Clapperboard, Megaphone, Tv, Layout, FileText, Globe, Gem, Braces, Smartphone, LayoutDashboard, BookOpen, Contact, Type, PenTool, ImagePlay, Sparkles, Shapes, UserCircle, BrainCircuit, Newspaper, BoxSelect, MousePointerClick, BookCopy, Wall, Car, Store, TowerControl, Box, Truck, Film, SquareParking
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardTitle } from '@/components/ui/card';
@@ -594,7 +594,7 @@ const toolData: ToolCategory[] = [
     },
     {
         title: "3D Posters",
-        icon: <Tower3d className="w-5 h-5 text-primary"/>,
+        icon: <TowerControl className="w-5 h-5 text-primary"/>,
         tools: [
             { name: 'Adobe Dimension', description: 'Create photorealistic 3D images and posters.', url: 'https://www.adobe.com/products/dimension.html', image: 'https://picsum.photos/seed/dimension-3d/600/400', dataAiHint: '3d design' },
             { name: 'Blender', description: 'Free and open-source 3D creation suite.', url: 'https://www.blender.org/', image: 'https://picsum.photos/seed/blender-3d/600/400', dataAiHint: '3d modeling' },
