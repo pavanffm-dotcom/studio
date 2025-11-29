@@ -359,7 +359,7 @@ function App() {
                             <p className="font-bold text-foreground">{tool.toolName}</p>
                             <ExternalLink className="w-4 h-4 text-muted-foreground ml-2 shrink-0"/>
                         </div>
-                        <p className="text-sm text-muted-foreground mt-1">{tool.reason}</p>
+                        <p className="text-sm text-muted-foreground mt-1 line-clamp-2">{tool.reason}</p>
                       </Card>
                     </Link>
                   ))}
@@ -591,9 +591,8 @@ function App() {
                                     'flex items-center gap-2 rounded-full h-12 px-6 text-base font-semibold transition-all duration-300 soft-shadow whitespace-nowrap',
                                     activeCategory === cat.name
                                         ? 'glow-shadow bg-primary text-primary-foreground'
-                                        : cat.gradient
-                                        ? `${cat.gradient} text-black`
-                                        : 'bg-white/50 text-muted-foreground'
+                                        : 'text-black',
+                                        cat.gradient
                                 )}
                                 onClick={() => setActiveCategory(cat.name)}
                             >
@@ -687,6 +686,7 @@ export default function GalaxyApp() {
 }
 
     
+
 
 
 
