@@ -355,12 +355,11 @@ function App() {
                   {toolSuggestion.suggestions.map((tool, index) => (
                     <Link href={tool.url} key={index} target="_blank" rel="noopener noreferrer" className="block group">
                       <Card className="p-3 bg-white/50 border-white/20 hover:bg-white/80 transition-colors duration-200 rounded-xl">
-                        <p className="font-bold text-foreground truncate">{tool.toolName}</p>
-                        <p className="text-sm text-muted-foreground truncate">{tool.reason}</p>
-                        <div className="flex items-center gap-2 mt-2">
-                           <ExternalLink className="w-4 h-4 text-muted-foreground"/>
-                           <span className="text-xs text-primary font-semibold truncate">{tool.url}</span>
+                        <div className="flex justify-between items-start">
+                            <p className="font-bold text-foreground">{tool.toolName}</p>
+                            <ExternalLink className="w-4 h-4 text-muted-foreground ml-2 shrink-0"/>
                         </div>
+                        <p className="text-sm text-muted-foreground mt-1">{tool.reason}</p>
                       </Card>
                     </Link>
                   ))}
@@ -688,5 +687,6 @@ export default function GalaxyApp() {
 }
 
     
+
 
 
