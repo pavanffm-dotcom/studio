@@ -4,7 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { 
-    ArrowLeft, ExternalLink, Paintbrush, Star, Share2, Palette, Instagram, Youtube, Clapperboard, Megaphone, Tv, Layout, FileText, Globe, Gem, Braces
+    ArrowLeft, ExternalLink, Paintbrush, Star, Share2, Palette, Instagram, Youtube, Clapperboard, Megaphone, Tv, Layout, FileText, Globe, Gem, Braces, Smartphone, LayoutDashboard, BookOpen, Contact
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardTitle } from '@/components/ui/card';
@@ -190,8 +190,114 @@ const toolData: ToolCategory[] = [
             { name: 'Bannersnack', description: 'Now part of Creatopy, an online banner maker.', url: 'https://www.creatopy.com/online-banner-maker/', image: 'https://picsum.photos/seed/bannersnack-ads/600/400', dataAiHint: 'banner maker' },
             { name: 'Marpipe', description: 'Test your ad creatives at scale to find what works.', url: 'https://www.marpipe.com/', image: 'https://picsum.photos/seed/marpipe-ads/600/400', dataAiHint: 'creative testing' },
         ]
+    },
+    {
+        title: "App Design",
+        icon: <Smartphone className="w-5 h-5 text-primary"/>,
+        tools: [
+            { name: 'Figma', description: 'The collaborative interface design tool for teams.', url: 'https://www.figma.com/', image: 'https://picsum.photos/seed/figma-app/600/400', dataAiHint: 'ui design' },
+            { name: 'Sketch', description: 'A powerful vector-based design tool for macOS.', url: 'https://www.sketch.com/', image: 'https://picsum.photos/seed/sketch-app/600/400', dataAiHint: 'vector design' },
+            { name: 'Adobe XD', description: 'Design, prototype, and share user experiences.', url: 'https://www.adobe.com/products/xd.html', image: 'https://picsum.photos/seed/adobexd-app/600/400', dataAiHint: 'ux design' },
+            { name: 'InVision', description: 'Digital product design and development platform.', url: 'https://www.invisionapp.com/', image: 'https://picsum.photos/seed/invision-app/600/400', dataAiHint: 'prototyping tool' },
+            { name: 'Framer', description: 'Interactive design tool for websites and apps.', url: 'https://www.framer.com/', image: 'https://picsum.photos/seed/framer-app/600/400', dataAiHint: 'interactive prototype' },
+            { name: 'Uizard', description: 'AI-powered design tool to go from idea to mockup.', url: 'https://uizard.io/', image: 'https://picsum.photos/seed/uizard-app/600/400', dataAiHint: 'ai design' },
+            { name: 'Balsamiq', description: 'The rapid, low-fidelity wireframing tool.', url: 'https://balsamiq.com/', image: 'https://picsum.photos/seed/balsamiq-app/600/400', dataAiHint: 'wireframe' },
+            { name: 'Proto.io', description: 'Create fully-interactive high-fidelity prototypes.', url: 'https://proto.io/', image: 'https://picsum.photos/seed/protoio-app/600/400', dataAiHint: 'high-fidelity' },
+            { name: 'Axure RP', description: 'Powerful prototyping for complex solutions.', url: 'https://www.axure.com/', image: 'https://picsum.photos/seed/axure-app/600/400', dataAiHint: 'ux prototype' },
+            { name: 'Origami Studio', description: 'A free design tool by Facebook for creating prototypes.', url: 'https://origami.design/', image: 'https://picsum.photos/seed/origami-app/600/400', dataAiHint: 'facebook design' },
+        ]
+    },
+    {
+        title: "Dashboard Design",
+        icon: <LayoutDashboard className="w-5 h-5 text-primary"/>,
+        tools: [
+            { name: 'Figma', description: 'Collaborative tool for designing data-rich dashboards.', url: 'https://www.figma.com/', image: 'https://picsum.photos/seed/figma-dash/600/400', dataAiHint: 'dashboard ui' },
+            { name: 'Tableau', description: 'Leading data visualization tool for business intelligence.', url: 'https://www.tableau.com/', image: 'https://picsum.photos/seed/tableau-dash/600/400', dataAiHint: 'data visualization' },
+            { name: 'Microsoft Power BI', description: 'Turn data into opportunities with interactive dashboards.', url: 'https://powerbi.microsoft.com/en-us/', image: 'https://picsum.photos/seed/powerbi-dash/600/400', dataAiHint: 'business analytics' },
+            { name: 'Looker Studio', description: 'Formerly Google Data Studio. Free dashboarding tool.', url: 'https://lookerstudio.google.com/', image: 'https://picsum.photos/seed/looker-dash/600/400', dataAiHint: 'google data' },
+            { name: 'Grafana', description: 'The open-source platform for monitoring and observability.', url: 'https://grafana.com/', image: 'https://picsum.photos/seed/grafana-dash/600/400', dataAiHint: 'data monitoring' },
+            { name: 'Klipfolio', description: 'Build real-time business dashboards for your team.', url: 'https://www.klipfolio.com/', image: 'https://picsum.photos/seed/klipfolio-dash/600/400', dataAiHint: 'business dashboard' },
+            { name: 'Geckoboard', description: 'Share live data from all your tools on TV dashboards.', url: 'https://www.geckoboard.com/', image: 'https://picsum.photos/seed/geckoboard-dash/600/400', dataAiHint: 'tv dashboard' },
+            { name: 'Databox', description: 'Business analytics platform with stunning dashboards.', url: 'https://databox.com/', image: 'https://picsum.photos/seed/databox-dash/600/400', dataAiHint: 'kpi dashboard' },
+            { name: 'Uizard', description: 'AI-powered wireframing for dashboard UI design.', url: 'https://uizard.io/', image: 'https://picsum.photos/seed/uizard-dash/600/400', dataAiHint: 'ui wireframe' },
+            { name: 'Adobe XD', description: 'Design and prototype dashboards and data apps.', url: 'https://www.adobe.com/products/xd.html', image: 'https://picsum.photos/seed/adobexd-dash/600/400', dataAiHint: 'ux dashboard' },
+        ]
+    },
+    {
+        title: "Book Covers",
+        icon: <BookOpen className="w-5 h-5 text-primary"/>,
+        tools: [
+            { name: 'Canva', description: 'Create stunning book covers with free templates.', url: 'https://www.canva.com/create/book-covers/', image: 'https://picsum.photos/seed/canva-book/600/400', dataAiHint: 'book design' },
+            { name: 'Adobe Express', description: 'Free book cover maker with professional templates.', url: 'https://www.adobe.com/express/create/book-cover', image: 'https://picsum.photos/seed/adobe-book/600/400', dataAiHint: 'cover template' },
+            { name: 'Fotor', description: 'Design a book cover that captures readers\' attention.', url: 'https://www.fotor.com/features/book-cover-maker.html', image: 'https://picsum.photos/seed/fotor-book/600/400', dataAiHint: 'ebook cover' },
+            { name: 'Placeit', description: 'Create book cover mockups and designs easily.', url: 'https://placeit.net/book-cover-maker', image: 'https://picsum.photos/seed/placeit-book/600/400', dataAiHint: 'mockup generator' },
+            { name: 'Snappa', description: 'Make eye-catching book covers in a snap.', url: 'https://snappa.com/create/book-covers', image: 'https://picsum.photos/seed/snappa-book/600/400', dataAiHint: 'cover creator' },
+            { name: 'MiblArt', description: 'Professional book cover design services for authors.', url: 'https://miblart.com/', image: 'https://picsum.photos/seed/miblart-book/600/400', dataAiHint: 'author services' },
+            { name: 'PosterMyWall', description: 'Easy-to-use tool for creating book covers.', url: 'https://www.postermywall.com/', image: 'https://picsum.photos/seed/postermywall-book/600/400', dataAiHint: 'design tool' },
+            { name: 'Book Brush', description: 'Tools for creating book covers and marketing images.', url: 'https://bookbrush.com/', image: 'https://picsum.photos/seed/bookbrush-book/600/400', dataAiHint: 'author marketing' },
+            { name: 'DIY Book Covers', description: 'The premier online book cover maker for authors.', url: 'https://diybookcovers.com/', image: 'https://picsum.photos/seed/diybookcovers-book/600/400', dataAiHint: 'self-publishing' },
+            { name: 'GIMP', description: 'Free and open-source image editor for custom designs.', url: 'https://www.gimp.org/', image: 'https://picsum.photos/seed/gimp-book/600/400', dataAiHint: 'image editor' },
+        ]
+    },
+    {
+        title: "Brochures",
+        icon: <FileText className="w-5 h-5 text-primary" />,
+        tools: [
+            { name: 'Canva', description: 'Design professional brochures with free templates.', url: 'https://www.canva.com/create/brochures/', image: 'https://picsum.photos/seed/canva-brochure/600/400', dataAiHint: 'brochure template' },
+            { name: 'Adobe Express', description: 'Free online brochure maker with stunning layouts.', url: 'https://www.adobe.com/express/create/brochure', image: 'https://picsum.photos/seed/adobe-brochure/600/400', dataAiHint: 'layout design' },
+            { name: 'VistaCreate', description: 'Create brochures for your business in minutes.', url: 'https://create.vista.com/create/brochure/', image: 'https://picsum.photos/seed/vista-brochure/600/400', dataAiHint: 'business brochure' },
+            { name: 'Lucidpress (Marq)', description: 'Brand templating platform to create on-brand brochures.', url: 'https://www.marq.com/pages/brochures', image: 'https://picsum.photos/seed/lucidpress-brochure/600/400', dataAiHint: 'brand templates' },
+            { name: 'MyCreativeShop', description: 'The easiest way to create amazing brochures.', url: 'https://www.mycreativeshop.com/brochure-maker.html', image: 'https://picsum.photos/seed/mycreative-brochure/600/400', dataAiHint: 'custom brochure' },
+            { name: 'Flipsnack', description: 'Turn your PDFs into interactive digital brochures.', url: 'https://www.flipsnack.com/brochure-maker', image: 'https://picsum.photos/seed/flipsnack-brochure/600/400', dataAiHint: 'digital brochure' },
+            { name: 'Venngage', description: 'The simple design tool for business communications.', url: 'https://venngage.com/features/brochure-maker', image: 'https://picsum.photos/seed/venngage-brochure/600/400', dataAiHint: 'infographic brochure' },
+            { name: 'Publitas', description: 'Create beautiful online catalogs and brochures.', url: 'https://www.publitas.com/', image: 'https://picsum.photos/seed/publitas-brochure/600/400', dataAiHint: 'online catalog' },
+            { name: 'Microsoft Publisher', description: 'Desktop publishing software for creating brochures.', url: 'https://www.microsoft.com/en-us/microsoft-365/publisher', image: 'https://picsum.photos/seed/publisher-brochure/600/400', dataAiHint: 'desktop publishing' },
+            { name: 'Scribus', description: 'Free, open-source professional page layout software.', url: 'https://www.scribus.net/', image: 'https://picsum.photos/seed/scribus-brochure/600/400', dataAiHint: 'page layout' },
+        ]
+    },
+    {
+        title: "Business Cards",
+        icon: <Contact className="w-5 h-5 text-primary"/>,
+        tools: [
+            { name: 'Canva', description: 'Design custom business cards for free.', url: 'https://www.canva.com/create/business-cards/', image: 'https://picsum.photos/seed/canva-card/600/400', dataAiHint: 'card design' },
+            { name: 'VistaPrint', description: 'A leading provider of custom business cards.', url: 'https://www.vistaprint.com/business-cards', image: 'https://picsum.photos/seed/vistaprint-card/600/400', dataAiHint: 'card printing' },
+            { name: 'MOO', description: 'Premium quality, custom business cards and more.', url: 'https://www.moo.com/us/business-cards', image: 'https://picsum.photos/seed/moo-card/600/400', dataAiHint: 'premium cards' },
+            { name: 'Adobe Express', description: 'Free business card maker with stunning templates.', url: 'https://www.adobe.com/express/create/business-card', image: 'https://picsum.photos/seed/adobe-card/600/400', dataAiHint: 'professional card' },
+            { name: 'Zazzle', description: 'Create your own business cards from thousands of templates.', url: 'https://www.zazzle.com/business_cards', image: 'https://picsum.photos/seed/zazzle-card/600/400', dataAiHint: 'custom design' },
+            { name: 'Jukebox', description: 'High-quality, creative business card printing.', url: 'https://www.jukebox.com/business-cards', image: 'https://picsum.photos/seed/jukebox-card/600/400', dataAiHint: 'creative printing' },
+            { name: 'PsPrint', description: 'Online printing services for business cards.', url: 'https://www.psprint.com/business-cards', image: 'https://picsum.photos/seed/psprint-card/600/400', dataAiHint: 'online printing' },
+            { name: 'GotPrint', description: 'Affordable, high-quality business card printing.', url: 'https://www.gotprint.com/business-cards.html', image: 'https://picsum.photos/seed/gotprint-card/600/400', dataAiHint: 'affordable printing' },
+            { name: 'UPrinting', description: 'Custom online printing for business cards.', url: 'https://www.uprinting.com/business-card-printing.html', image: 'https://picsum.photos/seed/uprinting-card/600/400', dataAiHint: 'custom printing' },
+            { name: 'Staples', description: 'Same-day business card printing and design services.', url: 'https://www.staples.com/services/printing/business-cards/', image: 'https://picsum.photos/seed/staples-card/600/400', dataAiHint: 'same-day printing' },
+        ]
+    },
+    {
+        title: "Packaging",
+        icon: <Package className="w-5 h-5 text-primary"/>,
+        tools: [
+            { name: 'Packlane', description: 'Design and order custom packaging online.', url: 'https://packlane.com/', image: 'https://picsum.photos/seed/packlane-pack/600/400', dataAiHint: 'custom box' },
+            { name: 'Packhelp', description: 'Custom packaging for brands and businesses.', url: 'https://packhelp.com/', image: 'https://picsum.photos/seed/packhelp-pack/600/400', dataAiHint: 'brand packaging' },
+            { name: 'Arka', description: 'Your one-stop-shop for custom packaging.', url: 'https://www.arka.com/', image: 'https://picsum.photos/seed/arka-pack/600/400', dataAiHint: 'packaging solutions' },
+            { name: 'BoxUp', description: 'Design custom boxes with instant pricing.', url: 'https://www.boxup.com/', image: 'https://picsum.photos/seed/boxup-pack/600/400', dataAiHint: 'box designer' },
+            { name: 'Lumi', description: 'Packaging and supply chain solutions for e-commerce.', url: 'https://www.lumi.com/', image: 'https://picsum.photos/seed/lumi-pack/600/400', dataAiHint: 'ecommerce packaging' },
+            { name: 'Fantastapack', description: 'Custom labels, boxes, and pouches online.', url: 'https://www.fantastapack.com/', image: 'https://picsum.photos/seed/fantastapack-pack/600/400', dataAiHint: 'custom labels' },
+            { name: 'Canva', description: 'Design product labels and packaging mockups.', url: 'https://www.canva.com/', image: 'https://picsum.photos/seed/canva-pack/600/400', dataAiHint: 'label design' },
+            { name: 'Adobe Illustrator', description: 'Industry-standard vector graphics for packaging design.', url: 'https://www.adobe.com/products/illustrator.html', image: 'https://picsum.photos/seed/illustrator-pack/600/400', dataAiHint: 'vector graphics' },
+            { name: 'Esko', description: 'Packaging management, design, and prepress software.', url: 'https://www.esko.com/en', image: 'https://picsum.photos/seed/esko-pack/600/400', dataAiHint: 'prepress software' },
+            { name: 'Boxshot', description: '3D packaging and mockup software.', url: 'https://boxshot.com/', image: 'https://picsum.photos/seed/boxshot-pack/600/400', dataAiHint: '3d mockup' },
+        ]
     }
 ];
+
+// Helper to get the correct icon for packaging since it's not in lucide-react by default
+const Package = (props: React.JSX.IntrinsicAttributes & React.SVGProps<SVGSVGElement>) => (
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+      <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+      <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+      <line x1="12" y1="22.08" x2="12" y2="12"></line>
+    </svg>
+);
+
 
 export default function GraphicDesignToolsPage() {
     const { toast } = useToast();
