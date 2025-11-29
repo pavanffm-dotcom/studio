@@ -11,14 +11,25 @@ import { ai } from '@/ai/genkit';
 import { z } from 'genkit';
 
 const SuggestAiToolInputSchema = z.object({
-  query: z.string().describe('The user\'s request for an AI tool.'),
+  query: z.string().describe("The user's request for an AI tool."),
 });
 export type SuggestAiToolInput = z.infer<typeof SuggestAiToolInputSchema>;
 
 const SuggestAiToolOutputSchema = z.object({
-  toolName: z.string().describe('The name of the suggested AI tool.'),
-  url: z.string().url().describe('The official URL of the suggested AI tool.'),
-  reason: z.string().describe('A brief reason why this tool was suggested.'),
+  suggestions: z
+    .array(
+      z.object({
+        toolName: z.string().describe('The name of the suggested AI tool.'),
+        url: z
+          .string()
+          .url()
+          .describe('The official URL of the suggested AI tool.'),
+        reason: z
+          .string()
+          .describe('A brief reason why this tool was suggested.'),
+      })
+    )
+    .describe('A list of up to 5 suggested AI tools.'),
 });
 export type SuggestAiToolOutput = z.infer<typeof SuggestAiToolOutputSchema>;
 
@@ -32,11 +43,11 @@ const prompt = ai.definePrompt({
   name: 'suggestAiToolPrompt',
   input: { schema: SuggestAiToolInputSchema },
   output: { schema: SuggestAiToolOutputSchema },
-  prompt: `You are an expert AI tool recommender. Based on the user's query, find the single best and most relevant AI tool.
+  prompt: `You are an expert AI tool recommender. Based on the user's query, find up to 5 of the best and most relevant AI tools.
 
   User query: {{{query}}}
   
-  Provide the official name of the tool, its official URL, and a brief, friendly reason for the recommendation. Ensure the URL is the correct, official homepage for the tool.`,
+  For each tool, provide its official name, its official URL, and a brief, friendly reason for the recommendation. Ensure the URL is the correct, official homepage for the tool.`,
 });
 
 const suggestAiToolFlow = ai.defineFlow(
