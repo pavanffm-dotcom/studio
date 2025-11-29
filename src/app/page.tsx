@@ -586,11 +586,14 @@ function App() {
                         {toolCategories.map(cat => (
                            <Button 
                                 key={cat.name} 
-                                variant={activeCategory === cat.name ? 'default' : 'secondary'}
+                                variant={activeCategory === cat.name ? 'default' : 'ghost'}
                                 className={cn(
                                     'flex items-center gap-2 rounded-full h-12 px-6 text-base font-semibold transition-all duration-300 soft-shadow whitespace-nowrap',
-                                    activeCategory === cat.name && 'glow-shadow',
-                                    activeCategory === cat.name ? (cat.color || cat.gradient) : (cat.gradient ? `${cat.gradient} text-white` : 'bg-white/50 text-muted-foreground')
+                                    activeCategory === cat.name
+                                        ? 'glow-shadow'
+                                        : cat.gradient
+                                        ? `${cat.gradient} text-white hover:opacity-90`
+                                        : 'bg-white/50 text-muted-foreground'
                                 )}
                                 onClick={() => setActiveCategory(cat.name)}
                             >
