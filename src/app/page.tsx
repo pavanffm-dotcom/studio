@@ -586,11 +586,12 @@ function App() {
                         {toolCategories.map(cat => (
                            <Button 
                                 key={cat.name} 
-                                variant={activeCategory === cat.name ? 'default' : 'secondary'}
+                                variant={activeCategory === cat.name ? 'default' : 'default'}
                                 className={cn(
                                     'flex items-center gap-2 rounded-full h-12 px-6 text-base font-semibold transition-all duration-300 soft-shadow whitespace-nowrap',
-                                    activeCategory === cat.name ? 'glow-shadow' : 'text-foreground/70',
-                                    activeCategory !== cat.name && cat.gradient
+                                    activeCategory === cat.name ? 'glow-shadow' : 'opacity-80',
+                                    cat.color ? cat.color : cat.gradient,
+                                    cat.name !== "All" && 'text-white'
                                 )}
                                 onClick={() => setActiveCategory(cat.name)}
                             >
@@ -682,3 +683,5 @@ export default function GalaxyApp() {
     </AuthGate>
   );
 }
+
+    
