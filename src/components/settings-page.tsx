@@ -45,6 +45,7 @@ import {
   FileQuestion,
   LayoutGrid,
   TrendingUp,
+  Wand2,
 } from "lucide-react"
 import { Switch } from "./ui/switch"
 import { Separator } from "./ui/separator"
@@ -65,6 +66,8 @@ import { RadioGroup, RadioGroupItem } from "./ui/radio-group"
 import { Label } from "./ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select"
 import { useLanguage } from "@/lib/language"
+import Link from "next/link"
+import { Button } from "./ui/button"
 
 const LanguageSelector = () => {
     const { language, setLanguage, t } = useLanguage();
@@ -293,6 +296,14 @@ export function SettingsPage() {
 
   return (
     <div className="p-4">
+      <div className="mb-4 px-2">
+        <Link href="/mode" passHref>
+          <Button className="w-full h-12 text-lg font-bold bg-gradient-to-r from-cute-purple to-lavender text-white glow-shadow">
+            <Wand2 className="mr-2 h-5 w-5" />
+            Mode
+          </Button>
+        </Link>
+      </div>
       <Accordion type="single" collapsible className="w-full" defaultValue="item-0">
         {settingsConfig.map((category, index) => (
           <AccordionItem value={`item-${index}`} key={index} className="border-b-0 mb-3 bg-card/80 backdrop-blur-sm rounded-3xl px-4 soft-shadow">
