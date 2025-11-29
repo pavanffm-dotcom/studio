@@ -3,136 +3,158 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ArrowLeft, ExternalLink, Paintbrush, Star, Share2, Palette, Instagram, Youtube, Clapperboard, Megaphone } from 'lucide-react';
+import { 
+    ArrowLeft, ExternalLink, Paintbrush, Star, Share2, Palette, Instagram, Youtube, Clapperboard, Megaphone, Tv, Brush, Layout, PenTool, SwatchBook, Workflow, Scan, Sparkles, Wand2, Film, Package, Tag, GlassWater, Utensils, Pencil, Bot, CircleDashed, Book, Newspaper, FileText, FilePieChart, Car, Building2, Ticket, Printer, ThumbsUp, Code, Presentation, DraftingCompass, Wind, Box, Lightbulb, Users, BarChart
+} from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Card, CardTitle, CardDescription } from '@/components/ui/card';
+import { Card, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
 import { useFavourites } from '@/context/favourites-context';
 
-const logoDesignTools = [
-  {
-    name: 'Looka',
-    description: 'Use AI to design a logo and build a brand you love.',
-    url: 'https://looka.com/',
-    image: 'https://picsum.photos/seed/looka-logo/600/400',
-    dataAiHint: 'ai logo'
-  },
-  {
-    name: 'Logo.com',
-    description: 'The easy and professional way to make a logo.',
-    url: 'https://logo.com/',
-    image: 'https://picsum.photos/seed/logocom/600/400',
-    dataAiHint: 'brand logo'
-  },
-  {
-    name: 'Designs.ai',
-    description: 'Create logos, videos, and more with AI.',
-    url: 'https://designs.ai/logomaker',
-    image: 'https://picsum.photos/seed/designsai-logo/600/400',
-    dataAiHint: 'design suite'
-  },
-  {
-    name: 'Brandmark.io',
-    description: 'Create a unique, professional logo for your business.',
-    url: 'https://brandmark.io/',
-    image: 'https://picsum.photos/seed/brandmark/600/400',
-    dataAiHint: 'professional logo'
-  },
-  {
-    name: 'SmashingLogo',
-    description: 'Design a unique logo that you\'ll love.',
-    url: 'https://smashinglogo.com/',
-    image: 'https://picsum.photos/seed/smashinglogo/600/400',
-    dataAiHint: 'logo ideas'
-  },
-  {
-    name: 'Tailor Brands',
-    description: 'The world\'s most advanced logo maker.',
-    url: 'https://www.tailorbrands.com/logo-maker',
-    image: 'https://picsum.photos/seed/tailorbrands/600/400',
-    dataAiHint: 'business branding'
-  },
-  {
-    name: 'LogoAI',
-    description: 'Let AI-powered design create your new logo.',
-    url: 'https://www.logoai.com/',
-    image: 'https://picsum.photos/seed/logoai/600/400',
-    dataAiHint: 'ai branding'
-  },
-  {
-    name: 'Hatchful',
-    description: 'Shopify\'s free logo maker. No design experience required.',
-    url: 'https://hatchful.shopify.com/',
-    image: 'https://picsum.photos/seed/hatchful/600/400',
-    dataAiHint: 'shopify logo'
-  },
-  {
-    name: 'Canva Logo Maker',
-    description: 'Create a logo for free in minutes.',
-    url: 'https://www.canva.com/create/logos/',
-    image: 'https://picsum.photos/seed/canva-logo/600/400',
-    dataAiHint: 'free logo'
-  },
-  {
-    name: 'Uizard',
-    description: 'AI-powered design tool for creating stunning logos.',
-    url: 'https://uizard.io/ai-logo-generator/',
-    image: 'https://picsum.photos/seed/uizard-logo/600/400',
-    dataAiHint: 'ui design'
-  },
-];
+type Tool = {
+    name: string;
+    description: string;
+    url: string;
+    image: string;
+    dataAiHint: string;
+};
 
-const instagramPostTools = [
-    { name: 'Canva', description: 'Design anything for your Instagram feed.', url: 'https://www.canva.com/instagram-posts/', image: 'https://picsum.photos/seed/canva-ig/600/400', dataAiHint: 'social media design' },
-    { name: 'Adobe Express', description: 'Free Instagram post maker.', url: 'https://www.adobe.com/express/create/post/instagram', image: 'https://picsum.photos/seed/adobe-ig/600/400', dataAiHint: 'creative posts' },
-    { name: 'VistaCreate', description: 'Create stunning posts in minutes.', url: 'https://create.vista.com/themes/instagram-post/', image: 'https://picsum.photos/seed/vista-ig/600/400', dataAiHint: 'animated posts' },
-    { name: 'Fotor', description: 'Make your Instagram posts pop.', url: 'https://www.fotor.com/features/instagram-post-maker.html', image: 'https://picsum.photos/seed/fotor-ig/600/400', dataAiHint: 'photo editor' },
-    { name: 'Snappa', description: 'The best-looking Instagram posts.', url: 'https://snappa.com/create/instagram-posts', image: 'https://picsum.photos/seed/snappa-ig/600/400', dataAiHint: 'graphic creator' },
-    { name: 'Piktochart', description: 'Easy-to-use Instagram post creator.', url: 'https://piktochart.com/formats/instagram-posts/', image: 'https://picsum.photos/seed/pikto-ig/600/400', dataAiHint: 'infographic posts' },
-    { name: 'Simplified', description: 'AI-powered design for Instagram.', url: 'https://simplified.com/instagram-post-maker/', image: 'https://picsum.photos/seed/simplified-ig/600/400', dataAiHint: 'ai content' },
-    { name: 'Kapwing', description: 'Create image and video posts.', url: 'https://www.kapwing.com/uses/instagram', image: 'https://picsum.photos/seed/kapwing-ig/600/400', dataAiHint: 'video posts' },
-    { name: 'Visme', description: 'Engaging Instagram post templates.', url: 'https://www.visme.co/instagram-post-templates/', image: 'https://picsum.photos/seed/visme-ig/600/400', dataAiHint: 'brand templates' },
-    { name: 'Later', description: 'Plan and design your Instagram posts.', url: 'https://later.com/', image: 'https://picsum.photos/seed/later-ig/600/400', dataAiHint: 'social scheduler' },
-];
+type ToolCategory = {
+    title: string;
+    icon: React.ReactNode;
+    tools: Tool[];
+};
 
-const youtubeThumbnailTools = [
-    { name: 'Canva', description: 'Eye-catching YouTube thumbnail maker.', url: 'https://www.canva.com/youtube-thumbnails/', image: 'https://picsum.photos/seed/canva-yt/600/400', dataAiHint: 'thumbnail design' },
-    { name: 'Fotor', description: 'Free YouTube thumbnail maker.', url: 'https://www.fotor.com/features/youtube-thumbnail-maker.html', image: 'https://picsum.photos/seed/fotor-yt/600/400', dataAiHint: 'youtube art' },
-    { name: 'Snappa', description: 'Create professional-looking thumbnails.', url: 'https://snappa.com/create/youtube-thumbnails', image: 'https://picsum.photos/seed/snappa-yt/600/400', dataAiHint: 'channel graphics' },
-    { name: 'Adobe Express', description: 'Stunning YouTube thumbnails in seconds.', url: 'https://www.adobe.com/express/create/thumbnail/youtube', image: 'https://picsum.photos/seed/adobe-yt/600/400', dataAiHint: 'creative thumbnails' },
-    { name: 'Visme', description: 'Make custom thumbnails for your videos.', url: 'https://www.visme.co/youtube-thumbnail-maker/', image: 'https://picsum.photos/seed/visme-yt/600/400', dataAiHint: 'video branding' },
-    { name: 'Picmaker', description: 'AI-powered YouTube thumbnail creator.', url: 'https://www.picmaker.com/youtube-thumbnail-maker', image: 'https://picsum.photos/seed/picmaker-yt/600/400', dataAiHint: 'ai thumbnail' },
-    { name: 'Simplified', description: 'Free AI thumbnail maker.', url: 'https://simplified.com/youtube-thumbnail-maker/', image: 'https://picsum.photos/seed/simplified-yt/600/400', dataAiHint: 'design automation' },
-    { name: 'VistaCreate', description: 'Design click-worthy thumbnails.', url: 'https://create.vista.com/create/youtube-thumbnail/', image: 'https://picsum.photos/seed/vista-yt/600/400', dataAiHint: 'template library' },
-    { name: 'Pixlr', description: 'Online photo editor for thumbnails.', url: 'https://pixlr.com/youtube-thumbnail/', image: 'https://picsum.photos/seed/pixlr-yt/600/400', dataAiHint: 'photo editing' },
-    { name: 'Placeit', description: 'Thumbnail templates for every niche.', url: 'https://placeit.net/youtube-thumbnail-maker', image: 'https://picsum.photos/seed/placeit-yt/600/400', dataAiHint: 'template mockups' },
-];
-
-const reelsCoverTools = [
-    { name: 'Canva', description: 'Design amazing Reels covers.', url: 'https://www.canva.com/instagram-reels-covers/', image: 'https://picsum.photos/seed/canva-reels/600/400', dataAiHint: 'reels template' },
-    { name: 'Adobe Express', description: 'Free Reels cover templates.', url: 'https://www.adobe.com/express/create/video/instagram-reels', image: 'https://picsum.photos/seed/adobe-reels/600/400', dataAiHint: 'video cover' },
-    { name: 'InShot', description: 'Video editor with cover options.', url: 'https://inshot.com/', image: 'https://picsum.photos/seed/inshot-reels/600/400', dataAiHint: 'mobile video' },
-    { name: 'Fotor', description: 'Create a custom cover for your Reel.', url: 'https://www.fotor.com/design', image: 'https://picsum.photos/seed/fotor-reels/600/400', dataAiHint: 'cover design' },
-    { name: 'Kapwing', description: 'Online editor for Reels and covers.', url: 'https://www.kapwing.com/uses/instagram-reels-cover-image', image: 'https://picsum.photos/seed/kapwing-reels/600/400', dataAiHint: 'online editor' },
-    { name: 'Visme', description: 'Design engaging covers for your content.', url: 'https://www.visme.co/', image: 'https://picsum.photos/seed/visme-reels/600/400', dataAiHint: 'brand content' },
-    { name: 'Piktochart', description: 'Create branded Reels covers easily.', url: 'https://piktochart.com/', image: 'https://picsum.photos/seed/pikto-reels/600/400', dataAiHint: 'brand visuals' },
-    { name: 'GoDaddy Studio', description: 'Formerly Over. Design on the go.', url: 'https://www.godaddy.com/studio', image: 'https://picsum.photos/seed/godaddy-reels/600/400', dataAiHint: 'mobile design' },
-    { name: 'Veed.io', description: 'Add a custom cover to your video.', url: 'https://www.veed.io/', image: 'https://picsum.photos/seed/veed-reels/600/400', dataAiHint: 'video tools' },
-    { name: 'Picsart', description: 'Edit photos and create covers.', url: 'https://picsart.com/', image: 'https://picsum.photos/seed/picsart-reels/600/400', dataAiHint: 'creative editing' },
-];
-
-const adsCreativeTools = [
-    { name: 'AdCreative.ai', description: 'Generate conversion-focused ad creatives.', url: 'https://www.adcreative.ai/', image: 'https://picsum.photos/seed/adcreative/600/400', dataAiHint: 'ai advertising' },
-    { name: 'Celtra', description: 'Creative automation for enterprise.', url: 'https://www.celtra.com/', image: 'https://picsum.photos/seed/celtra-ads/600/400', dataAiHint: 'automation platform' },
-    { name: 'Creatopy', description: 'The efficient ad design platform.', url: 'https://www.creatopy.com/', image: 'https://picsum.photos/seed/creatopy-ads/600/400', dataAiHint: 'ad design' },
-    { name: 'Marpipe', description: 'Test your ad creatives at scale.', url: 'https://www.marpipe.com/', image: 'https://picsum.photos/seed/marpipe-ads/600/400', dataAiHint: 'creative testing' },
-    { name: 'Pencil', description: 'Generative AI for ads.', url: 'https://www.trypencil.com/', image: 'https://picsum.photos/seed/pencil-ads/600/400', dataAiHint: 'generative ai' },
-    { name: 'Bannerflow', description: 'Creative management platform.', url: 'https://www.bannerflow.com/', image: 'https://picsum.photos/seed/bannerflow-ads/600/400', dataAiHint: 'ad production' },
-    { name: 'Adacado', description: 'Dynamic creative optimization.', url: 'https://www.adacado.com/', image: 'https://picsum.photos/seed/adacado-ads/600/400', dataAiHint: 'dynamic ads' },
-    { name: 'Vidsy', description: 'Creator-powered video ads.', url: 'https://vidsy.co/', image: 'https://picsum.photos/seed/vidsy-ads/600/400', dataAiHint: 'video ads' },
-    { name: 'Shuttlerock', description: 'Mobile-first video ad creatives.', url: 'https://www.shuttlerock.com/', image: 'https://picsum.photos/seed/shuttlerock-ads/600/400', dataAiHint: 'mobile creative' },
-    { name: 'Omneky', description: 'AI-powered personalized advertising.', url: 'https://www.omneky.com/', image: 'https://picsum.photos/seed/omneky-ads/600/400', dataAiHint: 'personalized ads' },
+const toolData: ToolCategory[] = [
+    {
+        title: "Logo Design",
+        icon: <Palette className="w-5 h-5 text-primary"/>,
+        tools: [
+          { name: 'Looka', description: 'AI-powered platform to design a logo and build a brand you love.', url: 'https://looka.com/', image: 'https://picsum.photos/seed/looka/600/400', dataAiHint: 'ai logo' },
+          { name: 'Logo.com', description: 'Generate a professional logo with AI, in minutes.', url: 'https://logo.com/', image: 'https://picsum.photos/seed/logocom/600/400', dataAiHint: 'professional logo' },
+          { name: 'Designs.ai', description: 'An all-in-one platform to create logos, videos, and more with AI.', url: 'https://designs.ai/', image: 'https://picsum.photos/seed/designsai/600/400', dataAiHint: 'design suite' },
+          { name: 'Tailor Brands', description: 'The world’s most advanced automated logo maker and design tool.', url: 'https://www.tailorbrands.com/logo-maker', image: 'https://picsum.photos/seed/tailorbrands/600/400', dataAiHint: 'brand maker' },
+          { name: 'Canva Logo Maker', description: 'Create a professional logo for free in just a few clicks.', url: 'https://www.canva.com/create/logos/', image: 'https://picsum.photos/seed/canva-logo/600/400', dataAiHint: 'free logo' },
+          { name: 'Fotor Logo Maker', description: 'Make a stunning logo with Fotor’s free AI logo generator.', url: 'https://www.fotor.com/features/logo-maker.html', image: 'https://picsum.photos/seed/fotor-logo/600/400', dataAiHint: 'logo generator' },
+          { name: 'Hatchful', description: 'A free logo maker from Shopify. No design experience required.', url: 'https://hatchful.shopify.com/', image: 'https://picsum.photos/seed/hatchful/600/400', dataAiHint: 'shopify logo' },
+          { name: 'Uizard', description: 'AI-powered design tool for creating stunning logos and mockups.', url: 'https://uizard.io/ai-logo-generator/', image: 'https://picsum.photos/seed/uizard-logo/600/400', dataAiHint: 'ui design' },
+          { name: 'Brandmark.io', description: 'Create a unique, professional logo for your business.', url: 'https://brandmark.io/', image: 'https://picsum.photos/seed/brandmark/600/400', dataAiHint: 'business logo' },
+          { name: 'LogoAI', description: 'Let AI-powered design create your new logo, and brand identity.', url: 'https://www.logoai.com/', image: 'https://picsum.photos/seed/logoai/600/400', dataAiHint: 'intelligent logo' },
+        ]
+    },
+    {
+        title: "Instagram Posts",
+        icon: <Instagram className="w-5 h-5 text-primary"/>,
+        tools: [
+            { name: 'Canva', description: 'Design anything for your Instagram feed.', url: 'https://www.canva.com/instagram-posts/', image: 'https://picsum.photos/seed/canva-ig/600/400', dataAiHint: 'social media design' },
+            { name: 'Adobe Express', description: 'Free Instagram post maker with thousands of templates.', url: 'https://www.adobe.com/express/create/post/instagram', image: 'https://picsum.photos/seed/adobe-ig/600/400', dataAiHint: 'creative posts' },
+            { name: 'Fotor', description: 'Make your Instagram posts pop with AI editing tools.', url: 'https://www.fotor.com/features/instagram-post-maker.html', image: 'https://picsum.photos/seed/fotor-ig/600/400', dataAiHint: 'photo editor' },
+            { name: 'VistaCreate', description: 'Create stunning, animated posts in minutes.', url: 'https://create.vista.com/themes/instagram-post/', image: 'https://picsum.photos/seed/vista-ig/600/400', dataAiHint: 'animated posts' },
+            { name: 'Simplified', description: 'AI-powered design for all your social media content.', url: 'https://simplified.com/instagram-post-maker/', image: 'https://picsum.photos/seed/simplified-ig/600/400', dataAiHint: 'ai content' },
+            { name: 'Piktochart', description: 'Easy-to-use creator for infographics and social posts.', url: 'https://piktochart.com/formats/instagram-posts/', image: 'https://picsum.photos/seed/pikto-ig/600/400', dataAiHint: 'infographic posts' },
+            { name: 'Snappa', description: 'Create the best-looking Instagram posts in a snap.', url: 'https://snappa.com/create/instagram-posts', image: 'https://picsum.photos/seed/snappa-ig/600/400', dataAiHint: 'graphic creator' },
+            { name: 'Later', description: 'Plan, schedule, and design your Instagram posts in one place.', url: 'https://later.com/', image: 'https://picsum.photos/seed/later-ig/600/400', dataAiHint: 'social scheduler' },
+            { name: 'Buffer', description: 'Plan and schedule your content for Instagram.', url: 'https://buffer.com/instagram', image: 'https://picsum.photos/seed/buffer-ig/600/400', dataAiHint: 'scheduling tool' },
+            { name: 'Kapwing', description: 'Create image and video posts for your feed.', url: 'https://www.kapwing.com/uses/instagram', image: 'https://picsum.photos/seed/kapwing-ig/600/400', dataAiHint: 'video posts' },
+        ]
+    },
+    {
+        title: "YouTube Thumbnails",
+        icon: <Youtube className="w-5 h-5 text-primary"/>,
+        tools: [
+            { name: 'Canva', description: 'Eye-catching YouTube thumbnail maker.', url: 'https://www.canva.com/youtube-thumbnails/', image: 'https://picsum.photos/seed/canva-yt/600/400', dataAiHint: 'thumbnail design' },
+            { name: 'Fotor', description: 'Free YouTube thumbnail maker with AI.', url: 'https://www.fotor.com/features/youtube-thumbnail-maker.html', image: 'https://picsum.photos/seed/fotor-yt/600/400', dataAiHint: 'youtube art' },
+            { name: 'Adobe Express', description: 'Stunning YouTube thumbnails in seconds.', url: 'https://www.adobe.com/express/create/thumbnail/youtube', image: 'https://picsum.photos/seed/adobe-yt/600/400', dataAiHint: 'creative thumbnails' },
+            { name: 'Snappa', description: 'Create professional-looking thumbnails in a snap.', url: 'https://snappa.com/create/youtube-thumbnails', image: 'https://picsum.photos/seed/snappa-yt/600/400', dataAiHint: 'channel graphics' },
+            { name: 'Picmaker', description: 'AI-powered YouTube thumbnail creator.', url: 'https://www.picmaker.com/youtube-thumbnail-maker', image: 'https://picsum.photos/seed/picmaker-yt/600/400', dataAiHint: 'ai thumbnail' },
+            { name: 'Simplified', description: 'Free AI thumbnail maker to boost your CTR.', url: 'https://simplified.com/youtube-thumbnail-maker/', image: 'https://picsum.photos/seed/simplified-yt/600/400', dataAiHint: 'design automation' },
+            { name: 'Visme', description: 'Make custom thumbnails for your videos.', url: 'https://www.visme.co/youtube-thumbnail-maker/', image: 'https://picsum.photos/seed/visme-yt/600/400', dataAiHint: 'video branding' },
+            { name: 'Pixlr', description: 'Powerful online photo editor for thumbnails.', url: 'https://pixlr.com/youtube-thumbnail/', image: 'https://picsum.photos/seed/pixlr-yt/600/400', dataAiHint: 'photo editing' },
+            { name: 'Placeit', description: 'Thumbnail templates for every niche.', url: 'https://placeit.net/youtube-thumbnail-maker', image: 'https://picsum.photos/seed/placeit-yt/600/400', dataAiHint: 'template mockups' },
+            { name: 'VistaCreate', description: 'Design click-worthy thumbnails with templates.', url: 'https://create.vista.com/create/youtube-thumbnail/', image: 'https://picsum.photos/seed/vista-yt/600/400', dataAiHint: 'template library' },
+        ]
+    },
+    {
+        title: "Reels Covers",
+        icon: <Clapperboard className="w-5 h-5 text-primary"/>,
+        tools: [
+            { name: 'Canva', description: 'Design amazing Reels covers in minutes.', url: 'https://www.canva.com/instagram-reels-covers/', image: 'https://picsum.photos/seed/canva-reels/600/400', dataAiHint: 'reels template' },
+            { name: 'Adobe Express', description: 'Free Reels cover templates for your videos.', url: 'https://www.adobe.com/express/create/video/instagram-reels', image: 'https://picsum.photos/seed/adobe-reels/600/400', dataAiHint: 'video cover' },
+            { name: 'InShot', description: 'Popular mobile video editor with cover options.', url: 'https://inshot.com/', image: 'https://picsum.photos/seed/inshot-reels/600/400', dataAiHint: 'mobile video' },
+            { name: 'Fotor', description: 'Create a custom cover for your Reel.', url: 'https://www.fotor.com/design', image: 'https://picsum.photos/seed/fotor-reels/600/400', dataAiHint: 'cover design' },
+            { name: 'Kapwing', description: 'Online editor for creating Reels and covers.', url: 'https://www.kapwing.com/uses/instagram-reels-cover-image', image: 'https://picsum.photos/seed/kapwing-reels/600/400', dataAiHint: 'online editor' },
+            { name: 'Veed.io', description: 'Add a custom, animated cover to your video.', url: 'https://www.veed.io/', image: 'https://picsum.photos/seed/veed-reels/600/400', dataAiHint: 'video tools' },
+            { name: 'GoDaddy Studio', description: 'Formerly Over. A powerful mobile design app.', url: 'https://www.godaddy.com/studio', image: 'https://picsum.photos/seed/godaddy-reels/600/400', dataAiHint: 'mobile design' },
+            { name: 'Picsart', description: 'All-in-one editor for photos, videos, and covers.', url: 'https://picsart.com/', image: 'https://picsum.photos/seed/picsart-reels/600/400', dataAiHint: 'creative editing' },
+            { name: 'Mojo', description: 'Create stunning, animated stories and reel covers.', url: 'https://www.mojo-app.com/', image: 'https://picsum.photos/seed/mojo-reels/600/400', dataAiHint: 'animated social' },
+            { name: 'Unfold', description: 'A toolkit for storytellers to create beautiful content.', url: 'https://unfold.com/', image: 'https://picsum.photos/seed/unfold-reels/600/400', dataAiHint: 'story templates' },
+        ]
+    },
+    {
+        title: "Ads Creatives",
+        icon: <Megaphone className="w-5 h-5 text-primary"/>,
+        tools: [
+            { name: 'AdCreative.ai', description: 'Generate conversion-focused ad creatives with AI.', url: 'https://www.adcreative.ai/', image: 'https://picsum.photos/seed/adcreative/600/400', dataAiHint: 'ai advertising' },
+            { name: 'Creatopy', description: 'The efficient ad design platform for teams and agencies.', url: 'https://www.creatopy.com/', image: 'https://picsum.photos/seed/creatopy-ads/600/400', dataAiHint: 'ad design' },
+            { name: 'Pencil', description: 'Generative AI for ads that learn and get better.', url: 'https://www.trypencil.com/', image: 'https://picsum.photos/seed/pencil-ads/600/400', dataAiHint: 'generative ai' },
+            { name: 'Celtra', description: 'Creative automation for scaling ad production.', url: 'https://www.celtra.com/', image: 'https://picsum.photos/seed/celtra-ads/600/400', dataAiHint: 'automation platform' },
+            { name: 'Bannerflow', description: 'A leading creative management platform (CMP).', url: 'https://www.bannerflow.com/', image: 'https://picsum.photos/seed/bannerflow-ads/600/400', dataAiHint: 'ad production' },
+            { name: 'Omneky', description: 'AI-powered personalized advertising at scale.', url: 'https://www.omneky.com/', image: 'https://picsum.photos/seed/omneky-ads/600/400', dataAiHint: 'personalized ads' },
+            { name: 'Vidsy', description: 'Creator-powered video ads for brands.', url: 'https://vidsy.co/', image: 'https://picsum.photos/seed/vidsy-ads/600/400', dataAiHint: 'video ads' },
+            { name: 'Shuttlerock', description: 'Mobile-first video ad creatives made easy.', url: 'https://www.shuttlerock.com/', image: 'https://picsum.photos/seed/shuttlerock-ads/600/400', dataAiHint: 'mobile creative' },
+            { name: 'Bannersnack', description: 'Now part of Creatopy, an online banner maker.', url: 'https://www.creatopy.com/online-banner-maker/', image: 'https://picsum.photos/seed/bannersnack-ads/600/400', dataAiHint: 'banner maker' },
+            { name: 'Marpipe', description: 'Test your ad creatives at scale to find what works.', url: 'https://www.marpipe.com/', image: 'https://picsum.photos/seed/marpipe-ads/600/400', dataAiHint: 'creative testing' },
+        ]
+    },
+     {
+        title: "Social Media Graphics",
+        icon: <ThumbsUp className="w-5 h-5 text-primary"/>,
+        tools: [
+            { name: 'Canva', description: 'The go-to tool for creating any kind of social media graphic.', url: 'https://www.canva.com/create/social-media-graphics/', image: 'https://picsum.photos/seed/canva-social/600/400', dataAiHint: 'social media' },
+            { name: 'Adobe Express', description: 'Free social media content creator with powerful features.', url: 'https://www.adobe.com/express/create/social-media-graphic', image: 'https://picsum.photos/seed/adobe-social/600/400', dataAiHint: 'creative cloud' },
+            { name: 'Visme', description: 'Create social media graphics that are anything but boring.', url: 'https://www.visme.co/social-media-graphics/', image: 'https://picsum.photos/seed/visme-social/600/400', dataAiHint: 'engaging graphics' },
+            { name: 'Fotor', description: 'AI-powered social media post maker and designer.', url: 'https://www.fotor.com/create/social-media.html', image: 'https://picsum.photos/seed/fotor-social/600/400', dataAiHint: 'ai posts' },
+            { name: 'Piktochart', description: 'Turn text or data into engaging social graphics.', url: 'https://piktochart.com/formats/social-media-graphics/', image: 'https://picsum.photos/seed/piktochart-social/600/400', dataAiHint: 'infographics' },
+            { name: 'Snappa', description: 'The fastest way to create graphics for social media.', url: 'https://snappa.com/', image: 'https://picsum.photos/seed/snappa-social/600/400', dataAiHint: 'quick graphics' },
+            { name: 'Pablo by Buffer', description: 'Design engaging social media images in under 30 seconds.', url: 'https://pablo.buffer.com/', image: 'https://picsum.photos/seed/pablo-social/600/400', dataAiHint: 'fast images' },
+            { name: 'Pixlr', description: 'A suite of online photo editors for quick edits and designs.', url: 'https://pixlr.com/', image: 'https://picsum.photos/seed/pixlr-social/600/400', dataAiHint: 'online editor' },
+            { name: 'Glorify', description: 'Product-focused social media graphics for e-commerce.', url: 'https://www.glorify.com/', image: 'https://picsum.photos/seed/glorify-social/600/400', dataAiHint: 'ecommerce graphics' },
+            { name: 'Easil', description: 'Brand-locked templates to maintain consistency.', url: 'https://about.easil.com/', image: 'https://picsum.photos/seed/easil-social/600/400', dataAiHint: 'brand templates' },
+        ]
+    },
+    {
+        title: "Website Design",
+        icon: <Code className="w-5 h-5 text-primary"/>,
+        tools: [
+            { name: 'Figma', description: 'The collaborative interface design tool.', url: 'https://www.figma.com/', image: 'https://picsum.photos/seed/figma-web/600/400', dataAiHint: 'ui design' },
+            { name: 'Uizard', description: 'AI-powered design tool to go from idea to mockup in minutes.', url: 'https://uizard.io/', image: 'https://picsum.photos/seed/uizard-web/600/400', dataAiHint: 'ai wireframe' },
+            { name: 'Wix ADI', description: 'Artificial Design Intelligence that builds a website for you.', url: 'https://www.wix.com/adi', image: 'https://picsum.photos/seed/wix-web/600/400', dataAiHint: 'ai website' },
+            { name: 'Framer AI', description: 'Generate and publish your site with AI in seconds.', url: 'https://www.framer.com/ai', image: 'https://picsum.photos/seed/framer-web/600/400', dataAiHint: 'ai publish' },
+            { name: 'Webflow', description: 'Build professional websites with no code.', url: 'https://webflow.com/', image: 'https://picsum.photos/seed/webflow-web/600/400', dataAiHint: 'no-code' },
+            { name: 'Sketch', description: 'The design platform for digital experiences (macOS only).', url: 'https://www.sketch.com/', image: 'https://picsum.photos/seed/sketch-web/600/400', dataAiHint: 'vector design' },
+            { name: 'Adobe XD', description: 'A powerful vector-based tool for designing and prototyping.', url: 'https://www.adobe.com/products/xd.html', image: 'https://picsum.photos/seed/xd-web/600/400', dataAiHint: 'prototyping' },
+            { name: 'Durable', description: 'The AI website builder that generates a site in 30 seconds.', url: 'https://durable.co/', image: 'https://picsum.photos/seed/durable-web/600/400', dataAiHint: 'fast website' },
+            { name: 'Squarespace', description: 'All-in-one platform to build a beautiful online presence.', url: 'https://www.squarespace.com/', image: 'https://picsum.photos/seed/squarespace-web/600/400', dataAiHint: 'website builder' },
+            { name: 'Bubble', description: 'The most powerful no-code platform for creating web apps.', url: 'https://bubble.io/', image: 'https://picsum.photos/seed/bubble-web/600/400', dataAiHint: 'web app' },
+        ]
+    },
+    {
+        title: "3D Modeling",
+        icon: <Box className="w-5 h-5 text-primary"/>,
+        tools: [
+            { name: 'Blender', description: 'Free and open source 3D creation suite.', url: 'https://www.blender.org/', image: 'https://picsum.photos/seed/blender-3d/600/400', dataAiHint: '3d animation' },
+            { name: 'Spline', description: 'A collaborative 3D design tool for the web.', url: 'https://spline.design/', image: 'https://picsum.photos/seed/spline-3d/600/400', dataAiHint: 'web 3d' },
+            { name: 'Luma AI', description: 'Capture realistic 3D models from your phone.', url: 'https://lumalabs.ai/', image: 'https://picsum.photos/seed/luma-3d/600/400', dataAiHint: '3d capture' },
+            { name: 'Masterpiece Studio', description: 'The complete VR 3D creative suite.', url: 'https://masterpiecestudio.com/', image: 'https://picsum.photos/seed/masterpiece-3d/600/400', dataAiHint: 'vr creation' },
+            { name: 'Meshy', description: 'Create 3D assets from text or images with AI.', url: 'https://www.meshy.ai/', image: 'https://picsum.photos/seed/meshy-3d/600/400', dataAiHint: 'ai 3d' },
+            { name: 'Tinkercad', description: 'A free, easy-to-use app for 3D design, electronics, and coding.', url: 'https://www.tinkercad.com/', image: 'https://picsum.photos/seed/tinkercad-3d/600/400', dataAiHint: 'beginner 3d' },
+            { name: 'SketchUp Free', description: 'The easiest way to draw in 3D, now in your browser.', url: 'https://www.sketchup.com/plans-and-pricing/sketchup-free', image: 'https://picsum.photos/seed/sketchup-3d/600/400', dataAiHint: 'architecture 3d' },
+            { name: 'Vectary', description: 'The online 3D & AR design platform.', url: 'https://www.vectary.com/', image: 'https://picsum.photos/seed/vectary-3d/600/400', dataAiHint: 'ar design' },
+            { name: '3D Slash', description: 'Unique 3D modeling app with a building-block concept.', url: 'https://www.3dslash.net/', image: 'https://picsum.photos/seed/3dslash-3d/600/400', dataAiHint: 'easy modeling' },
+            { name: 'Kaedim', description: 'Generate 3D models from 2D images in minutes.', url: 'https://www.kaedim3d.com/', image: 'https://picsum.photos/seed/kaedim-3d/600/400', dataAiHint: 'image to 3d' },
+        ]
+    }
 ];
 
 export default function GraphicDesignToolsPage() {
@@ -170,7 +192,7 @@ export default function GraphicDesignToolsPage() {
         }
     }, [toast]);
 
-  const ToolCard = ({ tool }: { tool: { name: string, description: string, url: string, image: string, dataAiHint: string }}) => (
+  const ToolCard = ({ tool }: { tool: Tool }) => (
     <Link href={tool.url} target="_blank" rel="noopener noreferrer" className="block w-[280px] shrink-0 opacity-0 animate-fade-in-up">
         <Card 
             className="bg-white/80 border-none rounded-3xl soft-shadow transition-all duration-300 h-full group-hover:scale-[1.02] group-hover:shadow-lg overflow-hidden"
@@ -232,77 +254,25 @@ export default function GraphicDesignToolsPage() {
 
       <main className="relative z-10 w-full max-w-sm flex-1 bg-card/80 backdrop-blur-3xl rounded-t-[2.5rem] shadow-2xl flex flex-col min-h-0 border-t-2 border-white/50 soft-shadow mt-6">
         <div className="flex-grow overflow-y-auto no-scrollbar p-4 space-y-8">
-            <section>
-                <div className="flex justify-between items-center mb-3 px-2">
-                    <h2 className="font-semibold text-xl flex items-center gap-2">
-                        <Palette className="w-5 h-5 text-primary"/>
-                        Logo Design
-                    </h2>
-                </div>
-                <div className="flex gap-4 overflow-x-auto no-scrollbar pb-2 -mx-4 px-4">
-                    {logoDesignTools.map((tool, index) => (
-                      <ToolCard tool={tool} key={tool.name + index}/>
-                    ))}
-                </div>
-            </section>
-
-            <section>
-                <div className="flex justify-between items-center mb-3 px-2">
-                    <h2 className="font-semibold text-xl flex items-center gap-2">
-                        <Instagram className="w-5 h-5 text-primary"/>
-                        Instagram Posts
-                    </h2>
-                </div>
-                <div className="flex gap-4 overflow-x-auto no-scrollbar pb-2 -mx-4 px-4">
-                    {instagramPostTools.map((tool, index) => (
-                      <ToolCard tool={tool} key={tool.name + index}/>
-                    ))}
-                </div>
-            </section>
-
-            <section>
-                <div className="flex justify-between items-center mb-3 px-2">
-                    <h2 className="font-semibold text-xl flex items-center gap-2">
-                        <Youtube className="w-5 h-5 text-primary"/>
-                        YouTube Thumbnails
-                    </h2>
-                </div>
-                <div className="flex gap-4 overflow-x-auto no-scrollbar pb-2 -mx-4 px-4">
-                    {youtubeThumbnailTools.map((tool, index) => (
-                      <ToolCard tool={tool} key={tool.name + index}/>
-                    ))}
-                </div>
-            </section>
-
-            <section>
-                <div className="flex justify-between items-center mb-3 px-2">
-                    <h2 className="font-semibold text-xl flex items-center gap-2">
-                        <Clapperboard className="w-5 h-5 text-primary"/>
-                        Reels Covers
-                    </h2>
-                </div>
-                <div className="flex gap-4 overflow-x-auto no-scrollbar pb-2 -mx-4 px-4">
-                    {reelsCoverTools.map((tool, index) => (
-                      <ToolCard tool={tool} key={tool.name + index}/>
-                    ))}
-                </div>
-            </section>
-
-            <section>
-                <div className="flex justify-between items-center mb-3 px-2">
-                    <h2 className="font-semibold text-xl flex items-center gap-2">
-                        <Megaphone className="w-5 h-5 text-primary"/>
-                        Ads Creatives
-                    </h2>
-                </div>
-                <div className="flex gap-4 overflow-x-auto no-scrollbar pb-2 -mx-4 px-4">
-                    {adsCreativeTools.map((tool, index) => (
-                      <ToolCard tool={tool} key={tool.name + index}/>
-                    ))}
-                </div>
-            </section>
+            {toolData.map((category, index) => (
+              <section key={index}>
+                  <div className="flex justify-between items-center mb-3 px-2">
+                      <h2 className="font-semibold text-xl flex items-center gap-2">
+                          {category.icon}
+                          {category.title}
+                      </h2>
+                  </div>
+                  <div className="flex gap-4 overflow-x-auto no-scrollbar pb-2 -mx-4 px-4">
+                      {category.tools.map((tool, toolIndex) => (
+                        <ToolCard tool={tool} key={`${category.title}-${tool.name}-${toolIndex}`}/>
+                      ))}
+                  </div>
+              </section>
+            ))}
         </div>
       </main>
     </div>
   );
 }
+
+    
