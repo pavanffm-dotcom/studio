@@ -11,16 +11,7 @@ import { cn } from '@/lib/utils';
 import { useToast } from '@/hooks/use-toast';
 import { useLanguage } from '@/lib/language';
 import { useFavourites } from '@/context/favourites-context';
-
-type Tool = {
-    name: string;
-    image?: string;
-    icon?: React.ReactNode;
-    isTrending?: boolean;
-    category?: string;
-    dataAiHint?: string;
-    url: string;
-};
+import { Tool } from '@/lib/tools-data';
 
 const textToVideoTools: Tool[] = [
   { name: 'Runway', url: 'https://runwayml.com/', image: 'https://picsum.photos/seed/runway-pop/300/200', category: 'Video', dataAiHint: 'abstract animation', isTrending: true },

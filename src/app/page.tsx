@@ -66,6 +66,7 @@ import {
     toolCategories,
     allTools,
 } from '@/lib/tools-data';
+import { ToolIcon } from '@/lib/tool-icons';
 
 
 type ChatMessage = {
@@ -420,7 +421,7 @@ function App() {
               {popularTools.map(tool => (
                   <a href={tool.url} target="_blank" rel="noopener noreferrer" key={tool.name} className="flex flex-col items-center shrink-0 w-24 text-center cursor-pointer" onClick={() => handleToolClick(tool)}>
                       <div className="w-20 h-20 rounded-3xl bg-secondary flex items-center justify-center text-primary soft-shadow">
-                          {tool.icon}
+                          {tool.icon && <ToolIcon name={tool.icon} className="w-8 h-8" />}
                       </div>
                       <p className="text-sm font-medium text-center mt-2 text-muted-foreground">{tool.name}</p>
                   </a>
@@ -458,7 +459,7 @@ function App() {
               {libraries.map(lib => (
                   <div key={lib.name} className={cn('p-4 rounded-3xl flex flex-col justify-between aspect-square soft-shadow bg-gradient-to-br', lib.gradient)}>
                       <div className="bg-white/30 rounded-full w-10 h-10 flex items-center justify-center text-white backdrop-blur-sm">
-                          {lib.icon}
+                          {lib.icon && <ToolIcon name={lib.icon} />}
                       </div>
                       <p className="text-white font-semibold text-base mt-4">{t(`home.libraries.${lib.name.replace(' ', '')}`)}</p>
                   </div>
@@ -593,7 +594,7 @@ function App() {
                                 )}
                                 onClick={() => setActiveCategory(cat.name)}
                             >
-                                {cat.icon}
+                                {cat.icon && <ToolIcon name={cat.icon} />}
                                 <span>{cat.name}</span>
                             </Button>
                         ))}

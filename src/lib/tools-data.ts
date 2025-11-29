@@ -1,20 +1,7 @@
-import React from 'react';
-import {
-  Clapperboard,
-  ImageIcon,
-  Mic,
-  UserSquare,
-  LayoutGrid,
-  Video,
-  Text,
-  Voicemail,
-  ImageDown,
-} from 'lucide-react';
-
 export type Tool = {
     name: string;
     image?: string;
-    icon?: React.ReactNode;
+    icon?: string; // Changed from React.ReactNode to string
     isTrending?: boolean;
     category?: string;
     dataAiHint?: string;
@@ -29,17 +16,17 @@ export type QuickToolCategory = {
 };
 
 export const popularTools: Tool[] = [
-  { name: 'Runway', icon: <Video className="w-8 h-8" />, url: 'https://runwayml.com/', image: 'https://picsum.photos/seed/runway-pop/300/200', category: 'Video', dataAiHint: 'abstract animation' },
-  { name: 'Pika', icon: <Clapperboard className="w-8 h-8" />, url: 'https://pika.art/', image: 'https://picsum.photos/seed/pika-pop/300/200', category: 'Video', dataAiHint: 'cinematic video' },
-  { name: 'ElevenLabs', icon: <Mic className="w-8 h-8" />, url: 'https://elevenlabs.io/', image: 'https://picsum.photos/seed/elevenlabs-pop/300/200', category: 'Audio', dataAiHint: 'sound waves' },
-  { name: 'Lensa AI', icon: <UserSquare className="w-8 h-8" />, url: 'https://prisma-ai.com/lensa', image: 'https://picsum.photos/seed/lensa-pop/300/200', category: 'Image', dataAiHint: 'ai avatar' },
-  { name: 'Midjourney', icon: <ImageIcon className="w-8 h-8" />, url: 'https://www.midjourney.com/', image: 'https://picsum.photos/seed/midjourney-pop/300/200', category: 'Image', dataAiHint: 'generative art' },
+  { name: 'Runway', icon: 'Video', url: 'https://runwayml.com/', image: 'https://picsum.photos/seed/runway-pop/300/200', category: 'Video', dataAiHint: 'abstract animation' },
+  { name: 'Pika', icon: 'Clapperboard', url: 'https://pika.art/', image: 'https://picsum.photos/seed/pika-pop/300/200', category: 'Video', dataAiHint: 'cinematic video' },
+  { name: 'ElevenLabs', icon: 'Mic', url: 'https://elevenlabs.io/', image: 'https://picsum.photos/seed/elevenlabs-pop/300/200', category: 'Audio', dataAiHint: 'sound waves' },
+  { name: 'Lensa AI', icon: 'UserSquare', url: 'https://prisma-ai.com/lensa', image: 'https://picsum.photos/seed/lensa-pop/300/200', category: 'Image', dataAiHint: 'ai avatar' },
+  { name: 'Midjourney', icon: 'ImageIcon', url: 'https://www.midjourney.com/', image: 'https://picsum.photos/seed/midjourney-pop/300/200', category: 'Image', dataAiHint: 'generative art' },
 ];
 
 export const libraries = [
-  { name: 'Image Library', gradient: 'from-pink-300 to-rose-300', icon: <ImageIcon/> },
-  { name: 'Video Library', gradient: 'from-sky-300 to-blue-300', icon: <Clapperboard/> },
-  { name: 'Audio Library', gradient: 'from-teal-200 to-emerald-300', icon: <Mic/> },
+  { name: 'Image Library', gradient: 'from-pink-300 to-rose-300', icon: 'ImageIcon' },
+  { name: 'Video Library', gradient: 'from-sky-300 to-blue-300', icon: 'Clapperboard' },
+  { name: 'Audio Library', gradient: 'from-teal-200 to-emerald-300', icon: 'Mic' },
 ];
 
 export const quickToolCategories: QuickToolCategory[] = [
@@ -416,13 +403,13 @@ export const textToImageTools: Tool[] = [
 ];
 
 export const toolCategories = [
-    { name: 'All', icon: <LayoutGrid />, color: 'bg-primary text-primary-foreground' },
-    { name: 'Img2vid', icon: <ImageIcon />, gradient: 'bg-gradient-to-br from-pink-400 to-rose-400 text-white' },
-    { name: 'Txt2vid', icon: <Video />, gradient: 'bg-gradient-to-br from-sky-400 to-blue-400 text-white' },
-    { name: 'Text to Speech', icon: <Text />, gradient: 'bg-gradient-to-br from-teal-400 to-emerald-400 text-white' },
-    { name: 'Text to Image', icon: <ImageDown />, gradient: 'bg-gradient-to-br from-orange-400 to-amber-400 text-white' },
-    { name: 'Voice Cloning', icon: <Voicemail />, gradient: 'bg-gradient-to-br from-purple-400 to-indigo-400 text-white' },
-    { name: 'AI Avatar', icon: <UserSquare />, gradient: 'bg-gradient-to-br from-yellow-400 to-amber-400 text-white' },
+    { name: 'All', icon: 'LayoutGrid', color: 'bg-primary text-primary-foreground' },
+    { name: 'Img2vid', icon: 'ImageIcon', gradient: 'bg-gradient-to-br from-pink-400 to-rose-400 text-white' },
+    { name: 'Txt2vid', icon: 'Video', gradient: 'bg-gradient-to-br from-sky-400 to-blue-400 text-white' },
+    { name: 'Text to Speech', icon: 'Text', gradient: 'bg-gradient-to-br from-teal-400 to-emerald-400 text-white' },
+    { name: 'Text to Image', icon: 'ImageDown', gradient: 'bg-gradient-to-br from-orange-400 to-amber-400 text-white' },
+    { name: 'Voice Cloning', icon: 'Voicemail', gradient: 'bg-gradient-to-br from-purple-400 to-indigo-400 text-white' },
+    { name: 'AI Avatar', icon: 'UserSquare', gradient: 'bg-gradient-to-br from-yellow-400 to-amber-400 text-white' },
 ];
 
 export const allTools: Tool[] = Array.from(new Set([
