@@ -4,7 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { 
-    ArrowLeft, ExternalLink, Paintbrush, Star, Share2, Palette, Instagram, Youtube, Clapperboard, Megaphone, Tv, Layout, FileText, Globe, Gem, Braces, Smartphone, LayoutDashboard, BookOpen, Contact, Type, PenTool, ImagePlay, Sparkles, Shapes, UserCircle, BrainCircuit, Newspaper, BoxSelect, MousePointerClick, BookCopy, Wall, Car, Store, Tower3d, Cube, Truck, Film
+    ArrowLeft, ExternalLink, Paintbrush, Star, Share2, Palette, Instagram, Youtube, Clapperboard, Megaphone, Tv, Layout, FileText, Globe, Gem, Braces, Smartphone, LayoutDashboard, BookOpen, Contact, Type, PenTool, ImagePlay, Sparkles, Shapes, UserCircle, BrainCircuit, Newspaper, BoxSelect, MousePointerClick, BookCopy, Wall, Car, Store, Tower3d, Box, Truck, Film, SquareParking
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardTitle } from '@/components/ui/card';
@@ -578,7 +578,7 @@ const toolData: ToolCategory[] = [
     },
     {
         title: "Signage",
-        icon: <Signage className="w-5 h-5 text-primary"/>,
+        icon: <SquareParking className="w-5 h-5 text-primary"/>,
         tools: [
             { name: 'Signs.com', description: 'Design and order custom signs online.', url: 'https://www.signs.com/', image: 'https://picsum.photos/seed/signscom-sign/600/400', dataAiHint: 'custom signs' },
             { name: 'Canva', description: 'Create printable signs for business and events.', url: 'https://www.canva.com/create/signs/', image: 'https://picsum.photos/seed/canva-sign/600/400', dataAiHint: 'printable signs' },
@@ -610,7 +610,7 @@ const toolData: ToolCategory[] = [
     },
     {
         title: "3D Modeling",
-        icon: <Cube className="w-5 h-5 text-primary"/>,
+        icon: <Box className="w-5 h-5 text-primary"/>,
         tools: [
             { name: 'Blender', description: 'Free and open source 3D creation suite.', url: 'https://www.blender.org/', image: 'https://picsum.photos/seed/blender-model/600/400', dataAiHint: '3d suite' },
             { name: 'Autodesk Maya', description: '3D computer animation, modeling, simulation, and rendering software.', url: 'https://www.autodesk.com/products/maya/overview', image: 'https://picsum.photos/seed/maya-model/600/400', dataAiHint: '3d animation' },
