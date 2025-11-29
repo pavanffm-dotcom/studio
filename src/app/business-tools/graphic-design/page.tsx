@@ -4,7 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { 
-    ArrowLeft, ExternalLink, Paintbrush, Star, Share2, Palette, Instagram, Youtube, Clapperboard, Megaphone, Tv, Layout, FileText, Globe, Gem, Braces, Smartphone, LayoutDashboard, BookOpen, Contact, Type, PenTool, ImagePlay, Sparkles
+    ArrowLeft, ExternalLink, Paintbrush, Star, Share2, Palette, Instagram, Youtube, Clapperboard, Megaphone, Tv, Layout, FileText, Globe, Gem, Braces, Smartphone, LayoutDashboard, BookOpen, Contact, Type, PenTool, ImagePlay, Sparkles, Shapes, UserCircle, BrainCircuit, Newspaper, BoxSelect, MousePointerClick
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardTitle } from '@/components/ui/card';
@@ -85,7 +85,7 @@ const toolData: ToolCategory[] = [
             { name: 'Piktochart Poster Maker', description: 'Create beautiful posters and infographics easily.', url: 'https://piktochart.com/formats/posters/', image: 'https://picsum.photos/seed/pikto-poster/600/400', dataAiHint: 'info poster' },
             { name: 'PosterMyWall', description: 'Easy-to-use tool for posters, flyers, and videos.', url: 'https://www.postermywall.com/index.php/g/poster-maker', image: 'https://picsum.photos/seed/postermywall-poster/600/400', dataAiHint: 'promo poster' },
             { name: 'Scribus', description: 'Free and open-source desktop publishing software.', url: 'https://www.scribus.net/', image: 'https://picsum.photos/seed/scribus-poster/600/400', dataAiHint: 'desktop publishing' },
-            { name: 'GIMP', description: 'Free & open source image editor for advanced designs.', url: 'https://www.gimp.org/', image: 'https://picsum.photos/seed/gimp-poster/600/400', dataAiHint: 'image editor' },
+            { name: 'GIMP', description: 'Free &amp; open source image editor for advanced designs.', url: 'https://www.gimp.org/', image: 'https://picsum.photos/seed/gimp-poster/600/400', dataAiHint: 'image editor' },
         ]
     },
     {
@@ -359,7 +359,7 @@ const toolData: ToolCategory[] = [
             { name: 'Canva', description: 'Thousands of professionally designed templates for any brand.', url: 'https://www.canva.com/templates/', image: 'https://picsum.photos/seed/canva-templates/600/400', dataAiHint: 'design templates' },
             { name: 'Adobe Express', description: 'Free online content creator with thousands of templates.', url: 'https://www.adobe.com/express/templates', image: 'https://picsum.photos/seed/adobe-templates/600/400', dataAiHint: 'free templates' },
             { name: 'VistaCreate', description: 'A vast collection of design templates for your brand.', url: 'https://create.vista.com/themes/', image: 'https://picsum.photos/seed/vista-templates/600/400', dataAiHint: 'template library' },
-            { name: 'Envato Elements', description: 'Unlimited downloads of graphic templates, stock photos & more.', url: 'https://elements.envato.com/graphic-templates', image: 'https://picsum.photos/seed/envato-templates/600/400', dataAiHint: 'stock templates' },
+            { name: 'Envato Elements', description: 'Unlimited downloads of graphic templates, stock photos &amp; more.', url: 'https://elements.envato.com/graphic-templates', image: 'https://picsum.photos/seed/envato-templates/600/400', dataAiHint: 'stock templates' },
             { name: 'Marq (Lucidpress)', description: 'Lockable brand templates to ensure brand consistency.', url: 'https://www.marq.com/', image: 'https://picsum.photos/seed/marq-templates/600/400', dataAiHint: 'brand consistency' },
             { name: 'Figma Community', description: 'Browse thousands of templates and files from the community.', url: 'https://www.figma.com/community/templates', image: 'https://picsum.photos/seed/figma-templates/600/400', dataAiHint: 'ui templates' },
             { name: 'Behance', description: 'Discover creative work and templates from top designers.', url: 'https://www.behance.net/', image: 'https://picsum.photos/seed/behance-templates/600/400', dataAiHint: 'design portfolio' },
@@ -375,7 +375,7 @@ const toolData: ToolCategory[] = [
             { name: 'Renderforest', description: 'Create stunning animated logos in minutes.', url: 'https://www.renderforest.com/animated-logo-maker', image: 'https://picsum.photos/seed/renderforest-logos/600/400', dataAiHint: 'logo animation' },
             { name: 'Canva', description: 'Animate your logo with just one click.', url: 'https://www.canva.com/features/animate-logo/', image: 'https://picsum.photos/seed/canva-logos/600/400', dataAiHint: 'easy animation' },
             { name: 'Viddyoze', description: 'Create studio-quality animations in just a few clicks.', url: 'https://viddyoze.com/', image: 'https://picsum.photos/seed/viddyoze-logos/600/400', dataAiHint: '3d animation' },
-            { name: 'Animaker', description: 'A platform for beginners, non-designers & professionals to create animated videos.', url: 'https://www.animaker.com/logo-animation', image: 'https://picsum.photos/seed/animaker-logos/600/400', dataAiHint: 'diy animation' },
+            { name: 'Animaker', description: 'A platform for beginners, non-designers &amp; professionals to create animated videos.', url: 'https://www.animaker.com/logo-animation', image: 'https://picsum.photos/seed/animaker-logos/600/400', dataAiHint: 'diy animation' },
             { name: 'Offeo', description: 'Online video ad maker for social media marketing.', url: 'https://offeo.com/tools/animated-logo-maker', image: 'https://picsum.photos/seed/offeo-logos/600/400', dataAiHint: 'video ad' },
             { name: 'Adobe Express', description: 'Animate text and photos for your logo.', url: 'https://www.adobe.com/express/feature/animation/animate-text', image: 'https://picsum.photos/seed/adobe-logos/600/400', dataAiHint: 'text animation' },
             { name: 'Placeit', description: 'Create animated logos and intros for your videos.', url: 'https://placeit.net/animated-logo-maker', image: 'https://picsum.photos/seed/placeit-logos/600/400', dataAiHint: 'intro maker' },
@@ -398,6 +398,118 @@ const toolData: ToolCategory[] = [
             { name: 'Runway', description: 'AI magic tools for video editing and motion graphics.', url: 'https://runwayml.com/', image: 'https://picsum.photos/seed/runway-motion/600/400', dataAiHint: 'ai video' },
             { name: 'Kapwing', description: 'Collaborative platform for creating images, videos, and GIFs.', url: 'https://www.kapwing.com/', image: 'https://picsum.photos/seed/kapwing-motion/600/400', dataAiHint: 'online editor' },
             { name: 'Piktochart', description: 'Create engaging infographics, presentations, and posters.', url: 'https://piktochart.com/', image: 'https://picsum.photos/seed/piktochart-motion/600/400', dataAiHint: 'infographics' },
+        ]
+    },
+    {
+        title: "Vector Illustrations",
+        icon: <Shapes className="w-5 h-5 text-primary"/>,
+        tools: [
+            { name: 'Adobe Illustrator', description: 'The industry-standard vector graphics software.', url: 'https://www.adobe.com/products/illustrator.html', image: 'https://picsum.photos/seed/illustrator/600/400', dataAiHint: 'vector art' },
+            { name: 'Figma', description: 'A collaborative interface design tool for vector work.', url: 'https://www.figma.com/', image: 'https://picsum.photos/seed/figma-vector/600/400', dataAiHint: 'ui design' },
+            { name: 'Sketch', description: 'The design toolkit for creating your best vector work.', url: 'https://www.sketch.com/', image: 'https://picsum.photos/seed/sketch-vector/600/400', dataAiHint: 'macOS design' },
+            { name: 'Affinity Designer', description: 'A professional graphic design app for desktop and iPad.', url: 'https://affinity.serif.com/en-us/designer/', image: 'https://picsum.photos/seed/affinity/600/400', dataAiHint: 'graphic design' },
+            { name: 'Inkscape', description: 'A powerful, free and open-source vector graphics editor.', url: 'https://inkscape.org/', image: 'https://picsum.photos/seed/inkscape/600/400', dataAiHint: 'open source' },
+            { name: 'CorelDRAW', description: 'A complete suite of professional graphic design applications.', url: 'https://www.coreldraw.com/', image: 'https://picsum.photos/seed/coreldraw/600/400', dataAiHint: 'design suite' },
+            { name: 'Vectr', description: 'A simple yet powerful free graphics editor.', url: 'https://vectr.com/', image: 'https://picsum.photos/seed/vectr/600/400', dataAiHint: 'free editor' },
+            { name: 'Gravit Designer', description: 'A full-featured vector graphic design app.', url: 'https://www.designer.io/', image: 'https://picsum.photos/seed/gravit/600/400', dataAiHint: 'cross-platform' },
+            { name: 'Canva', description: 'Create vector-like graphics with an easy-to-use interface.', url: 'https://www.canva.com/', image: 'https://picsum.photos/seed/canva-vector/600/400', dataAiHint: 'easy graphics' },
+            { name: 'Linearity Curve', description: 'Formerly Vectornator. Powerful vector design for Apple devices.', url: 'https://www.linearity.io/curve', image: 'https://picsum.photos/seed/linearity/600/400', dataAiHint: 'ipad design' },
+        ]
+    },
+    {
+        title: "Character Design",
+        icon: <UserCircle className="w-5 h-5 text-primary"/>,
+        tools: [
+            { name: 'Procreate', description: 'A powerful digital illustration app for iPad.', url: 'https://procreate.art/', image: 'https://picsum.photos/seed/procreate-char/600/400', dataAiHint: 'digital art' },
+            { name: 'Blender', description: 'Free and open source 3D creation suite.', url: 'https://www.blender.org/', image: 'https://picsum.photos/seed/blender-char/600/400', dataAiHint: '3d model' },
+            { name: 'ZBrush', description: 'The industry standard for digital sculpting.', url: 'https://www.maxon.net/en/zbrush', image: 'https://picsum.photos/seed/zbrush-char/600/400', dataAiHint: 'digital sculpt' },
+            { name: 'Character Creator', description: 'A full character creation solution for designers.', url: 'https://www.reallusion.com/character-creator/', image: 'https://picsum.photos/seed/reallusion/600/400', dataAiHint: '3d character' },
+            { name: 'Artbreeder', description: 'Create and breed characters using AI.', url: 'https://www.artbreeder.com/', image: 'https://picsum.photos/seed/artbreeder-char/600/400', dataAiHint: 'ai generator' },
+            { name: 'Adobe Photoshop', description: 'The essential tool for image editing and digital painting.', url: 'https://www.adobe.com/products/photoshop.html', image: 'https://picsum.photos/seed/photoshop-char/600/400', dataAiHint: 'digital paint' },
+            { name: 'Clip Studio Paint', description: 'The artist\'s software for drawing and painting.', url: 'https://www.clipstudio.net/en/', image: 'https://picsum.photos/seed/clipstudio/600/400', dataAiHint: 'comic art' },
+            { name: 'MakeHuman', description: 'An open source tool to make 3D characters.', url: 'http://www.makehumancommunity.org/', image: 'https://picsum.photos/seed/makehuman/600/400', dataAiHint: 'human model' },
+            { name: 'Hero Forge', description: 'Design custom miniatures for tabletop RPGs.', url: 'https://www.heroforge.com/', image: 'https://picsum.photos/seed/heroforge/600/400', dataAiHint: 'custom miniature' },
+            { name: 'Midjourney', description: 'Generate unique character concepts with AI.', url: 'https://www.midjourney.com/', image: 'https://picsum.photos/seed/midjourney-char/600/400', dataAiHint: 'ai concept' },
+        ]
+    },
+    {
+        title: "Concept Art",
+        icon: <BrainCircuit className="w-5 h-5 text-primary"/>,
+        tools: [
+            { name: 'Photoshop', description: 'Industry-standard for digital painting and photo manipulation.', url: 'https://www.adobe.com/products/photoshop.html', image: 'https://picsum.photos/seed/photoshop-concept/600/400', dataAiHint: 'digital paint' },
+            { name: 'Procreate', description: 'Powerful and intuitive digital illustration app for iPad.', url: 'https://procreate.art/', image: 'https://picsum.photos/seed/procreate-concept/600/400', dataAiHint: 'ipad drawing' },
+            { name: 'ArtStation', description: 'The leading showcase platform for games, film, and media.', url: 'https://www.artstation.com/', image: 'https://picsum.photos/seed/artstation-concept/600/400', dataAiHint: 'art portfolio' },
+            { name: 'Midjourney', description: 'AI-powered tool to rapidly generate visual concepts.', url: 'https://www.midjourney.com/', image: 'https://picsum.photos/seed/midjourney-concept/600/400', dataAiHint: 'ai art' },
+            { name: 'Blender', description: 'Free 3D software for creating models and scenes.', url: 'https://www.blender.org/', image: 'https://picsum.photos/seed/blender-concept/600/400', dataAiHint: '3d creation' },
+            { name: 'Corel Painter', description: 'Digital art software trusted by professional artists.', url: 'https://www.painterartist.com/en/', image: 'https://picsum.photos/seed/painter-concept/600/400', dataAiHint: 'digital paint' },
+            { name: 'Clip Studio Paint', description: 'Versatile tool for illustration, comics, and animation.', url: 'https://www.clipstudio.net/en/', image: 'https://picsum.photos/seed/clipstudio-concept/600/400', dataAiHint: 'illustration' },
+            { name: '3DCoat', description: 'The one application for all your 3D art needs.', url: 'https://3dcoat.com/', image: 'https://picsum.photos/seed/3dcoat-concept/600/400', dataAiHint: '3d sculpting' },
+            { name: 'Keyshot', description: 'Real-time 3D rendering to create amazing visuals.', url: 'https://www.keyshot.com/', image: 'https://picsum.photos/seed/keyshot-concept/600/400', dataAiHint: '3d rendering' },
+            { name: 'PureRef', description: 'A simple tool for organizing reference images.', url: 'https://www.pureref.com/', image: 'https://picsum.photos/seed/pureref-concept/600/400', dataAiHint: 'reference board' },
+        ]
+    },
+    {
+        title: "Comics &amp; Manga",
+        icon: <BookOpen className="w-5 h-5 text-primary"/>,
+        tools: [
+            { name: 'Clip Studio Paint', description: 'The all-in-one tool for creating comics and manga.', url: 'https://www.clipstudio.net/en/', image: 'https://picsum.photos/seed/clipstudio-comic/600/400', dataAiHint: 'manga art' },
+            { name: 'Procreate', description: 'Powerful iPad app for drawing and illustration.', url: 'https://procreate.art/', image: 'https://picsum.photos/seed/procreate-comic/600/400', dataAiHint: 'ipad drawing' },
+            { name: 'Adobe Photoshop', description: 'Versatile tool for coloring, lettering, and effects.', url: 'https://www.adobe.com/products/photoshop.html', image: 'https://picsum.photos/seed/photoshop-comic/600/400', dataAiHint: 'digital coloring' },
+            { name: 'MediBang Paint', description: 'Free digital painting and comic creation software.', url: 'https://medibangpaint.com/en/', image: 'https://picsum.photos/seed/medibang-comic/600/400', dataAiHint: 'free comic' },
+            { name: 'Krita', description: 'A free and open-source professional painting program.', url: 'https://krita.org/en/', image: 'https://picsum.photos/seed/krita-comic/600/400', dataAiHint: 'open source' },
+            { name: 'Corel Painter', description: 'Digital art software with realistic brushes.', url: 'https://www.painterartist.com/en/', image: 'https://picsum.photos/seed/painter-comic/600/400', dataAiHint: 'natural media' },
+            { name: 'Blambot', description: 'A resource for comic book fonts and lettering.', url: 'https://blambot.com/', image: 'https://picsum.photos/seed/blambot-comic/600/400', dataAiHint: 'comic fonts' },
+            { name: 'Comic Life', description: 'The app for turning your pictures into comics.', url: 'https://plasq.com/apps/comiclife/macwin/', image: 'https://picsum.photos/seed/comiclife/600/400', dataAiHint: 'photo comic' },
+            { name: 'Ibis Paint X', description: 'A popular drawing app with comic creation features.', url: 'https://ibispaint.com/', image: 'https://picsum.photos/seed/ibispaint/600/400', dataAiHint: 'mobile drawing' },
+            { name: 'Jump Paint', description: 'The official Shonen Jump manga production app.', url: 'https://medibangpaint.com/en/jumppaint/', image: 'https://picsum.photos/seed/jumppaint/600/400', dataAiHint: 'shonen jump' },
+        ]
+    },
+    {
+        title: "Wireframes",
+        icon: <BoxSelect className="w-5 h-5 text-primary"/>,
+        tools: [
+            { name: 'Balsamiq', description: 'The rapid, low-fidelity wireframing tool.', url: 'https://balsamiq.com/', image: 'https://picsum.photos/seed/balsamiq-wire/600/400', dataAiHint: 'lo-fi wireframe' },
+            { name: 'Figma', description: 'Design and collaborate on wireframes in one tool.', url: 'https://www.figma.com/', image: 'https://picsum.photos/seed/figma-wire/600/400', dataAiHint: 'collaborative design' },
+            { name: 'Sketch', description: 'A powerful vector tool for creating wireframes on Mac.', url: 'https://www.sketch.com/', image: 'https://picsum.photos/seed/sketch-wire/600/400', dataAiHint: 'macOS design' },
+            { name: 'Adobe XD', description: 'Design, prototype, and share user experiences.', url: 'https://www.adobe.com/products/xd.html', image: 'https://picsum.photos/seed/adobexd-wire/600/400', dataAiHint: 'ux design' },
+            { name: 'Miro', description: 'An online whiteboard for brainstorming and wireframing.', url: 'https://miro.com/', image: 'https://picsum.photos/seed/miro-wire/600/400', dataAiHint: 'online whiteboard' },
+            { name: 'Lucidchart', description: 'Intelligent diagramming for flowcharts and wireframes.', url: 'https://www.lucidchart.com/', image: 'https://picsum.photos/seed/lucidchart-wire/600/400', dataAiHint: 'diagramming' },
+            { name: 'Whimsical', description: 'The visual workspace for collaboration.', url: 'https://whimsical.com/', image: 'https://picsum.photos/seed/whimsical-wire/600/400', dataAiHint: 'visual workspace' },
+            { name: 'Uizard', description: 'AI-powered tool to turn sketches into wireframes.', url: 'https://uizard.io/', image: 'https://picsum.photos/seed/uizard-wire/600/400', dataAiHint: 'ai wireframe' },
+            { name: 'MockFlow', description: 'An online suite for wireframing and UI design.', url: 'https://www.mockflow.com/', image: 'https://picsum.photos/seed/mockflow-wire/600/400', dataAiHint: 'ui suite' },
+            { name: 'Justinmind', description: 'Prototyping tool for web and mobile apps.', url: 'https://www.justinmind.com/', image: 'https://picsum.photos/seed/justinmind-wire/600/400', dataAiHint: 'app prototype' },
+        ]
+    },
+    {
+        title: "Prototypes",
+        icon: <MousePointerClick className="w-5 h-5 text-primary"/>,
+        tools: [
+            { name: 'Figma', description: 'Design and create interactive prototypes in one place.', url: 'https://www.figma.com/', image: 'https://picsum.photos/seed/figma-proto/600/400', dataAiHint: 'interactive prototype' },
+            { name: 'InVision', description: 'Digital product design platform for creating prototypes.', url: 'https://www.invisionapp.com/', image: 'https://picsum.photos/seed/invision-proto/600/400', dataAiHint: 'design platform' },
+            { name: 'Adobe XD', description: 'A powerful tool for UI/UX design and prototyping.', url: 'https://www.adobe.com/products/xd.html', image: 'https://picsum.photos/seed/adobexd-proto/600/400', dataAiHint: 'ux prototype' },
+            { name: 'Framer', description: 'The best tool for building interactive websites and apps.', url: 'https://www.framer.com/', image: 'https://picsum.photos/seed/framer-proto/600/400', dataAiHint: 'no-code' },
+            { name: 'Proto.io', description: 'Create fully-interactive, high-fidelity prototypes.', url: 'https://proto.io/', image: 'https://picsum.photos/seed/protoio-proto/600/400', dataAiHint: 'hi-fi prototype' },
+            { name: 'Marvel', description: 'The all-in-one design platform for prototyping.', url: 'https://marvelapp.com/', image: 'https://picsum.photos/seed/marvel-proto/600/400', dataAiHint: 'design platform' },
+            { name: 'Axure RP', description: 'Prototyping tool for complex solutions and apps.', url: 'https://www.axure.com/', image: 'https://picsum.photos/seed/axure-proto/600/400', dataAiHint: 'complex app' },
+            { name: 'Principle', description: 'Easy to design animated and interactive user interfaces.', url: 'https://principle.app/', image: 'https://picsum.photos/seed/principle-proto/600/400', dataAiHint: 'ui animation' },
+            { name: 'Webflow', description: 'Build responsive websites with interactive prototypes.', url: 'https://webflow.com/', image: 'https://picsum.photos/seed/webflow-proto/600/400', dataAiHint: 'web design' },
+            { name: 'Origami Studio', description: 'A free design tool by Facebook for creating prototypes.', url: 'https://origami.design/', image: 'https://picsum.photos/seed/origami-proto/600/400', dataAiHint: 'facebook design' },
+        ]
+    },
+    {
+        title: "Magazines",
+        icon: <Newspaper className="w-5 h-5 text-primary"/>,
+        tools: [
+            { name: 'Adobe InDesign', description: 'The industry-leading layout and page design software.', url: 'https://www.adobe.com/products/indesign.html', image: 'https://picsum.photos/seed/indesign-mag/600/400', dataAiHint: 'page layout' },
+            { name: 'Canva', description: 'Create beautiful magazine covers and layouts online.', url: 'https://www.canva.com/create/magazines/', image: 'https://picsum.photos/seed/canva-mag/600/400', dataAiHint: 'online design' },
+            { name: 'Scribus', description: 'Free and open-source professional page layout software.', url: 'https://www.scribus.net/', image: 'https://picsum.photos/seed/scribus-mag/600/400', dataAiHint: 'desktop publishing' },
+            { name: 'Lucidpress (Marq)', description: 'Brand templating platform for magazines and catalogs.', url: 'https://www.marq.com/', image: 'https://picsum.photos/seed/marq-mag/600/400', dataAiHint: 'brand templates' },
+            { name: 'Flipsnack', description: 'An online tool for creating interactive digital magazines.', url: 'https://www.flipsnack.com/magazine-maker', image: 'https://picsum.photos/seed/flipsnack-mag/600/400', dataAiHint: 'digital magazine' },
+            { name: 'Affinity Publisher', description: 'Professional publishing software for desktop and iPad.', url: 'https://affinity.serif.com/en-us/publisher/', image: 'https://picsum.photos/seed/affinity-mag/600/400', dataAiHint: 'publishing app' },
+            { name: 'Joomag', description: 'Digital publishing platform for magazines and catalogs.', url: 'https://www.joomag.com/', image: 'https://picsum.photos/seed/joomag-mag/600/400', dataAiHint: 'digital publishing' },
+            { name: 'Madmagz', description: 'Create magazines collaboratively, in print or web format.', url: 'https://madmagz.com/ ', image: 'https://picsum.photos/seed/madmagz/600/400', dataAiHint: 'collaborative' },
+            { name: 'QuarkXPress', description: 'The powerful page layout and digital publishing software.', url: 'https://www.quark.com/', image: 'https://picsum.photos/seed/quark-mag/600/400', dataAiHint: 'content design' },
+            { name: 'MagLoft', description: 'Digital magazine publishing software for mobile apps.', url: 'https://www.magloft.com/', image: 'https://picsum.photos/seed/magloft/600/400', dataAiHint: 'mobile publishing' },
         ]
     }
 ];
