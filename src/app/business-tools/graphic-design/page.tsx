@@ -4,7 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { 
-    ArrowLeft, ExternalLink, Paintbrush, Star, Share2, Palette, Instagram, Youtube, Clapperboard, Megaphone, Tv, Layout, FileText, Globe, Gem, Braces, Smartphone, LayoutDashboard, BookOpen, Contact
+    ArrowLeft, ExternalLink, Paintbrush, Star, Share2, Palette, Instagram, Youtube, Clapperboard, Megaphone, Tv, Layout, FileText, Globe, Gem, Braces, Smartphone, LayoutDashboard, BookOpen, Contact, Type, PenTool, ImagePlay, Sparkles
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardTitle } from '@/components/ui/card';
@@ -34,6 +34,14 @@ const Package = (props: React.JSX.IntrinsicAttributes & React.SVGProps<SVGSVGEle
       <line x1="12" y1="22.08" x2="12" y2="12"></line>
     </svg>
 );
+
+const FileHeart = (props: React.JSX.IntrinsicAttributes & React.SVGProps<SVGSVGElement>) => (
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+        <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path>
+        <path d="M12 18l-3-3a3 3 0 1 1 4.24-4.24l.76.76.76-.76A3 3 0 1 1 15 15l-3 3z"></path>
+    </svg>
+);
+
 
 const toolData: ToolCategory[] = [
     {
@@ -294,6 +302,102 @@ const toolData: ToolCategory[] = [
             { name: 'Adobe Illustrator', description: 'Industry-standard vector graphics for packaging design.', url: 'https://www.adobe.com/products/illustrator.html', image: 'https://picsum.photos/seed/illustrator-pack/600/400', dataAiHint: 'vector graphics' },
             { name: 'Esko', description: 'Packaging management, design, and prepress software.', url: 'https://www.esko.com/en', image: 'https://picsum.photos/seed/esko-pack/600/400', dataAiHint: 'prepress software' },
             { name: 'Boxshot', description: '3D packaging and mockup software.', url: 'https://boxshot.com/', image: 'https://picsum.photos/seed/boxshot-pack/600/400', dataAiHint: '3d mockup' },
+        ]
+    },
+    {
+        title: "Color Palettes",
+        icon: <Palette className="w-5 h-5 text-primary"/>,
+        tools: [
+            { name: 'Coolors', description: 'The super fast color palettes generator.', url: 'https://coolors.co/', image: 'https://picsum.photos/seed/coolors/600/400', dataAiHint: 'color scheme' },
+            { name: 'Adobe Color', description: 'Create color themes and browse thousands of color combinations.', url: 'https://color.adobe.com/', image: 'https://picsum.photos/seed/adobecolor/600/400', dataAiHint: 'color wheel' },
+            { name: 'Paletton', description: 'A tool for creating color combinations that work together well.', url: 'https://paletton.com/', image: 'https://picsum.photos/seed/paletton/600/400', dataAiHint: 'color theory' },
+            { name: 'Color Hunt', description: 'A free and open platform for color inspiration with thousands of palettes.', url: 'https://colorhunt.co/', image: 'https://picsum.photos/seed/colorhunt/600/400', dataAiHint: 'trendy colors' },
+            { name: 'Huemint', description: 'AI-powered color palette generator for your brand or website.', url: 'https://huemint.com/', image: 'https://picsum.photos/seed/huemint/600/400', dataAiHint: 'ai color' },
+            { name: 'Khroma', description: 'The AI color tool for designers to discover and save color combos.', url: 'http://khroma.co/', image: 'https://picsum.photos/seed/khroma/600/400', dataAiHint: 'color algorithm' },
+            { name: 'Colormind', description: 'A color scheme generator that uses deep learning.', url: 'http://colormind.io/', image: 'https://picsum.photos/seed/colormind/600/400', dataAiHint: 'deep learning' },
+            { name: 'Canva Color Palette Generator', description: 'Generate color palettes from your photos.', url: 'https://www.canva.com/colors/color-palette-generator/', image: 'https://picsum.photos/seed/canvacolor/600/400', dataAiHint: 'image palette' },
+            { name: 'DataColor', description: 'Color management solutions for professionals.', url: 'https://www.datacolor.com/', image: 'https://picsum.photos/seed/datacolor/600/400', dataAiHint: 'color calibration' },
+            { name: 'Material Design Colors', description: 'Official color tool for Google\'s Material Design system.', url: 'https://material.io/resources/color/', image: 'https://picsum.photos/seed/materialcolor/600/400', dataAiHint: 'ui colors' },
+        ]
+    },
+    {
+        title: "Brand Guidelines",
+        icon: <FileHeart className="w-5 h-5 text-primary"/>,
+        tools: [
+            { name: 'Frontify', description: 'The all-in-one brand management platform.', url: 'https://www.frontify.com/en/', image: 'https://picsum.photos/seed/frontify-guide/600/400', dataAiHint: 'brand management' },
+            { name: 'Bynder', description: 'Digital asset and brand management platform.', url: 'https://www.bynder.com/', image: 'https://picsum.photos/seed/bynder-guide/600/400', dataAiHint: 'dam platform' },
+            { name: 'Canva Brand Kit', description: 'Store your brand assets for a consistent design.', url: 'https://www.canva.com/pro/brand-kit/', image: 'https://picsum.photos/seed/canva-guide/600/400', dataAiHint: 'visual identity' },
+            { name: 'Marq (Lucidpress)', description: 'Brand templating platform for consistent content.', url: 'https://www.marq.com/', image: 'https://picsum.photos/seed/marq-guide/600/400', dataAiHint: 'brand templates' },
+            { name: 'Pulp', description: 'Simple, beautiful, and shareable brand guidelines.', url: 'https://pulp.style/', image: 'https://picsum.photos/seed/pulp-guide/600/400', dataAiHint: 'style guide' },
+            { name: 'Corebook', description: 'Create and share digital brand books.', url: 'https://www.corebook.io/', image: 'https://picsum.photos/seed/corebook-guide/600/400', dataAiHint: 'digital brand' },
+            { name: 'Brandpad', description: 'The simplest way to create brand guidelines.', url: 'https://brandpad.io/', image: 'https://picsum.photos/seed/brandpad-guide/600/400', dataAiHint: 'simple guidelines' },
+            { name: 'Figma', description: 'Design and document your brand system in one place.', url: 'https://www.figma.com/', image: 'https://picsum.photos/seed/figma-guide/600/400', dataAiHint: 'design system' },
+            { name: 'Miro', description: 'Collaborative whiteboard to map out brand strategy.', url: 'https://miro.com/', image: 'https://picsum.photos/seed/miro-guide/600/400', dataAiHint: 'brand strategy' },
+            { name: 'Gingersauce', description: 'A smart tool for creating professional brand books.', url: 'https://gingersauce.co/', image: 'https://picsum.photos/seed/gingersauce-guide/600/400', dataAiHint: 'brand book' },
+        ]
+    },
+    {
+        title: "Typography Selections",
+        icon: <Type className="w-5 h-5 text-primary"/>,
+        tools: [
+            { name: 'Google Fonts', description: 'Making the web more beautiful, fast, and open through great typography.', url: 'https://fonts.google.com/', image: 'https://picsum.photos/seed/googlefonts/600/400', dataAiHint: 'free fonts' },
+            { name: 'Adobe Fonts', description: 'Thousands of beautiful fonts for all your design projects.', url: 'https://fonts.adobe.com/', image: 'https://picsum.photos/seed/adobefonts/600/400', dataAiHint: 'font library' },
+            { name: 'Fontjoy', description: 'Generate font combinations with deep learning.', url: 'https://fontjoy.com/', image: 'https://picsum.photos/seed/fontjoy/600/400', dataAiHint: 'font pairing' },
+            { name: 'Typewolf', description: 'The definitive guide to typography on the web.', url: 'https://www.typewolf.com/', image: 'https://picsum.photos/seed/typewolf/600/400', dataAiHint: 'web typography' },
+            { name: 'FontPair', description: 'A simple tool to help you pair Google Fonts together.', url: 'https://fontpair.co/', image: 'https://picsum.photos/seed/fontpair/600/400', dataAiHint: 'google fonts' },
+            { name: 'Typespiration', description: 'A resource for web designers and developers to find inspiration.', url: 'https://typespiration.com/', image: 'https://picsum.photos/seed/typespiration/600/400', dataAiHint: 'font inspiration' },
+            { name: 'Fonts In Use', description: 'A searchable archive of typography in use.', url: 'https://fontsinuse.com/', image: 'https://picsum.photos/seed/fontsinuse/600/400', dataAiHint: 'real world typography' },
+            { name: 'MyFonts', description: 'The #1 place to download great @font-face webfonts.', url: 'https://www.myfonts.com/', image: 'https://picsum.photos/seed/myfonts/600/400', dataAiHint: 'font marketplace' },
+            { name: 'DaFont', description: 'Archive of freely downloadable fonts.', url: 'https://www.dafont.com/', image: 'https://picsum.photos/seed/dafont/600/400', dataAiHint: 'free download fonts' },
+            { name: 'Font Squirrel', description: '100% free fonts for commercial use.', url: 'https://www.fontsquirrel.com/', image: 'https://picsum.photos/seed/fontsquirrel/600/400', dataAiHint: 'commercial fonts' },
+        ]
+    },
+    {
+        title: "Brand Templates",
+        icon: <PenTool className="w-5 h-5 text-primary"/>,
+        tools: [
+            { name: 'Canva', description: 'Thousands of professionally designed templates for any brand.', url: 'https://www.canva.com/templates/', image: 'https://picsum.photos/seed/canva-templates/600/400', dataAiHint: 'design templates' },
+            { name: 'Adobe Express', description: 'Free online content creator with thousands of templates.', url: 'https://www.adobe.com/express/templates', image: 'https://picsum.photos/seed/adobe-templates/600/400', dataAiHint: 'free templates' },
+            { name: 'VistaCreate', description: 'A vast collection of design templates for your brand.', url: 'https://create.vista.com/themes/', image: 'https://picsum.photos/seed/vista-templates/600/400', dataAiHint: 'template library' },
+            { name: 'Envato Elements', description: 'Unlimited downloads of graphic templates, stock photos & more.', url: 'https://elements.envato.com/graphic-templates', image: 'https://picsum.photos/seed/envato-templates/600/400', dataAiHint: 'stock templates' },
+            { name: 'Marq (Lucidpress)', description: 'Lockable brand templates to ensure brand consistency.', url: 'https://www.marq.com/', image: 'https://picsum.photos/seed/marq-templates/600/400', dataAiHint: 'brand consistency' },
+            { name: 'Figma Community', description: 'Browse thousands of templates and files from the community.', url: 'https://www.figma.com/community/templates', image: 'https://picsum.photos/seed/figma-templates/600/400', dataAiHint: 'ui templates' },
+            { name: 'Behance', description: 'Discover creative work and templates from top designers.', url: 'https://www.behance.net/', image: 'https://picsum.photos/seed/behance-templates/600/400', dataAiHint: 'design portfolio' },
+            { name: 'Dribbble', description: 'Find inspiration and templates from the world’s top designers.', url: 'https://dribbble.com/', image: 'https://picsum.photos/seed/dribbble-templates/600/400', dataAiHint: 'designer community' },
+            { name: 'Creative Market', description: 'Ready-to-use design assets from independent creators.', url: 'https://creativemarket.com/templates', image: 'https://picsum.photos/seed/creativemarket-templates/600/400', dataAiHint: 'design market' },
+            { name: 'Freepik', description: 'Free graphic resources, vectors, and templates.', url: 'https://www.freepik.com/', image: 'https://picsum.photos/seed/freepik-templates/600/400', dataAiHint: 'free vectors' },
+        ]
+    },
+    {
+        title: "Animated Logos",
+        icon: <Sparkles className="w-5 h-5 text-primary"/>,
+        tools: [
+            { name: 'Renderforest', description: 'Create stunning animated logos in minutes.', url: 'https://www.renderforest.com/animated-logo-maker', image: 'https://picsum.photos/seed/renderforest-logos/600/400', dataAiHint: 'logo animation' },
+            { name: 'Canva', description: 'Animate your logo with just one click.', url: 'https://www.canva.com/features/animate-logo/', image: 'https://picsum.photos/seed/canva-logos/600/400', dataAiHint: 'easy animation' },
+            { name: 'Viddyoze', description: 'Create studio-quality animations in just a few clicks.', url: 'https://viddyoze.com/', image: 'https://picsum.photos/seed/viddyoze-logos/600/400', dataAiHint: '3d animation' },
+            { name: 'Animaker', description: 'A platform for beginners, non-designers & professionals to create animated videos.', url: 'https://www.animaker.com/logo-animation', image: 'https://picsum.photos/seed/animaker-logos/600/400', dataAiHint: 'diy animation' },
+            { name: 'Offeo', description: 'Online video ad maker for social media marketing.', url: 'https://offeo.com/tools/animated-logo-maker', image: 'https://picsum.photos/seed/offeo-logos/600/400', dataAiHint: 'video ad' },
+            { name: 'Adobe Express', description: 'Animate text and photos for your logo.', url: 'https://www.adobe.com/express/feature/animation/animate-text', image: 'https://picsum.photos/seed/adobe-logos/600/400', dataAiHint: 'text animation' },
+            { name: 'Placeit', description: 'Create animated logos and intros for your videos.', url: 'https://placeit.net/animated-logo-maker', image: 'https://picsum.photos/seed/placeit-logos/600/400', dataAiHint: 'intro maker' },
+            { name: 'FlexClip', description: 'Free online logo animation maker.', url: 'https://www.flexclip.com/tools/animated-logo-maker/', image: 'https://picsum.photos/seed/flexclip-logos/600/400', dataAiHint: 'free tool' },
+            { name: 'MotionDen', description: 'Create studio-quality intro videos in minutes.', url: 'https://motionden.com/animated-logo-maker', image: 'https://picsum.photos/seed/motionden-logos/600/400', dataAiHint: 'video intro' },
+            { name: 'Vectary', description: 'The 3D and Augmented Reality design platform.', url: 'https://www.vectary.com/', image: 'https://picsum.photos/seed/vectary-logos/600/400', dataAiHint: '3d design' },
+        ]
+    },
+    {
+        title: "Motion Posters",
+        icon: <ImagePlay className="w-5 h-5 text-primary"/>,
+        tools: [
+            { name: 'Canva', description: 'Bring your posters to life with animation.', url: 'https://www.canva.com/create/posters/', image: 'https://picsum.photos/seed/canva-motion/600/400', dataAiHint: 'animated design' },
+            { name: 'Adobe Express', description: 'Create animated social graphics and posters for free.', url: 'https://www.adobe.com/express/', image: 'https://picsum.photos/seed/adobe-motion/600/400', dataAiHint: 'social animation' },
+            { name: 'PosterMyWall', description: 'Create amazing motion graphics, posters, and videos.', url: 'https://www.postermywall.com/', image: 'https://picsum.photos/seed/postermywall-motion/600/400', dataAiHint: 'video posters' },
+            { name: 'Bannersnack (Creatopy)', description: 'Online animated banner and poster maker.', url: 'https://www.creatopy.com/', image: 'https://picsum.photos/seed/bannersnack-motion/600/400', dataAiHint: 'banner maker' },
+            { name: 'Tyle.io', description: 'Turn your photos and text into high-quality videos.', url: 'https://www.tyle.io/', image: 'https://picsum.photos/seed/tyle-motion/600/400', dataAiHint: 'video story' },
+            { name: 'Wave.video', description: 'Create animated graphics and videos for any marketing channel.', url: 'https://wave.video/', image: 'https://picsum.photos/seed/wave-motion/600/400', dataAiHint: 'marketing video' },
+            { name: 'Adobe After Effects', description: 'Industry-standard motion graphics and visual effects software.', url: 'https://www.adobe.com/products/aftereffects.html', image: 'https://picsum.photos/seed/aftereffects-motion/600/400', dataAiHint: 'vfx software' },
+            { name: 'Runway', description: 'AI magic tools for video editing and motion graphics.', url: 'https://runwayml.com/', image: 'https://picsum.photos/seed/runway-motion/600/400', dataAiHint: 'ai video' },
+            { name: 'Kapwing', description: 'Collaborative platform for creating images, videos, and GIFs.', url: 'https://www.kapwing.com/', image: 'https://picsum.photos/seed/kapwing-motion/600/400', dataAiHint: 'online editor' },
+            { name: 'Piktochart', description: 'Create engaging infographics, presentations, and posters.', url: 'https://piktochart.com/', image: 'https://picsum.photos/seed/piktochart-motion/600/400', dataAiHint: 'infographics' },
         ]
     }
 ];
