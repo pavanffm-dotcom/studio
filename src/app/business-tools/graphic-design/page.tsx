@@ -4,7 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { 
-    ArrowLeft, ExternalLink, Paintbrush, Star, Share2, Palette, Instagram, Youtube, Clapperboard, Megaphone
+    ArrowLeft, ExternalLink, Paintbrush, Star, Share2, Palette, Instagram, Youtube, Clapperboard, Megaphone, Tv, Layout, FileText, Globe, Gem, Braces
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardTitle } from '@/components/ui/card';
@@ -41,6 +41,90 @@ const toolData: ToolCategory[] = [
           { name: 'Uizard', description: 'AI-powered design tool for creating stunning logos and mockups.', url: 'https://uizard.io/ai-logo-generator/', image: 'https://picsum.photos/seed/uizard-logo/600/400', dataAiHint: 'ui design' },
           { name: 'Brandmark.io', description: 'Create a unique, professional logo for your business.', url: 'https://brandmark.io/', image: 'https://picsum.photos/seed/brandmark/600/400', dataAiHint: 'business logo' },
           { name: 'LogoAI', description: 'Let AI-powered design create your new logo, and brand identity.', url: 'https://www.logoai.com/', image: 'https://picsum.photos/seed/logoai/600/400', dataAiHint: 'intelligent logo' },
+        ]
+    },
+    {
+        title: "Social Media Graphics",
+        icon: <Layout className="w-5 h-5 text-primary"/>,
+        tools: [
+            { name: 'Canva', description: 'The go-to tool for creating any kind of social media graphic.', url: 'https://www.canva.com/', image: 'https://picsum.photos/seed/canva-social/600/400', dataAiHint: 'social graphics' },
+            { name: 'Adobe Express', description: 'Free content creator with thousands of templates.', url: 'https://www.adobe.com/express/', image: 'https://picsum.photos/seed/adobe-social/600/400', dataAiHint: 'template library' },
+            { name: 'Fotor', description: 'Online designer for social media posts, covers, and stories.', url: 'https://www.fotor.com/design', image: 'https://picsum.photos/seed/fotor-social/600/400', dataAiHint: 'online design' },
+            { name: 'VistaCreate', description: 'Easy-to-use design tool for social media content.', url: 'https://create.vista.com/', image: 'https://picsum.photos/seed/vista-social/600/400', dataAiHint: 'content creator' },
+            { name: 'Snappa', description: 'Create online graphics in a snap for social media.', url: 'https://snappa.com/', image: 'https://picsum.photos/seed/snappa-social/600/400', dataAiHint: 'fast graphics' },
+            { name: 'Piktochart', description: 'Make infographics, reports, and social graphics.', url: 'https://piktochart.com/', image: 'https://picsum.photos/seed/pikto-social/600/400', dataAiHint: 'infographics' },
+            { name: 'Easil', description: 'Brand-focused design tool with team collaboration.', url: 'https://about.easil.com/', image: 'https://picsum.photos/seed/easil-social/600/400', dataAiHint: 'brand design' },
+            { name: 'Simplified', description: 'The all-in-one AI platform for modern marketing teams.', url: 'https://simplified.com/', image: 'https://picsum.photos/seed/simplified-social/600/400', dataAiHint: 'ai marketing' },
+        ]
+    },
+    {
+        title: "Posters",
+        icon: <FileText className="w-5 h-5 text-primary"/>,
+        tools: [
+            { name: 'Canva Poster Maker', description: 'Create stunning posters with thousands of templates.', url: 'https://www.canva.com/create/posters/', image: 'https://picsum.photos/seed/canva-poster/600/400', dataAiHint: 'poster design' },
+            { name: 'Adobe Express Poster Maker', description: 'Free online poster maker with professional templates.', url: 'https://www.adobe.com/express/create/poster', image: 'https://picsum.photos/seed/adobe-poster/600/400', dataAiHint: 'event poster' },
+            { name: 'Fotor Poster Maker', description: 'Design eye-catching posters in minutes with AI.', url: 'https://www.fotor.com/features/poster-maker.html', image: 'https://picsum.photos/seed/fotor-poster/600/400', dataAiHint: 'ai poster' },
+            { name: 'VistaCreate Poster Maker', description: 'Design custom posters for any occasion.', url: 'https://create.vista.com/create/poster/', image: 'https://picsum.photos/seed/vista-poster/600/400', dataAiHint: 'custom poster' },
+            { name: 'Piktochart Poster Maker', description: 'Create beautiful posters and infographics easily.', url: 'https://piktochart.com/formats/posters/', image: 'https://picsum.photos/seed/pikto-poster/600/400', dataAiHint: 'info poster' },
+            { name: 'PosterMyWall', description: 'Easy-to-use tool for posters, flyers, and videos.', url: 'https://www.postermywall.com/index.php/g/poster-maker', image: 'https://picsum.photos/seed/postermywall-poster/600/400', dataAiHint: 'promo poster' },
+            { name: 'Scribus', description: 'Free and open-source desktop publishing software.', url: 'https://www.scribus.net/', image: 'https://picsum.photos/seed/scribus-poster/600/400', dataAiHint: 'desktop publishing' },
+            { name: 'GIMP', description: 'Free & open source image editor for advanced designs.', url: 'https://www.gimp.org/', image: 'https://picsum.photos/seed/gimp-poster/600/400', dataAiHint: 'image editor' },
+        ]
+    },
+    {
+        title: "Flyers",
+        icon: <FileText className="w-5 h-5 text-primary" style={{transform: 'rotate(15deg)'}}/>,
+        tools: [
+            { name: 'Canva Flyer Maker', description: 'Design professional flyers for free online.', url: 'https://www.canva.com/create/flyers/', image: 'https://picsum.photos/seed/canva-flyer/600/400', dataAiHint: 'flyer design' },
+            { name: 'Adobe Express Flyer Maker', description: 'Free flyer creator with thousands of templates.', url: 'https://www.adobe.com/express/create/flyer', image: 'https://picsum.photos/seed/adobe-flyer/600/400', dataAiHint: 'business flyer' },
+            { name: 'Fotor Flyer Maker', description: 'Create custom flyers for your business or event.', url: 'https://www.fotor.com/features/flyer-maker.html', image: 'https://picsum.photos/seed/fotor-flyer/600/400', dataAiHint: 'event flyer' },
+            { name: 'VistaCreate Flyer Maker', description: 'Easy online flyer maker with tons of templates.', url: 'https://create.vista.com/create/flyer/', image: 'https://picsum.photos/seed/vista-flyer/600/400', dataAiHint: 'flyer template' },
+            { name: 'PosterMyWall Flyer Maker', description: 'Make stunning flyers, posters, and graphics.', url: 'https://www.postermywall.com/index.php/g/flyer-maker', image: 'https://picsum.photos/seed/postermywall-flyer/600/400', dataAiHint: 'marketing flyer' },
+            { name: 'Smore', description: 'Create beautiful, interactive online newsletters and flyers.', url: 'https://www.smore.com/', image: 'https://picsum.photos/seed/smore-flyer/600/400', dataAiHint: 'online newsletter' },
+            { name: 'Microsoft Designer', description: 'Stunning designs in a flash with AI.', url: 'https://designer.microsoft.com/', image: 'https://picsum.photos/seed/msdesigner-flyer/600/400', dataAiHint: 'ai designer' },
+            { name: 'Lucidpress', description: 'Brand templating platform to create on-brand content.', url: 'https://www.lucidpress.com/', image: 'https://picsum.photos/seed/lucidpress-flyer/600/400', dataAiHint: 'brand templates' },
+        ]
+    },
+    {
+        title: "Website Design",
+        icon: <Globe className="w-5 h-5 text-primary"/>,
+        tools: [
+            { name: 'Framer', description: 'Design and publish professional websites, no code required.', url: 'https://www.framer.com/', image: 'https://picsum.photos/seed/framer-web/600/400', dataAiHint: 'website builder' },
+            { name: 'Webflow', description: 'A visual way to build the web for designers and developers.', url: 'https://webflow.com/', image: 'https://picsum.photos/seed/webflow-web/600/400', dataAiHint: 'visual development' },
+            { name: 'Wix', description: 'Free website builder to create stunning websites.', url: 'https://www.wix.com/', image: 'https://picsum.photos/seed/wix-web/600/400', dataAiHint: 'site builder' },
+            { name: 'Squarespace', description: 'The all-in-one platform to build a beautiful online presence.', url: 'https://www.squarespace.com/', image: 'https://picsum.photos/seed/squarespace-web/600/400', dataAiHint: 'online presence' },
+            { name: 'Figma', description: 'The collaborative interface design tool.', url: 'https://www.figma.com/', image: 'https://picsum.photos/seed/figma-web/600/400', dataAiHint: 'ui design' },
+            { name: 'Sketch', description: 'The design toolkit for creating your best work.', url: 'https://www.sketch.com/', image: 'https://picsum.photos/seed/sketch-web/600/400', dataAiHint: 'design toolkit' },
+            { name: 'Uizard', description: 'AI-powered design tool for creating apps and websites.', url: 'https://uizard.io/', image: 'https://picsum.photos/seed/uizard-web/600/400', dataAiHint: 'ai design' },
+            { name: 'Dorik', description: 'Create beautiful websites without code, fast.', url: 'https://dorik.com/', image: 'https://picsum.photos/seed/dorik-web/600/400', dataAiHint: 'no-code builder' },
+        ]
+    },
+     {
+        title: "Brand Identity",
+        icon: <Gem className="w-5 h-5 text-primary"/>,
+        tools: [
+            { name: 'Looka', description: 'Design a logo and build a brand identity you love with AI.', url: 'https://looka.com/', image: 'https://picsum.photos/seed/looka-brand/600/400', dataAiHint: 'brand kit' },
+            { name: 'Tailor Brands', description: 'An all-in-one branding platform for small businesses.', url: 'https://www.tailorbrands.com/', image: 'https://picsum.photos/seed/tailorbrands-brand/600/400', dataAiHint: 'branding platform' },
+            { name: 'Brandmark.io', description: 'Create a unique and professional brand identity with AI.', url: 'https://brandmark.io/', image: 'https://picsum.photos/seed/brandmark-brand/600/400', dataAiHint: 'ai branding' },
+            { name: 'Designs.ai', description: 'Generate logos, videos, and brand guidelines in minutes.', url: 'https://designs.ai/', image: 'https://picsum.photos/seed/designsai-brand/600/400', dataAiHint: 'brand generator' },
+            { name: 'Canva', description: 'Create your brand kit with logos, colors, and fonts.', url: 'https://www.canva.com/pro/brand-kit/', image: 'https://picsum.photos/seed/canva-brand/600/400', dataAiHint: 'visual identity' },
+            { name: 'Frontify', description: 'The all-in-one brand management platform.', url: 'https://www.frontify.com/en/', image: 'https://picsum.photos/seed/frontify-brand/600/400', dataAiHint: 'brand management' },
+            { name: 'Bynder', description: 'A leading digital asset and brand management platform.', url: 'https://www.bynder.com/', image: 'https://picsum.photos/seed/bynder-brand/600/400', dataAiHint: 'dam platform' },
+            { name: 'LogoAI', description: 'AI-powered engine that understands logo design data.', url: 'https://www.logoai.com/', image: 'https://picsum.photos/seed/logoai-brand/600/400', dataAiHint: 'smart logo' },
+        ]
+    },
+    {
+        title: "Banners",
+        icon: <Braces className="w-5 h-5 text-primary"/>,
+        tools: [
+            { name: 'Canva Banner Maker', description: 'Design stunning banners for web, social, and print.', url: 'https://www.canva.com/create/banners/', image: 'https://picsum.photos/seed/canva-banner/600/400', dataAiHint: 'web banner' },
+            { name: 'Adobe Express Banner Maker', description: 'Create custom banners for free in minutes.', url: 'https://www.adobe.com/express/create/banner', image: 'https://picsum.photos/seed/adobe-banner/600/400', dataAiHint: 'custom banner' },
+            { name: 'Fotor Banner Maker', description: 'Make amazing banners for any purpose with templates.', url: 'https://www.fotor.com/features/banner-maker.html', image: 'https://picsum.photos/seed/fotor-banner/600/400', dataAiHint: 'banner template' },
+            { name: 'Creatopy', description: 'The efficient ad design and banner creation platform.', url: 'https://www.creatopy.com/online-banner-maker/', image: 'https://picsum.photos/seed/creatopy-banner/600/400', dataAiHint: 'ad banner' },
+            { name: 'Snappa', description: 'Create eye-catching banners in a snap.', url: 'https://snappa.com/create/banners', image: 'https://picsum.photos/seed/snappa-banner/600/400', dataAiHint: 'channel art' },
+            { name: 'VistaCreate Banners', description: 'A quick and easy tool for banner design.', url: 'https://create.vista.com/create/banner/', image: 'https://picsum.photos/seed/vista-banner/600/400', dataAiHint: 'design tool' },
+            { name: 'Piktochart', description: 'Make professional banners and infographics.', url: 'https://piktochart.com/formats/banners/', image: 'https://picsum.photos/seed/pikto-banner/600/400', dataAiHint: 'professional banner' },
+            { name: 'Mybannermaker', description: 'Free and simple online banner generator.', url: 'https://www.mybannermaker.com/', image: 'https://picsum.photos/seed/mybanner-banner/600/400', dataAiHint: 'banner generator' },
         ]
     },
     {
@@ -215,7 +299,7 @@ export default function GraphicDesignToolsPage() {
                       </h2>
                   </div>
                   <div className="flex gap-4 overflow-x-auto no-scrollbar pb-2 -mx-4 px-4">
-                      {category.tools.map((tool, toolIndex) => (
+                      {category.tools.slice(0, 10).map((tool, toolIndex) => (
                         <ToolCard tool={tool} key={`${category.title}-${tool.name}-${toolIndex}`}/>
                       ))}
                   </div>
