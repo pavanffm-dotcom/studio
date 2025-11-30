@@ -1,3 +1,4 @@
+
 'use client';
 
 import React from 'react';
@@ -125,34 +126,31 @@ export default function ContentCreationToolsPage() {
             {contentCreationTools.map((tool, index) => (
               <Link href={tool.url} key={tool.name} target="_blank" rel="noopener noreferrer" className="block group">
                 <Card 
-                  className="bg-white/80 border-none rounded-3xl soft-shadow transition-all duration-300 group-hover:scale-[1.02] group-hover:shadow-lg overflow-hidden opacity-0 animate-fade-in-up"
+                  className="bg-white/80 border-none rounded-3xl soft-shadow transition-all duration-300 group-hover:scale-[1.02] group-hover:shadow-lg overflow-hidden opacity-0 animate-fade-in-up flex items-center p-3"
                   style={{ animationDelay: `${index * 50}ms` }}
                 >
-                  <div className="relative">
+                  <div className="relative w-24 h-24 shrink-0">
                       <Image
-                        src={`https://picsum.photos/seed/${tool.name.replace(/\s/g, '-')}/600/400`}
+                        src={`https://picsum.photos/seed/${tool.name.replace(/\s/g, '-')}/200/200`}
                         alt={tool.name}
-                        width={600}
-                        height={400}
-                        className="w-full h-auto aspect-[16/9] object-cover"
+                        layout="fill"
+                        objectFit="cover"
+                        className="rounded-2xl"
                         data-ai-hint={tool.dataAiHint}
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                      <div className="absolute top-2 right-2 bg-primary/80 text-primary-foreground rounded-full p-2 backdrop-blur-sm">
-                          <ExternalLink className="w-4 h-4"/>
+                      <div className="absolute top-1 right-1 bg-primary/80 text-primary-foreground rounded-full p-1 backdrop-blur-sm">
+                          <ExternalLink className="w-3 h-3"/>
                       </div>
                   </div>
-                  <div className='p-4'>
-                    <div className="flex justify-between items-start">
-                        <CardTitle className="text-lg font-bold text-foreground">{tool.name}</CardTitle>
-                        <div className="flex items-center gap-1 shrink-0 pl-2">
-                            <Button variant="ghost" size="icon" className="w-8 h-8 rounded-full text-foreground/80 bg-white/30 hover:bg-white/50" onClick={(e) => handleShareTool(e, tool)}>
-                                <Share2 className="w-4 h-4" />
-                            </Button>
-                            <Button variant="ghost" size="icon" className="w-8 h-8 rounded-full text-foreground/80 bg-white/30 hover:bg-white/50" onClick={(e) => handleFavouriteClick(e, tool.name)}>
-                                <Star className={cn('w-5 h-5 transition-all', favouritedTools.has(tool.name) ? 'fill-yellow-300 text-yellow-300' : 'text-foreground/60')}/>
-                            </Button>
-                        </div>
+                  <div className='pl-4 flex-grow'>
+                    <CardTitle className="text-lg font-bold text-foreground">{tool.name}</CardTitle>
+                    <div className="flex items-center gap-1 mt-2">
+                        <Button variant="ghost" size="icon" className="w-8 h-8 rounded-full text-foreground/80 bg-white/30 hover:bg-white/50" onClick={(e) => handleShareTool(e, tool)}>
+                            <Share2 className="w-4 h-4" />
+                        </Button>
+                        <Button variant="ghost" size="icon" className="w-8 h-8 rounded-full text-foreground/80 bg-white/30 hover:bg-white/50" onClick={(e) => handleFavouriteClick(e, tool.name)}>
+                            <Star className={cn('w-5 h-5 transition-all', favouritedTools.has(tool.name) ? 'fill-yellow-300 text-yellow-300' : 'text-foreground/60')}/>
+                        </Button>
                     </div>
                   </div>
                 </Card>
