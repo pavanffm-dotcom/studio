@@ -163,7 +163,8 @@ service cloud.firestore {
        * @principle Path-based ownership for a user's private collection.
        */
       match /favourites/{favouriteId} {
-          allow read, write: if isOwner(userId);
+          allow get, list: if isOwner(userId);
+          allow write: if isOwner(userId);
       }
     }
   }
