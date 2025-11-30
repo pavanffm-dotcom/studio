@@ -85,7 +85,7 @@ const toolData: ToolCategory[] = [
             { name: 'Piktochart Poster Maker', description: 'Create beautiful posters and infographics easily.', url: 'https://piktochart.com/formats/posters/', image: 'https://picsum.photos/seed/pikto-poster/600/400', dataAiHint: 'info poster' },
             { name: 'PosterMyWall', description: 'Easy-to-use tool for posters, flyers, and videos.', url: 'https://www.postermywall.com/index.php/g/poster-maker', image: 'https://picsum.photos/seed/postermywall-poster/600/400', dataAiHint: 'promo poster' },
             { name: 'Scribus', description: 'Free and open-source desktop publishing software.', url: 'https://www.scribus.net/', image: 'https://picsum.photos/seed/scribus-poster/600/400', dataAiHint: 'desktop publishing' },
-            { name: 'GIMP', description: 'Free &amp; open source image editor for advanced designs.', url: 'https://www.gimp.org/', image: 'https://picsum.photos/seed/gimp-poster/600/400', dataAiHint: 'image editor' },
+            { name: 'GIMP', description: 'Free & open source image editor for advanced designs.', url: 'https://www.gimp.org/', image: 'https://picsum.photos/seed/gimp-poster/600/400', dataAiHint: 'image editor' },
         ]
     },
     {
@@ -359,7 +359,7 @@ const toolData: ToolCategory[] = [
             { name: 'Canva', description: 'Thousands of professionally designed templates for any brand.', url: 'https://www.canva.com/templates/', image: 'https://picsum.photos/seed/canva-templates/600/400', dataAiHint: 'design templates' },
             { name: 'Adobe Express', description: 'Free online content creator with thousands of templates.', url: 'https://www.adobe.com/express/templates', image: 'https://picsum.photos/seed/adobe-templates/600/400', dataAiHint: 'free templates' },
             { name: 'VistaCreate', description: 'A vast collection of design templates for your brand.', url: 'https://create.vista.com/themes/', image: 'https://picsum.photos/seed/vista-templates/600/400', dataAiHint: 'template library' },
-            { name: 'Envato Elements', description: 'Unlimited downloads of graphic templates, stock photos &amp; more.', url: 'https://elements.envato.com/graphic-templates', image: 'https://picsum.photos/seed/envato-templates/600/400', dataAiHint: 'stock templates' },
+            { name: 'Envato Elements', description: 'Unlimited downloads of graphic templates, stock photos & more.', url: 'https://elements.envato.com/graphic-templates', image: 'https://picsum.photos/seed/envato-templates/600/400', dataAiHint: 'stock templates' },
             { name: 'Marq (Lucidpress)', description: 'Lockable brand templates to ensure brand consistency.', url: 'https://www.marq.com/', image: 'https://picsum.photos/seed/marq-templates/600/400', dataAiHint: 'brand consistency' },
             { name: 'Figma Community', description: 'Browse thousands of templates and files from the community.', url: 'https://www.figma.com/community/templates', image: 'https://picsum.photos/seed/figma-templates/600/400', dataAiHint: 'ui templates' },
             { name: 'Behance', description: 'Discover creative work and templates from top designers.', url: 'https://www.behance.net/', image: 'https://picsum.photos/seed/behance-templates/600/400', dataAiHint: 'design portfolio' },
@@ -375,7 +375,7 @@ const toolData: ToolCategory[] = [
             { name: 'Renderforest', description: 'Create stunning animated logos in minutes.', url: 'https://www.renderforest.com/animated-logo-maker', image: 'https://picsum.photos/seed/renderforest-logos/600/400', dataAiHint: 'logo animation' },
             { name: 'Canva', description: 'Animate your logo with just one click.', url: 'https://www.canva.com/features/animate-logo/', image: 'https://picsum.photos/seed/canva-logos/600/400', dataAiHint: 'easy animation' },
             { name: 'Viddyoze', description: 'Create studio-quality animations in just a few clicks.', url: 'https://viddyoze.com/', image: 'https://picsum.photos/seed/viddyoze-logos/600/400', dataAiHint: '3d animation' },
-            { name: 'Animaker', description: 'A platform for beginners, non-designers &amp; professionals to create animated videos.', url: 'https://www.animaker.com/logo-animation', image: 'https://picsum.photos/seed/animaker-logos/600/400', dataAiHint: 'diy animation' },
+            { name: 'Animaker', description: 'A platform for beginners, non-designers & professionals to create animated videos.', url: 'https://www.animaker.com/logo-animation', image: 'https://picsum.photos/seed/animaker-logos/600/400', dataAiHint: 'diy animation' },
             { name: 'Offeo', description: 'Online video ad maker for social media marketing.', url: 'https://offeo.com/tools/animated-logo-maker', image: 'https://picsum.photos/seed/offeo-logos/600/400', dataAiHint: 'video ad' },
             { name: 'Adobe Express', description: 'Animate text and photos for your logo.', url: 'https://www.adobe.com/express/feature/animation/animate-text', image: 'https://picsum.photos/seed/adobe-logos/600/400', dataAiHint: 'text animation' },
             { name: 'Placeit', description: 'Create animated logos and intros for your videos.', url: 'https://placeit.net/animated-logo-maker', image: 'https://picsum.photos/seed/placeit-logos/600/400', dataAiHint: 'intro maker' },
