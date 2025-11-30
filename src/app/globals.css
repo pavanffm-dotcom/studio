@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 @layer base {
-  :root {
+  :root, html[data-theme="default"] {
     --background: 255 75% 98%; /* Light Pastel Pink */
     --foreground: 255 20% 25%; /* Dark Purple */
 
@@ -13,43 +13,128 @@
     --popover: 255 100% 100%;
     --popover-foreground: 255 20% 25%;
 
-    /* Cute Purple: #A066FF -> hsl(258, 100%, 70%) */
-    --primary: 258 100% 70%;
+    --primary: 258 100% 70%; /* Cute Purple */
     --primary-foreground: 255 100% 100%;
 
-    /* Lavender: #C9B6FF -> hsl(255, 100%, 86%) */
-    --secondary: 255 100% 95%;
+    --secondary: 255 100% 95%; /* Lavender */
     --secondary-foreground: 258 100% 70%;
     
     --muted: 255 75% 95%;
     --muted-foreground: 255 20% 45%;
 
-    /* Soft Blue: #AEE6FF -> hsl(200, 100%, 84%) */
-    --accent: 200 100% 95%;
+    --accent: 200 100% 95%; /* Soft Blue */
     --accent-foreground: 198 50% 45%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
     
-    /* Mint: #C8FFE0 -> hsl(145, 100%, 90%) as border */
     --border: 255 100% 90%;
     --input: 255 100% 90%;
 
     --ring: 258 100% 70%;
     --radius: 1.5rem;
 
-    --chart-1: 258 100% 70%; /* Cute Purple */
-    --chart-2: 340 100% 86%; /* Baby Pink */
-    --chart-3: 198 100% 84%; /* Soft Blue */
-    --chart-4: 255 100% 86%; /* Lavender */
-    --chart-5: 145 100% 89%; /* Mint */
+    --chart-1: 258 100% 70%;
+    --chart-2: 340 100% 86%;
+    --chart-3: 198 100% 84%;
+    --chart-4: 255 100% 86%;
+    --chart-5: 145 100% 89%;
 
-    /* Custom Pastel Colors */
     --baby-pink: 340 100% 86%;
     --soft-blue: 198 100% 84%;
     --lavender: 255 100% 86%;
-    --mint: 145 100% 89%;
-    --cute-purple: 258 100% 70%;
+  }
+
+  html[data-theme="neoglass"] {
+    --background: 210 60% 98%;
+    --foreground: 215 40% 15%;
+    --card: 210 60% 99% / 0.6;
+    --card-foreground: 215 40% 10%;
+    --popover: 210 60% 98%;
+    --popover-foreground: 215 40% 10%;
+    --primary: 220 100% 65%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 60% 94%;
+    --secondary-foreground: 220 90% 55%;
+    --muted: 210 60% 94%;
+    --muted-foreground: 215 30% 50%;
+    --accent: 210 60% 90%;
+    --accent-foreground: 220 90% 45%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 210 40% 88% / 0.5;
+    --input: 210 40% 92% / 0.7;
+    --ring: 220 100% 65%;
+    --radius: 1.5rem;
+  }
+  
+  html[data-theme="cyberwave"] {
+    --background: 225 20% 10%;
+    --foreground: 210 40% 98%;
+    --card: 225 20% 15% / 0.8;
+    --card-foreground: 210 40% 98%;
+    --popover: 225 20% 8%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 180 100% 50%;
+    --primary-foreground: 225 20% 5%;
+    --secondary: 225 20% 20%;
+    --secondary-foreground: 180 100% 50%;
+    --muted: 225 20% 20%;
+    --muted-foreground: 215 20% 65%;
+    --accent: 225 20% 25%;
+    --accent-foreground: 180 100% 50%;
+    --destructive: 0 70% 50%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 180 100% 25%;
+    --input: 225 20% 20%;
+    --ring: 180 100% 60%;
+    --radius: 1rem;
+  }
+
+  html[data-theme="minimal-white"] {
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+    --primary: 240 5.9% 10%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 240 5.9% 10%;
+    --radius: 0.5rem;
+  }
+
+  html[data-theme="claymorphic"] {
+    --background: 25 80% 96%;
+    --foreground: 25 30% 25%;
+    --card: 25 80% 97%;
+    --card-foreground: 25 30% 25%;
+    --popover: 25 80% 94%;
+    --popover-foreground: 25 30% 25%;
+    --primary: 15 85% 60%;
+    --primary-foreground: 25 85% 98%;
+    --secondary: 25 80% 92%;
+    --secondary-foreground: 15 85% 60%;
+    --muted: 25 80% 92%;
+    --muted-foreground: 25 30% 55%;
+    --accent: 25 80% 88%;
+    --accent-foreground: 15 85% 50%;
+    --destructive: 0 70% 55%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 25 80% 90%;
+    --input: 25 80% 90%;
+    --ring: 15 85% 60%;
+    --radius: 1rem;
   }
 
   .dark {
@@ -62,18 +147,15 @@
     --popover: 251 35% 12%;
     --popover-foreground: 255 75% 98%;
 
-    /* Cute Purple: #A066FF -> hsl(258, 100%, 70%) */
     --primary: 258 100% 75%;
     --primary-foreground: 255 100% 100%;
 
-    /* Lavender: #C9B6FF -> hsl(255, 100%, 86%) */
     --secondary: 255 20% 25%;
     --secondary-foreground: 258 100% 80%;
     
     --muted: 255 20% 22%;
     --muted-foreground: 255 20% 65%;
 
-    /* Soft Blue: #AEE6FF -> hsl(200, 100%, 84%) */
     --accent: 200 50% 30%;
     --accent-foreground: 200 100% 90%;
 
@@ -85,12 +167,9 @@
 
     --ring: 258 100% 75%;
     
-    /* Custom Pastel Colors */
     --baby-pink: 340 100% 86%;
     --soft-blue: 198 100% 84%;
     --lavender: 255 100% 86%;
-    --mint: 145 100% 89%;
-    --cute-purple: 258 100% 70%;
   }
 }
 
@@ -124,4 +203,34 @@
 
 .animate-fade-in-up {
   animation: fade-in-up 0.5s ease-out forwards;
+}
+
+html[data-theme="neoglass"] .soft-shadow {
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+html[data-theme="cyberwave"] .soft-shadow {
+  box-shadow: 0px 0px 15px hsl(var(--primary) / 0.5), 0px 0px 5px hsl(var(--primary) / 0.7);
+  border: 1px solid hsl(var(--primary) / 0.7);
+}
+
+html[data-theme="minimal-white"] .soft-shadow {
+  box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.05);
+}
+
+html[data-theme="clayinorphic"] .soft-shadow {
+  box-shadow: 7px 7px 15px hsl(var(--background) / 0.7), -7px -7px 15px hsl(var(--card) / 1.2);
+}
+
+@keyframes fade-in-up {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
