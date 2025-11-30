@@ -153,6 +153,17 @@ service cloud.firestore {
         allow update: if isExistingOwner(userId) && isImmutable('id');
         allow delete: if isExistingOwner(userId);
       }
+      
+      /**
+       * @description Stores a user's favourited tools. Only the owner can read or write their own favourites.
+       * @path /users/{userId}/favourites/{favouriteId}
+       * @allow (read, write) A user (uid: 'user123') can read and write to `/users/user123/favourites/...`.
+       * @deny (read, write) A user (uid: 'user456') tries to access `/users/user123/favourites/...`.
+       * @principle Restricts access to a user's own data tree using path-based security for a subcollection.
+       */
+      match /favourites/{favouriteId} {
+        allow read, write: if isOwner(userId);
+      }
     }
   }
 }
