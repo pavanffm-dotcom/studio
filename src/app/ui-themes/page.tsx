@@ -59,12 +59,12 @@ export default function UiThemesPage() {
                 key={theme.id} 
                 className={cn(
                     "bg-card/80 border-2 rounded-3xl soft-shadow aspect-square flex flex-col items-center justify-center text-center p-4 group hover:scale-105 transition-all duration-300 cursor-pointer",
-                    activeTheme === theme.id ? 'border-primary glow-shadow' : 'border-border/50'
+                    activeTheme === theme.id ? 'border-ring glow-shadow' : 'border-border/50'
                 )}
                 onClick={() => handleThemeChange(theme.id)}
               >
                 {activeTheme === theme.id && (
-                  <div className="absolute top-3 right-3 bg-primary text-primary-foreground rounded-full p-1">
+                  <div className="absolute top-3 right-3 bg-ring text-primary-foreground rounded-full p-1">
                     <CheckCircle className="w-4 h-4" />
                   </div>
                 )}
