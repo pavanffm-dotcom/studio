@@ -529,9 +529,7 @@ function App() {
 
   return (
     <div className="bg-background min-h-screen flex flex-col items-center justify-start font-body relative overflow-hidden">
-      <div className="absolute inset-0 z-0 opacity-50">
-        <div className="absolute inset-0 bg-gradient-to-br from-soft-blue via-lavender to-baby-pink"></div>
-      </div>
+      
       <div className={cn("relative z-10 text-center text-foreground pt-16 pb-6 px-4 w-full max-w-sm shrink-0 transition-all duration-300", (showChat || chatMessages.length > 0) && "pt-6 hidden")}>
         <h1 className={cn("text-3xl font-bold tracking-tight")}>
           {t('header.title')}

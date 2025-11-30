@@ -34,9 +34,9 @@
     --ring: 258 100% 70%;
     --radius: 1.5rem;
 
-    --baby-pink: 340 100% 86%;
-    --soft-blue: 198 100% 84%;
-    --lavender: 255 100% 86%;
+    --baby-pink: 340 100% 96%;
+    --soft-blue: 198 100% 94%;
+    --lavender: 255 100% 96%;
   }
 
   html[data-theme="neoglass"] {
@@ -81,7 +81,7 @@
     --destructive-foreground: 0 0% 98%;
     --border: 180 100% 25%;
     --input: 225 20% 20%;
-    --ring: 180 100% 60%;
+    --ring: 180 100% 50%;
     --radius: 1rem;
   }
 
@@ -169,6 +169,27 @@
   }
   body {
     @apply bg-background text-foreground transition-colors duration-300;
+    background: linear-gradient(180deg, hsl(var(--soft-blue)), hsl(var(--lavender)), hsl(var(--baby-pink)));
+  }
+
+  html[data-theme="default"] body {
+      background: linear-gradient(180deg, hsl(var(--soft-blue)), hsl(var(--lavender)), hsl(var(--baby-pink)));
+  }
+
+  html[data-theme="neoglass"] body {
+      background: linear-gradient(180deg, hsl(210 80% 90%), hsl(220 80% 95%));
+  }
+
+  html[data-theme="cyberwave"] body {
+      background: radial-gradient(circle, hsl(225 30% 20%), hsl(225 20% 10%));
+  }
+
+  html[data-theme="minimal-white"] body {
+      background: hsl(0 0% 98%);
+  }
+
+  html[data-theme="claymorphic"] body {
+      background: linear-gradient(180deg, hsl(25 80% 92%), hsl(15 85% 90%));
   }
 
   .font-size-small {
