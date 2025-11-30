@@ -9,6 +9,13 @@ import {
   // Assume getAuth and app are initialized elsewhere
 } from 'firebase/auth';
 
+// Create a single, constant instance of the provider
+const googleProvider = new GoogleAuthProvider();
+googleProvider.setCustomParameters({
+    prompt: 'select_account'
+});
+
+
 /** Initiate anonymous sign-in (non-blocking). */
 export function initiateAnonymousSignIn(authInstance: Auth): void {
   // CRITICAL: Call signInAnonymously directly. Do NOT use 'await signInAnonymously(...)'.
@@ -32,11 +39,8 @@ export function initiateEmailSignIn(authInstance: Auth, email: string, password:
 
 /** Initiate Google sign-in (non-blocking). */
 export function initiateGoogleSignIn(authInstance: Auth): void {
-    const provider = new GoogleAuthProvider();
-    provider.setCustomParameters({
-        prompt: 'select_account'
-    });
     // CRITICAL: Call signInWithPopup directly. Do NOT use 'await signInWithPopup(...)'.
-    signInWithPopup(authInstance, provider);
+    // Use the single, constant provider instance.
+    signInWithPopup(authInstance, googleProvider);
     // Code continues immediately. Auth state change is handled by onAuthStateChanged listener.
 }
