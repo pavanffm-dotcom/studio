@@ -157,13 +157,21 @@ service cloud.firestore {
       
       /**
        * @description Stores a user's favourited tools. Only the owner can read or write their own favourites.
+       * @path /users/{userId}/favourites
+       * @allow (list) A user (uid: 'user123') can list documents in `/users/user123/favourites`.
+       * @deny (list) A user (uid: 'user456') tries to list anything in `/users/user123/favourites`.
+       * @principle Path-based ownership for listing a user's private collection.
+       */
+       allow list: if isOwner(userId);
+       
+      /**
+       * @description Defines rules for individual favourite documents.
        * @path /users/{userId}/favourites/{favouriteId}
-       * @allow (read, write) A user (uid: 'user123') can manage documents in `/users/user123/favourites`.
-       * @deny (read, write) A user (uid: 'user456') tries to access anything in `/users/user123/favourites`.
-       * @principle Path-based ownership for a user's private collection.
+       * @allow (get, write) A user (uid: 'user123') can read or write a specific favourite document.
+       * @deny (get, write) A user (uid: 'user456') tries to access a specific document.
+       * @principle Path-based ownership for document-level access.
        */
       match /favourites/{favouriteId} {
-        allow list: if isOwner(userId);
         allow get: if isOwner(userId);
         allow write: if isOwner(userId);
       }
