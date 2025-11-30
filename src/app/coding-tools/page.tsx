@@ -7,19 +7,47 @@ import {
   ArrowLeft,
   Code,
   Terminal,
-  GitBranch,
+  Server,
   Database,
-  Cloud,
-  ChevronRight
+  Link2,
+  CloudCog,
+  GitBranch,
+  Bug,
+  Paintbrush,
+  Box,
+  Bot,
+  TerminalSquare,
+  PackageCheck,
+  Shield,
+  Smartphone,
+  Gamepad2,
+  BrainCircuit,
+  Gauge,
+  ChevronRight,
+  Braces
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardTitle } from '@/components/ui/card';
 
 const codingCategories = [
-  { name: 'CODE EDITORS / IDES', icon: <Terminal />, url: '/coding-tools/code-editors' },
-  { name: 'VERSION CONTROL', icon: <GitBranch />, url: '#' },
-  { name: 'DATABASES', icon: <Database />, url: '#' },
-  { name: 'CLOUD SERVICES', icon: <Cloud />, url: '#' },
+    { name: 'CODE EDITORS / IDES', icon: <Terminal />, url: '/coding-tools/code-editors' },
+    { name: 'Frontend Development Tools', icon: <Braces />, url: '#' },
+    { name: 'Backend Development Tools', icon: <Server />, url: '#' },
+    { name: 'Database & Data Storage Tools', icon: <Database />, url: '#' },
+    { name: 'API Development & Testing Tools', icon: <Link2 />, url: '#' },
+    { name: 'Cloud Services & DevOps Tools', icon: <CloudCog />, url: '#' },
+    { name: 'CI/CD & Automation Tools', icon: <GitBranch />, url: '#' },
+    { name: 'Testing & Debugging Tools', icon: <Bug />, url: '#' },
+    { name: 'UI/UX & Design Tools', icon: <Paintbrush />, url: '#' },
+    { name: 'Package Managers', icon: <Box />, url: '#' },
+    { name: 'AI & Code Assistance Tools', icon: <Bot />, url: '#' },
+    { name: 'Terminal & Productivity Tools', icon: <TerminalSquare />, url: '#' },
+    { name: 'Build & Bundling Tools', icon: <PackageCheck />, url: '#' },
+    { name: 'Security & Ethical Hacking Tools', icon: <Shield />, url: '#' },
+    { name: 'Mobile App Development Tools', icon: <Smartphone />, url: '#' },
+    { name: 'Game Development Tools', icon: <Gamepad2 />, url: '#' },
+    { name: 'Data Science & Machine Learning Tools', icon: <BrainCircuit />, url: '#' },
+    { name: 'Monitoring & Performance Tools', icon: <Gauge />, url: '#' },
 ];
 
 export default function CodingToolsPage() {
