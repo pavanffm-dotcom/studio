@@ -46,6 +46,7 @@ import {
   LayoutGrid,
   TrendingUp,
   Wand2,
+  LogOut,
 } from "lucide-react"
 import { Switch } from "./ui/switch"
 import { Separator } from "./ui/separator"
@@ -66,6 +67,9 @@ import { RadioGroup, RadioGroupItem } from "./ui/radio-group"
 import { Label } from "./ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select"
 import { useLanguage } from "@/lib/language"
+import { useAuth } from "@/firebase"
+import { signOut } from "firebase/auth"
+import { Button } from "./ui/button"
 
 const LanguageSelector = () => {
     const { language, setLanguage, t } = useLanguage();
@@ -164,10 +168,15 @@ const FontSizeSelector = () => {
 
 export function SettingsPage() {
     const { t } = useLanguage();
+    const auth = useAuth();
     const [analyticsEnabled, setAnalyticsEnabled] = React.useState(false);
     const [pushEnabled, setPushEnabled] = React.useState(false);
     const [emailEnabled, setEmailEnabled] = React.useState(true);
     const [muteAll, setMuteAll] = React.useState(false);
+
+    const handleSignOut = () => {
+        signOut(auth);
+    };
 
     const settingsConfig = [
       {
@@ -381,6 +390,12 @@ export function SettingsPage() {
           </AccordionItem>
         ))}
       </Accordion>
+        <div className="mt-8">
+            <Button variant="outline" className="w-full bg-card/80" onClick={handleSignOut}>
+                <LogOut className="mr-2 h-4 w-4" />
+                Sign Out
+            </Button>
+        </div>
     </div>
   )
 }
