@@ -5,53 +5,24 @@ import React from 'react';
 import Link from 'next/link';
 import {
   ArrowLeft,
-  Briefcase,
-  Server,
-  Calendar,
-  Layers,
-  Megaphone,
-  BarChart,
-  Link2,
-  ListChecks,
-  CreditCard,
-  Video,
-  Users,
-  MessageSquare,
-  Paintbrush,
-  Lightbulb,
-  Cpu,
-  UserCog,
   Code,
-  DollarSign,
+  Terminal,
+  GitBranch,
+  Database,
+  Cloud,
   ChevronRight
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardTitle } from '@/components/ui/card';
 
-const businessCategories = [
-  { name: 'BEST FREE STARTUP TOOLS', icon: <Briefcase />, url: '#' },
-  { name: 'BACKEND', icon: <Server />, url: '/business-tools/backend' },
-  { name: 'SCHEDULING', icon: <Calendar />, url: '/business-tools/scheduling' },
-  { name: 'LOW CODE PLATFORM', icon: <Layers />, url: '/business-tools/low-code-platform' },
-  { name: 'MARKETING TOOLS', icon: <Megaphone />, url: '/business-tools/marketing-tools' },
-  { name: 'SALES TOOLS', icon: <BarChart />, url: '/business-tools/sales-tools' },
-  { name: 'SEO TOOLS', icon: <BarChart />, url: '/business-tools/seo-tools' },
-  { name: 'INTEGRATIONS', icon: <Link2 />, url: '/business-tools/integrations' },
-  { name: 'PROJECT MANAGEMENT', icon: <ListChecks />, url: '/business-tools/project-management' },
-  { name: 'PAYMENTS', icon: <CreditCard />, url: '/business-tools/payments' },
-  { name: 'VIDEO CONFERENCING', icon: <Video />, url: '/business-tools/video-conferencing' },
-  { name: 'CRM', icon: <Users />, url: '/business-tools/crm' },
-  { name: 'MESSAGING', icon: <MessageSquare />, url: '/business-tools/messaging' },
-  { name: 'GRAPHIC DESIGN', icon: <Paintbrush />, url: '/business-tools/graphic-design' },
-  { name: 'BUSINESS PLANNING', icon: <Lightbulb />, url: '/business-tools/business-planning' },
-  { name: 'RESOURCE PLANNING', icon: <Cpu />, url: '/business-tools/resource-planning' },
-  { name: 'ACCOUNTING', icon: <DollarSign />, url: '/business-tools/accounting' },
-  { name: 'HR', icon: <UserCog />, url: '/business-tools/hr' },
-  { name: 'FRAMEWORKS', icon: <Code />, url: '/business-tools/frameworks' },
-  { name: 'CODING & DEVELOPER TOOLS', icon: <Code />, url: '/coding-tools' },
+const codingCategories = [
+  { name: 'CODE EDITORS / IDES', icon: <Terminal />, url: '/coding-tools/code-editors' },
+  { name: 'VERSION CONTROL', icon: <GitBranch />, url: '#' },
+  { name: 'DATABASES', icon: <Database />, url: '#' },
+  { name: 'CLOUD SERVICES', icon: <Cloud />, url: '#' },
 ];
 
-export default function BusinessToolsPage() {
+export default function CodingToolsPage() {
   return (
     <div className="bg-background min-h-screen flex flex-col items-center justify-start font-body relative overflow-hidden">
         <div className="absolute inset-0 z-0 opacity-50">
@@ -64,16 +35,19 @@ export default function BusinessToolsPage() {
                         <ArrowLeft />
                     </Button>
                 </Link>
-                <h1 className="text-2xl font-bold text-foreground">
-                    Business Tools
-                </h1>
+                 <div className='flex items-center gap-2'>
+                    <Code className="w-6 h-6 text-foreground" />
+                    <h1 className="text-2xl font-bold text-foreground">
+                        Coding &amp; Dev Tools
+                    </h1>
+                </div>
             </header>
         </div>
 
         <main className="relative z-10 w-full max-w-sm flex-1 bg-card/80 backdrop-blur-3xl rounded-t-[2.5rem] shadow-2xl flex flex-col min-h-0 border-t-2 border-white/50 soft-shadow mt-6">
             <div className="flex-grow overflow-y-auto no-scrollbar p-4">
                 <div className="space-y-3">
-                    {businessCategories.map((category) => (
+                    {codingCategories.map((category) => (
                         <Link href={category.url} key={category.name} className="block group">
                             <Card className="bg-white/80 border-none rounded-3xl soft-shadow transition-all duration-300 group-hover:scale-[1.02] group-hover:shadow-lg">
                                 <CardHeader className="flex flex-row items-center justify-between p-4">
