@@ -162,8 +162,12 @@ service cloud.firestore {
        * @deny (read, write) A user (uid: 'user456') tries to access anything in `/users/user123/favourites`.
        * @principle Path-based ownership for a user's private collection.
        */
+
+      // Allow a user to list their own favourites.
+      allow list: if isOwner(userId);
       match /favourites/{favouriteId} {
-          allow read: if isOwner(userId);
+          // Allow a user to get, create, update, or delete a single favourite.
+          allow get: if isOwner(userId);
           allow write: if isOwner(userId);
       }
     }
