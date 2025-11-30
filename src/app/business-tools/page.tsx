@@ -4,7 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { 
-    ArrowLeft, ExternalLink, Briefcase, DollarSign, UserCog, CreditCard, Users, MessageSquare, Video, Megaphone, BarChart, GitBranch, ListChecks, Lightbulb, Cpu, Code, Filter, TrendingUp, Link2, Server, Layers
+    ArrowLeft, Briefcase, DollarSign, UserCog, CreditCard, Users, MessageSquare, Video, Megaphone, BarChart, GitBranch, ListChecks, Lightbulb, Cpu, Code, Filter, TrendingUp, Link2, Server, Layers, ExternalLink, Star, Share2
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardTitle } from '@/components/ui/card';
@@ -252,44 +252,44 @@ export default function BusinessToolsPage() {
         handleFavouriteToggle(toolName);
     };
 
-  const ToolCard = ({ tool }: { tool: Tool }) => (
-    <Link href={tool.url} key={tool.name} target="_blank" rel="noopener noreferrer" className="block group w-40 shrink-0">
-      <Card 
-        className="bg-white/80 border-none rounded-3xl soft-shadow transition-all duration-300 group-hover:scale-[1.02] group-hover:shadow-lg overflow-hidden"
-      >
-        <div className="relative">
-            <Image
-              src={tool.image}
-              alt={tool.name}
-              width={300}
-              height={200}
-              className="w-full h-auto aspect-[4/3] object-cover"
-              data-ai-hint={tool.dataAiHint}
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-            <div className="absolute top-1 right-1 bg-primary/80 text-primary-foreground rounded-full p-1 backdrop-blur-sm">
-                <ExternalLink className="w-3 h-3"/>
+    const ToolCard = ({ tool }: { tool: Tool }) => (
+        <Link href={tool.url} key={tool.name} target="_blank" rel="noopener noreferrer" className="block group w-40 shrink-0">
+          <Card 
+            className="bg-white/80 border-none rounded-3xl soft-shadow transition-all duration-300 group-hover:scale-[1.02] group-hover:shadow-lg overflow-hidden"
+          >
+            <div className="relative">
+                <Image
+                  src={tool.image}
+                  alt={tool.name}
+                  width={300}
+                  height={200}
+                  className="w-full h-auto aspect-[4/3] object-cover"
+                  data-ai-hint={tool.dataAiHint}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                <div className="absolute top-1 right-1 bg-primary/80 text-primary-foreground rounded-full p-1 backdrop-blur-sm">
+                    <ExternalLink className="w-3 h-3"/>
+                </div>
             </div>
-        </div>
-        <div className='p-3'>
-          <div className="flex justify-between items-start">
-              <div>
-                  <CardTitle className="text-base font-bold text-foreground leading-tight line-clamp-2">{tool.name}</CardTitle>
-                  <p className="text-xs text-muted-foreground mt-1 line-clamp-2">{tool.description}</p>
+            <div className='p-3'>
+              <div className="flex justify-between items-start">
+                  <div>
+                      <CardTitle className="text-base font-bold text-foreground leading-tight line-clamp-2">{tool.name}</CardTitle>
+                      <p className="text-xs text-muted-foreground mt-1 line-clamp-2">{tool.description}</p>
+                  </div>
+                  <div className="flex flex-col items-center gap-1 shrink-0 pl-1">
+                      <Button variant="ghost" size="icon" className="w-7 h-7 rounded-full text-foreground/80 bg-white/30 hover:bg-white/50" onClick={(e) => handleShareTool(e, tool)}>
+                          <Share2 className="w-3 h-3" />
+                      </Button>
+                      <Button variant="ghost" size="icon" className="w-7 h-7 rounded-full text-foreground/80 bg-white/30 hover:bg-white/50" onClick={(e) => handleFavouriteClick(e, tool.name)}>
+                          <Star className={cn('w-4 h-4 transition-all', favouritedTools.has(tool.name) ? 'fill-yellow-300 text-yellow-300' : 'text-foreground/60')}/>
+                      </Button>
+                  </div>
               </div>
-              <div className="flex flex-col items-center gap-1 shrink-0 pl-1">
-                  <Button variant="ghost" size="icon" className="w-7 h-7 rounded-full text-foreground/80 bg-white/30 hover:bg-white/50" onClick={(e) => handleShareTool(e, tool)}>
-                      <Share2 className="w-3 h-3" />
-                  </Button>
-                  <Button variant="ghost" size="icon" className="w-7 h-7 rounded-full text-foreground/80 bg-white/30 hover:bg-white/50" onClick={(e) => handleFavouriteClick(e, tool.name)}>
-                      <Star className={cn('w-4 h-4 transition-all', favouritedTools.has(tool.name) ? 'fill-yellow-300 text-yellow-300' : 'text-foreground/60')}/>
-                  </Button>
-              </div>
-          </div>
-        </div>
-      </Card>
-    </Link>
-  );
+            </div>
+          </Card>
+        </Link>
+    );
 
     const filterTools = (tools: Tool[]) => {
         if (priceFilter === 'All') return tools;
@@ -361,5 +361,3 @@ export default function BusinessToolsPage() {
     </div>
   );
 }
-
-    
