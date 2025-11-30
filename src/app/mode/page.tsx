@@ -11,11 +11,14 @@ export default function ModePage() {
         <div className="absolute inset-0 bg-gradient-to-br from-soft-blue via-lavender to-baby-pink"></div>
       </div>
       <div className="relative z-10 flex justify-start p-4">
-        <Link href="/club">
-          <Button variant="secondary" size="icon" className="w-16 h-16 rounded-full shadow-lg soft-shadow">
-            <Club className="h-8 w-8 text-primary" />
-          </Button>
-        </Link>
+        <div className="flex flex-col items-center gap-2">
+            <Link href="/club" passHref>
+                <Button variant="secondary" size="icon" className="w-16 h-16 rounded-full shadow-lg soft-shadow">
+                    <Club className="h-8 w-8 text-primary" />
+                </Button>
+            </Link>
+            <span className="text-sm font-medium text-foreground">Club</span>
+        </div>
       </div>
     </div>
   );
