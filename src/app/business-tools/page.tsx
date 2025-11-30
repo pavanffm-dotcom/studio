@@ -25,6 +25,7 @@ import {
   DollarSign,
   ChevronRight,
   TrendingUp,
+  ExternalLink,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardTitle } from '@/components/ui/card';
