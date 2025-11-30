@@ -166,10 +166,6 @@
     --input: 255 20% 30%;
 
     --ring: 258 100% 75%;
-    
-    --baby-pink: 340 100% 86%;
-    --soft-blue: 198 100% 84%;
-    --lavender: 255 100% 86%;
   }
 }
 
@@ -178,8 +174,7 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
-    background: linear-gradient(180deg, hsl(var(--soft-blue) / 0.5), hsl(var(--lavender) / 0.5), hsl(var(--baby-pink) / 0.5));
+    @apply bg-background text-foreground transition-colors duration-300;
   }
 
   .font-size-small {
@@ -220,7 +215,7 @@ html[data-theme="minimal-white"] .soft-shadow {
   box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.05);
 }
 
-html[data-theme="clayinorphic"] .soft-shadow {
+html[data-theme="claymorphic"] .soft-shadow {
   box-shadow: 7px 7px 15px hsl(var(--background) / 0.7), -7px -7px 15px hsl(var(--card) / 1.2);
 }
 
