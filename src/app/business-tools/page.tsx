@@ -255,7 +255,7 @@ export default function BusinessToolsPage() {
     const ToolCard = ({ tool }: { tool: Tool }) => (
         <Link href={tool.url} key={tool.name} target="_blank" rel="noopener noreferrer" className="block group w-40 shrink-0">
           <Card 
-            className="bg-white/80 border-none rounded-3xl soft-shadow transition-all duration-300 group-hover:scale-[1.02] group-hover:shadow-lg overflow-hidden"
+            className="bg-white/80 border-none rounded-3xl soft-shadow transition-all duration-300 group-hover:scale-[1.02] group-hover:shadow-lg overflow-hidden h-full flex flex-col"
           >
             <div className="relative">
                 <Image
@@ -271,8 +271,8 @@ export default function BusinessToolsPage() {
                     <ExternalLink className="w-3 h-3"/>
                 </div>
             </div>
-            <div className='p-3'>
-              <div className="flex justify-between items-start">
+            <div className='p-3 flex flex-col flex-grow'>
+              <div className="flex justify-between items-start flex-grow">
                   <div>
                       <CardTitle className="text-base font-bold text-foreground leading-tight line-clamp-2">{tool.name}</CardTitle>
                       <p className="text-xs text-muted-foreground mt-1 line-clamp-2">{tool.description}</p>
@@ -291,7 +291,7 @@ export default function BusinessToolsPage() {
         </Link>
     );
 
-    const filterTools = (tools: Tool[]) => {
+    const getFilteredTools = (tools: Tool[]) => {
         if (priceFilter === 'All') return tools;
         return tools.filter(t => t.pricing === 'Free' || t.pricing === 'Freemium');
     }
@@ -338,7 +338,7 @@ export default function BusinessToolsPage() {
       <main className="relative z-10 w-full max-w-sm flex-1 bg-card/80 backdrop-blur-3xl rounded-t-[2.5rem] shadow-2xl flex flex-col min-h-0 border-t-2 border-white/50 soft-shadow mt-6">
         <div className="flex-grow overflow-y-auto no-scrollbar p-4 space-y-8">
             {toolData.map((category, index) => {
-              const filteredTools = filterTools(category.tools);
+              const filteredTools = getFilteredTools(category.tools);
               if (filteredTools.length === 0) return null;
 
               return (
