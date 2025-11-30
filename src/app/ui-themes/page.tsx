@@ -2,7 +2,15 @@
 
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, LayoutDashboard, Cpu, PanelTop, Shapes } from 'lucide-react';
+import { Card, CardHeader, CardTitle } from '@/components/ui/card';
+
+const themes = [
+    { name: 'NeoGlass Dashboard UI', icon: <LayoutDashboard className="w-8 h-8" /> },
+    { name: 'CyberWave AI Interface', icon: <Cpu className="w-8 h-8" /> },
+    { name: 'Minimal White Pro UI', icon: <PanelTop className="w-8 h-8" /> },
+    { name: '3D Claymorphic UI', icon: <Shapes className="w-8 h-8" /> },
+];
 
 export default function UiThemesPage() {
   return (
@@ -25,11 +33,19 @@ export default function UiThemesPage() {
 
         <main className="relative z-10 w-full max-w-sm flex-1 bg-card/80 backdrop-blur-3xl rounded-t-[2.5rem] shadow-2xl flex flex-col min-h-0 border-t-2 border-white/50 soft-shadow mt-6">
             <div className="flex-grow overflow-y-auto no-scrollbar p-4">
-                <div className="flex flex-col items-center justify-center h-full text-center">
-                    <p className="text-muted-foreground">
-                        Theme selection will be available here soon.
-                    </p>
+                <div className="grid grid-cols-2 gap-4">
+                    {themes.map((theme, index) => (
+                        <Card key={index} className="bg-white/80 border-none rounded-3xl soft-shadow aspect-square flex flex-col items-center justify-center text-center p-4 group hover:scale-105 transition-transform duration-300 cursor-pointer">
+                            <div className="w-16 h-16 rounded-2xl bg-secondary flex items-center justify-center text-primary soft-shadow mb-3">
+                                {theme.icon}
+                            </div>
+                            <CardTitle className="text-sm font-semibold text-foreground">{theme.name}</CardTitle>
+                        </Card>
+                    ))}
                 </div>
+                <p className="text-muted-foreground text-center text-sm mt-6">
+                    Theme selection will be implemented soon.
+                </p>
             </div>
         </main>
     </div>
