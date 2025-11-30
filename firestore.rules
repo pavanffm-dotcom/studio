@@ -163,11 +163,9 @@ service cloud.firestore {
        * @principle Path-based ownership for a user's private collection.
        */
       match /favourites/{favouriteId} {
-          // Allow a user to list their own favourites.
-          allow list: if isOwner(userId);
-          // Allow a user to get, create, update, or delete a single favourite.
-          allow get: if isOwner(userId);
-          allow write: if isOwner(userId);
+        allow list: if isOwner(userId);
+        allow get: if isOwner(userId);
+        allow write: if isOwner(userId);
       }
     }
   }
