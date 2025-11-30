@@ -68,7 +68,7 @@ export default function UiThemesPage() {
                     <CheckCircle className="w-4 h-4" />
                   </div>
                 )}
-                <div className={cn("w-16 h-16 rounded-2xl bg-secondary flex items-center justify-center text-primary soft-shadow mb-3 transition-colors", activeTheme === theme.id && 'bg-primary text-primary-foreground')}>
+                <div className={cn("w-16 h-16 rounded-2xl bg-secondary flex items-center justify-center text-muted-foreground soft-shadow mb-3 transition-colors", activeTheme === theme.id && 'bg-primary text-primary-foreground')}>
                   {theme.icon}
                 </div>
                 <CardTitle className="text-sm font-semibold text-foreground">{theme.name}</CardTitle>
