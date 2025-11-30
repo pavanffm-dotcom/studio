@@ -3,13 +3,14 @@
  * All access to any data requires user authentication. Publicly readable data (like AI
  * tool listings and categories) is read-only for any authenticated user, while all
  * write operations are disabled for end-users on these collections. User-generated
- * content (profiles, reviews) is strictly controlled by its owner.
+ * content (profiles, reviews, favourites) is strictly controlled by its owner.
  *
  * Data Structure: The data is organized into top-level collections for publicly
  * browsable content (`/categories`, `/ai_tools`) and a dedicated user-scoped
  * collection for private user profiles (`/users/{userId}/user_profiles`). User
  * reviews are stored as a subcollection under the tool they belong to
  * (`/ai_tools/{aiToolId}/user_reviews`), which is a common and scalable pattern.
+ * Favourites are stored in a user-specific subcollection (`/users/{userId}/favourites`).
  *
  * Key Security Decisions:
  * - Default Deny: No unauthenticated access is permitted for any operation.
@@ -17,7 +18,7 @@
  *   to be managed by backend processes or administrators, so all client-side write
  *   operations are explicitly denied (`allow write: if false;`).
  * - Strict Ownership: A user can only create, read, update, or delete their own
- *   profile, enforced by matching the document path with their authentication UID.
+ *   profile and favourites, enforced by matching the document path with their authentication UID.
  * - Review Ownership: While reviews are readable by any signed-in user, they can only
  *   be created, updated, or deleted by the original author, which is enforced by a
  *   `userId` field on the review document itself.
@@ -25,13 +26,13 @@
  * Denormalization for Authorization: This ruleset relies heavily on denormalization
  * to maintain security and performance.
  * - The `/users/{userId}` path provides direct, fast, path-based authorization for
- *   user profiles without needing to read the document's content.
+ *   user profiles and favourites without needing to read the document's content.
  * - The `UserReview` documents contain a denormalized `userId` field. This allows a
  *   security rule to check for ownership directly on the document being modified,
  *   avoiding slow and costly `get()` calls to other documents.
  *
  * Structural Segregation: The separation of read-only public data (`ai_tools`) from
- * user-generated content (`user_reviews`) into different collection levels is a key
+ * user-generated content (`user_reviews`, `favourites`) into different collection levels is a key
  * design choice. This prevents a user from, for example, listing all reviews across
  * all tools, and it simplifies the security logic for each collection.
  */
@@ -152,6 +153,17 @@ service cloud.firestore {
         allow create: if isOwner(userId) && request.resource.data.id == userId && userProfileId == userId;
         allow update: if isExistingOwner(userId) && isImmutable('id');
         allow delete: if isExistingOwner(userId);
+      }
+      
+      /**
+       * @description Stores a user's favourited tools. Only the owner can read or write their own favourites.
+       * @path /users/{userId}/favourites/{favouriteId}
+       * @allow (read, write) A user (uid: 'user123') can manage documents in `/users/user123/favourites`.
+       * @deny (read, write) A user (uid: 'user456') tries to access anything in `/users/user123/favourites`.
+       * @principle Path-based ownership for a user's private collection.
+       */
+      match /favourites/{favouriteId} {
+          allow read, write: if isOwner(userId);
       }
     }
   }

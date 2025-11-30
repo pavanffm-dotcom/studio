@@ -1,52 +1,57 @@
 'use client';
 
 import React, { createContext, useContext, useState, useEffect, useCallback, ReactNode, useMemo } from 'react';
+import { useUser, useFirestore, useCollection, useMemoFirebase } from '@/firebase';
+import { collection, doc, deleteDoc, setDoc } from 'firebase/firestore';
+import { addFavourite, removeFavourite } from '@/firebase/firestore/favourites';
 
 interface FavouritesContextType {
   favouritedTools: Set<string>;
   handleFavouriteToggle: (toolName: string) => void;
+  isLoading: boolean;
 }
+
+type FavouriteDoc = {
+  id: string;
+  toolName: string;
+};
 
 const FavouritesContext = createContext<FavouritesContextType | undefined>(undefined);
 
 export const FavouritesProvider = ({ children }: { children: ReactNode }) => {
-  const [favouritedTools, setFavouritedTools] = useState<Set<string>>(() => new Set());
+  const { user } = useUser();
+  const firestore = useFirestore();
 
-  useEffect(() => {
-    try {
-      const savedFavourites = localStorage.getItem('favouritedTools');
-      if (savedFavourites) {
-        setFavouritedTools(new Set(JSON.parse(savedFavourites)));
-      }
-    } catch (error) {
-      console.error("Failed to load favourites from localStorage", error);
-    }
-  }, []);
+  const favouritesCollectionRef = useMemoFirebase(() => {
+    if (!firestore || !user) return null;
+    return collection(firestore, 'users', user.uid, 'favourites');
+  }, [firestore, user]);
 
-  useEffect(() => {
-    try {
-      localStorage.setItem('favouritedTools', JSON.stringify(Array.from(favouritedTools)));
-    } catch (error) {
-      console.error("Failed to save favourites to localStorage", error);
-    }
-  }, [favouritedTools]);
+  const { data: favouriteDocs, isLoading } = useCollection<FavouriteDoc>(favouritesCollectionRef);
+
+  const favouritedTools = useMemo(() => {
+    if (!favouriteDocs) return new Set<string>();
+    return new Set(favouriteDocs.map(doc => doc.toolName));
+  }, [favouriteDocs]);
 
   const handleFavouriteToggle = useCallback((toolName: string) => {
-    setFavouritedTools(prev => {
-      const newFavourites = new Set(prev);
-      if (newFavourites.has(toolName)) {
-        newFavourites.delete(toolName);
-      } else {
-        newFavourites.add(toolName);
-      }
-      return newFavourites;
-    });
-  }, []);
+    if (!firestore || !user) return;
+
+    const isFavourited = favouritedTools.has(toolName);
+    const favouriteDocId = favouriteDocs?.find(doc => doc.toolName === toolName)?.id || toolName;
+
+    if (isFavourited) {
+      removeFavourite(firestore, user.uid, favouriteDocId);
+    } else {
+      addFavourite(firestore, user.uid, toolName, { toolName, userId: user.uid });
+    }
+  }, [firestore, user, favouritedTools, favouriteDocs]);
 
   const value = useMemo(() => ({
     favouritedTools,
-    handleFavouriteToggle
-  }), [favouritedTools, handleFavouriteToggle]);
+    handleFavouriteToggle,
+    isLoading
+  }), [favouritedTools, handleFavouriteToggle, isLoading]);
 
   return (
     <FavouritesContext.Provider value={value}>

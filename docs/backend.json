@@ -127,6 +127,26 @@
         "email",
         "displayName"
       ]
+    },
+    "Favourite": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Favourite",
+      "type": "object",
+      "description": "Represents a user's favourited tool.",
+      "properties": {
+        "toolName": {
+          "type": "string",
+          "description": "The name of the favourited tool."
+        },
+        "userId": {
+          "type": "string",
+          "description": "The ID of the user who favourited the tool."
+        }
+      },
+      "required": [
+        "toolName",
+        "userId"
+      ]
     }
   },
   "auth": {
@@ -208,8 +228,28 @@
             }
           ]
         }
+      },
+      {
+        "path": "/users/{userId}/favourites/{favouriteId}",
+        "definition": {
+          "entityName": "Favourite",
+          "schema": {
+            "$ref": "#/backend/entities/Favourite"
+          },
+          "description": "Stores a user's favourited tools. Access is restricted to the user.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The unique identifier for the user."
+            },
+            {
+              "name": "favouriteId",
+              "description": "The unique identifier for the favourite entry (often the tool name)."
+            }
+          ]
+        }
       }
     ],
-    "reasoning": "This Firestore structure prioritizes security, scalability, and debuggability, especially concerning authorization. It implements authorization independence by avoiding `get()` calls in security rules, which is achieved through data denormalization. All data is segregated into collections with homogeneous security postures. \n\n*   **/categories (Collection):** Stores AI tool categories.  No write access for users.\n*   **/ai_tools (Collection):** Stores AI tools. No write access for users.\n*   **/users/{userId}/user_profiles (Collection):** Stores user profile information. Uses path-based ownership for user-specific data.  This allows simple rules such as `request.auth.uid == userId`.\n*   **/ai_tools/{aiToolId}/user_reviews (Collection Group):** Stores user reviews for AI tools. Enforces that `userId` matches `request.auth.uid` for create/update operations, ensuring users can only create/modify their own reviews. This demonstrates path-based ownership within a subcollection.\n\nThis design supports secure `list` operations (QAPs) due to the segregation of data based on access needs and clear ownership patterns.  Authorization rules are simplified by relying on `request.auth.uid` and path-based ownership, rather than complex data comparisons or `get()` calls. The structure also prepares the application to scale, as more categories, AI tools, and users can be added without impacting the authorization logic or performance."
+    "reasoning": "This Firestore structure prioritizes security, scalability, and debuggability, especially concerning authorization. It implements authorization independence by avoiding `get()` calls in security rules, which is achieved through data denormalization. All data is segregated into collections with homogeneous security postures. \n\n*   **/categories (Collection):** Stores AI tool categories.  No write access for users.\n*   **/ai_tools (Collection):** Stores AI tools. No write access for users.\n*   **/users/{userId}/user_profiles (Collection):** Stores user profile information. Uses path-based ownership for user-specific data.  This allows simple rules such as `request.auth.uid == userId`.\n*   **/ai_tools/{aiToolId}/user_reviews (Collection Group):** Stores user reviews for AI tools. Enforces that `userId` matches `request.auth.uid` for create/update operations, ensuring users can only create/modify their own reviews. This demonstrates path-based ownership within a subcollection.\n*   **/users/{userId}/favourites (Collection):** Stores a user's favourited tools. Path-based ownership ensures a user can only access their own favourites.\n\nThis design supports secure `list` operations (QAPs) due to the segregation of data based on access needs and clear ownership patterns.  Authorization rules are simplified by relying on `request.auth.uid` and path-based ownership, rather than complex data comparisons or `get()` calls. The structure also prepares the application to scale, as more categories, AI tools, and users can be added without impacting the authorization logic or performance."
   }
 }
