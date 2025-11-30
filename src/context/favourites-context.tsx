@@ -1,9 +1,7 @@
 'use client';
 
 import React, { createContext, useContext, useState, useEffect, useCallback, ReactNode, useMemo } from 'react';
-import { useUser, useFirestore, useCollection, useMemoFirebase } from '@/firebase';
-import { collection, doc, deleteDoc, setDoc } from 'firebase/firestore';
-import { addFavourite, removeFavourite } from '@/firebase/firestore/favourites';
+import { useUser } from '@/firebase';
 
 interface FavouritesContextType {
   favouritedTools: Set<string>;
@@ -11,41 +9,60 @@ interface FavouritesContextType {
   isLoading: boolean;
 }
 
-type FavouriteDoc = {
-  id: string;
-  toolName: string;
-};
-
 const FavouritesContext = createContext<FavouritesContextType | undefined>(undefined);
 
 export const FavouritesProvider = ({ children }: { children: ReactNode }) => {
   const { user } = useUser();
-  const firestore = useFirestore();
+  const [favouritedTools, setFavouritedTools] = useState<Set<string>>(new Set());
+  const [isLoading, setIsLoading] = useState(true);
 
-  const favouritesCollectionRef = useMemoFirebase(() => {
-    if (!firestore || !user) return null;
-    return collection(firestore, 'users', user.uid, 'favourites');
-  }, [firestore, user]);
+  const getStorageKey = useCallback(() => {
+    return user ? `favourites_${user.uid}` : null;
+  }, [user]);
 
-  const { data: favouriteDocs, isLoading } = useCollection<FavouriteDoc>(favouritesCollectionRef);
-
-  const favouritedTools = useMemo(() => {
-    if (!favouriteDocs) return new Set<string>();
-    return new Set(favouriteDocs.map(doc => doc.toolName));
-  }, [favouriteDocs]);
+  useEffect(() => {
+    setIsLoading(true);
+    const storageKey = getStorageKey();
+    if (storageKey) {
+      try {
+        const item = window.localStorage.getItem(storageKey);
+        if (item) {
+          setFavouritedTools(new Set(JSON.parse(item)));
+        } else {
+          setFavouritedTools(new Set());
+        }
+      } catch (error) {
+        console.error("Error reading favourites from localStorage", error);
+        setFavouritedTools(new Set());
+      }
+    } else {
+        // If no user, clear favourites
+        setFavouritedTools(new Set());
+    }
+    setIsLoading(false);
+  }, [user, getStorageKey]);
 
   const handleFavouriteToggle = useCallback((toolName: string) => {
-    if (!firestore || !user) return;
+    const storageKey = getStorageKey();
+    if (!storageKey) return;
 
-    const isFavourited = favouritedTools.has(toolName);
-    const favouriteDocId = favouriteDocs?.find(doc => doc.toolName === toolName)?.id || toolName;
+    setFavouritedTools(prevFavouritedTools => {
+      const newFavouritedTools = new Set(prevFavouritedTools);
+      if (newFavouritedTools.has(toolName)) {
+        newFavouritedTools.delete(toolName);
+      } else {
+        newFavouritedTools.add(toolName);
+      }
 
-    if (isFavourited) {
-      removeFavourite(firestore, user.uid, favouriteDocId);
-    } else {
-      addFavourite(firestore, user.uid, toolName, { toolName, userId: user.uid });
-    }
-  }, [firestore, user, favouritedTools, favouriteDocs]);
+      try {
+        window.localStorage.setItem(storageKey, JSON.stringify(Array.from(newFavouritedTools)));
+      } catch (error) {
+        console.error("Error saving favourites to localStorage", error);
+      }
+      
+      return newFavouritedTools;
+    });
+  }, [getStorageKey]);
 
   const value = useMemo(() => ({
     favouritedTools,

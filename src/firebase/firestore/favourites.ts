@@ -1,5 +1,6 @@
 'use client';
 
+// This file is no longer used for local storage implementation, but kept for future reference if needed.
 import { doc, setDoc, deleteDoc, Firestore } from 'firebase/firestore';
 import { errorEmitter } from '@/firebase/error-emitter';
 import { FirestorePermissionError } from '@/firebase/errors';
