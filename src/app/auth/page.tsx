@@ -18,6 +18,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useAuth, initiateEmailSignIn, initiateEmailSignUp, initiateGoogleSignIn } from '@/firebase';
 import { GalaxyLogo } from '@/components/galaxy-logo';
 import { Separator } from '@/components/ui/separator';
+import { useToast } from '@/hooks/use-toast';
 
 const formSchema = z.object({
   email: z.string().email({ message: 'Invalid email address.' }),
@@ -41,6 +42,7 @@ const GoogleIcon = (props: React.SVGProps<SVGSVGElement>) => (
 export default function AuthPage() {
   const [isSignUp, setIsSignUp] = useState(false);
   const auth = useAuth();
+  const { toast } = useToast();
   const form = useForm<UserFormValue>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -57,8 +59,17 @@ export default function AuthPage() {
     }
   };
 
-  const handleGoogleSignIn = () => {
-    initiateGoogleSignIn(auth);
+  const handleGoogleSignIn = async () => {
+    try {
+      await initiateGoogleSignIn(auth);
+    } catch (error: any) {
+      console.error("Google Sign-In Error:", error);
+      toast({
+        variant: "destructive",
+        title: "Google Sign-In Failed",
+        description: error.message || "An unknown error occurred during Google sign-in.",
+      });
+    }
   };
 
   return (

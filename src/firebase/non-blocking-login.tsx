@@ -38,12 +38,8 @@ export function initiateEmailSignIn(authInstance: Auth, email: string, password:
 }
 
 /** Initiate Google sign-in (non-blocking). */
-export async function initiateGoogleSignIn(authInstance: Auth): Promise<void> {
-    try {
-        await signInWithPopup(authInstance, googleProvider);
-        // The onAuthStateChanged listener will handle successful sign-in.
-    } catch (error) {
-        // Handle errors here, such as popup closed by user, network errors, etc.
-        console.error("Google Sign-In Error:", error);
-    }
+export function initiateGoogleSignIn(authInstance: Auth) {
+    // signInWithPopup returns a promise that will resolve on success or reject on error.
+    // The calling component will await this and handle errors with a try/catch.
+    return signInWithPopup(authInstance, googleProvider);
 }
