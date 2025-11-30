@@ -17,30 +17,26 @@ export const FavouritesProvider = ({ children }: { children: ReactNode }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   const getStorageKey = useCallback(() => {
-    return user ? `favourites_${user.uid}` : null;
+    // Use a generic key if user is not logged in, or a user-specific key if they are.
+    return user ? `favourites_${user.uid}` : 'favourites_guest';
   }, [user]);
 
   useEffect(() => {
     setIsLoading(true);
     const storageKey = getStorageKey();
-    if (storageKey) {
-      try {
-        const item = window.localStorage.getItem(storageKey);
-        if (item) {
-          setFavouritedTools(new Set(JSON.parse(item)));
-        } else {
-          setFavouritedTools(new Set());
-        }
-      } catch (error) {
-        console.error("Error reading favourites from localStorage", error);
+    try {
+      const item = window.localStorage.getItem(storageKey);
+      if (item) {
+        setFavouritedTools(new Set(JSON.parse(item)));
+      } else {
         setFavouritedTools(new Set());
       }
-    } else {
-        // If no user, clear favourites
-        setFavouritedTools(new Set());
+    } catch (error) {
+      console.error("Error reading favourites from localStorage", error);
+      setFavouritedTools(new Set());
     }
     setIsLoading(false);
-  }, [user, getStorageKey]);
+  }, [getStorageKey]);
 
   const handleFavouriteToggle = useCallback((toolName: string) => {
     const storageKey = getStorageKey();
