@@ -4,7 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { 
-    ArrowLeft, ExternalLink, Star, Share2, DollarSign, UserCog, CreditCard, Users, MessageSquare, Video, TrendingUp, Megaphone, BarChart, GitBranch, ListChecks, Lightbulb, Cpu, Briefcase, Filter, Link2, Server
+    ArrowLeft, ExternalLink, Star, Share2, DollarSign, UserCog, CreditCard, Users, MessageSquare, Video, TrendingUp, Megaphone, BarChart, GitBranch, ListChecks, Lightbulb, Cpu, Briefcase, Filter, Server, Link2, Layers
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardTitle } from '@/components/ui/card';
