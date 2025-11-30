@@ -4,7 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { 
-    ArrowLeft, ExternalLink, Star, Share2, DollarSign, UserCog, CreditCard, Users, MessageSquare, Video, TrendingUp, Megaphone, BarChart, GitBranch, ListChecks, Lightbulb, Cpu, Briefcase, Filter, Server, Link2, Layers
+    ArrowLeft, ExternalLink, Star, Share2, Briefcase, DollarSign, UserCog, CreditCard, Users, MessageSquare, Video, Megaphone, BarChart, GitBranch, ListChecks, Lightbulb, Cpu, Server, Link2, Layers, Code, Filter
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardTitle } from '@/components/ui/card';
@@ -264,7 +264,7 @@ export default function BusinessToolsPage() {
     const filterTools = (tools: Tool[]) => {
         if (priceFilter === 'All') return tools;
         if (priceFilter === 'Free') return tools.filter(t => t.pricing === 'Free');
-        if (priceFilter === 'Freemium') return tools.filter(t => t.pricing === 'Freemium' || t.pricing === 'Free');
+        // 'Free & Paid' means show all, which is handled by 'All'
         return tools;
     }
 
@@ -274,18 +274,36 @@ export default function BusinessToolsPage() {
         <div className="absolute inset-0 bg-gradient-to-br from-soft-blue via-lavender to-baby-pink"></div>
       </div>
       <div className="relative z-10 w-full max-w-sm pt-6 px-4">
-        <header className="flex items-center gap-4">
-          <Link href="/" passHref>
-            <Button variant="ghost" size="icon" className="w-12 h-12 rounded-full bg-white/50 backdrop-blur-sm">
-              <ArrowLeft />
-            </Button>
-          </Link>
-          <div className='flex items-center gap-2'>
-            <Briefcase className="w-6 h-6 text-foreground" />
-            <h1 className="text-2xl font-bold text-foreground">
-              Business Tools
-            </h1>
-          </div>
+        <header className="flex items-center justify-between gap-4">
+            <div className='flex items-center gap-4'>
+                <Link href="/" passHref>
+                    <Button variant="ghost" size="icon" className="w-12 h-12 rounded-full bg-white/50 backdrop-blur-sm">
+                    <ArrowLeft />
+                    </Button>
+                </Link>
+                <div className='flex items-center gap-2'>
+                    <Briefcase className="w-6 h-6 text-foreground" />
+                    <h1 className="text-2xl font-bold text-foreground">
+                    Business Tools
+                    </h1>
+                </div>
+            </div>
+            <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                    <Button variant="outline" size="sm" className="bg-white/50">
+                        <Filter className="w-4 h-4 mr-2" />
+                        Filter
+                    </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="w-56">
+                    <DropdownMenuLabel>Filter by Price</DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuRadioGroup value={priceFilter} onValueChange={setPriceFilter}>
+                        <DropdownMenuRadioItem value="All">All (Free & Paid)</DropdownMenuRadioItem>
+                        <DropdownMenuRadioItem value="Free">Free Only</DropdownMenuRadioItem>
+                    </DropdownMenuRadioGroup>
+                </DropdownMenuContent>
+            </DropdownMenu>
         </header>
       </div>
 
@@ -302,23 +320,6 @@ export default function BusinessToolsPage() {
                           {category.icon}
                           {category.title}
                       </h2>
-                      <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                            <Button variant="outline" size="sm" className="bg-white/50">
-                                <Filter className="w-4 h-4 mr-2" />
-                                Filter
-                            </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent className="w-56">
-                            <DropdownMenuLabel>Filter by Price</DropdownMenuLabel>
-                            <DropdownMenuSeparator />
-                            <DropdownMenuRadioGroup value={priceFilter} onValueChange={setPriceFilter}>
-                                <DropdownMenuRadioItem value="All">All</DropdownMenuRadioItem>
-                                <DropdownMenuRadioItem value="Free">Free</DropdownMenuRadioItem>
-                                <DropdownMenuRadioItem value="Freemium">Free & Freemium</DropdownMenuRadioItem>
-                            </DropdownMenuRadioGroup>
-                        </DropdownMenuContent>
-                      </DropdownMenu>
                   </div>
                   <div className="flex gap-4 overflow-x-auto no-scrollbar pb-2 -mx-4 px-4">
                       {filteredTools.map((tool) => (
