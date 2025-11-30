@@ -123,7 +123,7 @@ const ChatInputComponent = ({ chatInput, setChatInput, handleSendMessage, isGene
                 />
                 <Button
                     size="icon"
-                    className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full w-10 h-10 bg-gradient-to-br from-cute-purple to-lavender glow-shadow"
+                    className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full w-10 h-10 bg-primary text-primary-foreground glow-shadow"
                     onClick={handleSend}
                     disabled={isGenerating}
                 >
@@ -400,7 +400,7 @@ function App() {
         isGenerating={isGenerating}
       />
       
-      <div className="bg-gradient-to-br from-cute-purple to-lavender text-primary-foreground p-6 rounded-3xl my-4 relative overflow-hidden soft-shadow">
+      <div className="bg-gradient-to-br from-primary to-accent text-primary-foreground p-6 rounded-3xl my-4 relative overflow-hidden soft-shadow">
           <div className="absolute -right-4 -bottom-10 w-36 h-36 opacity-30">
               <Image src="https://picsum.photos/seed/ai-person/200/200" alt="AI illustration" width={144} height={144} className="object-contain" data-ai-hint="AI illustration person"/>
           </div>
@@ -528,7 +528,7 @@ function App() {
   )
 
   return (
-    <div className="bg-background min-h-screen flex flex-col items-center justify-start font-body relative overflow-hidden">
+    <div className="bg-background min-h-screen flex flex-col items-center justify-start font-body relative">
       
       <div className={cn("relative z-10 text-center text-foreground pt-16 pb-6 px-4 w-full max-w-sm shrink-0 transition-all duration-300", (showChat || chatMessages.length > 0) && "pt-6 hidden")}>
         <h1 className={cn("text-3xl font-bold tracking-tight")}>
@@ -701,6 +701,9 @@ export default function GalaxyApp() {
 
 
 
+
+
+    
 
 
     
