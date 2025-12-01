@@ -530,11 +530,11 @@ function App() {
   return (
     <div className="bg-background min-h-screen flex flex-col items-center justify-start font-body relative pt-16">
       
-      <main className="relative z-10 w-full max-w-sm flex-1 bg-card/80 backdrop-blur-3xl rounded-t-[2.5rem] shadow-2xl flex flex-col min-h-0 border-t-2 border-white/50 soft-shadow">
+      <main className="relative z-10 w-full max-w-md flex-1 bg-card/80 backdrop-blur-3xl rounded-t-[2.5rem] shadow-2xl flex flex-col min-h-0 border-t-2 border-white/50 soft-shadow">
         <div className={cn("flex-shrink-0 px-6 pt-6")}>
-          <header className="flex justify-between items-center py-2">
+          <header className="flex justify-between items-start py-2">
             <div className="flex flex-col">
-                <h1 className="text-xl font-bold text-foreground">World's first web to web ai service</h1>
+                <h1 className="text-xl font-bold text-foreground whitespace-nowrap">World's first web to web ai service</h1>
                 <div className="flex items-center gap-2 mt-2">
                   <GalaxyLogo className="w-8 h-8" />
                   <span className="text-2xl font-bold text-foreground">AI Atlas</span>
