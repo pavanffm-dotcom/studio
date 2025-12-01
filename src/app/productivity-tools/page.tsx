@@ -47,13 +47,16 @@ const toolData: ToolCategory[] = [
         title: "Task & Project Management",
         icon: <ListChecks className="w-5 h-5 text-primary"/>,
         tools: [
-          { name: 'Trello', description: 'Collaborate, manage projects, and reach new productivity peaks.', url: 'https://trello.com/', image: 'https://picsum.photos/seed/trello-prod/600/400', dataAiHint: 'kanban board', pricing: 'Freemium' },
-          { name: 'Asana', description: 'Manage your team’s work, projects, & tasks online.', url: 'https://asana.com/', image: 'https://picsum.photos/seed/asana-prod/600/400', dataAiHint: 'work management', pricing: 'Freemium' },
-          { name: 'Jira', description: 'The #1 software development tool used by agile teams.', url: 'https://www.atlassian.com/software/jira', image: 'https://picsum.photos/seed/jira-prod/600/400', dataAiHint: 'agile tool', pricing: 'Freemium' },
-          { name: 'Todoist', description: 'The to-do list to organize work & life.', url: 'https://todoist.com/', image: 'https://picsum.photos/seed/todoist-prod/600/400', dataAiHint: 'task list', pricing: 'Freemium' },
-          { name: 'Things', description: 'The award-winning personal task manager.', url: 'https://culturedcode.com/things/', image: 'https://picsum.photos/seed/things-prod/600/400', dataAiHint: 'task manager', pricing: 'Paid' },
-          { name: 'Monday.com', description: 'An open platform where anyone can create the tools they need to run every aspect of their work.', url: 'https://monday.com/', image: 'https://picsum.photos/seed/monday-prod/600/400', dataAiHint: 'work os', pricing: 'Paid' },
-          { name: 'ClickUp', description: 'One app to replace them all.', url: 'https://clickup.com/', image: 'https://picsum.photos/seed/clickup-prod/600/400', dataAiHint: 'productivity platform', pricing: 'Freemium' },
+            { name: 'Trello', description: 'Collaborate, manage projects, and reach new productivity peaks.', url: 'https://trello.com/', image: 'https://picsum.photos/seed/trello-prod/600/400', dataAiHint: 'kanban board', pricing: 'Freemium' },
+            { name: 'Asana', description: 'Manage your team’s work, projects, & tasks online.', url: 'https://asana.com/', image: 'https://picsum.photos/seed/asana-prod/600/400', dataAiHint: 'work management', pricing: 'Freemium' },
+            { name: 'Jira', description: 'The #1 software development tool used by agile teams.', url: 'https://www.atlassian.com/software/jira', image: 'https://picsum.photos/seed/jira-prod/600/400', dataAiHint: 'agile tool', pricing: 'Freemium' },
+            { name: 'Todoist', description: 'The to-do list to organize work & life.', url: 'https://todoist.com/', image: 'https://picsum.photos/seed/todoist-prod/600/400', dataAiHint: 'task list', pricing: 'Freemium' },
+            { name: 'Things', description: 'The award-winning personal task manager.', url: 'https://culturedcode.com/things/', image: 'https://picsum.photos/seed/things-prod/600/400', dataAiHint: 'task manager', pricing: 'Paid' },
+            { name: 'Monday.com', description: 'An open platform where anyone can create the tools they need to run every aspect of their work.', url: 'https://monday.com/', image: 'https://picsum.photos/seed/monday-prod/600/400', dataAiHint: 'work os', pricing: 'Paid' },
+            { name: 'ClickUp', description: 'One app to replace them all.', url: 'https://clickup.com/', image: 'https://picsum.photos/seed/clickup-prod/600/400', dataAiHint: 'productivity platform', pricing: 'Freemium' },
+            { name: 'Basecamp', description: 'The all-in-one toolkit for working remotely.', url: 'https://basecamp.com/', image: 'https://picsum.photos/seed/basecamp-prod/600/400', dataAiHint: 'remote work', pricing: 'Paid' },
+            { name: 'Wrike', description: 'A versatile work management platform for teams.', url: 'https://www.wrike.com/', image: 'https://picsum.photos/seed/wrike-prod/600/400', dataAiHint: 'team management', pricing: 'Freemium' },
+            { name: 'Airtable', description: 'Connect everything. Achieve anything.', url: 'https://www.airtable.com/', image: 'https://picsum.photos/seed/airtable-prod/600/400', dataAiHint: 'spreadsheet database', pricing: 'Freemium' },
         ]
     },
     {
@@ -66,6 +69,8 @@ const toolData: ToolCategory[] = [
             { name: 'Roam Research', description: 'A note-taking tool for networked thought.', url: 'https://roamresearch.com/', image: 'https://picsum.photos/seed/roam-prod/600/400', dataAiHint: 'networked thought', pricing: 'Paid' },
             { name: 'Logseq', description: 'A privacy-first, open-source knowledge base.', url: 'https://logseq.com/', image: 'https://picsum.photos/seed/logseq-prod/600/400', dataAiHint: 'knowledge management', pricing: 'Free' },
             { name: 'Microsoft OneNote', description: 'Your digital notebook.', url: 'https://www.onenote.com/', image: 'https://picsum.photos/seed/onenote-prod/600/400', dataAiHint: 'digital notebook', pricing: 'Free' },
+            { name: 'Bear', description: 'A beautiful, flexible writing app for crafting notes and prose.', url: 'https://bear.app/', image: 'https://picsum.photos/seed/bear-prod/600/400', dataAiHint: 'writing app', pricing: 'Freemium' },
+            { name: 'Google Keep', description: 'Quickly capture what\'s on your mind.', url: 'https://keep.google.com/', image: 'https://picsum.photos/seed/gkeep-prod/600/400', dataAiHint: 'sticky notes', pricing: 'Free' },
         ]
     },
     {
@@ -77,6 +82,8 @@ const toolData: ToolCategory[] = [
             { name: 'Pomofocus', description: 'A simple Pomodoro timer that works on desktop & mobile browser.', url: 'https://pomofocus.io/', image: 'https://picsum.photos/seed/pomofocus-prod/600/400', dataAiHint: 'pomodoro timer', pricing: 'Free' },
             { name: 'RescueTime', description: 'The ultimate automated time-tracking and productivity tool.', url: 'https://www.rescuetime.com/', image: 'https://picsum.photos/seed/rescuetime-prod/600/400', dataAiHint: 'automated tracking', pricing: 'Freemium' },
             { name: 'Forest', description: 'Stay focused, be present. A unique way to beat phone addiction.', url: 'https://www.forestapp.cc/', image: 'https://picsum.photos/seed/forest-prod/600/400', dataAiHint: 'focus app', pricing: 'Paid' },
+            { name: 'Harvest', description: 'Simple time tracking, powerful reporting.', url: 'https://www.getharvest.com/', image: 'https://picsum.photos/seed/harvest-prod/600/400', dataAiHint: 'invoice tracking', pricing: 'Freemium' },
+            { name: 'Timeular', description: 'Track your time effortlessly with a physical tracker.', url: 'https://timeular.com/', image: 'https://picsum.photos/seed/timeular-prod/600/400', dataAiHint: 'time tracker', pricing: 'Paid' },
         ]
     },
     {
@@ -88,6 +95,8 @@ const toolData: ToolCategory[] = [
             { name: 'iLovePDF', description: 'Every tool you need to work with PDFs in one place.', url: 'https://www.ilovepdf.com/', image: 'https://picsum.photos/seed/ilovepdf-prod/600/400', dataAiHint: 'pdf tools', pricing: 'Freemium' },
             { name: 'Google Docs', description: 'Create and collaborate on online documents.', url: 'https://www.google.com/docs/about/', image: 'https://picsum.photos/seed/gdocs-prod/600/400', dataAiHint: 'document editor', pricing: 'Free' },
             { name: 'WeTransfer', description: 'The simplest way to send your files around the world.', url: 'https://wetransfer.com/', image: 'https://picsum.photos/seed/wetransfer-prod/600/400', dataAiHint: 'file sharing', pricing: 'Freemium' },
+            { name: 'Box', description: 'Secure content management and collaboration.', url: 'https://www.box.com/', image: 'https://picsum.photos/seed/box-prod/600/400', dataAiHint: 'enterprise storage', pricing: 'Freemium' },
+            { name: 'Microsoft OneDrive', description: 'Save your files and photos to OneDrive and access them from any device, anywhere.', url: 'https://www.microsoft.com/en-us/microsoft-365/onedrive/online-cloud-storage', image: 'https://picsum.photos/seed/onedrive-prod/600/400', dataAiHint: 'microsoft cloud', pricing: 'Freemium' },
         ]
     },
     {
@@ -99,6 +108,8 @@ const toolData: ToolCategory[] = [
           { name: 'Microsoft Teams', description: 'The hub for teamwork in Microsoft 365.', url: 'https://www.microsoft.com/en-us/microsoft-teams/group-chat-software', image: 'https://picsum.photos/seed/teams-prod/600/400', dataAiHint: 'collaboration platform', pricing: 'Freemium' },
           { name: 'Discord', description: 'Your place to talk and hang out.', url: 'https://discord.com/', image: 'https://picsum.photos/seed/discord-prod/600/400', dataAiHint: 'community chat', pricing: 'Freemium' },
           { name: 'Superhuman', description: 'The fastest email experience ever made.', url: 'https://superhuman.com/', image: 'https://picsum.photos/seed/superhuman-prod/600/400', dataAiHint: 'email management', pricing: 'Paid' },
+          { name: 'Loom', description: 'Video messaging for work.', url: 'https://www.loom.com/', image: 'https://picsum.photos/seed/loom-prod/600/400', dataAiHint: 'screen recording', pricing: 'Freemium' },
+          { name: 'Miro', description: 'The online collaborative whiteboard platform.', url: 'https://miro.com/', image: 'https://picsum.photos/seed/miro-prod/600/400', dataAiHint: 'online whiteboard', pricing: 'Freemium' },
         ]
     },
     {
@@ -109,6 +120,8 @@ const toolData: ToolCategory[] = [
           { name: 'Make (Integromat)', description: 'A visual platform to design, build, and automate anything.', url: 'https://www.make.com/en', image: 'https://picsum.photos/seed/make-prod/600/400', dataAiHint: 'workflow automation', pricing: 'Freemium' },
           { name: 'n8n.io', description: 'Free and source-available workflow automation tool.', url: 'https://n8n.io/', image: 'https://picsum.photos/seed/n8n-prod/600/400', dataAiHint: 'open source automation', pricing: 'Free' },
           { name: 'Bardeen', description: 'Automate your manual tasks with one click.', url: 'https://www.bardeen.ai/', image: 'https://picsum.photos/seed/bardeen-prod/600/400', dataAiHint: 'browser automation', pricing: 'Free' },
+          { name: 'IFTTT', description: 'Helps your apps and devices work together in new ways.', url: 'https://ifttt.com/', image: 'https://picsum.photos/seed/ifttt-prod/600/400', dataAiHint: 'applets service', pricing: 'Freemium' },
+          { name: 'Keyboard Maestro', description: 'Powerful macro program for macOS.', url: 'https://www.keyboardmaestro.com/', image: 'https://picsum.photos/seed/maestro-prod/600/400', dataAiHint: 'mac automation', pricing: 'Paid' },
         ]
     },
     {
@@ -119,6 +132,8 @@ const toolData: ToolCategory[] = [
             { name: 'VS Code', description: 'Free. Built on open source. Runs everywhere.', url: 'https://code.visualstudio.com/', image: 'https://picsum.photos/seed/vscode-prod/600/400', dataAiHint: 'code editor', pricing: 'Free' },
             { name: 'Postman', description: 'The collaboration platform for API development.', url: 'https://www.postman.com/', image: 'https://picsum.photos/seed/postman-prod/600/400', dataAiHint: 'api testing', pricing: 'Freemium' },
             { name: 'Fig', description: 'Adds IDE-style autocomplete to your terminal.', url: 'https://fig.io/', image: 'https://picsum.photos/seed/fig-prod/600/400', dataAiHint: 'terminal autocomplete', pricing: 'Freemium' },
+            { name: 'Tabnine', description: 'AI assistant for software developers.', url: 'https://www.tabnine.com/', image: 'https://picsum.photos/seed/tabnine-prod/600/400', dataAiHint: 'code completion', pricing: 'Freemium' },
+            { name: 'Docker', description: 'Securely build, share and run any application, anywhere.', url: 'https://www.docker.com/', image: 'https://picsum.photos/seed/docker-prod/600/400', dataAiHint: 'containerization', pricing: 'Freemium' },
         ]
     },
     {
@@ -129,6 +144,8 @@ const toolData: ToolCategory[] = [
             { name: 'Jasper', description: 'The AI Content Platform for teams.', url: 'https://www.jasper.ai/', image: 'https://picsum.photos/seed/jasper-prod/600/400', dataAiHint: 'ai writer', pricing: 'Paid' },
             { name: 'Copy.ai', description: 'Write better marketing copy and content with AI.', url: 'https://www.copy.ai/', image: 'https://picsum.photos/seed/copyai-prod/600/400', dataAiHint: 'copywriting tool', pricing: 'Freemium' },
             { name: 'Buffer', description: 'Plan and schedule your content for social media.', url: 'https://buffer.com/', image: 'https://picsum.photos/seed/buffer-prod/600/400', dataAiHint: 'social scheduler', pricing: 'Freemium' },
+            { name: 'Hemingway App', description: 'Makes your writing bold and clear.', url: 'https://hemingwayapp.com/', image: 'https://picsum.photos/seed/hemingway-prod/600/400', dataAiHint: 'writing editor', pricing: 'Free' },
+            { name: 'QuillBot', description: 'AI-powered paraphrasing tool.', url: 'https://quillbot.com/', image: 'https://picsum.photos/seed/quillbot-prod/600/400', dataAiHint: 'paraphraser', pricing: 'Freemium' },
         ]
     },
     {
@@ -139,6 +156,8 @@ const toolData: ToolCategory[] = [
             { name: 'Cold Turkey', description: 'The toughest website blocker on the internet.', url: 'https://getcoldturkey.com/', image: 'https://picsum.photos/seed/coldturkey-prod/600/400', dataAiHint: 'distraction free', pricing: 'Freemium' },
             { name: 'Krisp', description: 'AI-powered noise cancelling app.', url: 'https://krisp.ai/', image: 'https://picsum.photos/seed/krisp-prod/600/400', dataAiHint: 'noise cancellation', pricing: 'Freemium' },
             { name: 'Brain.fm', description: 'Functional music to improve focus.', url: 'https://www.brain.fm/', image: 'https://picsum.photos/seed/brainfm-prod/600/400', dataAiHint: 'focus music', pricing: 'Paid' },
+            { name: 'FocusMe', description: 'A powerful app and website blocker for Windows, Mac & Android.', url: 'https://focusme.com/', image: 'https://picsum.photos/seed/focusme-prod/600/400', dataAiHint: 'app blocker', pricing: 'Paid' },
+            { name: 'SelfControl', description: 'A free Mac application to help you avoid distracting websites.', url: 'https://selfcontrolapp.com/', image: 'https://picsum.photos/seed/selfcontrol-prod/600/400', dataAiHint: 'mac focus', pricing: 'Free' },
         ]
     },
     {
@@ -149,6 +168,7 @@ const toolData: ToolCategory[] = [
           { name: 'Mint', description: 'Manage your money, budgets & crypto all in one place.', url: 'https://mint.intuit.com/', image: 'https://picsum.photos/seed/mint-prod/600/400', dataAiHint: 'expense tracker', pricing: 'Free' },
           { name: 'Wave', description: 'Free invoicing & accounting software.', url: 'https://www.waveapps.com/', image: 'https://picsum.photos/seed/wave-prod/600/400', dataAiHint: 'invoice tools', pricing: 'Free' },
           { name: 'Gusto', description: 'The all-in-one people platform for payroll, benefits, and more.', url: 'https://gusto.com/', image: 'https://picsum.photos/seed/gusto-fin-prod/600/400', dataAiHint: 'payroll software', pricing: 'Paid' },
+          { name: 'Personal Capital', description: 'The smart way to track and manage your financial life.', url: 'https://www.personalcapital.com/', image: 'https://picsum.photos/seed/personalcap-prod/600/400', dataAiHint: 'net worth', pricing: 'Free' },
         ]
     },
     {
@@ -157,8 +177,8 @@ const toolData: ToolCategory[] = [
         tools: [
           { name: 'HubSpot', description: 'A full platform of marketing, sales, customer service, and CRM software.', url: 'https://www.hubspot.com/', image: 'https://picsum.photos/seed/hubspot-biz-prod/600/400', dataAiHint: 'crm platform', pricing: 'Freemium' },
           { name: 'BambooHR', description: 'HR software with heart.', url: 'https://www.bamboohr.com/', image: 'https://picsum.photos/seed/bamboohr-biz-prod/600/400', dataAiHint: 'hr tools', pricing: 'Paid' },
-          { name: 'Loom', description: 'Video messaging for work.', url: 'https://www.loom.com/', image: 'https://picsum.photos/seed/loom-biz-prod/600/400', dataAiHint: 'team productivity', pricing: 'Freemium' },
           { name: 'Time Doctor', description: 'Productivity monitoring and time tracking software.', url: 'https://www.timedoctor.com/', image: 'https://picsum.photos/seed/timedoctor-prod/600/400', dataAiHint: 'employee monitoring', pricing: 'Paid' },
+          { name: 'Gusto', description: 'Payroll, benefits, and HR for modern teams.', url: 'https://gusto.com/', image: 'https://picsum.photos/seed/gusto-team-prod/600/400', dataAiHint: 'team payroll', pricing: 'Paid' },
         ]
     },
     {
@@ -168,6 +188,8 @@ const toolData: ToolCategory[] = [
           { name: 'Coursera', description: 'Build skills with courses, certificates, and degrees online.', url: 'https://www.coursera.org/', image: 'https://picsum.photos/seed/coursera-prod/600/400', dataAiHint: 'online courses', pricing: 'Freemium' },
           { name: 'Anki', description: 'Powerful, intelligent flashcards.', url: 'https://apps.ankiweb.net/', image: 'https://picsum.photos/seed/anki-prod/600/400', dataAiHint: 'flashcards app', pricing: 'Free' },
           { name: 'Brilliant.org', description: 'Build quantitative skills in math, science, and computer science.', url: 'https://brilliant.org/', image: 'https://picsum.photos/seed/brilliant-prod/600/400', dataAiHint: 'mind training', pricing: 'Freemium' },
+          { name: 'Khan Academy', description: 'Free online courses, lessons & practice.', url: 'https://www.khanacademy.org/', image: 'https://picsum.photos/seed/khan-prod/600/400', dataAiHint: 'free education', pricing: 'Free' },
+          { name: 'Duolingo', description: 'Learn a language for free. Forever.', url: 'https://www.duolingo.com/', image: 'https://picsum.photos/seed/duolingo-prod/600/400', dataAiHint: 'language learning', pricing: 'Freemium' },
         ]
     },
     {
@@ -178,6 +200,7 @@ const toolData: ToolCategory[] = [
           { name: 'Raycast', description: 'A blazingly fast, totally extendable launcher.', url: 'https://www.raycast.com/', image: 'https://picsum.photos/seed/raycast-prod/600/400', dataAiHint: 'mac launcher', pricing: 'Free' },
           { name: 'CleanMyMac X', description: 'Your Mac. As good as new.', url: 'https://macpaw.com/cleanmymac', image: 'https://picsum.photos/seed/cleanmymac-prod/600/400', dataAiHint: 'file cleanup', pricing: 'Paid' },
           { name: 'Syncthing', description: 'Continuous file synchronization program.', url: 'https://syncthing.net/', image: 'https://picsum.photos/seed/syncthing-prod/600/400', dataAiHint: 'system sync', pricing: 'Free' },
+          { name: 'BetterTouchTool', description: 'Customize various input devices on your Mac.', url: 'https://folivora.ai/', image: 'https://picsum.photos/seed/btt-prod/600/400', dataAiHint: 'mac customization', pricing: 'Paid' },
         ]
     },
     {
@@ -188,6 +211,8 @@ const toolData: ToolCategory[] = [
           { name: 'Zapier', description: 'AI-powered automation.', url: 'https://zapier.com/', image: 'https://picsum.photos/seed/zapier-ai-prod/600/400', dataAiHint: 'ai automation', pricing: 'Freemium' },
           { name: 'Perplexity AI', description: 'The answer engine.', url: 'https://www.perplexity.ai/', image: 'https://picsum.photos/seed/perplexity-prod/600/400', dataAiHint: 'ai research', pricing: 'Freemium' },
           { name: 'Bard', description: 'Your creative and helpful collaborator.', url: 'https://bard.google.com/', image: 'https://picsum.photos/seed/bard-prod/600/400', dataAiHint: 'ai productivity bot', pricing: 'Free' },
+          { name: 'Scribe', description: 'Automatically create step-by-step guides.', url: 'https://scribehow.com/', image: 'https://picsum.photos/seed/scribe-prod/600/400', dataAiHint: 'documentation ai', pricing: 'Freemium' },
+          { name: 'Motion', description: 'Uses AI to plan your day, schedule meetings, and build the perfect to-do list.', url: 'https://www.usemotion.com/', image: 'https://picsum.photos/seed/motion-prod/600/400', dataAiHint: 'ai calendar', pricing: 'Paid' },
         ]
     },
 ];
