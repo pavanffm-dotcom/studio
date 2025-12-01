@@ -33,12 +33,14 @@ const ShoppingCart = (props: React.JSX.IntrinsicAttributes & React.SVGProps<SVGS
         <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
     </svg>
 );
+
 const Tag = (props: React.JSX.IntrinsicAttributes & React.SVGProps<SVGSVGElement>) => (
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
         <path d="M12.586 2.586a2 2 0 0 0-2.828 0L2.586 9.757a2 2 0 0 0 0 2.828l9.172 9.172a2 2 0 0 0 2.828 0l7.171-7.171a2 2 0 0 0 0-2.828L12.586 2.586z"></path>
         <circle cx="8.5" cy="8.5" r="1.5"></circle>
     </svg>
 );
+
 
 const toolData: ToolCategory[] = [
     {
@@ -259,7 +261,7 @@ const toolData: ToolCategory[] = [
         icon: <ShoppingCart className="w-5 h-5 text-primary"/>,
         tools: [
             { name: 'CopyMonkey', description: 'AI-generated product descriptions.', url: 'https://copymonkey.ai/', image: 'https://picsum.photos/seed/copymonkey-prod/600/400', dataAiHint: 'ecommerce copy' },
-            { name: 'Jasper Product Copy', description: 'Write compelling product descriptions.', url: 'https://www.jasper.ai/', image: 'https://picsum.photos/seed/jasper-prod/600/400', dataAiHint: 'product copy' },
+            { name: 'Jasper Product Copy', description: 'Write compelling product descriptions.', url: 'https://www.jasper.ai/', image: 'https://picsum.photos/seed/jasper-prod-desc/600/400', dataAiHint: 'product copy' },
             { name: 'Writesonic Ecom Writer', description: 'AI writer for e-commerce.', url: 'https://writesonic.com/', image: 'https://picsum.photos/seed/writesonic-ecom/600/400', dataAiHint: 'ecommerce writer' },
             { name: 'Shopia AI', description: 'SEO-optimized content for e-commerce.', url: 'https://www.shopia.ai/', image: 'https://picsum.photos/seed/shopia/600/400', dataAiHint: 'seo content' },
             { name: 'Describely.ai', description: 'Generate product descriptions, titles, and more.', url: 'https://describely.ai/', image: 'https://picsum.photos/seed/describely/600/400', dataAiHint: 'catalog content' },
