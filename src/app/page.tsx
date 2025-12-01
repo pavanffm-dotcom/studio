@@ -693,17 +693,3 @@ export default function GalaxyApp() {
     </AuthGate>
   );
 }
-
-    
-
-
-
-
-
-
-
-
-    
-
-
-    
