@@ -1,4 +1,3 @@
-
 'use client';
 
 import React from 'react';
@@ -356,7 +355,7 @@ const toolData: ToolCategory[] = [
             { name: 'Newsela', description: 'Instructional Content Platform.', url: 'https://newsela.com/', image: 'https://picsum.photos/seed/newsela/600/400', dataAiHint: 'content platform' },
             { name: 'Flocabulary', description: 'Educational hip-hop videos.', url: 'https://www.flocabulary.com/', image: 'https://picsum.photos/seed/flocabulary/600/400', dataAiHint: 'hip-hop learning' },
             { name: 'StudyBlue', description: 'Online flashcards, notes and study guides.', url: '#', image: 'https://picsum.photos/seed/studyblue/600/400', dataAiHint: 'study guides' },
-            { name: 'Tinycards', description: 'Flashcards by Duolingo.', url: '#', image: 'https://picsum.photos/seed/tinycards/600/400', dataAiHint: 'duolingo flashcards' },
+            { name: 'Tinycards', description: 'Flashcards by Duolingo (discontinued).', url: '#', image: 'https://picsum.photos/seed/tinycards/600/400', dataAiHint: 'duolingo flashcards' },
             { name: 'Quizalize', description: 'The fun quiz platform.', url: 'https://www.quizalize.com/', image: 'https://picsum.photos/seed/quizalize/600/400', dataAiHint: 'fun quizzes' },
             { name: 'Wordwall', description: 'Create custom activities for your classroom.', url: 'https://wordwall.net/', image: 'https://picsum.photos/seed/wordwall/600/400', dataAiHint: 'custom activities' },
             { name: 'Flippity', description: 'Easily turn a Google Spreadsheet into a set of online flashcards.', url: 'https://www.flippity.net/', image: 'https://picsum.photos/seed/flippity/600/400', dataAiHint: 'google sheets' },
@@ -796,8 +795,140 @@ const toolData: ToolCategory[] = [
             { name: 'Michel Thomas Method', description: 'The natural way to learn a language.', url: 'https://www.michelthomas.com/', image: 'https://picsum.photos/seed/michelthomas-audio/600/400', dataAiHint: 'natural learning' },
             { name: 'Duolingo Podcasts', description: 'Podcasts for language learners.', url: 'https://podcast.duolingo.com/', image: 'https://picsum.photos/seed/duolingo-podcasts/600/400', dataAiHint: 'language podcasts' },
             { name: 'Coffee Break Languages', description: 'Learn a language on your coffee break.', url: 'https://coffeebreaklanguages.com/', image: 'https://picsum.photos/seed/coffeebreak/600/400', dataAiHint: 'coffee break' },
-<h4>Please add the email writing tools section into writing tools page</h4>
+        ]
+    },
+    {
+        title: "File Convert / PDF Tools",
+        icon: <File className="w-5 h-5 text-primary"/>,
+        tools: [
+            { name: 'iLovePDF', description: 'Every tool you need to work with PDFs.', url: 'https://www.ilovepdf.com/', image: 'https://picsum.photos/seed/ilovepdf-file/600/400', dataAiHint: 'pdf editor' },
+            { name: 'SmallPDF', description: 'We make PDF easy.', url: 'https://smallpdf.com/', image: 'https://picsum.photos/seed/smallpdf-file/600/400', dataAiHint: 'pdf converter' },
+            { name: 'PDF24', description: 'Free and online PDF tools.', url: 'https://tools.pdf24.org/en/', image: 'https://picsum.photos/seed/pdf24/600/400', dataAiHint: 'online pdf' },
+            { name: 'CloudConvert', description: 'Online file converter.', url: 'https://cloudconvert.com/', image: 'https://picsum.photos/seed/cloudconvert-file/600/400', dataAiHint: 'file format' },
+            { name: 'DocTranslator', description: 'Translate documents online.', url: 'https://www.onlinedoctranslator.com/', image: 'https://picsum.photos/seed/doctranslator/600/400', dataAiHint: 'document translation' }
+        ]
+    }
+];
 
-I've added the "Email Writing Tools" section to the Writing Tools page, complete with a variety of tools to help with everything from composing emails to managing large-scale outreach campaigns.
+export default function StudentToolsPage() {
+    const { toast } = useToast();
+    const { favouritedTools, handleFavouriteToggle } = useFavourites();
 
-This new category includes tools for AI email generation, sales engagement, and managing email marketing, providing a comprehensive resource for anyone looking to improve their email communication.
+    const handleShareTool = React.useCallback(async (e: React.MouseEvent, tool: Tool) => {
+        e.preventDefault();
+        e.stopPropagation();
+    
+        const shareData = {
+          title: tool.name,
+          text: `Check out this AI tool: ${tool.name}`,
+          url: tool.url,
+        };
+    
+        if (navigator.share) {
+          try {
+            await navigator.share(shareData);
+          } catch (err) {
+            console.error("Error sharing:", err);
+          }
+        } else {
+          navigator.clipboard.writeText(tool.url);
+          toast({
+            title: "Link Copied!",
+            description: `${tool.name}'s URL has been copied to your clipboard.`,
+          });
+        }
+    }, [toast]);
+
+    const handleFavouriteClick = (e: React.MouseEvent, toolName: string) => {
+        e.preventDefault();
+        e.stopPropagation();
+        handleFavouriteToggle(toolName);
+    };
+
+    const ToolCard = ({ tool }: { tool: Tool }) => (
+        <Link href={tool.url} key={tool.name} target="_blank" rel="noopener noreferrer" className="block group w-40 shrink-0">
+          <Card 
+            className="bg-white/80 border-none rounded-3xl soft-shadow transition-all duration-300 group-hover:scale-[1.02] group-hover:shadow-lg overflow-hidden h-full flex flex-col"
+          >
+            <div className="relative">
+                <Image
+                  src={tool.image}
+                  alt={tool.name}
+                  width={300}
+                  height={200}
+                  className="w-full h-auto aspect-[4/3] object-cover"
+                  data-ai-hint={tool.dataAiHint}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                <div className="absolute top-1 right-1 bg-primary/80 text-primary-foreground rounded-full p-1 backdrop-blur-sm">
+                    <ExternalLink className="w-3 h-3"/>
+                </div>
+            </div>
+            <div className='p-3 flex flex-col flex-grow'>
+              <div className="flex justify-between items-start flex-grow">
+                  <div>
+                      <CardTitle className="text-base font-bold text-foreground leading-tight line-clamp-2">{tool.name}</CardTitle>
+                      <p className="text-xs text-muted-foreground mt-1 line-clamp-2">{tool.description}</p>
+                  </div>
+                  <div className="flex flex-col items-center gap-1 shrink-0 pl-1">
+                      <Button variant="ghost" size="icon" className="w-7 h-7 rounded-full text-foreground/80 bg-white/30 hover:bg-white/50" onClick={(e) => handleShareTool(e, tool)}>
+                          <Share2 className="w-3 h-3" />
+                      </Button>
+                      <Button variant="ghost" size="icon" className="w-7 h-7 rounded-full text-foreground/80 bg-white/30 hover:bg-white/50" onClick={(e) => handleFavouriteClick(e, tool.name)}>
+                          <Star className={cn('w-4 h-4 transition-all', favouritedTools.has(tool.name) ? 'fill-yellow-300 text-yellow-300' : 'text-foreground/60')}/>
+                      </Button>
+                  </div>
+              </div>
+            </div>
+          </Card>
+        </Link>
+    );
+
+  return (
+    <div className="bg-background min-h-screen flex flex-col items-center justify-start font-body relative overflow-hidden">
+      <div className="absolute inset-0 z-0 opacity-50">
+        <div className="absolute inset-0 bg-gradient-to-br from-soft-blue via-lavender to-baby-pink"></div>
+      </div>
+      <div className="relative z-10 w-full max-w-sm pt-6 px-4">
+        <header className="flex items-center justify-between gap-4">
+            <div className='flex items-center gap-4'>
+                <Link href="/" passHref>
+                    <Button variant="ghost" size="icon" className="w-12 h-12 rounded-full bg-white/50 backdrop-blur-sm">
+                    <ArrowLeft />
+                    </Button>
+                </Link>
+                <div className='flex items-center gap-2'>
+                    <GraduationCap className="w-6 h-6 text-foreground" />
+                    <h1 className="text-2xl font-bold text-foreground">
+                        Student Tools
+                    </h1>
+                </div>
+            </div>
+        </header>
+      </div>
+
+      <main className="relative z-10 w-full max-w-sm flex-1 bg-card/80 backdrop-blur-3xl rounded-t-[2.5rem] shadow-2xl flex flex-col min-h-0 border-t-2 border-white/50 soft-shadow mt-6">
+        <div className="flex-grow overflow-y-auto no-scrollbar p-4 space-y-8">
+            {toolData.map((category, index) => {
+              if (category.tools.length === 0) return null;
+
+              return (
+              <section key={index}>
+                  <div className="flex justify-between items-center mb-3 px-2">
+                      <h2 className="font-semibold text-xl flex items-center gap-2">
+                          {category.icon}
+                          {category.title}
+                      </h2>
+                  </div>
+                  <div className="flex gap-4 overflow-x-auto no-scrollbar pb-2 -mx-4 px-4">
+                      {category.tools.map((tool) => (
+                        <ToolCard tool={tool} key={tool.name} />
+                      ))}
+                  </div>
+              </section>
+            )})}
+        </div>
+      </main>
+    </div>
+  );
+}
