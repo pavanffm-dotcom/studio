@@ -702,22 +702,6 @@ export default function ProductivityToolsPage() {
                     </h1>
                 </div>
             </div>
-            <DropdownMenu open={open} onOpenChange={setOpen}>
-                <DropdownMenuTrigger asChild>
-                    <Button variant="outline" size="sm" className="bg-white/50">
-                        <Filter className="w-4 h-4 mr-2" />
-                        Filter
-                    </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent className="w-56">
-                    <DropdownMenuLabel>Filter by Price</DropdownMenuLabel>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuRadioGroup value={priceFilter} onValueChange={setPriceFilter}>
-                        <DropdownMenuRadioItem value="All">All (Free & Paid)</DropdownMenuRadioItem>
-                        <DropdownMenuRadioItem value="Free">Free Only</DropdownMenuRadioItem>
-                    </DropdownMenuRadioGroup>
-                </DropdownMenuContent>
-            </DropdownMenu>
         </header>
       </div>
 
@@ -733,6 +717,24 @@ export default function ProductivityToolsPage() {
                           {category.icon}
                           {category.title}
                       </h2>
+                       {index === 0 && (
+                          <DropdownMenu open={open} onOpenChange={setOpen}>
+                              <DropdownMenuTrigger asChild>
+                                  <Button variant="outline" size="sm" className="bg-white/50">
+                                      <Filter className="w-4 h-4 mr-2" />
+                                      Filter
+                                  </Button>
+                              </DropdownMenuTrigger>
+                              <DropdownMenuContent className="w-56">
+                                  <DropdownMenuLabel>Filter by Price</DropdownMenuLabel>
+                                  <DropdownMenuSeparator />
+                                  <DropdownMenuRadioGroup value={priceFilter} onValueChange={setPriceFilter}>
+                                      <DropdownMenuRadioItem value="All">All (Free & Paid)</DropdownMenuRadioItem>
+                                      <DropdownMenuRadioItem value="Free">Free Only</DropdownMenuRadioItem>
+                                  </DropdownMenuRadioGroup>
+                              </DropdownMenuContent>
+                          </DropdownMenu>
+                      )}
                   </div>
                   <div className="flex gap-4 overflow-x-auto no-scrollbar pb-2 -mx-4 px-4">
                       {category.tools.map((tool) => (

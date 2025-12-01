@@ -697,7 +697,7 @@ const toolData: ToolCategory[] = [
             { name: 'Crello (VistaCreate)', description: 'Free design tool.', url: 'https://create.vista.com/', image: 'https://picsum.photos/seed/crello-present/600/400', dataAiHint: 'visual editor', pricing: 'Freemium' },
             { name: 'Fotor', description: 'Online photo editor and design maker.', url: 'https://www.fotor.com/', image: 'https://picsum.photos/seed/fotor-present/600/400', dataAiHint: 'design maker', pricing: 'Freemium' },
             { name: 'Snappa', description: 'Create online graphics in a snap.', url: 'https://snappa.com/', image: 'https://picsum.photos/seed/snappa-present/600/400', dataAiHint: 'online graphics', pricing: 'Freemium' },
-            { name: 'DesignCap', description: 'Free online graphic designer.', url: 'https://www.designcap.com/', image: 'https://picsum.photos/seed/designcap/600/400', dataAiHint: 'graphic designer', pricing: 'Free' },
+            { name: 'DesignCap', description: 'Free online poster and flyer maker.', url: 'https://www.designcap.com/', image: 'https://picsum.photos/seed/designcap/600/400', dataAiHint: 'graphic designer', pricing: 'Free' },
             { name: 'PosterMyWall', description: 'Create amazing posters and social media graphics.', url: 'https://www.postermywall.com/', image: 'https://picsum.photos/seed/postermywall-present/600/400', dataAiHint: 'social graphics', pricing: 'Freemium' },
             { name: 'Venngage', description: 'Infographic maker.', url: 'https://venngage.com/', image: 'https://picsum.photos/seed/venngage-present/600/400', dataAiHint: 'infographic maker', pricing: 'Freemium' },
             { name: 'Infogram', description: 'Create engaging infographics and reports.', url: 'https://infogram.com/', image: 'https://picsum.photos/seed/infogram/600/400', dataAiHint: 'data visualization', pricing: 'Freemium' },
@@ -727,7 +727,7 @@ const toolData: ToolCategory[] = [
             { name: 'MolView', description: 'Online molecular modeling.', url: 'https://molview.org/', image: 'https://picsum.photos/seed/molview/600/400', dataAiHint: 'molecular model', pricing: 'Free' },
             { name: 'The Algorithmic Beauty of Plants', description: 'Book on plant modeling.', url: 'http://algorithmicbotany.org/papers/', image: 'https://picsum.photos/seed/plantalgo/600/400', dataAiHint: 'plant modeling', pricing: 'Free' },
             { name: 'Brilliant.org', description: 'Build quantitative skills.', url: 'https://brilliant.org/', image: 'https://picsum.photos/seed/brilliant-concept/600/400', dataAiHint: 'quantitative skills', pricing: 'Freemium' },
-            { name: '3Blue1Brown', description: 'Math lessons with a focus on intuition.', url: 'https://www.3blue1brown.com/', image: 'https://picsum.photos/seed/3b1b/600/400', dataAiHint: 'math intuition', pricing: 'Free' },
+            { name: '3Blue1Brown', description: 'Math lessons with a focus on intuition.', url: 'https://www.youtube.com/c/3blue1brown', image: 'https://picsum.photos/seed/3b1b/600/400', dataAiHint: 'math intuition', pricing: 'Free' },
             { name: 'Numberphile', description: 'Videos about numbers.', url: 'https://www.numberphile.com/', image: 'https://picsum.photos/seed/numberphile/600/400', dataAiHint: 'number videos', pricing: 'Free' },
             { name: 'Socratic', description: 'Learning app from Google.', url: 'https://socratic.org/', image: 'https://picsum.photos/seed/socratic-concept/600/400', dataAiHint: 'google learning', pricing: 'Free' },
             { name: 'Course Hero', description: 'Study resources.', url: 'https://www.coursehero.com/', image: 'https://picsum.photos/seed/coursehero-concept/600/400', dataAiHint: 'study resources', pricing: 'Paid' },
@@ -988,22 +988,6 @@ export default function StudentToolsPage() {
                     </h1>
                 </div>
             </div>
-            <DropdownMenu open={open} onOpenChange={setOpen}>
-                <DropdownMenuTrigger asChild>
-                    <Button variant="outline" size="sm" className="bg-white/50">
-                        <Filter className="w-4 h-4 mr-2" />
-                        Filter
-                    </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent className="w-56">
-                    <DropdownMenuLabel>Filter by Price</DropdownMenuLabel>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuRadioGroup value={priceFilter} onValueChange={setPriceFilter}>
-                        <DropdownMenuRadioItem value="All">All (Free & Paid)</DropdownMenuRadioItem>
-                        <DropdownMenuRadioItem value="Free">Free Only</DropdownMenuRadioItem>
-                    </DropdownMenuRadioGroup>
-                </DropdownMenuContent>
-            </DropdownMenu>
         </header>
       </div>
 
@@ -1019,6 +1003,24 @@ export default function StudentToolsPage() {
                           {category.icon}
                           {category.title}
                       </h2>
+                       {index === 0 && (
+                          <DropdownMenu open={open} onOpenChange={setOpen}>
+                              <DropdownMenuTrigger asChild>
+                                  <Button variant="outline" size="sm" className="bg-white/50">
+                                      <Filter className="w-4 h-4 mr-2" />
+                                      Filter
+                                  </Button>
+                              </DropdownMenuTrigger>
+                              <DropdownMenuContent className="w-56">
+                                  <DropdownMenuLabel>Filter by Price</DropdownMenuLabel>
+                                  <DropdownMenuSeparator />
+                                  <DropdownMenuRadioGroup value={priceFilter} onValueChange={setPriceFilter}>
+                                      <DropdownMenuRadioItem value="All">All (Free & Paid)</DropdownMenuRadioItem>
+                                      <DropdownMenuRadioItem value="Free">Free Only</DropdownMenuRadioItem>
+                                  </DropdownMenuRadioGroup>
+                              </DropdownMenuContent>
+                          </DropdownMenu>
+                      )}
                   </div>
                   <div className="flex gap-4 overflow-x-auto no-scrollbar pb-2 -mx-4 px-4">
                       {category.tools.map((tool) => (
@@ -1032,3 +1034,4 @@ export default function StudentToolsPage() {
     </div>
   );
 }
+
