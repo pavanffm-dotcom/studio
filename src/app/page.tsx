@@ -528,7 +528,7 @@ function App() {
   )
 
   return (
-    <div className="bg-background min-h-screen flex flex-col items-center justify-start font-body relative pt-16">
+    <div className="bg-background min-h-screen flex flex-col items-center justify-start font-body relative">
       
       <main className="relative z-10 w-full max-w-md flex-1 bg-card/80 backdrop-blur-3xl rounded-t-[2.5rem] shadow-2xl flex flex-col min-h-0 border-t-2 border-white/50 soft-shadow">
         <div className={cn("flex-shrink-0 px-6 pt-6")}>
