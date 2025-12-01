@@ -309,8 +309,8 @@ const toolData: ToolCategory[] = [
             { name: 'IFTTT', description: 'Helps your apps and devices work together in new ways.', url: 'https://ifttt.com/', image: 'https://picsum.photos/seed/ifttt/600/400', dataAiHint: 'applets service', pricing: 'Freemium' },
             { name: 'Workato', description: 'A single platform for integration and automation.', url: 'https://www.workato.com/', image: 'https://picsum.photos/seed/workato/600/400', dataAiHint: 'enterprise automation', pricing: 'Paid' },
             { name: 'UiPath', description: 'A leading Robotic Process Automation vendor.', url: 'https://www.uipath.com/', image: 'https://picsum.photos/seed/uipath/600/400', dataAiHint: 'rpa software', pricing: 'Paid' },
-            { name: 'Pabbly Connect', description: 'Affordable workflow automation software.', url: 'https://www.pabbly.com/connect/', image: 'https://picsum.photos/seed/pabbly-connect/600/400', dataAiHint: 'zapier alternative', pricing: 'Paid' },
             { name: 'Automation Anywhere', description: 'The #1 cloud automation platform.', url: 'https://www.automationanywhere.com/', image: 'https://picsum.photos/seed/automation-anywhere/600/400', dataAiHint: 'rpa cloud', pricing: 'Paid' },
+            { name: 'Pabbly Connect', description: 'Affordable workflow automation software.', url: 'https://www.pabbly.com/connect/', image: 'https://picsum.photos/seed/pabbly-connect/600/400', dataAiHint: 'zapier alternative', pricing: 'Paid' },
             { name: 'Tray.io', description: 'A leader in low-code, enterprise automation.', url: 'https://tray.io/', image: 'https://picsum.photos/seed/tray-io/600/400', dataAiHint: 'api integration', pricing: 'Paid' },
             { name: 'Integrately', description: '1-click integrations for your business.', url: 'https://integrately.com/', image: 'https://picsum.photos/seed/integrately/600/400', dataAiHint: 'app integration', pricing: 'Freemium' },
             { name: 'Apache Airflow', description: 'Programmatically author, schedule, and monitor workflows.', url: 'https://airflow.apache.org/', image: 'https://picsum.photos/seed/apache-airflow/600/400', dataAiHint: 'data pipelines', pricing: 'Free' },
@@ -352,6 +352,13 @@ const toolData: ToolCategory[] = [
             { name: 'Levity', description: 'No-code AI workflow automation.', url: 'https://levity.ai/', image: 'https://picsum.photos/seed/levity/600/400', dataAiHint: 'no-code ai', pricing: 'Paid' },
             { name: 'Kadoa', description: 'Web scraping powered by AI.', url: 'https://www.kadoa.com/', image: 'https://picsum.photos/seed/kadoa/600/400', dataAiHint: 'ai scraping', pricing: 'Paid' },
             { name: 'Superflows', description: 'AI that completes actions for you.', url: 'https://www.superflows.ai/', image: 'https://picsum.photos/seed/superflows/600/400', dataAiHint: 'ai actions', pricing: 'Paid' },
+            { name: 'Nanonets', description: 'Intelligent automation for business processes.', url: 'https://nanonets.com/', image: 'https://picsum.photos/seed/nanonets/600/400', dataAiHint: 'ocr automation', pricing: 'Paid' },
+            { name: 'Rossum', description: 'AI-powered document processing.', url: 'https://rossum.ai/', image: 'https://picsum.photos/seed/rossum/600/400', dataAiHint: 'intelligent document', pricing: 'Paid' },
+            { name: 'Kofax', description: 'Intelligent automation software platform.', url: 'https://www.kofax.com/', image: 'https://picsum.photos/seed/kofax/600/400', dataAiHint: 'digital transformation', pricing: 'Paid' },
+            { name: 'Formstack', description: 'Workplace productivity platform.', url: 'https://www.formstack.com/', image: 'https://picsum.photos/seed/formstack/600/400', dataAiHint: 'online forms', pricing: 'Paid' },
+            { name: 'PDF.co', description: 'PDF and barcode tools for developers.', url: 'https://pdf.co/', image: 'https://picsum.photos/seed/pdfco/600/400', dataAiHint: 'pdf api', pricing: 'Freemium' },
+            { name: 'ZappySys', description: 'SSIS components for data integration.', url: 'https://zappysys.com/', image: 'https://picsum.photos/seed/zappysys/600/400', dataAiHint: 'ssis powerpack', pricing: 'Paid' },
+            { name: 'Boomi', description: 'The integration platform as a service (iPaaS).', url: 'https://boomi.com/', image: 'https://picsum.photos/seed/boomi/600/400', dataAiHint: 'ipaas platform', pricing: 'Paid' },
         ]
     },
     {
@@ -402,7 +409,7 @@ const toolData: ToolCategory[] = [
             { name: 'Storybook', description: 'Build UIs in isolation.', url: 'https://storybook.js.org/', image: 'https://picsum.photos/seed/storybook-dev/600/400', dataAiHint: 'component library', pricing: 'Free' },
             { name: 'Code Climate', description: 'Automated Code Review.', url: 'https://codeclimate.com/', image: 'https://picsum.photos/seed/codeclimate/600/400', dataAiHint: 'code quality', pricing: 'Freemium' },
             { name: 'CircleCI', description: 'Continuous Integration and Delivery.', url: 'https://circleci.com/', image: 'https://picsum.photos/seed/circleci-dev/600/400', dataAiHint: 'ci cd', pricing: 'Freemium' },
-            { name: 'Travis CI', description: 'Test and Deploy with Confidence.', url: 'https://www.travis-ci.com/', image: 'https://picsum.photos/seed/travisci-dev/600/400', dataAiHint: 'continuous integration', pricing: 'Freemium' },
+            { name: 'TravisCI', description: 'Test and Deploy with Confidence.', url: 'https://www.travis-ci.com/', image: 'https://picsum.photos/seed/travisci-dev/600/400', dataAiHint: 'continuous integration', pricing: 'Freemium' },
             { name: 'Jenkins', description: 'The leading open source automation server.', url: 'https://www.jenkins.io/', image: 'https://picsum.photos/seed/jenkins-dev/600/400', dataAiHint: 'automation server', pricing: 'Free' },
             { name: 'Terraform', description: 'Infrastructure as Code.', url: 'https://www.terraform.io/', image: 'https://picsum.photos/seed/terraform-dev/600/400', dataAiHint: 'iac tool', pricing: 'Free' },
             { name: 'Ansible', description: 'Simple, agentless IT automation.', url: 'https://www.ansible.com/', image: 'https://picsum.photos/seed/ansible/600/400', dataAiHint: 'it automation', pricing: 'Free' },
@@ -664,10 +671,16 @@ export default function ProductivityToolsPage() {
         </Link>
     );
 
-    const getFilteredTools = (tools: Tool[]) => {
-        if (priceFilter === 'All') return tools;
-        return tools.filter(t => t.pricing === 'Free' || t.pricing === 'Freemium');
-    }
+    const filteredToolData = React.useMemo(() => {
+        if (priceFilter === 'All') {
+            return toolData;
+        }
+        return toolData.map(category => ({
+            ...category,
+            tools: category.tools.filter(tool => tool.pricing === 'Free' || tool.pricing === 'Freemium')
+        })).filter(category => category.tools.length > 0);
+    }, [priceFilter]);
+
 
   return (
     <div className="bg-background min-h-screen flex flex-col items-center justify-start font-body relative overflow-hidden">
@@ -710,9 +723,8 @@ export default function ProductivityToolsPage() {
 
       <main className="relative z-10 w-full max-w-sm flex-1 bg-card/80 backdrop-blur-3xl rounded-t-[2.5rem] shadow-2xl flex flex-col min-h-0 border-t-2 border-white/50 soft-shadow mt-6">
         <div className="flex-grow overflow-y-auto no-scrollbar p-4 space-y-8">
-            {toolData.map((category, index) => {
-              const filteredTools = getFilteredTools(category.tools);
-              if (filteredTools.length === 0) return null;
+            {filteredToolData.map((category, index) => {
+              if (category.tools.length === 0) return null;
 
               return (
               <section key={index}>
@@ -723,7 +735,7 @@ export default function ProductivityToolsPage() {
                       </h2>
                   </div>
                   <div className="flex gap-4 overflow-x-auto no-scrollbar pb-2 -mx-4 px-4">
-                      {filteredTools.map((tool) => (
+                      {category.tools.map((tool) => (
                         <ToolCard tool={tool} key={tool.name} />
                       ))}
                   </div>

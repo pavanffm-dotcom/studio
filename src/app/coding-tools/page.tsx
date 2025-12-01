@@ -82,7 +82,7 @@ const toolData: ToolCategory[] = [
         ]
     },
     {
-        title: "APIs &amp; Integration Tools",
+        title: "APIs & Integration Tools",
         icon: <Link2 className="w-5 h-5 text-primary" />,
         tools: [
             { name: "Postman", description: "The collaboration platform for API development.", url: "https://www.postman.com/", image: "https://picsum.photos/seed/postman/600/400", dataAiHint: "api client", pricing: 'Freemium' },
@@ -92,7 +92,7 @@ const toolData: ToolCategory[] = [
         ]
     },
     {
-        title: "Cloud &amp; DevOps",
+        title: "Cloud & DevOps",
         icon: <CloudCog className="w-5 h-5 text-primary" />,
         tools: [
             { name: "Docker", description: "Securely build, share and run any application, anywhere.", url: "https://www.docker.com/", image: "https://picsum.photos/seed/docker/600/400", dataAiHint: "containerization", pricing: 'Freemium' },
@@ -112,7 +112,7 @@ const toolData: ToolCategory[] = [
         ]
     },
     {
-        title: "Testing &amp; Debugging",
+        title: "Testing & Debugging",
         icon: <Bug className="w-5 h-5 text-primary" />,
         tools: [
             { name: "Jest", description: "Delightful JavaScript Testing.", url: "https://jestjs.io/", image: "https://picsum.photos/seed/jest/600/400", dataAiHint: "javascript testing", pricing: 'Free' },
@@ -122,7 +122,7 @@ const toolData: ToolCategory[] = [
         ]
     },
     {
-        title: "Design &amp; Prototyping",
+        title: "Design & Prototyping",
         icon: <Paintbrush className="w-5 h-5 text-primary" />,
         tools: [
             { name: "Figma", description: "The collaborative interface design tool.", url: "https://www.figma.com/", image: "https://picsum.photos/seed/figma/600/400", dataAiHint: "ui design", pricing: 'Freemium' },
@@ -142,7 +142,7 @@ const toolData: ToolCategory[] = [
         ]
     },
     {
-        title: "AI &amp; Machine Learning",
+        title: "AI & Machine Learning",
         icon: <Bot className="w-5 h-5 text-primary" />,
         tools: [
             { name: "TensorFlow", description: "An end-to-end open source platform for machine learning.", url: "https://www.tensorflow.org/", image: "https://picsum.photos/seed/tensorflow/600/400", dataAiHint: "machine learning", pricing: 'Free' },
@@ -202,7 +202,7 @@ const toolData: ToolCategory[] = [
         ]
     },
     {
-        title: "Data Science &amp; Analysis",
+        title: "Data Science & Analysis",
         icon: <BrainCircuit className="w-5 h-5 text-primary" />,
         tools: [
             { name: "Jupyter", description: "Web-based interactive development environment for notebooks, code, and data.", url: "https://jupyter.org/", image: "https://picsum.photos/seed/jupyter/600/400", dataAiHint: "data notebook", pricing: 'Free' },
@@ -212,7 +212,7 @@ const toolData: ToolCategory[] = [
         ]
     },
     {
-        title: "Performance &amp; Monitoring",
+        title: "Performance & Monitoring",
         icon: <Gauge className="w-5 h-5 text-primary" />,
         tools: [
             { name: "Lighthouse", description: "An open-source, automated tool for improving the quality of web pages.", url: "https://developer.chrome.com/docs/lighthouse/overview", image: "https://picsum.photos/seed/lighthouse/600/400", dataAiHint: "web performance", pricing: 'Free' },
@@ -300,10 +300,16 @@ export default function CodingToolsPage() {
     </Link>
   );
   
-  const getFilteredTools = (tools: Tool[]) => {
-      if (priceFilter === 'All') return tools;
-      return tools.filter(t => t.pricing === 'Free' || t.pricing === 'Freemium');
-  }
+  const filteredToolData = React.useMemo(() => {
+    if (priceFilter === 'All') {
+        return toolData;
+    }
+    return toolData.map(category => ({
+        ...category,
+        tools: category.tools.filter(tool => tool.pricing === 'Free' || tool.pricing === 'Freemium')
+    })).filter(category => category.tools.length > 0);
+  }, [priceFilter]);
+
 
   return (
     <div className="bg-background min-h-screen flex flex-col items-center justify-start font-body relative overflow-hidden">
@@ -336,7 +342,7 @@ export default function CodingToolsPage() {
                     <DropdownMenuLabel>Filter by Price</DropdownMenuLabel>
                     <DropdownMenuSeparator />
                     <DropdownMenuRadioGroup value={priceFilter} onValueChange={setPriceFilter}>
-                        <DropdownMenuRadioItem value="All">All (Free &amp; Paid)</DropdownMenuRadioItem>
+                        <DropdownMenuRadioItem value="All">All (Free & Paid)</DropdownMenuRadioItem>
                         <DropdownMenuRadioItem value="Free">Free Only</DropdownMenuRadioItem>
                     </DropdownMenuRadioGroup>
                 </DropdownMenuContent>
@@ -346,9 +352,8 @@ export default function CodingToolsPage() {
 
       <main className="relative z-10 w-full max-w-sm flex-1 bg-card/80 backdrop-blur-3xl rounded-t-[2.5rem] shadow-2xl flex flex-col min-h-0 border-t-2 border-white/50 soft-shadow mt-6">
         <div className="flex-grow overflow-y-auto no-scrollbar p-4 space-y-8">
-            {toolData.map((category, index) => {
-              const filteredTools = getFilteredTools(category.tools);
-              if (filteredTools.length === 0) return null;
+            {filteredToolData.map((category, index) => {
+              if (category.tools.length === 0) return null;
 
               return (
               <section key={index}>
@@ -359,7 +364,7 @@ export default function CodingToolsPage() {
                       </h2>
                   </div>
                   <div className="flex gap-4 overflow-x-auto no-scrollbar pb-2 -mx-4 px-4">
-                      {filteredTools.map((tool, toolIndex) => (
+                      {category.tools.map((tool, toolIndex) => (
                         <ToolCard tool={tool} key={`${category.title}-${tool.name}-${toolIndex}`}/>
                       ))}
                   </div>

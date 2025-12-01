@@ -292,10 +292,16 @@ export default function BusinessToolsPage() {
         </Link>
     );
 
-    const getFilteredTools = (tools: Tool[]) => {
-        if (priceFilter === 'All') return tools;
-        return tools.filter(t => t.pricing === 'Free' || t.pricing === 'Freemium');
-    }
+    const filteredToolData = React.useMemo(() => {
+        if (priceFilter === 'All') {
+            return toolData;
+        }
+        return toolData.map(category => ({
+            ...category,
+            tools: category.tools.filter(tool => tool.pricing === 'Free' || tool.pricing === 'Freemium')
+        })).filter(category => category.tools.length > 0);
+    }, [priceFilter]);
+
 
   return (
     <div className="bg-background min-h-screen flex flex-col items-center justify-start font-body relative overflow-hidden">
@@ -328,7 +334,7 @@ export default function BusinessToolsPage() {
                     <DropdownMenuLabel>Filter by Price</DropdownMenuLabel>
                     <DropdownMenuSeparator />
                     <DropdownMenuRadioGroup value={priceFilter} onValueChange={setPriceFilter}>
-                        <DropdownMenuRadioItem value="All">All (Free &amp; Paid)</DropdownMenuRadioItem>
+                        <DropdownMenuRadioItem value="All">All (Free & Paid)</DropdownMenuRadioItem>
                         <DropdownMenuRadioItem value="Free">Free Only</DropdownMenuRadioItem>
                     </DropdownMenuRadioGroup>
                 </DropdownMenuContent>
@@ -338,9 +344,8 @@ export default function BusinessToolsPage() {
 
       <main className="relative z-10 w-full max-w-sm flex-1 bg-card/80 backdrop-blur-3xl rounded-t-[2.5rem] shadow-2xl flex flex-col min-h-0 border-t-2 border-white/50 soft-shadow mt-6">
         <div className="flex-grow overflow-y-auto no-scrollbar p-4 space-y-8">
-            {toolData.map((category, index) => {
-              const filteredTools = getFilteredTools(category.tools);
-              if (filteredTools.length === 0) return null;
+            {filteredToolData.map((category, index) => {
+              if (category.tools.length === 0) return null;
 
               return (
               <section key={index}>
@@ -351,7 +356,7 @@ export default function BusinessToolsPage() {
                       </h2>
                   </div>
                   <div className="flex gap-4 overflow-x-auto no-scrollbar pb-2 -mx-4 px-4">
-                      {filteredTools.map((tool) => (
+                      {category.tools.map((tool) => (
                         <ToolCard tool={tool} key={tool.name} />
                       ))}
                   </div>
