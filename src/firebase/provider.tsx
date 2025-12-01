@@ -52,33 +52,50 @@ export const FirebaseProvider: React.FC<FirebaseProviderProps> = ({
   const [userError, setUserError] = useState<Error | null>(null);
 
   useEffect(() => {
-    // Handle redirect result from Google Sign-In
+    // This effect should only run once.
+    let isMounted = true;
+    
+    // First, set up the onAuthStateChanged listener. This will handle all auth state changes.
+    const unsubscribe = onAuthStateChanged(
+      auth,
+      (user) => {
+        if (isMounted) {
+          setUser(user);
+          // We set loading to false only after the first auth state has been determined.
+          setIsUserLoading(false);
+        }
+      },
+      (error) => {
+        if (isMounted) {
+          console.error("Auth State Error:", error);
+          setUserError(error);
+          setIsUserLoading(false);
+        }
+      }
+    );
+
+    // Second, handle the redirect result. This promise resolves only when the page
+    // is loaded after a redirect from Google. On normal page loads, it resolves with null.
     getRedirectResult(auth)
       .then((result) => {
-        if (result) {
-          // This will trigger the onAuthStateChanged listener below
-          // and setUser will be called there. No need to setUser here.
+        // If result is not null, a sign-in just completed.
+        // The onAuthStateChanged listener above will be triggered with the new user,
+        // so we don't need to call setUser here. The loading state is already handled there.
+        if (result && isMounted) {
+          // You can optionally do something with the result, like analytics.
         }
       })
       .catch((error) => {
-        console.error("Error getting redirect result:", error);
-        setUserError(error);
-      })
-      .finally(() => {
-        // Now set up the auth state listener
-        const unsubscribe = onAuthStateChanged(
-          auth,
-          (user) => {
-            setUser(user);
-            setIsUserLoading(false);
-          },
-          (error) => {
-            setUserError(error);
-            setIsUserLoading(false);
-          }
-        );
-        return unsubscribe;
+        if (isMounted) {
+          console.error("Google Sign-In Redirect Error:", error);
+          setUserError(error);
+        }
       });
+      
+    return () => {
+      isMounted = false;
+      unsubscribe();
+    };
   }, [auth]);
 
 
