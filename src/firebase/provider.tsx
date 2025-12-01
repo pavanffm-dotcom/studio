@@ -52,37 +52,16 @@ export const FirebaseProvider: React.FC<FirebaseProviderProps> = ({
   const [userError, setUserError] = useState<Error | null>(null);
 
   useEffect(() => {
-    // This effect should only run once.
     let isMounted = true;
-    
-    // First, set up the onAuthStateChanged listener. This will handle all auth state changes.
-    const unsubscribe = onAuthStateChanged(
-      auth,
-      (user) => {
-        if (isMounted) {
-          setUser(user);
-          // We set loading to false only after the first auth state has been determined.
-          setIsUserLoading(false);
-        }
-      },
-      (error) => {
-        if (isMounted) {
-          console.error("Auth State Error:", error);
-          setUserError(error);
-          setIsUserLoading(false);
-        }
-      }
-    );
 
-    // Second, handle the redirect result. This promise resolves only when the page
-    // is loaded after a redirect from Google. On normal page loads, it resolves with null.
+    // Handle the redirect result first.
     getRedirectResult(auth)
       .then((result) => {
-        // If result is not null, a sign-in just completed.
-        // The onAuthStateChanged listener above will be triggered with the new user,
-        // so we don't need to call setUser here. The loading state is already handled there.
+        // If a redirect just completed, the result will be non-null.
+        // The onAuthStateChanged listener will handle setting the user.
         if (result && isMounted) {
-          // You can optionally do something with the result, like analytics.
+          // You can access the user from `result.user` if needed,
+          // but `onAuthStateChanged` is the canonical way to get the user state.
         }
       })
       .catch((error) => {
@@ -90,11 +69,38 @@ export const FirebaseProvider: React.FC<FirebaseProviderProps> = ({
           console.error("Google Sign-In Redirect Error:", error);
           setUserError(error);
         }
+      })
+      .finally(() => {
+        // After handling the redirect, set up the auth state listener.
+        // This will also run on initial load, catching the user state
+        // whether they just signed in or were already signed in.
+        const unsubscribe = onAuthStateChanged(
+          auth,
+          (user) => {
+            if (isMounted) {
+              setUser(user);
+              setIsUserLoading(false); // Auth state is now confirmed.
+            }
+          },
+          (error) => {
+            if (isMounted) {
+              console.error("Auth State Error:", error);
+              setUserError(error);
+              setIsUserLoading(false);
+            }
+          }
+        );
+        
+        // Return the unsubscribe function for cleanup.
+        return () => {
+            if (isMounted) {
+                unsubscribe();
+            }
+        };
       });
-      
+
     return () => {
       isMounted = false;
-      unsubscribe();
     };
   }, [auth]);
 
