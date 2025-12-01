@@ -4,7 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { 
-    ArrowLeft, ExternalLink, Star, Share2, Brush, Youtube, MessageSquare, BookOpen, FileText, HelpCircle, Book, Zap, Calendar, Brain, Search, Type, Presentation, Wand2, Mic, File, Video, Image as ImageIcon, Film, Scissors, Mic2, BarChart, Tv, Users, Bot, Palette
+    ArrowLeft, ExternalLink, Star, Share2, Brush, Youtube, MessageSquare, BookOpen, FileText, HelpCircle, Book, Zap, Calendar, Brain, Search, Type, Presentation, Wand2, Mic, File, Video, Image as ImageIcon, Film, Scissors, Mic2, BarChart, Tv, Users, Bot, Palette, Paintbrush
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardTitle } from '@/components/ui/card';
