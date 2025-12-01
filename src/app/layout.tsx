@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
-import { FirebaseClientProvider } from '@/firebase';
+import { FirebaseProviderWrapper } from '@/firebase/client-provider-wrapper';
 import { LanguageProvider } from '@/lib/language';
 import { FavouritesProvider } from '@/context/favourites-context';
 
@@ -28,11 +28,11 @@ export default function RootLayout({
       </head>
       <body className="font-body antialiased">
         <LanguageProvider>
-          <FirebaseClientProvider>
+          <FirebaseProviderWrapper>
             <FavouritesProvider>
               {children}
             </FavouritesProvider>
-          </FirebaseClientProvider>
+          </FirebaseProviderWrapper>
         </LanguageProvider>
         <Toaster />
       </body>
