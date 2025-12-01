@@ -3,7 +3,7 @@
 import React, { DependencyList, createContext, useContext, ReactNode, useMemo, useState, useEffect } from 'react';
 import { FirebaseApp } from 'firebase/app';
 import { Firestore } from 'firebase/firestore';
-import { Auth, User, onAuthStateChanged } from 'firebase/auth';
+import { Auth, User, onAuthStateChanged, getRedirectResult } from 'firebase/auth';
 import { FirebaseErrorListener } from '@/components/FirebaseErrorListener'
 
 interface FirebaseProviderProps {
@@ -52,19 +52,33 @@ export const FirebaseProvider: React.FC<FirebaseProviderProps> = ({
   const [userError, setUserError] = useState<Error | null>(null);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(
-      auth,
-      (user) => {
-        setUser(user);
-        setIsUserLoading(false);
-      },
-      (error) => {
+    // Handle redirect result from Google Sign-In
+    getRedirectResult(auth)
+      .then((result) => {
+        if (result) {
+          // This will trigger the onAuthStateChanged listener below
+          // and setUser will be called there. No need to setUser here.
+        }
+      })
+      .catch((error) => {
+        console.error("Error getting redirect result:", error);
         setUserError(error);
-        setIsUserLoading(false);
-      }
-    );
-
-    return () => unsubscribe();
+      })
+      .finally(() => {
+        // Now set up the auth state listener
+        const unsubscribe = onAuthStateChanged(
+          auth,
+          (user) => {
+            setUser(user);
+            setIsUserLoading(false);
+          },
+          (error) => {
+            setUserError(error);
+            setIsUserLoading(false);
+          }
+        );
+        return unsubscribe;
+      });
   }, [auth]);
 
 
