@@ -528,21 +528,17 @@ function App() {
   )
 
   return (
-    <div className="bg-background min-h-screen flex flex-col items-center justify-start font-body relative">
+    <div className="bg-background min-h-screen flex flex-col items-center justify-start font-body relative pt-16">
       
-      <div className={cn("relative z-10 text-center text-foreground pt-16 pb-6 px-4 w-full max-w-sm shrink-0 transition-all duration-300", (showChat || chatMessages.length > 0) && "pt-6 hidden")}>
-        <h1 className={cn("text-3xl font-bold tracking-tight")}>
-          {t('header.title')}
-        </h1>
-        <p className={cn("text-muted-foreground mt-2")}>{t('header.subtitle')}</p>
-      </div>
-
       <main className="relative z-10 w-full max-w-sm flex-1 bg-card/80 backdrop-blur-3xl rounded-t-[2.5rem] shadow-2xl flex flex-col min-h-0 border-t-2 border-white/50 soft-shadow">
         <div className={cn("flex-shrink-0 px-6 pt-6")}>
           <header className="flex justify-between items-center py-2">
-            <div className="flex items-center gap-2">
-              <GalaxyLogo className="w-8 h-8" />
-              <span className="text-2xl font-bold text-foreground">AI Atlas</span>
+            <div className="flex flex-col">
+                <h1 className="text-xl font-bold text-foreground">World's first web to web ai service</h1>
+                <div className="flex items-center gap-2 mt-2">
+                  <GalaxyLogo className="w-8 h-8" />
+                  <span className="text-2xl font-bold text-foreground">AI Atlas</span>
+                </div>
             </div>
             <div className='flex items-center gap-2'>
               {(showChat || chatMessages.length > 0) ? (
