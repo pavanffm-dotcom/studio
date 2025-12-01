@@ -7,8 +7,9 @@ import {
     ArrowLeft, ExternalLink, Star, Share2, Filter,
     Briefcase, TrendingUp, Search, MonitorPlay, BarChart, Users, Mail, Bot, Link2, GitBranch,
     ClipboardCheck, MessageCircle, BarChart2, Zap, Settings, RefreshCw, LineChart, Target, Eye,
-    ThumbsUp, ZoomIn, CheckSquare, Palette, Film, Mic, UserPlus, ShoppingCart, DollarSign,
-    FileText, Code, Shield, Video, Gamepad, TestTube, Cloud, Info, HelpCircle
+    ThumbsUp, ZoomIn, CheckSquare, Palette, Film, Mic, UserPlus, DollarSign,
+    FileText, Code, Shield, Video, Gamepad, TestTube, Cloud, Info, HelpCircle,
+    Send, LayoutDashboard, ImageIcon
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardTitle } from '@/components/ui/card';
@@ -503,7 +504,7 @@ const toolData: ToolCategory[] = [
     },
     {
         title: "E-commerce Marketing Tools",
-        icon: <ShoppingCart className="w-5 h-5 text-primary"/>,
+        icon: <Briefcase className="w-5 h-5 text-primary"/>,
         tools: [
             { name: 'Shopify Marketing', description: 'Marketing tools for your Shopify store.', url: 'https://www.shopify.com/marketing', image: 'https://picsum.photos/seed/shopify-marketing/600/400', dataAiHint: 'shopify store', pricing: 'Paid' },
             { name: 'Klaviyo', description: 'Email marketing and SMS for eCommerce.', url: 'https://www.klaviyo.com/', image: 'https://picsum.photos/seed/klaviyo-ecommerce/600/400', dataAiHint: 'ecommerce sms', pricing: 'Freemium' },
