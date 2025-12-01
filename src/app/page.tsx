@@ -50,7 +50,6 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { suggestAiTool, SuggestAiToolOutput } from '@/ai/flows/suggest-ai-tool';
 import { useToast } from '@/hooks/use-toast';
 import { useLanguage } from '@/lib/language';
-import { useFavourites } from '@/context/favourites-context';
 import { Input } from '@/components/ui/input';
 import { 
     Tool,
@@ -134,12 +133,7 @@ const ChatInputComponent = ({ chatInput, setChatInput, handleSendMessage, isGene
     );
 };
 
-const ToolCard = React.memo(({ tool, isFavourited, onFavouriteToggle, onShare, onClick, t }: { tool: Tool, isFavourited: boolean, onFavouriteToggle: (toolName: string) => void, onShare: (e: React.MouseEvent, tool: Tool) => void, onClick: (tool: Tool) => void, t: (key: string) => string }) => {
-    const handleFavouriteClick = useCallback((e: React.MouseEvent) => {
-      e.preventDefault();
-      e.stopPropagation();
-      onFavouriteToggle(tool.name);
-    }, [tool.name, onFavouriteToggle]);
+const ToolCard = React.memo(({ tool, onShare, onClick, t }: { tool: Tool, onShare: (e: React.MouseEvent, tool: Tool) => void, onClick: (tool: Tool) => void, t: (key: string) => string }) => {
   
     const handleCardClick = useCallback((e: React.MouseEvent) => {
         e.preventDefault();
@@ -165,9 +159,6 @@ const ToolCard = React.memo(({ tool, isFavourited, onFavouriteToggle, onShare, o
                 <Button variant="ghost" size="icon" className="w-8 h-8 rounded-full text-white bg-white/20 hover:bg-white/30 backdrop-blur-sm" onClick={(e) => onShare(e, tool)}>
                   <Share2 />
                 </Button>
-                <Button variant="ghost" size="icon" className="w-8 h-8 rounded-full text-white bg-white/20 hover:bg-white/30 backdrop-blur-sm" onClick={handleFavouriteClick}>
-                  <Star className={cn('w-5 h-5 transition-all', isFavourited ? 'fill-yellow-300 text-yellow-300' : 'text-white')}/>
-                </Button>
               </div>
             </div>
           </div>
@@ -180,7 +171,6 @@ ToolCard.displayName = 'ToolCard';
 
 function App() {
   const { t } = useLanguage();
-  const { favouritedTools, handleFavouriteToggle } = useFavourites();
   const [activeTab, setActiveTab] = React.useState('home');
   const [activeCategory, setActiveCategory] = React.useState('All');
   const [recentTools, setRecentTools] = React.useState<Tool[]>([]);
@@ -299,7 +289,6 @@ function App() {
   }, [showChat]);
 
   const filteredTools = useMemo(() => getFilteredTools(activeCategory), [activeCategory]);
-  const favouriteToolsList = useMemo(() => allTools.filter(tool => favouritedTools.has(tool.name)), [favouritedTools]);
   
   const trendingTools: Tool[] = [];
 
@@ -500,27 +489,9 @@ function App() {
                   )}
               </TabsContent>
               <TabsContent value="favourites" className="mt-4">
-                  {favouriteToolsList.length > 0 ? (
-                      <div className="space-y-3">
-                          {favouriteToolsList.map(tool => (
-                              <Card key={tool.name} className="p-3 flex items-center gap-4 bg-white/80 border-none rounded-3xl soft-shadow">
-                                  {tool.image && <Image src={tool.image} alt={tool.name} width={56} height={56} className="rounded-2xl" data-ai-hint={tool.dataAiHint} />}
-                                  <div className="flex-grow">
-                                      <h5 className="font-semibold text-base">{tool.name}</h5>
-                                      <p className="text-sm text-muted-foreground">{tool.category}</p>
-                                  </div>
-                                  <Button variant="ghost" size="icon" className="text-muted-foreground rounded-full w-10 h-10" onClick={() => handleFavouriteToggle(tool.name)}>
-                                      <Star className={cn('w-6 h-6 text-yellow-400 fill-yellow-400')}/>
-                                  </Button>
-                              </Card>
-                          ))}
-                      </div>
-                  ) : (
-                      <div className="text-center py-10 text-muted-foreground">
-                          <Heart className="mx-auto w-10 h-10" />
-                          <p className="mt-4 text-base">{t('home.favourites.empty')}</p>
-                      </div>
-                  )}
+                 <div className="text-center py-10 text-muted-foreground">
+                    <p className="mt-4 text-base">This section is ready for your new feature.</p>
+                </div>
               </TabsContent>
           </Tabs>
       </section>
@@ -612,8 +583,6 @@ function App() {
                             <ToolCard
                                 key={tool.name}
                                 tool={tool}
-                                isFavourited={favouritedTools.has(tool.name)}
-                                onFavouriteToggle={handleFavouriteToggle}
                                 onShare={(e) => handleShareTool(e, tool)}
                                 onClick={handleToolClick}
                                 t={t}

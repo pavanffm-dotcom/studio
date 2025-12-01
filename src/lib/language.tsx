@@ -39,7 +39,7 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
   const [language, setLanguage] = useState<Language>('english');
 
   const t = (key: string): string => {
-    const langFile = translations[language];
+    const langFile = translations[language] || translations['english'];
     const fallbackLangFile = translations['english'];
     return get(langFile, key) || get(fallbackLangFile, key);
   };
