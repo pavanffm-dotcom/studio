@@ -8,7 +8,7 @@
       "properties": {
         "id": {
           "type": "string",
-          "description": "Unique identifier for the AI tool."
+          "description": "Unique identifier for the AI Tool entity."
         },
         "name": {
           "type": "string",
@@ -16,7 +16,7 @@
         },
         "description": {
           "type": "string",
-          "description": "Detailed description of the AI tool."
+          "description": "A detailed description of the AI tool's functionality and features."
         },
         "categoryId": {
           "type": "string",
@@ -26,6 +26,11 @@
           "type": "string",
           "description": "URL to access the AI tool.",
           "format": "uri"
+        },
+        "averageRating": {
+          "type": "number",
+          "description": "The average rating of the AI tool based on user reviews.",
+          "format": "float"
         }
       },
       "required": [
@@ -40,19 +45,19 @@
       "$schema": "http://json-schema.org/draft-07/schema#",
       "title": "Category",
       "type": "object",
-      "description": "Represents a category for AI tools (e.g., video, photo, text).",
+      "description": "Represents a category of AI tools.",
       "properties": {
         "id": {
           "type": "string",
-          "description": "Unique identifier for the category."
+          "description": "Unique identifier for the Category entity."
         },
         "name": {
           "type": "string",
-          "description": "The name of the category."
+          "description": "The name of the category (e.g., Video, Photo, Text)."
         },
         "description": {
           "type": "string",
-          "description": "A description of what the category represents."
+          "description": "A description of the category."
         }
       },
       "required": [
@@ -61,35 +66,35 @@
         "description"
       ]
     },
-    "UserReview": {
+    "Review": {
       "$schema": "http://json-schema.org/draft-07/schema#",
-      "title": "UserReview",
+      "title": "Review",
       "type": "object",
-      "description": "Represents a review and rating submitted by a user for an AI tool.",
+      "description": "Represents a user review for an AI tool.",
       "properties": {
         "id": {
           "type": "string",
-          "description": "Unique identifier for the user review."
+          "description": "Unique identifier for the Review entity."
         },
         "aiToolId": {
           "type": "string",
-          "description": "Reference to AiTool. (Relationship: AiTool 1:N UserReview)"
+          "description": "Reference to AiTool. (Relationship: AiTool 1:N Review)"
         },
         "userId": {
           "type": "string",
-          "description": "Reference to UserProfile. (Relationship: UserProfile 1:N UserReview). Note:  Storing user identifiers directly is acceptable as long as it refers to an external authentication system and not the user's actual password or authentication data."
+          "description": "Reference to User. (Relationship: User 1:N Review). Note: Assuming User data is managed externally (Auth0, Firebase Auth, etc.)."
         },
         "rating": {
           "type": "number",
-          "description": "The rating given by the user (e.g., 1 to 5)."
+          "description": "The rating given by the user (e.g., 1 to 5 stars)."
         },
         "comment": {
           "type": "string",
-          "description": "User's review comment."
+          "description": "The user's comment or feedback about the AI tool."
         },
         "dateCreated": {
           "type": "string",
-          "description": "Date the review was created.",
+          "description": "The date and time when the review was created.",
           "format": "date-time"
         }
       },
@@ -101,58 +106,12 @@
         "comment",
         "dateCreated"
       ]
-    },
-    "UserProfile": {
-      "$schema": "http://json-schema.org/draft-07/schema#",
-      "title": "UserProfile",
-      "type": "object",
-      "description": "Represents a user profile.  Note: This entity does NOT store authentication information, which is handled by an external authentication system.",
-      "properties": {
-        "id": {
-          "type": "string",
-          "description": "Unique identifier for the user profile."
-        },
-        "email": {
-          "type": "string",
-          "description": "User's email address.",
-          "format": "email"
-        },
-        "displayName": {
-          "type": "string",
-          "description": "User's display name."
-        }
-      },
-      "required": [
-        "id",
-        "email",
-        "displayName"
-      ]
-    },
-    "Favourite": {
-      "$schema": "http://json-schema.org/draft-07/schema#",
-      "title": "Favourite",
-      "type": "object",
-      "description": "Represents a user's favourited tool.",
-      "properties": {
-        "toolName": {
-          "type": "string",
-          "description": "The name of the favourited tool."
-        },
-        "userId": {
-          "type": "string",
-          "description": "The ID of the user who favourited the tool."
-        }
-      },
-      "required": [
-        "toolName",
-        "userId"
-      ]
     }
   },
   "auth": {
     "providers": [
       "password",
-      "google.com"
+      "anonymous"
     ]
   },
   "firestore": {
@@ -164,11 +123,11 @@
           "schema": {
             "$ref": "#/backend/entities/Category"
           },
-          "description": "Stores AI tool categories.  No write access for users.",
+          "description": "Stores AI tool categories. Used for organizing and displaying AI tools.",
           "params": [
             {
               "name": "categoryId",
-              "description": "The unique identifier for the category."
+              "description": "Unique identifier for the category."
             }
           ]
         }
@@ -180,76 +139,36 @@
           "schema": {
             "$ref": "#/backend/entities/AiTool"
           },
-          "description": "Stores AI tools. No write access for users.",
+          "description": "Stores the details of each AI tool, including its name, description, category, and link.",
           "params": [
             {
               "name": "aiToolId",
-              "description": "The unique identifier for the AI tool."
+              "description": "Unique identifier for the AI tool."
             }
           ]
         }
       },
       {
-        "path": "/users/{userId}/user_profiles/{userProfileId}",
+        "path": "/ai_tools/{aiToolId}/reviews/{reviewId}",
         "definition": {
-          "entityName": "UserProfile",
+          "entityName": "Review",
           "schema": {
-            "$ref": "#/backend/entities/UserProfile"
+            "$ref": "#/backend/entities/Review"
           },
-          "description": "Stores user profile information. Uses path-based ownership for user-specific data.  This allows simple rules such as `request.auth.uid == userId`.",
-          "params": [
-            {
-              "name": "userId",
-              "description": "The unique identifier for the user."
-            },
-            {
-              "name": "userProfileId",
-              "description": "The unique identifier for the user profile (should be the same as userId)."
-            }
-          ]
-        }
-      },
-      {
-        "path": "/ai_tools/{aiToolId}/user_reviews/{userReviewId}",
-        "definition": {
-          "entityName": "UserReview",
-          "schema": {
-            "$ref": "#/backend/entities/UserReview"
-          },
-          "description": "Stores user reviews for AI tools. Enforces that `userId` matches `request.auth.uid` for create/update operations, ensuring users can only create/modify their own reviews.",
+          "description": "Stores user reviews for each AI tool. Includes denormalized 'categoryId' from the AiTool document for authorization independence.",
           "params": [
             {
               "name": "aiToolId",
-              "description": "The unique identifier for the AI tool."
+              "description": "Unique identifier for the AI tool."
             },
             {
-              "name": "userReviewId",
-              "description": "The unique identifier for the user review."
-            }
-          ]
-        }
-      },
-      {
-        "path": "/users/{userId}/favourites/{favouriteId}",
-        "definition": {
-          "entityName": "Favourite",
-          "schema": {
-            "$ref": "#/backend/entities/Favourite"
-          },
-          "description": "Stores a user's favourited tools. Access is restricted to the user.",
-          "params": [
-            {
-              "name": "userId",
-              "description": "The unique identifier for the user."
-            },
-            {
-              "name": "favouriteId",
-              "description": "The unique identifier for the favourite entry (often the tool name)."
+              "name": "reviewId",
+              "description": "Unique identifier for the review."
             }
           ]
         }
       }
     ],
-    "reasoning": "This Firestore structure prioritizes security, scalability, and debuggability, especially concerning authorization. It implements authorization independence by avoiding `get()` calls in security rules, which is achieved through data denormalization. All data is segregated into collections with homogeneous security postures. \n\n*   **/categories (Collection):** Stores AI tool categories.  No write access for users.\n*   **/ai_tools (Collection):** Stores AI tools. No write access for users.\n*   **/users/{userId}/user_profiles (Collection):** Stores user profile information. Uses path-based ownership for user-specific data.  This allows simple rules such as `request.auth.uid == userId`.\n*   **/ai_tools/{aiToolId}/user_reviews (Collection Group):** Stores user reviews for AI tools. Enforces that `userId` matches `request.auth.uid` for create/update operations, ensuring users can only create/modify their own reviews. This demonstrates path-based ownership within a subcollection.\n*   **/users/{userId}/favourites (Collection):** Stores a user's favourited tools. Path-based ownership ensures a user can only access their own favourites.\n\nThis design supports secure `list` operations (QAPs) due to the segregation of data based on access needs and clear ownership patterns.  Authorization rules are simplified by relying on `request.auth.uid` and path-based ownership, rather than complex data comparisons or `get()` calls. The structure also prepares the application to scale, as more categories, AI tools, and users can be added without impacting the authorization logic or performance."
+    "reasoning": "The Firestore data structure is designed to support the AI Atlas platform, focusing on discoverability and user reviews of AI tools across various categories. It prioritizes Authorization Independence and supports listing operations (QAPs) through structural segregation. \n\n1.  **Categories Collection:** The `/categories` collection stores information about AI tool categories. This allows for easy management and retrieval of categories, which are essential for organizing the AI tools.\n2.  **AI Tools Collection:** The `/ai_tools` collection holds the details of each AI tool. The `categoryId` field establishes the relationship between AI tools and categories.\n3.  **Reviews Subcollection:** User reviews are stored within a subcollection `/ai_tools/{aiToolId}/reviews`. This structure efficiently organizes reviews associated with each AI tool and simplifies querying reviews for a specific tool. The `userId` is included in each review, enabling identification of the reviewer. To guarantee authorization independence, the `categoryId` of the parent `/ai_tools/{aiToolId}` document is denormalized into each `review` document. This allows security rules to validate that a user can only create reviews for tools within a specified category, without having to perform a `get()` operation on the parent document.\n\n**Authorization Independence:** The denormalization of `categoryId` from the `ai_tools` document into the `reviews` documents allows security rules to enforce access control without relying on hierarchical `get()` calls. This improves security and performance.\n\n**QAPs (Rules are not Filters):** The data structure supports secure `list` operations. Categories and AI Tools are stored in separate collections, adhering to structural segregation. Reviews are stored in subcollections, but authorization independence is assured via `categoryId` denormalization. As such, the security rules will not act as filters."
   }
 }

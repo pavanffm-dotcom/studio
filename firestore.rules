@@ -1,47 +1,35 @@
 /**
- * Core Philosophy: This ruleset enforces a strict "signed-in-user-first" security model.
- * All access to any data requires user authentication. Publicly readable data (like AI
- * tool listings and categories) is read-only for any authenticated user, while all
- * write operations are disabled for end-users on these collections. User-generated
- * content (profiles, reviews) is strictly controlled by its owner.
+ * Core Philosophy: This ruleset supports a public-facing catalog of AI tools that authenticated users can review.
+ * It enforces a model where catalog data (categories, tools) is publicly readable but not client-writable,
+ * treating it as admin-managed content. User-generated content (reviews) is publicly readable, but can only be
+ * created, modified, or deleted by the user who owns it.
  *
- * Data Structure: The data is organized into top-level collections for publicly
- * browsable content (`/categories`, `/ai_tools`) and a dedicated user-scoped
- * collection for private user profiles (`/users/{userId}/user_profiles`). User
- * reviews are stored as a subcollection under the tool they belong to
- * (`/ai_tools/{aiToolId}/user_reviews`), which is a common and scalable pattern.
+ * Data Structure: The data is organized into two top-level collections, `/categories` and `/ai_tools`, which are
+ * intended for public discovery. Each tool document in `/ai_tools` can contain a `/reviews` subcollection for
+ * user-submitted reviews.
  *
  * Key Security Decisions:
- * - Default Deny: No unauthenticated access is permitted for any operation.
- * - Read-Only Public Data: The `/categories` and `/ai_tools` collections are intended
- *   to be managed by backend processes or administrators, so all client-side write
- *   operations are explicitly denied (`allow write: if false;`).
- * - Strict Ownership: A user can only create, read, update, or delete their own
- *   profile, enforced by matching the document path with their authentication UID.
- * - Review Ownership: While reviews are readable by any signed-in user, they can only
- *   be created, updated, or deleted by the original author, which is enforced by a
- *   `userId` field on the review document itself.
+ * - Public Read-Only Catalog: The `/categories` and `/ai_tools` collections are readable by anyone, including
+ *   unauthenticated users, to facilitate browsing. All client write operations are disabled to protect the integrity
+ *   of the catalog data.
+ * - User-Owned Reviews: A user must be signed in to write a review. They have full control (create, update, delete)
+ *   over their own reviews, enforced by matching their `request.auth.uid` with the `userId` field on the review document.
+ * - No User Listing: The rules do not support listing all users of the platform.
  *
- * Denormalization for Authorization: This ruleset relies heavily on denormalization
- * to maintain security and performance.
- * - The `/users/{userId}` path provides direct, fast, path-based authorization for
- *   user profiles without needing to read the document's content.
- * - The `UserReview` documents contain a denormalized `userId` field. This allows a
- *   security rule to check for ownership directly on the document being modified,
- *   avoiding slow and costly `get()` calls to other documents.
+ * Denormalization for Authorization: The security model relies on a denormalized `userId` field within each `review`
+ * document. This allows for simple, performant ownership checks (`resource.data.userId == request.auth.uid`) without
+ * needing to perform extra reads on other documents.
  *
- * Structural Segregation: The separation of read-only public data (`ai_tools`) from
- * user-generated content (`user_reviews`) into different collection levels is a key
- * design choice. This prevents a user from, for example, listing all reviews across
- * all tools, and it simplifies the security logic for each collection.
+ * Structural Segregation: The separation of public catalog data (`/ai_tools`) from user-generated content
+ * (`.../reviews`) into a subcollection provides a clear and secure structure for applying different access rules.
  */
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
-    // -------------------------------------------------------------------------
+    //-------------------------------------------------------------------------
     // Helper Functions
-    // -------------------------------------------------------------------------
+    //-------------------------------------------------------------------------
 
     /**
      * Checks if the user is authenticated.
@@ -51,118 +39,66 @@ service cloud.firestore {
     }
 
     /**
-     * Checks if the authenticated user's UID matches the provided userId.
-     * Used for ownership validation.
+     * Checks if the currently authenticated user's UID matches the provided userId.
      */
     function isOwner(userId) {
       return isSignedIn() && request.auth.uid == userId;
     }
 
     /**
-     * Checks for ownership on an existing document.
-     * Ensures the resource exists before allowing an update or delete.
+     * Checks for ownership on an existing document. Used for safe updates and deletes.
+     * Ensures the request is authenticated, the user is the owner, and the document exists.
      */
     function isExistingOwner(userId) {
       return isOwner(userId) && resource != null;
     }
 
-    /**
-     * Validates ownership on a new document being created.
-     * Checks the `userId` field in the incoming data.
-     */
-    function isNewOwner() {
-      return isSignedIn() && request.resource.data.userId == request.auth.uid;
-    }
-    
-    /**
-     * Enforces immutability for a specific field during an update.
-     */
-    function isImmutable(field) {
-        return request.resource.data[field] == resource.data[field];
-    }
-
-    // -------------------------------------------------------------------------
+    //-------------------------------------------------------------------------
     // Collection Rules
-    // -------------------------------------------------------------------------
+    //-------------------------------------------------------------------------
 
     /**
-     * @description Stores AI tool categories. This data is read-only for all authenticated users.
+     * @description Controls access to the AI tool categories. Categories are public and read-only for clients.
      * @path /categories/{categoryId}
-     * @allow (get) An authenticated user reads a specific category document.
-     * @deny (create) Any user, authenticated or not, tries to create a new category.
-     * @principle Protects curated content by making the collection read-only for clients.
+     * @allow (get) Anyone, including unauthenticated users, can read a specific category.
+     * @deny (create) A client attempts to create a new category document.
+     * @principle Protects publicly readable, admin-managed reference data from unauthorized modification.
      */
     match /categories/{categoryId} {
-      allow get: if isSignedIn();
-      allow list: if isSignedIn();
+      allow get: if true;
+      allow list: if true;
       allow create: if false;
       allow update: if false;
       allow delete: if false;
     }
 
     /**
-     * @description Stores AI tools. This data is read-only for all authenticated users.
+     * @description Controls access to AI tool documents. AI tools are public and read-only for clients.
      * @path /ai_tools/{aiToolId}
-     * @allow (list) An authenticated user lists all available AI tools.
-     * @deny (update) Any user attempts to modify an existing AI tool's details.
-     * @principle Protects curated content by making the collection read-only for clients.
+     * @allow (get) Anyone, including unauthenticated users, can view the details of an AI tool.
+     * @deny (update) A client attempts to change the description of an AI tool.
+     * @principle Protects publicly readable, admin-managed catalog data from unauthorized modification.
      */
     match /ai_tools/{aiToolId} {
-      allow get: if isSignedIn();
-      allow list: if isSignedIn();
+      allow get: if true;
+      allow list: if true;
       allow create: if false;
       allow update: if false;
       allow delete: if false;
-    }
 
-    /**
-     * @description Stores user reviews for a specific AI tool. Reviews are public to read
-     *   for any signed-in user, but can only be written or modified by their author.
-     * @path /ai_tools/{aiToolId}/user_reviews/{userReviewId}
-     * @allow (create) An authenticated user (uid: 'user123') creates a review with `{ userId: 'user123', ... }`.
-     * @deny (update) A user (uid: 'user456') tries to update a review written by 'user123'.
-     * @principle Enforces document ownership for writes while allowing public reads for authenticated users.
-     */
-    match /ai_tools/{aiToolId}/user_reviews/{userReviewId} {
-      allow get: if isSignedIn();
-      allow list: if isSignedIn();
-      allow create: if isNewOwner();
-      allow update: if isExistingOwner(resource.data.userId) && isImmutable('userId');
-      allow delete: if isExistingOwner(resource.data.userId);
-    }
-
-    /**
-     * @description Contains user-specific data collections.
-     * @path /users/{userId}
-     * @allow N/A - This is a wildcard for subcollections and has no rules of its own.
-     * @deny (get) A user tries to read the '/users/user123' document itself (it likely doesn't exist).
-     * @principle Acts as a grouping path for user-owned data.
-     */
-    match /users/{userId} {
       /**
-       * @description Stores private user profile information. Only the owner can access or modify their profile.
-       * @path /users/{userId}/user_profiles/{userProfileId}
-       * @allow (create) A new user (uid: 'user123') creates their own profile at `/users/user123/user_profiles/user123` with data `{ id: 'user123', ... }`.
-       * @deny (get) A user (uid: 'user456') tries to read the profile at `/users/user123/...`.
-       * @principle Restricts access to a user's own data tree using path-based security.
+       * @description Controls access to reviews for a specific AI tool. Reviews are public to read, but writes are restricted to owners.
+       * @path /ai_tools/{aiToolId}/reviews/{reviewId}
+       * @allow (create) An authenticated user (uid: 'user123') creates a review with `{ userId: 'user123', ... }`.
+       * @deny (update) A user ('user456') tries to update a review owned by 'user123'.
+       * @principle Enforces strict document ownership for user-generated content.
        */
-      match /user_profiles/{userProfileId} {
-        allow get: if isOwner(userId);
-        allow list: if isOwner(userId);
-        allow create: if isOwner(userId) && request.resource.data.id == userId && userProfileId == userId;
-        allow update: if isExistingOwner(userId) && isImmutable('id');
-        allow delete: if isExistingOwner(userId);
-      }
-      
-      /**
-       * @description Stores a user's favourited tools. Only the owner can read or write their own favourites.
-       * @path /users/{userId}/favourites/{favouriteId}
-       * @allow (read, write) A user (uid: 'user123') can read and write to `/users/user123/favourites/...`.
-       * @deny (read, write) A user (uid: 'user456') tries to access `/users/user123/favourites/...`.
-       * @principle Restricts access to a user's own data tree using path-based security for a subcollection.
-       */
-      match /favourites/{favouriteId} {
-        allow read, write: if isOwner(userId);
+      match /reviews/{reviewId} {
+        allow get: if true;
+        allow list: if true;
+        allow create: if isSignedIn() && request.resource.data.userId == request.auth.uid;
+        allow update: if isExistingOwner(resource.data.userId) && request.resource.data.userId == resource.data.userId;
+        allow delete: if isExistingOwner(resource.data.userId);
       }
     }
   }
