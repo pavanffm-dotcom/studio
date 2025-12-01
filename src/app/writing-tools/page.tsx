@@ -4,7 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { 
-    ArrowLeft, ExternalLink, Star, Share2, Feather, Type, Bot, Book, Search, FileText, Mic, Mail, MonitorPlay, MessageSquare, Briefcase, FileSignature, Dna, PenTool, Globe, StickyNote, BrainCircuit, Quote, Tv, Newspaper, Users, Key
+    ArrowLeft, ExternalLink, Star, Share2, Feather, Type, Bot, Book, Search, FileText, Mic, Mail, MonitorPlay, MessageSquare, Briefcase, FileSignature, Dna, PenTool, Globe, StickyNote, BrainCircuit, Quote, Tv, Newspaper, Users, Key, BookOpen, ClipboardList, CheckCircle2, Lightbulb
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardTitle } from '@/components/ui/card';
@@ -380,30 +380,11 @@ const ShoppingCart = (props: React.JSX.IntrinsicAttributes & React.SVGProps<SVGS
 );
 const Tag = (props: React.JSX.IntrinsicAttributes & React.SVGProps<SVGSVGElement>) => (
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
-        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+        <path d="M12.586 2.586a2 2 0 0 0-2.828 0L2.586 9.757a2 2 0 0 0 0 2.828l9.172 9.172a2 2 0 0 0 2.828 0l7.171-7.171a2 2 0 0 0 0-2.828L12.586 2.586z"></path>
+        <circle cx="8.5" cy="8.5" r="1.5"></circle>
     </svg>
 );
-const Lightbulb = (props: React.JSX.IntrinsicAttributes & React.SVGProps<SVGSVGElement>) => (
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
-      <path d="M9 18h6" />
-      <path d="M10 22h4" />
-      <path d="M12 14v-4" />
-      <path d="M12 2a7 7 0 0 1 5 12.3_3 3 0 0 1-10 0A7 7 0 0 1 12 2z" />
-    </svg>
-  );
-const ClipboardList = (props: React.JSX.IntrinsicAttributes & React.SVGProps<SVGSVGElement>) => (
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
-        <rect width="8" height="4" x="8" y="2" rx="1" ry="1"></rect>
-        <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
-        <path d="M12 11h4"></path><path d="M12 16h4"></path><path d="M8 11h.01"></path><path d="M8 16h.01"></path>
-    </svg>
-);
-const CheckCircle2 = (props: React.JSX.IntrinsicAttributes & React.SVGProps<SVGSVGElement>) => (
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
-        <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path>
-        <path d="m9 12 2 2 4-4"></path>
-    </svg>
-);
+
 
 export default function WritingToolsPage() {
     const { toast } = useToast();
