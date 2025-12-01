@@ -4,7 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { 
-    ArrowLeft, ExternalLink, Star, Share2, Feather, Type, Bot, Book, Search, FileText, Mic, Mail, MonitorPlay, MessageSquare, Briefcase, FileSignature, Dna, PenTool, Globe, StickyNote, BrainCircuit, Quote, Tv, Newspaper, Users, Key, BookOpen, ClipboardList, CheckCircle2, Lightbulb
+    ArrowLeft, ExternalLink, Star, Share2, Feather, Type, Bot, Book, Search, FileText, Mic, Mail, MonitorPlay, MessageSquare, Briefcase, FileSignature, Dna, PenTool, Globe, StickyNote, BrainCircuit, Quote, Tv, Newspaper, Users, Key, BookOpen, ClipboardList, CheckCircle2, Lightbulb, GraduationCap
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardTitle } from '@/components/ui/card';
@@ -258,7 +258,7 @@ const toolData: ToolCategory[] = [
             { name: 'Namelix', description: 'Business name generator.', url: 'https://namelix.com/', image: 'https://picsum.photos/seed/namelix/600/400', dataAiHint: 'name generator' },
             { name: 'Zyro AI Slogan', description: 'Free AI slogan generator.', url: 'https://zyro.com/tools/slogan-generator', image: 'https://picsum.photos/seed/zyro-slogan/600/400', dataAiHint: 'slogan generator' },
             { name: 'Copy.ai Tagline', description: 'Generate taglines with AI.', url: 'https://www.copy.ai/', image: 'https://picsum.photos/seed/copyai-tagline/600/400', dataAiHint: 'tagline tool' },
-            { name: 'Hipster Business Name', description: 'A creative name generator.', url: 'https://www.hipsterlogogenerator.com/business-name-generator', image: 'https://picsum.photos/seed/hipstername/600/400', dataAiHint: 'creative names' },
+            { name: 'Hipster Business Name Generator', description: 'A creative name generator.', url: 'https://www.hipsterlogogenerator.com/business-name-generator', image: 'https://picsum.photos/seed/hipstername/600/400', dataAiHint: 'creative names' },
             { name: 'BrandCrowd Slogan AI', description: 'Generate slogans for your business.', url: 'https://www.brandcrowd.com/slogan-maker', image: 'https://picsum.photos/seed/brandcrowd-slogan/600/400', dataAiHint: 'slogan maker' },
         ]
     },
