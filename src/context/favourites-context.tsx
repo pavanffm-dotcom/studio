@@ -16,6 +16,7 @@ const FavouritesContext = createContext<FavouritesContextType | undefined>(undef
 // --- Helper Functions ---
 
 const getGuestFavourites = (): Set<string> => {
+  if (typeof window === 'undefined') return new Set();
   try {
     const item = window.localStorage.getItem('favourites_guest');
     return item ? new Set(JSON.parse(item)) : new Set();
@@ -26,6 +27,7 @@ const getGuestFavourites = (): Set<string> => {
 };
 
 const setGuestFavourites = (newFavourites: Set<string>) => {
+  if (typeof window === 'undefined') return;
   try {
     window.localStorage.setItem('favourites_guest', JSON.stringify(Array.from(newFavourites)));
   } catch (error) {
@@ -53,44 +55,48 @@ export const FavouritesProvider = ({ children }: { children: ReactNode }) => {
 
   // Effect for initial load and syncing between guest and user states
   useEffect(() => {
+    setIsLoading(true);
+
     if (isUserLoading) {
-      setIsLoading(true);
-      return;
+      return; // Wait until user auth state is resolved
     }
 
     if (user && firestore) {
-      // User is logged in
-      if (!firestoreLoading) {
-        setIsLoading(true);
-        const firestoreTools = new Set(firestoreFavourites?.map(fav => fav.toolName) || []);
-        const guestTools = getGuestFavourites();
+      // USER IS LOGGED IN
+      if (firestoreLoading) {
+        return; // Wait for firestore data to load
+      }
 
-        if (guestTools.size > 0) {
-          // Merge guest favourites into Firestore and clear local storage
-          const mergedTools = new Set([...Array.from(firestoreTools), ...Array.from(guestTools)]);
-          setFavouritedTools(mergedTools);
+      const firestoreTools = new Set(firestoreFavourites?.map(fav => fav.toolName) || []);
+      const guestTools = getGuestFavourites();
 
+      if (guestTools.size > 0) {
+        // Merge guest favourites into Firestore
+        const newToolsToSync = Array.from(guestTools).filter(tool => !firestoreTools.has(tool));
+        if (newToolsToSync.length > 0) {
           const batch = writeBatch(firestore);
           const userFavouritesRef = collection(firestore, 'users', user.uid, 'favourites');
-          guestTools.forEach(toolName => {
-            if (!firestoreTools.has(toolName)) {
-              batch.set(doc(userFavouritesRef), { toolName, userId: user.uid });
-            }
+          newToolsToSync.forEach(toolName => {
+            batch.set(doc(userFavouritesRef), { toolName, userId: user.uid });
           });
           batch.commit().then(() => {
-             try {
-                window.localStorage.removeItem('favourites_guest');
-              } catch (error) {
-                console.error("Error removing guest favourites from localStorage", error);
-              }
-          });
+            if (typeof window !== 'undefined') {
+              window.localStorage.removeItem('favourites_guest');
+            }
+          }).catch(err => console.error("Error merging guest favourites:", err));
         } else {
-          setFavouritedTools(firestoreTools);
+             if (typeof window !== 'undefined') {
+              window.localStorage.removeItem('favourites_guest');
+            }
         }
-        setIsLoading(false);
       }
+      
+      const combinedTools = new Set([...Array.from(firestoreTools), ...Array.from(guestTools)]);
+      setFavouritedTools(combinedTools);
+      setIsLoading(false);
+
     } else {
-      // Guest user
+      // GUEST USER
       setFavouritedTools(getGuestFavourites());
       setIsLoading(false);
     }
@@ -139,13 +145,13 @@ export const FavouritesProvider = ({ children }: { children: ReactNode }) => {
       }
     } else {
       // Guest user: Update localStorage
-      const currentGuestFavourites = getGuestFavourites();
-      if (isCurrentlyFavourited) {
-        currentGuestFavourites.delete(toolName);
+      const newFavourites = new Set(favouritedTools);
+      if(isCurrentlyFavourited) {
+        newFavourites.delete(toolName);
       } else {
-        currentGuestFavourites.add(toolName);
+        newFavourites.add(toolName);
       }
-      setGuestFavourites(currentGuestFavourites);
+      setGuestFavourites(newFavourites);
     }
   }, [user, firestore, favouritedTools]);
 
