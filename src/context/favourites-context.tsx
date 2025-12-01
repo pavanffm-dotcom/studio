@@ -14,24 +14,39 @@ interface FavouritesContextType {
 const FavouritesContext = createContext<FavouritesContextType | undefined>(undefined);
 
 export const FavouritesProvider = ({ children }: { children: ReactNode }) => {
-  const { user } = useUser();
+  const { user, isUserLoading } = useUser();
   const firestore = useFirestore();
   const [favouritedTools, setFavouritedTools] = useState<Set<string>>(new Set());
+  const [isLoading, setIsLoading] = useState(true);
 
-  const favouritesQuery = useMemoFirebase(() => {
+  const favouritesCollectionRef = useMemoFirebase(() => {
     if (user && firestore) {
       return collection(firestore, 'users', user.uid, 'favourites');
     }
     return null;
   }, [user, firestore]);
 
-  const { data: firestoreFavourites, isLoading: firestoreLoading } = useCollection<{ toolName: string }>(favouritesQuery);
-  
+  const { data: firestoreFavourites, isLoading: firestoreLoading } = useCollection<{ toolName: string }>(favouritesCollectionRef);
+
   useEffect(() => {
-    if (user && firestoreFavourites) {
-      const newFavourites = new Set(firestoreFavourites.map(fav => fav.toolName));
-      setFavouritedTools(newFavourites);
-    } else if (!user) {
+    if (isUserLoading) {
+      setIsLoading(true);
+      return;
+    }
+
+    if (user) {
+      // User is logged in, use Firestore data
+      if (!firestoreLoading) {
+        if (firestoreFavourites) {
+          const newFavourites = new Set(firestoreFavourites.map(fav => fav.toolName));
+          setFavouritedTools(newFavourites);
+        } else {
+          setFavouritedTools(new Set());
+        }
+        setIsLoading(false);
+      }
+    } else {
+      // User is a guest, use localStorage
       try {
         const item = window.localStorage.getItem('favourites_guest');
         setFavouritedTools(item ? new Set(JSON.parse(item)) : new Set());
@@ -39,49 +54,66 @@ export const FavouritesProvider = ({ children }: { children: ReactNode }) => {
         console.error("Error reading guest favourites from localStorage", error);
         setFavouritedTools(new Set());
       }
+      setIsLoading(false);
     }
-  }, [user, firestoreFavourites]);
+  }, [user, isUserLoading, firestoreFavourites, firestoreLoading]);
 
   const handleFavouriteToggle = useCallback(async (toolName: string) => {
     if (user && firestore) {
-        const isFavourited = favouritedTools.has(toolName);
+        // Firestore logic for logged-in user
+        const newFavouritedTools = new Set(favouritedTools);
+        const isFavourited = newFavouritedTools.has(toolName);
         const q = query(collection(firestore, 'users', user.uid, 'favourites'), where('toolName', '==', toolName));
-        
+
+        if (isFavourited) {
+          newFavouritedTools.delete(toolName);
+        } else {
+          newFavouritedTools.add(toolName);
+        }
+        setFavouritedTools(newFavouritedTools);
+
         try {
             if (isFavourited) {
                 const querySnapshot = await getDocs(q);
-                querySnapshot.forEach((document) => {
-                    deleteDoc(doc(firestore, 'users', user.uid, 'favourites', document.id));
-                });
+                const deletePromises = querySnapshot.docs.map((document) => 
+                    deleteDoc(doc(firestore, 'users', user.uid, 'favourites', document.id))
+                );
+                await Promise.all(deletePromises);
             } else {
                 await addDoc(collection(firestore, 'users', user.uid, 'favourites'), { toolName });
             }
         } catch (error) {
             console.error("Error updating favourites in Firestore:", error);
+            // Revert optimistic update on error
+            setFavouritedTools(prev => {
+                const reverted = new Set(prev);
+                if (isFavourited) reverted.add(toolName);
+                else reverted.delete(toolName);
+                return reverted;
+            });
         }
     } else {
-      setFavouritedTools(prevFavouritedTools => {
-        const newFavouritedTools = new Set(prevFavouritedTools);
-        if (newFavouritedTools.has(toolName)) {
-          newFavouritedTools.delete(toolName);
-        } else {
-          newFavouritedTools.add(toolName);
-        }
-        try {
-          window.localStorage.setItem('favourites_guest', JSON.stringify(Array.from(newFavouritedTools)));
-        } catch (error) {
-          console.error("Error saving guest favourites to localStorage", error);
-        }
-        return newFavouritedTools;
-      });
+      // localStorage logic for guest user
+      const newFavouritedTools = new Set(favouritedTools);
+      if (newFavouritedTools.has(toolName)) {
+        newFavouritedTools.delete(toolName);
+      } else {
+        newFavouritedTools.add(toolName);
+      }
+      setFavouritedTools(newFavouritedTools);
+      try {
+        window.localStorage.setItem('favourites_guest', JSON.stringify(Array.from(newFavouritedTools)));
+      } catch (error) {
+        console.error("Error saving guest favourites to localStorage", error);
+      }
     }
   }, [user, firestore, favouritedTools]);
 
   const value = useMemo(() => ({
     favouritedTools,
     handleFavouriteToggle,
-    isLoading: firestoreLoading,
-  }), [favouritedTools, handleFavouriteToggle, firestoreLoading]);
+    isLoading,
+  }), [favouritedTools, handleFavouriteToggle, isLoading]);
 
   return (
     <FavouritesContext.Provider value={value}>
