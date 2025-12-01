@@ -3,7 +3,7 @@
 import React, { createContext, useContext, useState, useEffect, useCallback, ReactNode, useMemo } from 'react';
 import { useUser, useFirestore, useMemoFirebase } from '@/firebase';
 import { useCollection } from '@/firebase/firestore/use-collection';
-import { addDoc, collection, deleteDoc, doc, getDocs, query, where, Firestore } from 'firebase/firestore';
+import { addDoc, collection, deleteDoc, doc, getDocs, query, where, Firestore, writeBatch } from 'firebase/firestore';
 
 interface FavouritesContextType {
   favouritedTools: Set<string>;
@@ -13,7 +13,19 @@ interface FavouritesContextType {
 
 const FavouritesContext = createContext<FavouritesContextType | undefined>(undefined);
 
-const updateLocalStorage = (newFavourites: Set<string>) => {
+// --- Helper Functions ---
+
+const getGuestFavourites = (): Set<string> => {
+  try {
+    const item = window.localStorage.getItem('favourites_guest');
+    return item ? new Set(JSON.parse(item)) : new Set();
+  } catch (error) {
+    console.error("Error reading guest favourites from localStorage", error);
+    return new Set();
+  }
+};
+
+const setGuestFavourites = (newFavourites: Set<string>) => {
   try {
     window.localStorage.setItem('favourites_guest', JSON.stringify(Array.from(newFavourites)));
   } catch (error) {
@@ -21,101 +33,127 @@ const updateLocalStorage = (newFavourites: Set<string>) => {
   }
 };
 
-const updateFirestoreFavourite = async (
-  firestore: Firestore,
-  userId: string,
-  toolName: string,
-  isFavourited: boolean
-) => {
-  const favouritesCollectionRef = collection(firestore, 'users', userId, 'favourites');
-  const q = query(favouritesCollectionRef, where('toolName', '==', toolName));
-
-  if (isFavourited) {
-    // Remove from favourites
-    const querySnapshot = await getDocs(q);
-    const deletePromises = querySnapshot.docs.map((document) => deleteDoc(document.ref));
-    await Promise.all(deletePromises);
-  } else {
-    // Add to favourites
-    await addDoc(favouritesCollectionRef, { toolName, userId });
-  }
-};
-
+// --- Provider Component ---
 
 export const FavouritesProvider = ({ children }: { children: ReactNode }) => {
   const { user, isUserLoading } = useUser();
   const firestore = useFirestore();
   const [favouritedTools, setFavouritedTools] = useState<Set<string>>(new Set());
-  const [isSyncing, setIsSyncing] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
 
   // Firestore query for logged-in user
   const favouritesQuery = useMemoFirebase(() => {
     if (user && firestore) {
-      return query(collection(firestore, 'users', user.uid, 'favourites'));
+      return collection(firestore, 'users', user.uid, 'favourites');
     }
     return null;
   }, [user, firestore]);
 
   const { data: firestoreFavourites, isLoading: firestoreLoading } = useCollection<{ toolName: string }>(favouritesQuery);
 
-  // Effect to load initial data from localStorage or Firestore
+  // Effect for initial load and syncing between guest and user states
   useEffect(() => {
-    setIsSyncing(true);
-    if (!isUserLoading) {
-      if (user) {
-        // User is logged in, wait for Firestore data
-        if (!firestoreLoading) {
-          const newFavourites = new Set(firestoreFavourites?.map(fav => fav.toolName) || []);
-          setFavouritedTools(newFavourites);
-          setIsSyncing(false);
-        }
-      } else {
-        // User is a guest, use localStorage
-        try {
-          const item = window.localStorage.getItem('favourites_guest');
-          setFavouritedTools(item ? new Set(JSON.parse(item)) : new Set());
-        } catch (error) {
-          console.error("Error reading guest favourites from localStorage", error);
-          setFavouritedTools(new Set());
-        }
-        setIsSyncing(false);
-      }
+    if (isUserLoading) {
+      setIsLoading(true);
+      return;
     }
-  }, [user, isUserLoading, firestoreFavourites, firestoreLoading]);
+
+    if (user && firestore) {
+      // User is logged in
+      if (!firestoreLoading) {
+        setIsLoading(true);
+        const firestoreTools = new Set(firestoreFavourites?.map(fav => fav.toolName) || []);
+        const guestTools = getGuestFavourites();
+
+        if (guestTools.size > 0) {
+          // Merge guest favourites into Firestore and clear local storage
+          const mergedTools = new Set([...Array.from(firestoreTools), ...Array.from(guestTools)]);
+          setFavouritedTools(mergedTools);
+
+          const batch = writeBatch(firestore);
+          const userFavouritesRef = collection(firestore, 'users', user.uid, 'favourites');
+          guestTools.forEach(toolName => {
+            if (!firestoreTools.has(toolName)) {
+              batch.set(doc(userFavouritesRef), { toolName, userId: user.uid });
+            }
+          });
+          batch.commit().then(() => {
+             try {
+                window.localStorage.removeItem('favourites_guest');
+              } catch (error) {
+                console.error("Error removing guest favourites from localStorage", error);
+              }
+          });
+        } else {
+          setFavouritedTools(firestoreTools);
+        }
+        setIsLoading(false);
+      }
+    } else {
+      // Guest user
+      setFavouritedTools(getGuestFavourites());
+      setIsLoading(false);
+    }
+  }, [user, isUserLoading, firestore, firestoreFavourites, firestoreLoading]);
 
 
   const handleFavouriteToggle = useCallback(async (toolName: string) => {
     const isCurrentlyFavourited = favouritedTools.has(toolName);
 
     // Optimistically update the UI state
-    const newFavouritedTools = new Set(favouritedTools);
-    if (isCurrentlyFavourited) {
-      newFavouritedTools.delete(toolName);
-    } else {
-      newFavouritedTools.add(toolName);
-    }
-    setFavouritedTools(newFavouritedTools);
+    setFavouritedTools(prev => {
+        const newSet = new Set(prev);
+        if (isCurrentlyFavourited) {
+            newSet.delete(toolName);
+        } else {
+            newSet.add(toolName);
+        }
+        return newSet;
+    });
 
     if (user && firestore) {
       // Logged-in user: Update Firestore
+      const favouritesCollectionRef = collection(firestore, 'users', user.uid, 'favourites');
       try {
-        await updateFirestoreFavourite(firestore, user.uid, toolName, isCurrentlyFavourited);
+        if (isCurrentlyFavourited) {
+          const q = query(favouritesCollectionRef, where('toolName', '==', toolName));
+          const querySnapshot = await getDocs(q);
+          const batch = writeBatch(firestore);
+          querySnapshot.forEach(document => batch.delete(document.ref));
+          await batch.commit();
+        } else {
+          await addDoc(favouritesCollectionRef, { toolName, userId: user.uid });
+        }
       } catch (error) {
-        console.error("Error updating favourites in Firestore:", error);
-        // Revert optimistic update on error
-        setFavouritedTools(new Set(favouritedTools));
+          console.error("Error updating Firestore favourites:", error);
+          // Revert optimistic update on error
+           setFavouritedTools(prev => {
+                const newSet = new Set(prev);
+                if (isCurrentlyFavourited) { // If it was favourited, the optimistic update removed it, so add it back
+                    newSet.add(toolName);
+                } else { // If it wasn't favourited, the optimistic update added it, so remove it
+                    newSet.delete(toolName);
+                }
+                return newSet;
+            });
       }
     } else {
       // Guest user: Update localStorage
-      updateLocalStorage(newFavouritedTools);
+      const currentGuestFavourites = getGuestFavourites();
+      if (isCurrentlyFavourited) {
+        currentGuestFavourites.delete(toolName);
+      } else {
+        currentGuestFavourites.add(toolName);
+      }
+      setGuestFavourites(currentGuestFavourites);
     }
   }, [user, firestore, favouritedTools]);
 
   const value = useMemo(() => ({
     favouritedTools,
     handleFavouriteToggle,
-    isLoading: isSyncing,
-  }), [favouritedTools, handleFavouriteToggle, isSyncing]);
+    isLoading,
+  }), [favouritedTools, handleFavouriteToggle, isLoading]);
 
   return (
     <FavouritesContext.Provider value={value}>
