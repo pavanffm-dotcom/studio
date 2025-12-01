@@ -534,8 +534,7 @@ function App() {
         <div className={cn("flex-shrink-0 px-6 pt-6")}>
           <header className="flex justify-between items-start py-2">
             <div className="flex flex-col">
-                <h1 className="text-xl font-bold text-foreground whitespace-nowrap">World's first web to web ai service</h1>
-                <div className="flex items-center gap-2 mt-2">
+                <div className="flex items-center gap-2">
                   <GalaxyLogo className="w-8 h-8" />
                   <span className="text-2xl font-bold text-foreground">AI Atlas</span>
                 </div>
