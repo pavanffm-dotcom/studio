@@ -2,8 +2,17 @@
 
 import React, { createContext, useContext, useState, useEffect, useCallback, ReactNode, useMemo } from 'react';
 import { useUser, useFirestore, useMemoFirebase } from '@/firebase';
-import { useCollection } from '@/firebase/firestore/use-collection';
-import { addDoc, collection, deleteDoc, doc, getDocs, query, where, writeBatch } from 'firebase/firestore';
+import { 
+  addDoc, 
+  collection, 
+  deleteDoc, 
+  doc, 
+  getDocs, 
+  onSnapshot, 
+  query, 
+  where, 
+  writeBatch 
+} from 'firebase/firestore';
 
 interface FavouritesContextType {
   favouritedTools: Set<string>;
@@ -19,82 +28,77 @@ export const FavouritesProvider = ({ children }: { children: ReactNode }) => {
   const [favouritedTools, setFavouritedTools] = useState<Set<string>>(new Set());
   const [isLoading, setIsLoading] = useState(true);
 
-  // Firestore query for the logged-in user's favourites
-  const favouritesQuery = useMemoFirebase(() => {
-    if (user && firestore) {
-      return collection(firestore, 'users', user.uid, 'favourites');
-    }
-    return null; // No query if there's no user
-  }, [user, firestore]);
-
-  const { data: firestoreFavourites, isLoading: firestoreLoading } = useCollection<{ toolName: string }>(favouritesQuery);
-
-  // Effect to sync Firestore favourites to local state
   useEffect(() => {
-    // Overall loading is true if we are waiting for user or firestore data
-    setIsLoading(isUserLoading || firestoreLoading);
-
-    if (!isUserLoading && user) {
-        // If user is logged in, and firestore data has loaded
-        if (!firestoreLoading && firestoreFavourites) {
-            const firestoreSet = new Set(firestoreFavourites.map(fav => fav.toolName));
-            setFavouritedTools(firestoreSet);
-        }
-    } else if (!isUserLoading && !user) {
-        // If user is logged out, clear the favourites
+    setIsLoading(isUserLoading);
+    if (isUserLoading || !user || !firestore) {
+      if (!isUserLoading && !user) {
+        // If logged out, clear favourites and stop loading
         setFavouritedTools(new Set());
-    }
-  }, [user, isUserLoading, firestoreFavourites, firestoreLoading]);
-
-
-  const handleFavouriteToggle = useCallback(async (toolName: string) => {
-    // Only allow favouriting if the user is logged in
-    if (!user || !firestore) {
-      console.log("User must be logged in to favourite tools.");
-      // Optionally, you could trigger a toast or modal to prompt login here.
+        setIsLoading(false);
+      }
       return;
     }
 
-    const isFavourited = favouritedTools.has(toolName);
-
-    // Optimistically update the UI state
-    setFavouritedTools(prev => {
-        const newSet = new Set(prev);
-        if (isFavourited) {
-            newSet.delete(toolName);
-        } else {
-            newSet.add(toolName);
-        }
-        return newSet;
+    const favCollection = collection(firestore, 'users', user.uid, 'favourites');
+    const unsubscribe = onSnapshot(favCollection, (snapshot) => {
+      const firestoreSet = new Set(snapshot.docs.map(doc => doc.data().toolName));
+      setFavouritedTools(firestoreSet);
+      setIsLoading(false); // Stop loading once we get the data
+    }, (error) => {
+      console.error("Error listening to favourites:", error);
+      setIsLoading(false);
     });
 
-    // Perform the Firestore operation
-    const favCollection = collection(firestore, 'users', user.uid, 'favourites');
+    // Cleanup subscription on unmount
+    return () => unsubscribe();
+  }, [user, isUserLoading, firestore]);
+
+  const handleFavouriteToggle = useCallback(async (toolName: string) => {
+    if (!user || !firestore) {
+      // Here you could trigger a toast to prompt login
+      console.error("User not logged in. Cannot favourite.");
+      return;
+    }
+
+    const isCurrentlyFavourited = favouritedTools.has(toolName);
+    const userFavouritesRef = collection(firestore, 'users', user.uid, 'favourites');
+
+    // Optimistic UI update
+    setFavouritedTools(prev => {
+      const newSet = new Set(prev);
+      if (isCurrentlyFavourited) {
+        newSet.delete(toolName);
+      } else {
+        newSet.add(toolName);
+      }
+      return newSet;
+    });
+
     try {
-        if (isFavourited) {
-            // If it was favourited, we need to find and delete it
-            const q = query(favCollection, where('toolName', '==', toolName));
-            const querySnapshot = await getDocs(q);
-            const batch = writeBatch(firestore);
-            querySnapshot.forEach(doc => batch.delete(doc.ref));
-            await batch.commit();
-        } else {
-            // If it was not favourited, add it
-            await addDoc(favCollection, { toolName, userId: user.uid });
-        }
-    } catch (error) {
-        console.error("Failed to update favourites in Firestore:", error);
-        // If the operation fails, revert the optimistic UI update
-        setFavouritedTools(prev => {
-            const revertedSet = new Set(prev);
-            if (isFavourited) {
-                revertedSet.add(toolName); // It was there before, add it back
-            } else {
-                revertedSet.delete(toolName); // It wasn't there before, remove it
-            }
-            return revertedSet;
+      if (isCurrentlyFavourited) {
+        const q = query(userFavouritesRef, where('toolName', '==', toolName));
+        const querySnapshot = await getDocs(q);
+        const batch = writeBatch(firestore);
+        querySnapshot.forEach(doc => {
+          batch.delete(doc.ref);
         });
-        // Optionally, show an error toast to the user
+        await batch.commit();
+      } else {
+        await addDoc(userFavouritesRef, { toolName, userId: user.uid });
+      }
+    } catch (error) {
+      console.error("Error updating favourite status:", error);
+      // Revert optimistic update on error
+      setFavouritedTools(prev => {
+        const revertedSet = new Set(prev);
+        if (isCurrentlyFavourited) {
+          revertedSet.add(toolName);
+        } else {
+          revertedSet.delete(toolName);
+        }
+        return revertedSet;
+      });
+      // Optionally show an error toast to the user
     }
   }, [user, firestore, favouritedTools]);
 
