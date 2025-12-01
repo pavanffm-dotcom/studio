@@ -16,9 +16,8 @@ const FavouritesContext = createContext<FavouritesContextType | undefined>(undef
 export const FavouritesProvider = ({ children }: { children: ReactNode }) => {
   const { user } = useUser();
   const firestore = useFirestore();
-  const [localFavourites, setLocalFavourites] = useState<Set<string>>(new Set());
+  const [favouritedTools, setFavouritedTools] = useState<Set<string>>(new Set());
 
-  // Memoize the query to the user's favourites collection
   const favouritesQuery = useMemoFirebase(() => {
     if (user && firestore) {
       return collection(firestore, 'users', user.uid, 'favourites');
@@ -26,52 +25,42 @@ export const FavouritesProvider = ({ children }: { children: ReactNode }) => {
     return null;
   }, [user, firestore]);
 
-  // useCollection hook to get real-time updates
   const { data: firestoreFavourites, isLoading: firestoreLoading } = useCollection<{ toolName: string }>(favouritesQuery);
   
   useEffect(() => {
-    // If the user is logged in, use Firestore data
     if (user && firestoreFavourites) {
       const newFavourites = new Set(firestoreFavourites.map(fav => fav.toolName));
-      setLocalFavourites(newFavourites);
+      setFavouritedTools(newFavourites);
     } else if (!user) {
-      // Handle guest user with localStorage
       try {
         const item = window.localStorage.getItem('favourites_guest');
-        setLocalFavourites(item ? new Set(JSON.parse(item)) : new Set());
+        setFavouritedTools(item ? new Set(JSON.parse(item)) : new Set());
       } catch (error) {
         console.error("Error reading guest favourites from localStorage", error);
-        setLocalFavourites(new Set());
+        setFavouritedTools(new Set());
       }
     }
   }, [user, firestoreFavourites]);
 
   const handleFavouriteToggle = useCallback(async (toolName: string) => {
     if (user && firestore) {
-        // User is logged in, interact with Firestore
-        const isFavourited = localFavourites.has(toolName);
+        const isFavourited = favouritedTools.has(toolName);
         const q = query(collection(firestore, 'users', user.uid, 'favourites'), where('toolName', '==', toolName));
         
         try {
-            const querySnapshot = await getDocs(q);
             if (isFavourited) {
-                // Remove from favourites
+                const querySnapshot = await getDocs(q);
                 querySnapshot.forEach((document) => {
                     deleteDoc(doc(firestore, 'users', user.uid, 'favourites', document.id));
                 });
             } else {
-                // Add to favourites
-                if (querySnapshot.empty) {
-                    await addDoc(collection(firestore, 'users', user.uid, 'favourites'), { toolName });
-                }
+                await addDoc(collection(firestore, 'users', user.uid, 'favourites'), { toolName });
             }
         } catch (error) {
             console.error("Error updating favourites in Firestore:", error);
         }
-
     } else {
-      // Guest user, use localStorage
-      setLocalFavourites(prevFavouritedTools => {
+      setFavouritedTools(prevFavouritedTools => {
         const newFavouritedTools = new Set(prevFavouritedTools);
         if (newFavouritedTools.has(toolName)) {
           newFavouritedTools.delete(toolName);
@@ -86,13 +75,13 @@ export const FavouritesProvider = ({ children }: { children: ReactNode }) => {
         return newFavouritedTools;
       });
     }
-  }, [user, firestore, localFavourites]);
+  }, [user, firestore, favouritedTools]);
 
   const value = useMemo(() => ({
-    favouritedTools: localFavourites,
+    favouritedTools,
     handleFavouriteToggle,
     isLoading: firestoreLoading,
-  }), [localFavourites, handleFavouriteToggle, firestoreLoading]);
+  }), [favouritedTools, handleFavouriteToggle, firestoreLoading]);
 
   return (
     <FavouritesContext.Provider value={value}>
