@@ -82,7 +82,7 @@ const toolData: ToolCategory[] = [
         ]
     },
     {
-        title: "APIs & Integration Tools",
+        title: "APIs &amp; Integration Tools",
         icon: <Link2 className="w-5 h-5 text-primary" />,
         tools: [
             { name: "Postman", description: "The collaboration platform for API development.", url: "https://www.postman.com/", image: "https://picsum.photos/seed/postman/600/400", dataAiHint: "api client", pricing: 'Freemium' },
@@ -92,7 +92,7 @@ const toolData: ToolCategory[] = [
         ]
     },
     {
-        title: "Cloud & DevOps",
+        title: "Cloud &amp; DevOps",
         icon: <CloudCog className="w-5 h-5 text-primary" />,
         tools: [
             { name: "Docker", description: "Securely build, share and run any application, anywhere.", url: "https://www.docker.com/", image: "https://picsum.photos/seed/docker/600/400", dataAiHint: "containerization", pricing: 'Freemium' },
@@ -112,7 +112,7 @@ const toolData: ToolCategory[] = [
         ]
     },
     {
-        title: "Testing & Debugging",
+        title: "Testing &amp; Debugging",
         icon: <Bug className="w-5 h-5 text-primary" />,
         tools: [
             { name: "Jest", description: "Delightful JavaScript Testing.", url: "https://jestjs.io/", image: "https://picsum.photos/seed/jest/600/400", dataAiHint: "javascript testing", pricing: 'Free' },
@@ -122,7 +122,7 @@ const toolData: ToolCategory[] = [
         ]
     },
     {
-        title: "Design & Prototyping",
+        title: "Design &amp; Prototyping",
         icon: <Paintbrush className="w-5 h-5 text-primary" />,
         tools: [
             { name: "Figma", description: "The collaborative interface design tool.", url: "https://www.figma.com/", image: "https://picsum.photos/seed/figma/600/400", dataAiHint: "ui design", pricing: 'Freemium' },
@@ -142,7 +142,7 @@ const toolData: ToolCategory[] = [
         ]
     },
     {
-        title: "AI & Machine Learning",
+        title: "AI &amp; Machine Learning",
         icon: <Bot className="w-5 h-5 text-primary" />,
         tools: [
             { name: "TensorFlow", description: "An end-to-end open source platform for machine learning.", url: "https://www.tensorflow.org/", image: "https://picsum.photos/seed/tensorflow/600/400", dataAiHint: "machine learning", pricing: 'Free' },
@@ -202,7 +202,7 @@ const toolData: ToolCategory[] = [
         ]
     },
     {
-        title: "Data Science & Analysis",
+        title: "Data Science &amp; Analysis",
         icon: <BrainCircuit className="w-5 h-5 text-primary" />,
         tools: [
             { name: "Jupyter", description: "Web-based interactive development environment for notebooks, code, and data.", url: "https://jupyter.org/", image: "https://picsum.photos/seed/jupyter/600/400", dataAiHint: "data notebook", pricing: 'Free' },
@@ -212,7 +212,7 @@ const toolData: ToolCategory[] = [
         ]
     },
     {
-        title: "Performance & Monitoring",
+        title: "Performance &amp; Monitoring",
         icon: <Gauge className="w-5 h-5 text-primary" />,
         tools: [
             { name: "Lighthouse", description: "An open-source, automated tool for improving the quality of web pages.", url: "https://developer.chrome.com/docs/lighthouse/overview", image: "https://picsum.photos/seed/lighthouse/600/400", dataAiHint: "web performance", pricing: 'Free' },
@@ -227,6 +227,7 @@ export default function CodingToolsPage() {
     const { toast } = useToast();
     const { favouritedTools, handleFavouriteToggle } = useFavourites();
     const [priceFilter, setPriceFilter] = React.useState('All');
+    const [open, setOpen] = React.useState(false);
 
 
     const handleFavouriteClick = (e: React.MouseEvent, toolName: string) => {
@@ -320,11 +321,11 @@ export default function CodingToolsPage() {
                 <div className='flex items-center gap-2'>
                     <Code className="w-6 h-6 text-foreground" />
                     <h1 className="text-2xl font-bold text-foreground">
-                    Coding & Dev Tools
+                    Coding &amp; Dev Tools
                     </h1>
                 </div>
             </div>
-            <DropdownMenu>
+            <DropdownMenu open={open} onOpenChange={setOpen}>
                 <DropdownMenuTrigger asChild>
                     <Button variant="outline" size="sm" className="bg-white/50">
                         <Filter className="w-4 h-4 mr-2" />
@@ -335,7 +336,7 @@ export default function CodingToolsPage() {
                     <DropdownMenuLabel>Filter by Price</DropdownMenuLabel>
                     <DropdownMenuSeparator />
                     <DropdownMenuRadioGroup value={priceFilter} onValueChange={setPriceFilter}>
-                        <DropdownMenuRadioItem value="All">All (Free & Paid)</DropdownMenuRadioItem>
+                        <DropdownMenuRadioItem value="All">All (Free &amp; Paid)</DropdownMenuRadioItem>
                         <DropdownMenuRadioItem value="Free">Free Only</DropdownMenuRadioItem>
                     </DropdownMenuRadioGroup>
                 </DropdownMenuContent>

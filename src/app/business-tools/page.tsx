@@ -220,6 +220,7 @@ export default function BusinessToolsPage() {
     const { toast } = useToast();
     const { favouritedTools, handleFavouriteToggle } = useFavourites();
     const [priceFilter, setPriceFilter] = React.useState('All');
+    const [open, setOpen] = React.useState(false);
 
     const handleShareTool = React.useCallback(async (e: React.MouseEvent, tool: Tool) => {
         e.preventDefault();
@@ -316,7 +317,7 @@ export default function BusinessToolsPage() {
                     </h1>
                 </div>
             </div>
-            <DropdownMenu>
+            <DropdownMenu open={open} onOpenChange={setOpen}>
                 <DropdownMenuTrigger asChild>
                     <Button variant="outline" size="sm" className="bg-white/50">
                         <Filter className="w-4 h-4 mr-2" />
@@ -327,7 +328,7 @@ export default function BusinessToolsPage() {
                     <DropdownMenuLabel>Filter by Price</DropdownMenuLabel>
                     <DropdownMenuSeparator />
                     <DropdownMenuRadioGroup value={priceFilter} onValueChange={setPriceFilter}>
-                        <DropdownMenuRadioItem value="All">All (Free & Paid)</DropdownMenuRadioItem>
+                        <DropdownMenuRadioItem value="All">All (Free &amp; Paid)</DropdownMenuRadioItem>
                         <DropdownMenuRadioItem value="Free">Free Only</DropdownMenuRadioItem>
                     </DropdownMenuRadioGroup>
                 </DropdownMenuContent>
