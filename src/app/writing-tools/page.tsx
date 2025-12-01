@@ -26,6 +26,20 @@ type ToolCategory = {
     tools: Tool[];
 };
 
+const ShoppingCart = (props: React.JSX.IntrinsicAttributes & React.SVGProps<SVGSVGElement>) => (
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+        <circle cx="9" cy="21" r="1"></circle>
+        <circle cx="20" cy="21" r="1"></circle>
+        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+    </svg>
+);
+const Tag = (props: React.JSX.IntrinsicAttributes & React.SVGProps<SVGSVGElement>) => (
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+        <path d="M12.586 2.586a2 2 0 0 0-2.828 0L2.586 9.757a2 2 0 0 0 0 2.828l9.172 9.172a2 2 0 0 0 2.828 0l7.171-7.171a2 2 0 0 0 0-2.828L12.586 2.586z"></path>
+        <circle cx="8.5" cy="8.5" r="1.5"></circle>
+    </svg>
+);
+
 const toolData: ToolCategory[] = [
     {
         title: "Content Writing Tools",
@@ -370,21 +384,6 @@ const toolData: ToolCategory[] = [
         ]
     },
 ];
-
-const ShoppingCart = (props: React.JSX.IntrinsicAttributes & React.SVGProps<SVGSVGElement>) => (
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
-        <circle cx="9" cy="21" r="1"></circle>
-        <circle cx="20" cy="21" r="1"></circle>
-        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-    </svg>
-);
-const Tag = (props: React.JSX.IntrinsicAttributes & React.SVGProps<SVGSVGElement>) => (
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
-        <path d="M12.586 2.586a2 2 0 0 0-2.828 0L2.586 9.757a2 2 0 0 0 0 2.828l9.172 9.172a2 2 0 0 0 2.828 0l7.171-7.171a2 2 0 0 0 0-2.828L12.586 2.586z"></path>
-        <circle cx="8.5" cy="8.5" r="1.5"></circle>
-    </svg>
-);
-
 
 export default function WritingToolsPage() {
     const { toast } = useToast();
