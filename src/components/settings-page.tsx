@@ -195,7 +195,6 @@ export function SettingsPage() {
           { label: t('settings.privacy.permissions'), icon: Shield, component: <DataPermissions /> },
           { label: t('settings.privacy.logs'), icon: FileClock, component: <ActivityLogs /> },
           { label: t('settings.privacy.analytics'), icon: BarChart3, control: "switch" },
-          { label: t('settings.privacy.twoFactor'), icon: Fingerprint, component: <TwoFactorAuth /> },
         ],
       },
       {
@@ -416,3 +415,5 @@ const SettingItem = ({ option, onToggle, isChecked, children }: { option: any; o
       </div>
     </div>
   );
+
+    
