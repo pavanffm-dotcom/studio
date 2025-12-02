@@ -10,7 +10,6 @@ import { Button } from '@/components/ui/button';
 import { Card, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
-import { useFavourites } from '@/context/favourites-context';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 
 
@@ -181,7 +180,7 @@ const toolData: ToolCategory[] = [
             { name: 'Wibbitz', description: 'Automated video creation for publishers.', url: 'https://www.wibbitz.com/', image: 'https://picsum.photos/seed/wibbitz-t2v/600/400', dataAiHint: 'publisher video', pricing: 'Paid' },
             { name: 'Synthesizer V', description: 'Singing voice synthesis technology.', url: 'https://dreamtonics.com/en/synthesizerv/', image: 'https://picsum.photos/seed/synthv-t2v/600/400', dataAiHint: 'singing voice', pricing: 'Freemium' },
             { name: 'Artflow', description: 'Create animated stories with AI-generated assets.', url: 'https://www.artflow.ai/', image: 'https://picsum.photos/seed/artflow-t2v/600/400', dataAiHint: 'animated stories', pricing: 'Freemium' },
-            { name: 'Vizard', description: 'AI video editor for content creators.', url: 'https://vizard.ai/', image: 'https://picsum.photos/seed/vizard-t2v/600/400', dataAiHint: 'content creator', pricing: 'Freemium' },
+            { name: 'Vizard', description: 'AI video editor for content creators.', url: 'https://vizard.ai/', image: 'https://picsum.photos/seed/vizard-t2v/600/400', dataAiHint: 'content creator', pricing: 'Vizard' },
             { name: 'Make-A-Video by Meta', description: 'Meta\'s research on text-to-video generation.', url: 'https://makeavideo.studio/', image: 'https://picsum.photos/seed/makeavideo/600/400', dataAiHint: 'meta research', pricing: 'Free' },
             { name: 'Phenaki', description: 'Google\'s text-to-video model for longer videos.', url: 'https://phenaki.video/', image: 'https://picsum.photos/seed/phenaki/600/400', dataAiHint: 'google research', pricing: 'Free' },
             { name: 'Imagen Video by Google', description: 'High definition video generation model.', url: 'https://imagen.research.google/video/', image: 'https://picsum.photos/seed/imagen-t2v/600/400', dataAiHint: 'hd video', pricing: 'Free' },
@@ -466,7 +465,7 @@ const toolData: ToolCategory[] = [
             { name: 'Piktochart', description: 'Infographic, presentation, and report maker.', url: 'https://piktochart.com/', image: 'https://picsum.photos/seed/piktochart-thumbnail/600/400', dataAiHint: 'infographics', pricing: 'Freemium' },
             { name: 'Visme', description: 'All-in-one platform for creating presentations, infographics, and other visuals.', url: 'https://www.visme.co/', image: 'https://picsum.photos/seed/visme-thumbnail/600/400', dataAiHint: 'presentations', pricing: 'Freemium' },
             { name: 'Glorify', description: 'Product-focused design tool for e-commerce.', url: 'https://www.glorify.com/', image: 'https://picsum.photos/seed/glorify-thumbnail/600/400', dataAiHint: 'ecommerce design', pricing: 'Freemium' },
-            { name: 'Tyle', description: 'Smart video and image editor.', url: 'https://www.tyle.io/', image: 'https://picsum.photos/seed/tyle-thumbnail/600/400', dataAiHint: 'smart editor', pricing: 'Freemium' },
+            { name: 'Tyle', description: 'Smart video and image editor.', url: 'https://www.tyle.io/', image: 'https://picsum.photos/seed/tyle-thumbnail/600/400', dataAiHint: 'smart editor', pricing: 'Tyle' },
             { name: 'Placeit', description: 'Mockups, designs, logos & videos.', url: 'https://placeit.net/', image: 'https://picsum.photos/seed/placeit-thumbnail/600/400', dataAiHint: 'mockup generator', pricing: 'Freemium' },
             { name: 'Thumbnail.ai', description: 'Generate YouTube thumbnails with AI.', url: 'https://thumbnail.ai/', image: 'https://picsum.photos/seed/thumbnailai/600/400', dataAiHint: 'youtube thumbnail', pricing: 'Paid' },
             { name: 'TubeBuddy Thumbnail Generator', description: 'Create professional thumbnails inside YouTube.', url: 'https://www.tubebuddy.com/thumbnail-generator', image: 'https://picsum.photos/seed/tubebuddy-thumbnail/600/400', dataAiHint: 'pro thumbnails', pricing: 'Freemium' },
@@ -679,7 +678,7 @@ const toolData: ToolCategory[] = [
             { name: 'Screaming Frog SEO Spider', description: 'Website crawler for improving onsite SEO.', url: 'https://www.screamingfrog.co.uk/seo-spider/', image: 'https://picsum.photos/seed/screamingfrog-seo/600/400', dataAiHint: 'technical seo', pricing: 'Freemium' },
             { name: 'Google Search Console', description: 'Tools and reports for website search performance.', url: 'https://search.google.com/search-console/', image: 'https://picsum.photos/seed/gsc-seo/600/400', dataAiHint: 'google webmaster', pricing: 'Free' },
             { name: 'Yoast SEO', description: 'The #1 WordPress SEO Plugin.', url: 'https://yoast.com/', image: 'https://picsum.photos/seed/yoast-seo/600/400', dataAiHint: 'wordpress seo', pricing: 'Freemium' },
-            { name: 'Rank Math', description: 'The Swiss Army Knife of WordPress SEO.', url: 'https://rankmath.com/', image: 'https://picsum.photos/seed/rankmath/600/400', dataAiHint: 'wordpress plugin', pricing: 'Freemium' },
+            { name: 'Rank Math', description: 'The Swiss Army Knife of WordPress SEO.', url: 'https://rankmath.com/', image: 'https://picsum.photos/seed/rankmath-seo/600/400', dataAiHint: 'wordpress plugin', pricing: 'Freemium' },
             { name: 'Majestic', description: 'The planet\'s largest link index database.', url: 'https://majestic.com/', image: 'https://picsum.photos/seed/majestic-seo/600/400', dataAiHint: 'backlink checker', pricing: 'Paid' },
             { name: 'SpyFu', description: 'Competitor keyword research tools.', url: 'https://www.spyfu.com/', image: 'https://picsum.photos/seed/spyfu-seo/600/400', dataAiHint: 'competitor analysis', pricing: 'Paid' },
             { name: 'SE Ranking', description: 'All-in-one SEO software for businesses.', url: 'https://seranking.com/', image: 'https://picsum.photos/seed/seranking-seo/600/400', dataAiHint: 'rank tracker', pricing: 'Paid' },
@@ -750,7 +749,6 @@ const toolData: ToolCategory[] = [
 
 export default function ContentCreationToolsPage() {
     const { toast } = useToast();
-    const { favouritedTools, handleFavouriteToggle } = useFavourites();
     const [priceFilter, setPriceFilter] = React.useState('All');
     const [open, setOpen] = React.useState(false);
 
@@ -778,12 +776,6 @@ export default function ContentCreationToolsPage() {
           });
         }
     }, [toast]);
-
-    const handleFavouriteClick = (e: React.MouseEvent, toolName: string) => {
-        e.preventDefault();
-        e.stopPropagation();
-        handleFavouriteToggle(toolName);
-    };
 
     const ToolCard = ({ tool }: { tool: Tool }) => (
         <Link href={tool.url} key={tool.name} target="_blank" rel="noopener noreferrer" className="block group w-40 shrink-0">
@@ -813,9 +805,6 @@ export default function ContentCreationToolsPage() {
                   <div className="flex flex-col items-center gap-1 shrink-0 pl-1">
                       <Button variant="ghost" size="icon" className="w-7 h-7 rounded-full text-foreground/80 bg-white/30 hover:bg-white/50" onClick={(e) => handleShareTool(e, tool)}>
                           <Share2 className="w-3 h-3" />
-                      </Button>
-                      <Button variant="ghost" size="icon" className="w-7 h-7 rounded-full text-foreground/80 bg-white/30 hover:bg-white/50" onClick={(e) => handleFavouriteClick(e, tool.name)}>
-                          <Star className={cn('w-4 h-4 transition-all', favouritedTools.has(tool.name) ? 'fill-yellow-300 text-yellow-300' : 'text-foreground/60')}/>
                       </Button>
                   </div>
               </div>

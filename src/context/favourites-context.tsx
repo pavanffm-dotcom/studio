@@ -1,22 +1,9 @@
 'use client';
 
 import React, { createContext, useContext, useState, useEffect, useCallback, ReactNode, useMemo } from 'react';
-import { useUser, useFirestore } from '@/firebase';
-import { 
-  addDoc, 
-  collection, 
-  deleteDoc, 
-  doc, 
-  getDocs, 
-  onSnapshot, 
-  query, 
-  where, 
-  writeBatch 
-} from 'firebase/firestore';
 
-interface FavouritesContextType {
-  // This context is now effectively empty as per the user's request
-}
+// This context is now effectively empty as per the user's request
+interface FavouritesContextType {}
 
 const FavouritesContext = createContext<FavouritesContextType | undefined>(undefined);
 
@@ -36,7 +23,8 @@ export const FavouritesProvider = ({ children }: { children: ReactNode }) => {
 export const useFavourites = () => {
   const context = useContext(FavouritesContext);
   if (context === undefined) {
-    throw new Error('useFavourites must be used within a FavouritesProvider');
+    // Return a dummy object to avoid crashing the app
+    return { favouritedTools: new Set(), handleFavouriteToggle: () => {} };
   }
   return context;
 };

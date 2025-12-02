@@ -10,7 +10,6 @@ import { Button } from '@/components/ui/button';
 import { Card, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
-import { useFavourites } from '@/context/favourites-context';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 
 
@@ -737,7 +736,7 @@ const toolData: ToolCategory[] = [
             { name: 'Simple English Wikipedia', description: 'Wikipedia in Simple English.', url: 'https://simple.wikipedia.org/wiki/Main_Page', image: 'https://picsum.photos/seed/simplewiki/600/400', dataAiHint: 'simple english', pricing: 'Free' },
             { name: 'ELI5', description: 'Explain Like I\'m 5.', url: 'https://www.reddit.com/r/explainlikeimfive/', image: 'https://picsum.photos/seed/eli5/600/400', dataAiHint: 'simple explanations', pricing: 'Free' },
             { name: 'ChatGPT', description: 'AI assistant for explaining concepts.', url: 'https://chat.openai.com/', image: 'https://picsum.photos/seed/chatgpt-concept/600/400', dataAiHint: 'ai explainer', pricing: 'Freemium' },
-            { name: 'Gemini', description: 'Google\'s AI for explanations.', url: 'https://gemini.google.com/', image: 'https://picsum.photos/seed/gemini-concept/600/400', dataAiHint: 'google explainer', pricing: 'Free' },
+            { name: 'Gemini', description: 'Google\'s AI for learning.', url: 'https://gemini.google.com/', image: 'https://picsum.photos/seed/gemini-concept/600/400', dataAiHint: 'google explainer', pricing: 'Free' },
             { name: 'Perplexity AI', description: 'Answer engine for complex topics.', url: 'https://www.perplexity.ai/', image: 'https://picsum.photos/seed/perplexity-concept/600/400', dataAiHint: 'answer engine', pricing: 'Freemium' },
             { name: 'The Feynman Technique', description: 'A mental model for learning.', url: 'https://fs.blog/feynman-technique/', image: 'https://picsum.photos/seed/feynman/600/400', dataAiHint: 'learning technique', pricing: 'Free' },
             { name: 'In a Nutshell – Kurzgesagt', description: 'Animated educational videos.', url: 'https://www.youtube.com/c/inanutshell', image: 'https://picsum.photos/seed/kurzgesagt/600/400', dataAiHint: 'animated videos', pricing: 'Free' },
@@ -882,7 +881,6 @@ const toolData: ToolCategory[] = [
 
 export default function StudentToolsPage() {
     const { toast } = useToast();
-    const { favouritedTools, handleFavouriteToggle } = useFavourites();
     const [priceFilter, setPriceFilter] = React.useState('All');
     const [open, setOpen] = React.useState(false);
 
@@ -912,12 +910,6 @@ export default function StudentToolsPage() {
         }
     }, [toast]);
 
-    const handleFavouriteClick = (e: React.MouseEvent, toolName: string) => {
-        e.preventDefault();
-        e.stopPropagation();
-        handleFavouriteToggle(toolName);
-    };
-
     const ToolCard = ({ tool }: { tool: Tool }) => (
         <Link href={tool.url} key={tool.name} target="_blank" rel="noopener noreferrer" className="block group w-40 shrink-0">
           <Card 
@@ -946,9 +938,6 @@ export default function StudentToolsPage() {
                   <div className="flex flex-col items-center gap-1 shrink-0 pl-1">
                       <Button variant="ghost" size="icon" className="w-7 h-7 rounded-full text-foreground/80 bg-white/30 hover:bg-white/50" onClick={(e) => handleShareTool(e, tool)}>
                           <Share2 className="w-3 h-3" />
-                      </Button>
-                      <Button variant="ghost" size="icon" className="w-7 h-7 rounded-full text-foreground/80 bg-white/30 hover:bg-white/50" onClick={(e) => handleFavouriteClick(e, tool.name)}>
-                          <Star className={cn('w-4 h-4 transition-all', favouritedTools.has(tool.name) ? 'fill-yellow-300 text-yellow-300' : 'text-foreground/60')}/>
                       </Button>
                   </div>
               </div>
@@ -1034,4 +1023,5 @@ export default function StudentToolsPage() {
     </div>
   );
 }
+
 
