@@ -126,31 +126,31 @@ function Step1_BasicDetails() {
               <PopoverContent className="w-[--radix-popover-trigger-width] p-0">
                 <Command>
                   <CommandInput placeholder="Search category..." />
-                  <CommandEmpty>No category found.</CommandEmpty>
-                  <CommandGroup>
-                    <CommandList>
-                      {categories.map((category) => (
-                        <CommandItem
-                          value={category}
-                          key={category}
-                          onSelect={() => {
-                            form.setValue("category", category)
-                            setOpen(false)
-                          }}
-                        >
-                          <Check
-                            className={cn(
-                              "mr-2 h-4 w-4",
-                              category === field.value
-                                ? "opacity-100"
-                                : "opacity-0"
-                            )}
-                          />
-                          {category}
-                        </CommandItem>
-                      ))}
-                    </CommandList>
-                  </CommandGroup>
+                  <CommandList>
+                    <CommandEmpty>No category found.</CommandEmpty>
+                    <CommandGroup>
+                        {categories.map((category) => (
+                          <CommandItem
+                            value={category}
+                            key={category}
+                            onSelect={() => {
+                              form.setValue("category", category)
+                              setOpen(false)
+                            }}
+                          >
+                            <Check
+                              className={cn(
+                                "mr-2 h-4 w-4",
+                                category === field.value
+                                  ? "opacity-100"
+                                  : "opacity-0"
+                              )}
+                            />
+                            {category}
+                          </CommandItem>
+                        ))}
+                    </CommandGroup>
+                  </CommandList>
                 </Command>
               </PopoverContent>
             </Popover>
