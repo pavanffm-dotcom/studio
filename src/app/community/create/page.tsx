@@ -134,7 +134,7 @@ function Step1_BasicDetails() {
                 </FormControl>
               </PopoverTrigger>
               <PopoverContent className="w-[--radix-popover-trigger-width] p-0">
-                <ScrollArea className="h-72">
+                 <ScrollArea className="h-72">
                   <div className="p-1">
                     {categories.map((category) => (
                       <Button
