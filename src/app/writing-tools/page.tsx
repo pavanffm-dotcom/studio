@@ -4,13 +4,15 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { 
-    ArrowLeft, ExternalLink, Star, Share2, Feather, Type, Bot, Book, Search, FileText, Mic, Mail, MonitorPlay, MessageSquare, Briefcase, FileSignature, Dna, PenTool, Globe, StickyNote, BrainCircuit, Quote, Tv, Newspaper, Users, Key, BookOpen, ClipboardList, CheckCircle2, Lightbulb, GraduationCap, Filter
+    ArrowLeft, ExternalLink, Star, Share2, Feather, Type, Bot, Book, Search, FileText, Mic, Mail, MonitorPlay, MessageSquare, Briefcase, FileSignature, Dna, PenTool, Globe, StickyNote, BrainCircuit, Quote, Tv, Newspaper, Users, Key, BookOpen, ClipboardList, CheckCircle2, Lightbulb, GraduationCap, Filter, Heart
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import { useSavedTools } from '@/context/saved-tools-context';
+
 
 type Tool = {
     name: string;
@@ -572,7 +574,17 @@ export default function WritingToolsPage() {
         }
     }, [toast]);
 
-    const ToolCard = ({ tool }: { tool: Tool }) => (
+    const ToolCard = ({ tool }: { tool: Tool }) => {
+        const { savedTools, handleSaveToggle } = useSavedTools();
+        const isSaved = savedTools.has(tool.name);
+    
+        const handleHeartClick = (e: React.MouseEvent) => {
+            e.preventDefault();
+            e.stopPropagation();
+            handleSaveToggle(tool.name);
+        }
+
+        return (
         <Link href={tool.url} key={tool.name} target="_blank" rel="noopener noreferrer" className="block group w-40 shrink-0">
           <Card 
             className="bg-white/80 border-none rounded-3xl soft-shadow transition-all duration-300 group-hover:scale-[1.02] group-hover:shadow-lg overflow-hidden h-full flex flex-col"
@@ -601,12 +613,15 @@ export default function WritingToolsPage() {
                       <Button variant="ghost" size="icon" className="w-7 h-7 rounded-full text-foreground/80 bg-white/30 hover:bg-white/50" onClick={(e) => handleShareTool(e, tool)}>
                           <Share2 className="w-3 h-3" />
                       </Button>
+                      <Button variant="ghost" size="icon" className="w-7 h-7 rounded-full text-foreground/80 bg-white/30 hover:bg-white/50" onClick={handleHeartClick}>
+                        <Heart className={cn('w-4 h-4 transition-all', isSaved ? 'fill-red-500 text-red-500' : 'text-foreground/60')}/>
+                      </Button>
                   </div>
               </div>
             </div>
           </Card>
         </Link>
-    );
+    )};
     
     const filteredToolData = React.useMemo(() => {
         if (priceFilter === 'All') {

@@ -19,15 +19,16 @@ export const SavedToolsProvider = ({ children }: { children: ReactNode }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    let unsubscribe: () => void = () => {};
+
     if (user && firestore) {
       setIsLoading(true);
       const userDocRef = doc(firestore, 'users', user.uid);
       
-      const unsubscribe = onSnapshot(userDocRef, (docSnap) => {
-        if (docSnap.exists() && docSnap.data().savedTools) {
+      unsubscribe = onSnapshot(userDocRef, (docSnap) => {
+        if (docSnap.exists() && Array.isArray(docSnap.data().savedTools)) {
           setSavedTools(new Set(docSnap.data().savedTools));
         } else {
-          // If the doc doesn't exist or has no savedTools, ensure the local state is empty
           setSavedTools(new Set());
         }
         setIsLoading(false);
@@ -36,27 +37,27 @@ export const SavedToolsProvider = ({ children }: { children: ReactNode }) => {
         setIsLoading(false);
       });
 
-      return () => unsubscribe();
-    } else {
-      // Not logged in or Firestore not available, clear saved tools and loading state
+    } else if (!user) {
+      // If user is logged out, clear the tools and stop loading.
       setSavedTools(new Set());
       setIsLoading(false);
     }
+    
+    // Cleanup subscription on unmount or when user/firestore changes
+    return () => unsubscribe();
   }, [user, firestore]);
 
   const handleSaveToggle = useCallback(async (toolName: string) => {
     if (!user || !firestore) {
-      // TODO: Maybe prompt the user to log in
       console.log("User must be logged in to save tools.");
       return;
     }
 
     const userDocRef = doc(firestore, 'users', user.uid);
-    
+    const isCurrentlySaved = savedTools.has(toolName);
+
     // Optimistically update UI
     const newSavedTools = new Set(savedTools);
-    const isCurrentlySaved = newSavedTools.has(toolName);
-    
     if (isCurrentlySaved) {
       newSavedTools.delete(toolName);
     } else {
@@ -64,7 +65,6 @@ export const SavedToolsProvider = ({ children }: { children: ReactNode }) => {
     }
     setSavedTools(newSavedTools);
 
-    // Update Firestore in the background
     try {
       await setDoc(userDocRef, { 
         savedTools: isCurrentlySaved ? arrayRemove(toolName) : arrayUnion(toolName) 
@@ -79,7 +79,6 @@ export const SavedToolsProvider = ({ children }: { children: ReactNode }) => {
         revertedTools.delete(toolName);
       }
       setSavedTools(revertedTools);
-      // Optionally show a toast notification for the error
     }
   }, [savedTools, user, firestore]);
 
