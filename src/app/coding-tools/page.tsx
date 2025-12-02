@@ -4,13 +4,13 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { 
-    ArrowLeft, ExternalLink, Code, Share2, Terminal, Braces, Server, Database, Link2, CloudCog, GitBranch, Bug, Paintbrush, Box, Bot, TerminalSquare, PackageCheck, Shield, Smartphone, Gamepad2, BrainCircuit, Gauge, ChevronRight, Filter, Heart
+    ArrowLeft, ExternalLink, Code, Share2, Terminal, Braces, Server, Database, Link2, CloudCog, GitBranch, Bug, Paintbrush, Box, Bot, TerminalSquare, PackageCheck, Shield, Smartphone, Gamepad2, BrainCircuit, Gauge, ChevronRight, Filter, Star
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
-import { useSavedTools } from '@/context/saved-tools-context';
+import { useUserPreferences } from '@/context/user-preferences-context';
 import { cn } from '@/lib/utils';
 
 type Tool = {
@@ -254,13 +254,13 @@ export default function CodingToolsPage() {
     }, [toast]);
 
   const ToolCard = ({ tool }: { tool: Tool }) => {
-    const { savedTools, handleSaveToggle } = useSavedTools();
-    const isSaved = savedTools.has(tool.name);
+    const { starredTools, handleStarToggle } = useUserPreferences();
+    const isStarred = starredTools.has(tool.name);
 
-    const handleHeartClick = (e: React.MouseEvent) => {
+    const handleStarClick = (e: React.MouseEvent) => {
         e.preventDefault();
         e.stopPropagation();
-        handleSaveToggle(tool.name);
+        handleStarToggle(tool.name);
     }
 
     return (
@@ -292,8 +292,8 @@ export default function CodingToolsPage() {
                     <Button variant="ghost" size="icon" className="w-7 h-7 rounded-full text-foreground/80 bg-white/30 hover:bg-white/50" onClick={(e) => handleShareTool(e, tool)}>
                         <Share2 className="w-3 h-3" />
                     </Button>
-                    <Button variant="ghost" size="icon" className="w-7 h-7 rounded-full text-foreground/80 bg-white/30 hover:bg-white/50" onClick={handleHeartClick}>
-                        <Heart className={cn('w-4 h-4 transition-all', isSaved ? 'fill-red-500 text-red-500' : 'text-foreground/60')}/>
+                    <Button variant="ghost" size="icon" className="w-7 h-7 rounded-full text-foreground/80 bg-white/30 hover:bg-white/50" onClick={handleStarClick}>
+                        <Star className={cn('w-4 h-4 transition-all', isStarred ? 'fill-yellow-300 text-yellow-300' : 'text-foreground/60')}/>
                     </Button>
                 </div>
             </div>
