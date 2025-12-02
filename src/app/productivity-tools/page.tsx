@@ -1,3 +1,4 @@
+
 'use client';
 
 import React from 'react';
@@ -26,22 +27,7 @@ import { useToast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { useUserPreferences } from '@/context/user-preferences-context';
-
-
-type Tool = {
-    name: string;
-    description: string;
-    url: string;
-    image: string;
-    dataAiHint: string;
-    pricing: 'Free' | 'Paid' | 'Freemium';
-};
-
-type ToolCategory = {
-    title: string;
-    icon: React.ReactNode;
-    tools: Tool[];
-};
+import { type Tool, type ToolCategory } from '@/lib/tools-data.tsx';
 
 const toolData: ToolCategory[] = [
     {
@@ -153,7 +139,6 @@ const toolData: ToolCategory[] = [
             { name: 'Heptabase', description: 'A visual note-taking tool for learning complex topics.', url: 'https://heptabase.com/', image: 'https://picsum.photos/seed/heptabase/600/400', dataAiHint: 'visual learning', pricing: 'Paid' },
             { name: 'Scrintal', description: 'A visual note-taking tool & mind mapper.', url: 'https://www.scrintal.com/', image: 'https://picsum.photos/seed/scrintal/600/400', dataAiHint: 'visual notes', pricing: 'Paid' },
             { name: 'AmpleNote', description: 'The all-in-one productivity app.', url: 'https://www.amplenote.com/', image: 'https://picsum.photos/seed/amplenote/600/400', dataAiHint: 'notes tasks calendar', pricing: 'Freemium' },
-            { name: 'UpNote', description: 'A most elegant and powerful note-taking app.', url: 'https://upnote.me/', image: 'https://picsum.photos/seed/upnote/600/400', dataAiHint: 'elegant notes', pricing: 'Paid' },
             { name: 'Taskade', description: 'Your second brain for teams.', url: 'https://www.taskade.com/', image: 'https://picsum.photos/seed/taskade/600/400', dataAiHint: 'team brain', pricing: 'Freemium' },
         ]
     },

@@ -1,3 +1,4 @@
+
 'use client';
 
 import React from 'react';
@@ -12,22 +13,7 @@ import { useToast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { useUserPreferences } from '@/context/user-preferences-context';
-
-
-type Tool = {
-    name: string;
-    description: string;
-    url: string;
-    image: string;
-    dataAiHint: string;
-    pricing: 'Free' | 'Paid' | 'Freemium';
-};
-
-type ToolCategory = {
-    title: string;
-    icon: React.ReactNode;
-    tools: Tool[];
-};
+import { type Tool, type ToolCategory } from '@/lib/tools-data.tsx';
 
 // Helper icons since they are not in lucide-react by default
 const ShoppingCart = (props: React.JSX.IntrinsicAttributes & React.SVGProps<SVGSVGElement>) => (

@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { useCallback, useMemo, useState } from 'react';
@@ -64,7 +65,7 @@ import {
     textToImageTools,
     toolCategories,
     allTools,
-} from '@/lib/tools-data';
+} from '@/lib/tools-data.tsx';
 import { ToolIcon } from '@/lib/tool-icons';
 import { useUserPreferences } from '@/context/user-preferences-context';
 
