@@ -666,6 +666,7 @@ export default function GraphicDesignToolsPage() {
     const { toast } = useToast();
     const [priceFilter, setPriceFilter] = React.useState('All');
     const [open, setOpen] = React.useState(false);
+    const { handleSaveToggle } = useSavedTools();
 
     const handleShareTool = React.useCallback(async (e: React.MouseEvent, tool: {name: string, url: string}) => {
         e.preventDefault();
@@ -693,7 +694,7 @@ export default function GraphicDesignToolsPage() {
     }, [toast]);
 
   const ToolCard = ({ tool }: { tool: Tool }) => {
-    const { savedTools, handleSaveToggle } = useSavedTools();
+    const { savedTools } = useSavedTools();
     const isSaved = savedTools.has(tool.name);
 
     const handleHeartClick = (e: React.MouseEvent) => {
