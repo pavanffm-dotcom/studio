@@ -106,6 +106,50 @@
         "comment",
         "dateCreated"
       ]
+    },
+    "Group": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Group",
+      "type": "object",
+      "description": "A user-created community for sharing AI tools.",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "ownerId": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "memberCount": { "type": "number" },
+        "isPublic": { "type": "boolean", "default": true }
+      },
+      "required": ["name", "description", "ownerId", "createdAt"]
+    },
+    "GroupTool": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "GroupTool",
+      "type": "object",
+      "description": "An AI tool that has been added to a group.",
+      "properties": {
+        "id": { "type": "string" },
+        "toolName": { "type": "string" },
+        "toolUrl": { "type": "string", "format": "uri" },
+        "toolDescription": { "type": "string" },
+        "addedBy": { "type": "string" },
+        "addedAt": { "type": "string", "format": "date-time" },
+        "upvotes": { "type": "number", "default": 0 }
+      },
+      "required": ["toolName", "toolUrl", "addedBy", "addedAt"]
+    },
+    "GroupMember": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "title": "GroupMember",
+        "type": "object",
+        "description": "Represents a user's membership in a group.",
+        "properties": {
+            "userId": { "type": "string" },
+            "joinedAt": { "type": "string", "format": "date-time" },
+            "role": { "type": "string", "enum": ["owner", "admin", "member"] }
+        },
+        "required": ["userId", "joinedAt", "role"]
     }
   },
   "auth": {
@@ -120,55 +164,50 @@
         "path": "/categories/{categoryId}",
         "definition": {
           "entityName": "Category",
-          "schema": {
-            "$ref": "#/backend/entities/Category"
-          },
-          "description": "Stores AI tool categories. Used for organizing and displaying AI tools.",
-          "params": [
-            {
-              "name": "categoryId",
-              "description": "Unique identifier for the category."
-            }
-          ]
+          "schema": { "$ref": "#/backend/entities/Category" },
+          "description": "Stores AI tool categories."
         }
       },
       {
         "path": "/ai_tools/{aiToolId}",
         "definition": {
           "entityName": "AiTool",
-          "schema": {
-            "$ref": "#/backend/entities/AiTool"
-          },
-          "description": "Stores the details of each AI tool, including its name, description, category, and link.",
-          "params": [
-            {
-              "name": "aiToolId",
-              "description": "Unique identifier for the AI tool."
-            }
-          ]
+          "schema": { "$ref": "#/backend/entities/AiTool" },
+          "description": "Stores the details of each AI tool."
         }
       },
       {
         "path": "/ai_tools/{aiToolId}/reviews/{reviewId}",
         "definition": {
           "entityName": "Review",
-          "schema": {
-            "$ref": "#/backend/entities/Review"
-          },
-          "description": "Stores user reviews for each AI tool. Includes denormalized 'categoryId' from the AiTool document for authorization independence.",
-          "params": [
-            {
-              "name": "aiToolId",
-              "description": "Unique identifier for the AI tool."
-            },
-            {
-              "name": "reviewId",
-              "description": "Unique identifier for the review."
-            }
-          ]
+          "schema": { "$ref": "#/backend/entities/Review" },
+          "description": "Stores user reviews for each AI tool."
         }
+      },
+      {
+          "path": "/groups/{groupId}",
+          "definition": {
+              "entityName": "Group",
+              "schema": { "$ref": "#/backend/entities/Group" },
+              "description": "Stores information about user-created clubs."
+          }
+      },
+      {
+          "path": "/groups/{groupId}/members/{userId}",
+          "definition": {
+              "entityName": "GroupMember",
+              "schema": { "$ref": "#/backend/entities/GroupMember" },
+              "description": "Stores members of a club."
+          }
+      },
+      {
+          "path": "/groups/{groupId}/tools/{groupToolId}",
+          "definition": {
+              "entityName": "GroupTool",
+              "schema": { "$ref": "#/backend/entities/GroupTool" },
+              "description": "Stores AI tools added to a club."
+          }
       }
-    ],
-    "reasoning": "The Firestore data structure is designed to support the AI Atlas platform, focusing on discoverability and user reviews of AI tools across various categories. It prioritizes Authorization Independence and supports listing operations (QAPs) through structural segregation. \n\n1.  **Categories Collection:** The `/categories` collection stores information about AI tool categories. This allows for easy management and retrieval of categories, which are essential for organizing the AI tools.\n2.  **AI Tools Collection:** The `/ai_tools` collection holds the details of each AI tool. The `categoryId` field establishes the relationship between AI tools and categories.\n3.  **Reviews Subcollection:** User reviews are stored within a subcollection `/ai_tools/{aiToolId}/reviews`. This structure efficiently organizes reviews associated with each AI tool and simplifies querying reviews for a specific tool. The `userId` is included in each review, enabling identification of the reviewer. To guarantee authorization independence, the `categoryId` of the parent `/ai_tools/{aiToolId}` document is denormalized into each `review` document. This allows security rules to validate that a user can only create reviews for tools within a specified category, without having to perform a `get()` operation on the parent document.\n\n**Authorization Independence:** The denormalization of `categoryId` from the `ai_tools` document into the `reviews` documents allows security rules to enforce access control without relying on hierarchical `get()` calls. This improves security and performance.\n\n**QAPs (Rules are not Filters):** The data structure supports secure `list` operations. Categories and AI Tools are stored in separate collections, adhering to structural segregation. Reviews are stored in subcollections, but authorization independence is assured via `categoryId` denormalization. As such, the security rules will not act as filters."
+    ]
   }
 }

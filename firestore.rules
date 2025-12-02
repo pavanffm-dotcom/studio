@@ -1,25 +1,22 @@
 /**
  * Core Philosophy: This ruleset supports a public-facing catalog of AI tools that authenticated users can review.
- * It enforces a model where catalog data (categories, tools) is publicly readable but not client-writable,
- * treating it as admin-managed content. User-generated content (reviews, favourites) is publicly readable, but can only be
- * created, modified, or deleted by the user who owns it.
+ * It also supports user-created groups (Clubs) where members can share and vote on tools.
  *
- * Data Structure: The data is organized into top-level collections like `/categories` and `/ai_tools`,
- * and a `/users` collection for user-specific data. Each user document can contain subcollections
- * like `/favourites`.
+ * Data Structure:
+ * - Public data: `/categories`, `/ai_tools` are publicly readable, admin-managed.
+ * - User data: `/users/{userId}` for personal preferences like hearted/starred tools.
+ * - Community data: `/groups/{groupId}` for club information, with subcollections for members and tools.
  *
  * Key Security Decisions:
- * - Public Read-Only Catalog: The `/categories` and `/ai_tools` collections are readable by anyone.
- *   All client write operations are disabled to protect data integrity.
- * - User-Owned Data: A user must be signed in to write reviews or manage their favourites.
- *   They have full control over their own data, enforced by matching `request.auth.uid` with the document path or a `userId` field.
- * - No User Listing: The rules do not support listing all users of the platform.
- *
- * Denormalization for Authorization: The security model relies on a denormalized `userId` field within `review`
- * documents. For `favourites`, ownership is determined by the document path itself (`/users/{userId}/...`).
- *
- * Structural Segregation: The separation of public data from user-specific data provides a clear structure
- * for applying different access rules.
+ * - Public Read-Only Catalog: `/categories` and `/ai_tools` are world-readable, client-writable false.
+ * - User-Owned Data: A user must be signed in to manage their own `heartedTools` and `starredTools`.
+ * - Community Groups (Clubs):
+ *   - Authenticated users can create new groups.
+ *   - Public groups are readable by anyone.
+ *   - Only the group owner can edit or delete the group.
+ *   - Members can be added/managed (future implementation).
+ *   - Members can add tools to a group.
+ *   - Members can upvote tools within a group (future implementation).
  */
 rules_version = '2';
 service cloud.firestore {
@@ -29,71 +26,85 @@ service cloud.firestore {
     // Helper Functions
     //-------------------------------------------------------------------------
 
-    /**
-     * Checks if the user is authenticated.
-     */
     function isSignedIn() {
       return request.auth != null;
     }
 
-    /**
-     * Checks if the currently authenticated user's UID matches the provided userId.
-     */
     function isOwner(userId) {
       return isSignedIn() && request.auth.uid == userId;
     }
 
-    /**
-     * Checks for ownership on an existing document. Used for safe updates and deletes.
-     */
     function isExistingOwner(userId) {
       return isOwner(userId) && resource != null;
+    }
+    
+    function isGroupOwner(groupId) {
+      return isSignedIn() && get(/databases/$(database)/documents/groups/$(groupId)).data.ownerId == request.auth.uid;
+    }
+    
+    function isGroupMember(groupId) {
+      // For now, allow any signed-in user to act as a member of public groups for simplicity.
+      // A full implementation would check a 'members' subcollection.
+      return isSignedIn() && get(/databases/$(database)/documents/groups/$(groupId)).data.isPublic == true;
     }
 
     //-------------------------------------------------------------------------
     // Collection Rules
     //-------------------------------------------------------------------------
 
-    /**
-     * @description Controls access to the AI tool categories. Categories are public and read-only for clients.
-     */
     match /categories/{categoryId} {
-      allow get: if true;
-      allow list: if true;
+      allow get, list: if true;
       allow write: if false;
     }
 
-    /**
-     * @description Controls access to AI tool documents. AI tools are public and read-only for clients.
-     */
     match /ai_tools/{aiToolId} {
-      allow get: if true;
-      allow list: if true;
+      allow get, list: if true;
       allow write: if false;
 
-      /**
-       * @description Controls access to reviews for a specific AI tool.
-       */
       match /reviews/{reviewId} {
-        allow get: if true;
-        allow list: if true;
+        allow get, list: if true;
         allow create: if isSignedIn() && request.resource.data.userId == request.auth.uid;
         allow update: if isExistingOwner(resource.data.userId) && request.resource.data.userId == resource.data.userId;
         allow delete: if isExistingOwner(resource.data.userId);
       }
     }
     
-    /**
-     * @description Controls access to user-specific data, including saved and starred tools.
-     */
     match /users/{userId} {
-      // Users can read their own document.
-      // They can create it, and update their hearted/starred tools.
-      allow read: if isOwner(userId);
+      allow read, update: if isOwner(userId);
       allow create: if isSignedIn();
-      allow update: if isOwner(userId);
-      // Disallow client-side deletion of the main user document for safety.
       allow delete: if false;
+    }
+
+    //-------------------------------------------------------------------------
+    // Community (Clubs) Rules
+    //-------------------------------------------------------------------------
+    
+    match /groups/{groupId} {
+      // Anyone can read public groups
+      allow get: if resource.data.isPublic == true;
+      // Any signed-in user can list all groups (for the community page)
+      allow list: if isSignedIn();
+      // Any signed-in user can create a group, making them the owner
+      allow create: if isSignedIn() && request.resource.data.ownerId == request.auth.uid;
+      // Only the owner can update or delete the group
+      allow update, delete: if isGroupOwner(groupId);
+
+      // Rules for group members subcollection
+      match /members/{userId} {
+        // Only owner can add/remove members (or members can join/leave public groups)
+        allow read, write: if isGroupOwner(groupId) || isOwner(userId);
+      }
+
+      // Rules for tools shared within a group
+      match /tools/{groupToolId} {
+        allow get, list: if true; // Anyone can see tools in a public group
+        // Only a group member can add a tool
+        allow create: if isGroupMember(groupId) && request.resource.data.addedBy == request.auth.uid;
+        // Only the user who added the tool or the group owner can delete it
+        allow delete: if isGroupMember(groupId) && (resource.data.addedBy == request.auth.uid || isGroupOwner(groupId));
+        // Members can upvote (future implementation)
+        allow update: if isGroupMember(groupId);
+      }
     }
   }
 }
