@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { Button } from './ui/button';
-import { ArrowLeft, Club, Plus } from 'lucide-react';
+import { ArrowLeft, Club, Plus, Search } from 'lucide-react';
 import { GalaxyLogo } from './galaxy-logo';
 import { useRouter } from 'next/navigation';
 
@@ -40,15 +40,15 @@ export function ClubHeader({
         <h1 className="text-2xl font-bold text-foreground">{title}</h1>
       </div>
       <div className="flex items-center gap-2">
+        <Button variant="ghost" size="icon" className="rounded-full h-12 w-12"><Search className="w-6 h-6"/></Button>
         {showCreateButton && (
            <Link href="/community/create">
-             <Button variant="outline" className="rounded-full h-12 text-base">
-               <Plus className="w-4 h-4 mr-2" />
-               Create Club
+             <Button variant="default" className="rounded-full h-12 text-base glow-shadow">
+               <Plus className="w-5 h-5 mr-2" />
+               Create
              </Button>
            </Link>
         )}
-        <GalaxyLogo className="w-10 h-10" />
       </div>
     </header>
   );
