@@ -128,44 +128,37 @@ function Step1_BasicDetails() {
                       !field.value && "text-muted-foreground"
                     )}
                   >
-                    {field.value
-                      ? categories.find(
-                          (category) => category === field.value
-                        )
-                      : "Select category"}
+                    {field.value || "Select category"}
                     <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                   </Button>
                 </FormControl>
               </PopoverTrigger>
               <PopoverContent className="w-[--radix-popover-trigger-width] p-0">
-                <Command>
-                  <CommandInput placeholder="Search category..." />
-                  <CommandList>
-                    <CommandEmpty>No category found.</CommandEmpty>
-                    <CommandGroup>
-                        {categories.map((category) => (
-                          <CommandItem
-                            value={category}
-                            key={category}
-                            onSelect={() => {
-                              form.setValue("category", category)
-                              setOpen(false)
-                            }}
-                          >
-                            <Check
-                              className={cn(
-                                "mr-2 h-4 w-4",
-                                category === field.value
-                                  ? "opacity-100"
-                                  : "opacity-0"
-                              )}
-                            />
-                            {category}
-                          </CommandItem>
-                        ))}
-                    </CommandGroup>
-                  </CommandList>
-                </Command>
+                <ScrollArea className="h-72">
+                  <div className="p-1">
+                    {categories.map((category) => (
+                      <Button
+                        variant="ghost"
+                        key={category}
+                        onClick={() => {
+                          form.setValue("category", category);
+                          setOpen(false);
+                        }}
+                        className="w-full justify-start"
+                      >
+                        <Check
+                          className={cn(
+                            "mr-2 h-4 w-4",
+                            category === field.value
+                              ? "opacity-100"
+                              : "opacity-0"
+                          )}
+                        />
+                        {category}
+                      </Button>
+                    ))}
+                  </div>
+                </ScrollArea>
               </PopoverContent>
             </Popover>
             <FormMessage />
