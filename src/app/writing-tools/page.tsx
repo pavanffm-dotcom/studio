@@ -548,6 +548,8 @@ export default function WritingToolsPage() {
     const { toast } = useToast();
     const [priceFilter, setPriceFilter] = React.useState('All');
     const [open, setOpen] = React.useState(false);
+    const { starredTools, handleStarToggle } = useUserPreferences();
+
 
     const handleShareTool = React.useCallback(async (e: React.MouseEvent, tool: Tool) => {
         e.preventDefault();
@@ -575,7 +577,6 @@ export default function WritingToolsPage() {
     }, [toast]);
 
     const ToolCard = ({ tool }: { tool: Tool }) => {
-        const { starredTools, handleStarToggle } = useUserPreferences();
         const isStarred = starredTools.has(tool.name);
     
         const handleStarClick = (e: React.MouseEvent) => {

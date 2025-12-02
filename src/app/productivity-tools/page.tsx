@@ -25,7 +25,7 @@ import { Card, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
-import { useSavedTools } from '@/context/saved-tools-context';
+import { useUserPreferences } from '@/context/user-preferences-context';
 
 
 type Tool = {
@@ -600,7 +600,7 @@ export default function ProductivityToolsPage() {
     const { toast } = useToast();
     const [priceFilter, setPriceFilter] = React.useState('All');
     const [open, setOpen] = React.useState(false);
-    const { handleSaveToggle } = useSavedTools();
+    const { starredTools, handleStarToggle } = useUserPreferences();
 
     const handleShareTool = React.useCallback(async (e: React.MouseEvent, tool: Tool) => {
         e.preventDefault();
@@ -628,13 +628,12 @@ export default function ProductivityToolsPage() {
     }, [toast]);
 
     const ToolCard = ({ tool }: { tool: Tool }) => {
-        const { savedTools } = useSavedTools();
-        const isSaved = savedTools.has(tool.name);
+        const isStarred = starredTools.has(tool.name);
     
-        const handleHeartClick = (e: React.MouseEvent) => {
+        const handleStarClick = (e: React.MouseEvent) => {
             e.preventDefault();
             e.stopPropagation();
-            handleSaveToggle(tool.name);
+            handleStarToggle(tool.name);
         }
         
         return (
@@ -666,8 +665,8 @@ export default function ProductivityToolsPage() {
                       <Button variant="ghost" size="icon" className="w-7 h-7 rounded-full text-foreground/80 bg-white/30 hover:bg-white/50" onClick={(e) => handleShareTool(e, tool)}>
                           <Share2 className="w-3 h-3" />
                       </Button>
-                      <Button variant="ghost" size="icon" className="w-7 h-7 rounded-full text-foreground/80 bg-white/30 hover:bg-white/50" onClick={handleHeartClick}>
-                        <Heart className={cn('w-4 h-4 transition-all', isSaved ? 'fill-red-500 text-red-500' : 'text-foreground/60')}/>
+                      <Button variant="ghost" size="icon" className="w-7 h-7 rounded-full text-foreground/80 bg-white/30 hover:bg-white/50" onClick={handleStarClick}>
+                        <Star className={cn('w-4 h-4 transition-all', isStarred ? 'fill-yellow-300 text-yellow-300' : 'text-foreground/60')}/>
                       </Button>
                   </div>
               </div>
