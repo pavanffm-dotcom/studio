@@ -4,13 +4,13 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { 
-    ArrowLeft, ExternalLink, Paintbrush, Share2, Palette, Instagram, Youtube, Clapperboard, Megaphone, Tv, Layout, FileText, Globe, Gem, Braces, Smartphone, LayoutDashboard, BookOpen, Contact, Type, PenTool, ImagePlay, Sparkles, Shapes, UserCircle, BrainCircuit, Newspaper, BoxSelect, MousePointerClick, BookCopy, Wallpaper, Car, Store, TowerControl, Box, Truck, Film, SquareParking, Filter, Heart
+    ArrowLeft, ExternalLink, Paintbrush, Share2, Palette, Instagram, Youtube, Clapperboard, Megaphone, Tv, Layout, FileText, Globe, Gem, Braces, Smartphone, LayoutDashboard, BookOpen, Contact, Type, PenTool, ImagePlay, Sparkles, Shapes, UserCircle, BrainCircuit, Newspaper, BoxSelect, MousePointerClick, BookCopy, Wallpaper, Car, Store, TowerControl, Box, Truck, Film, SquareParking, Filter, Star
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
-import { useSavedTools } from '@/context/saved-tools-context';
+import { useUserPreferences } from '@/context/user-preferences-context';
 import { cn } from '@/lib/utils';
 
 
@@ -666,7 +666,7 @@ export default function GraphicDesignToolsPage() {
     const { toast } = useToast();
     const [priceFilter, setPriceFilter] = React.useState('All');
     const [open, setOpen] = React.useState(false);
-    const { handleSaveToggle } = useSavedTools();
+    const { handleStarToggle } = useUserPreferences();
 
     const handleShareTool = React.useCallback(async (e: React.MouseEvent, tool: {name: string, url: string}) => {
         e.preventDefault();
@@ -694,13 +694,13 @@ export default function GraphicDesignToolsPage() {
     }, [toast]);
 
   const ToolCard = ({ tool }: { tool: Tool }) => {
-    const { savedTools } = useSavedTools();
-    const isSaved = savedTools.has(tool.name);
+    const { starredTools } = useUserPreferences();
+    const isStarred = starredTools.has(tool.name);
 
-    const handleHeartClick = (e: React.MouseEvent) => {
+    const handleFavouriteClick = (e: React.MouseEvent, toolName: string) => {
         e.preventDefault();
         e.stopPropagation();
-        handleSaveToggle(tool.name);
+        handleStarToggle(toolName);
     }
     
     return (
@@ -732,8 +732,8 @@ export default function GraphicDesignToolsPage() {
                   <Button variant="ghost" size="icon" className="w-7 h-7 rounded-full text-foreground/80 bg-white/30 hover:bg-white/50" onClick={(e) => handleShareTool(e, tool)}>
                       <Share2 className="w-3 h-3" />
                   </Button>
-                  <Button variant="ghost" size="icon" className="w-7 h-7 rounded-full text-foreground/80 bg-white/30 hover:bg-white/50" onClick={handleHeartClick}>
-                    <Heart className={cn('w-4 h-4 transition-all', isSaved ? 'fill-red-500 text-red-500' : 'text-foreground/60')}/>
+                  <Button variant="ghost" size="icon" className="w-7 h-7 rounded-full text-foreground/80 bg-white/30 hover:bg-white/50" onClick={(e) => handleFavouriteClick(e, tool.name)}>
+                      <Star className={cn('w-4 h-4 transition-all', isStarred ? 'fill-yellow-300 text-yellow-300' : 'text-foreground/60')}/>
                   </Button>
               </div>
           </div>

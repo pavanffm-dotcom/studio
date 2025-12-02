@@ -196,7 +196,6 @@ function App() {
   const { heartedTools, starredTools } = useUserPreferences();
   const [activeSavedTab, setActiveSavedTab] = useState('recent');
 
-
   const heartedToolsDetails = useMemo(() => {
     return allTools.filter(tool => heartedTools.has(tool.name));
   }, [heartedTools]);
