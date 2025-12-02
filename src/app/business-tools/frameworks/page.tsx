@@ -3,12 +3,10 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ArrowLeft, ExternalLink, Code, Star, Share2 } from 'lucide-react';
+import { ArrowLeft, ExternalLink, Code, Share2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
-import { cn } from '@/lib/utils';
-import { useFavourites } from '@/context/favourites-context';
 
 const frameworksTools = [
   {
@@ -36,13 +34,6 @@ const frameworksTools = [
 
 export default function FrameworksToolsPage() {
     const { toast } = useToast();
-    const { favouritedTools, handleFavouriteToggle } = useFavourites();
-
-    const handleFavouriteClick = (e: React.MouseEvent, toolName: string) => {
-        e.preventDefault();
-        e.stopPropagation();
-        handleFavouriteToggle(toolName);
-    };
 
     const handleShareTool = React.useCallback(async (e: React.MouseEvent, tool: typeof frameworksTools[0]) => {
         e.preventDefault();
@@ -122,9 +113,6 @@ export default function FrameworksToolsPage() {
                         <div className="flex items-center gap-1 shrink-0 pl-2">
                             <Button variant="ghost" size="icon" className="w-8 h-8 rounded-full text-foreground/80 bg-white/30 hover:bg-white/50" onClick={(e) => handleShareTool(e, tool)}>
                                 <Share2 className="w-4 h-4" />
-                            </Button>
-                            <Button variant="ghost" size="icon" className="w-8 h-8 rounded-full text-foreground/80 bg-white/30 hover:bg-white/50" onClick={(e) => handleFavouriteClick(e, tool.name)}>
-                                <Star className={cn('w-5 h-5 transition-all', favouritedTools.has(tool.name) ? 'fill-yellow-300 text-yellow-300' : 'text-foreground/60')}/>
                             </Button>
                         </div>
                     </div>

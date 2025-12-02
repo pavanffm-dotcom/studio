@@ -3,14 +3,12 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ArrowLeft, Share2, Star, TrendingUp, Video, ImageIcon, Film, Mic, Voicemail } from 'lucide-react';
+import { ArrowLeft, Share2, TrendingUp, Video, ImageIcon, Film, Mic, Voicemail } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { cn } from '@/lib/utils';
 import { useToast } from '@/hooks/use-toast';
 import { useLanguage } from '@/lib/language';
-import { useFavourites } from '@/context/favourites-context';
 import { Tool } from '@/lib/tools-data';
 
 const textToVideoTools: Tool[] = [
@@ -53,13 +51,7 @@ const voiceCloningTools: Tool[] = [
     { name: 'Uberduck', url: 'https://uberduck.ai/', image: 'https://picsum.photos/seed/uberduck-vc/300/200', category: 'Audio', dataAiHint: 'text to rap', isTrending: false },
 ];
 
-const ToolCard = React.memo(({ tool, isFavourited, onFavouriteToggle, onShare, t }: { tool: Tool, isFavourited: boolean, onFavouriteToggle: (toolName: string) => void, onShare: (e: React.MouseEvent, tool: Tool) => void, t: (key: string) => string }) => {
-  const handleFavouriteClick = React.useCallback((e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    onFavouriteToggle(tool.name);
-  }, [tool.name, onFavouriteToggle]);
-
+const ToolCard = React.memo(({ tool, onShare, t }: { tool: Tool, onShare: (e: React.MouseEvent, tool: Tool) => void, t: (key: string) => string }) => {
   return (
     <Link href={tool.url} target="_blank" rel="noopener noreferrer" className="block w-40 shrink-0">
       <Card className="relative overflow-hidden group cursor-pointer bg-white/50 border-white/20 border-2 rounded-3xl h-full soft-shadow transition-transform hover:scale-105 duration-300">
@@ -78,9 +70,6 @@ const ToolCard = React.memo(({ tool, isFavourited, onFavouriteToggle, onShare, t
               <Button variant="ghost" size="icon" className="w-7 h-7 rounded-full text-white bg-white/20 hover:bg-white/30 backdrop-blur-sm" onClick={(e) => onShare(e, tool)}>
                 <Share2 className="w-3 h-3" />
               </Button>
-              <Button variant="ghost" size="icon" className="w-7 h-7 rounded-full text-white bg-white/20 hover:bg-white/30 backdrop-blur-sm" onClick={handleFavouriteClick}>
-                <Star className={cn('w-4 h-4 transition-all', isFavourited ? 'fill-yellow-300 text-yellow-300' : 'text-white')}/>
-              </Button>
             </div>
           </div>
         </div>
@@ -94,7 +83,6 @@ ToolCard.displayName = 'ToolCard';
 export default function PopularToolsPage() {
     const { t } = useLanguage();
     const { toast } = useToast();
-    const { favouritedTools, handleFavouriteToggle } = useFavourites();
 
     const handleShareTool = React.useCallback(async (e: React.MouseEvent, tool: Tool) => {
         e.preventDefault();
@@ -158,8 +146,6 @@ export default function PopularToolsPage() {
                         <ToolCard
                             key={tool.name}
                             tool={tool}
-                            isFavourited={favouritedTools.has(tool.name)}
-                            onFavouriteToggle={handleFavouriteToggle}
                             onShare={(e) => handleShareTool(e, tool)}
                             t={t}
                         />
@@ -180,8 +166,6 @@ export default function PopularToolsPage() {
                         <ToolCard
                             key={tool.name}
                             tool={tool}
-                            isFavourited={favouritedTools.has(tool.name)}
-                            onFavouriteToggle={handleFavouriteToggle}
                             onShare={(e) => handleShareTool(e, tool)}
                             t={t}
                         />
@@ -202,8 +186,6 @@ export default function PopularToolsPage() {
                         <ToolCard
                             key={tool.name}
                             tool={tool}
-                            isFavourited={favouritedTools.has(tool.name)}
-                            onFavouriteToggle={handleFavouriteToggle}
                             onShare={(e) => handleShareTool(e, tool)}
                             t={t}
                         />
@@ -223,8 +205,6 @@ export default function PopularToolsPage() {
                         <ToolCard
                             key={tool.name}
                             tool={tool}
-                            isFavourited={favouritedTools.has(tool.name)}
-                            onFavouriteToggle={handleFavouriteToggle}
                             onShare={(e) => handleShareTool(e, tool)}
                             t={t}
                         />
@@ -244,8 +224,6 @@ export default function PopularToolsPage() {
                         <ToolCard
                             key={tool.name}
                             tool={tool}
-                            isFavourited={favouritedTools.has(tool.name)}
-                            onFavouriteToggle={handleFavouriteToggle}
                             onShare={(e) => handleShareTool(e, tool)}
                             t={t}
                         />

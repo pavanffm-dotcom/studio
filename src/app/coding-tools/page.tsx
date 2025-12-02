@@ -4,13 +4,11 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { 
-    ArrowLeft, ExternalLink, Code, Star, Share2, Terminal, Braces, Server, Database, Link2, CloudCog, GitBranch, Bug, Paintbrush, Box, Bot, TerminalSquare, PackageCheck, Shield, Smartphone, Gamepad2, BrainCircuit, Gauge, ChevronRight, Filter
+    ArrowLeft, ExternalLink, Code, Share2, Terminal, Braces, Server, Database, Link2, CloudCog, GitBranch, Bug, Paintbrush, Box, Bot, TerminalSquare, PackageCheck, Shield, Smartphone, Gamepad2, BrainCircuit, Gauge, ChevronRight, Filter
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
-import { cn } from '@/lib/utils';
-import { useFavourites } from '@/context/favourites-context';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 
 type Tool = {
@@ -225,16 +223,8 @@ const toolData: ToolCategory[] = [
 
 export default function CodingToolsPage() {
     const { toast } = useToast();
-    const { favouritedTools, handleFavouriteToggle } = useFavourites();
     const [priceFilter, setPriceFilter] = React.useState('All');
     const [open, setOpen] = React.useState(false);
-
-
-    const handleFavouriteClick = (e: React.MouseEvent, toolName: string) => {
-        e.preventDefault();
-        e.stopPropagation();
-        handleFavouriteToggle(toolName);
-    };
 
     const handleShareTool = React.useCallback(async (e: React.MouseEvent, tool: Tool) => {
         e.preventDefault();
@@ -289,9 +279,6 @@ export default function CodingToolsPage() {
               <div className="flex flex-col items-center gap-1 shrink-0 pl-1">
                   <Button variant="ghost" size="icon" className="w-7 h-7 rounded-full text-foreground/80 bg-white/30 hover:bg-white/50" onClick={(e) => handleShareTool(e, tool)}>
                       <Share2 className="w-3 h-3" />
-                  </Button>
-                  <Button variant="ghost" size="icon" className="w-7 h-7 rounded-full text-foreground/80 bg-white/30 hover:bg-white/50" onClick={(e) => handleFavouriteClick(e, tool.name)}>
-                      <Star className={cn('w-4 h-4 transition-all', favouritedTools.has(tool.name) ? 'fill-yellow-300 text-yellow-300' : 'text-foreground/60')}/>
                   </Button>
               </div>
           </div>
