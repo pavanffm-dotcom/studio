@@ -9,7 +9,7 @@ import { ClubHeader } from '@/components/club-header';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
-import { ArrowLeft, ArrowRight, Bot, Brush, Check, ChevronsUpDown, Tv, Users } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Bot, Brush, Check, ChevronsUpDown, Tv, Users, Plus, Search } from 'lucide-react';
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -19,6 +19,10 @@ import { Switch } from '@/components/ui/switch';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
 import { useUser } from '@/firebase';
+import Image from 'next/image';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { allTools, Tool } from '@/lib/tools-data';
+
 
 const categories = ["AI", "Design", "Coding", "Video", "Writing", "Productivity", "Gaming", "Tools"] as const;
 
@@ -29,6 +33,7 @@ const clubFormSchema = z.object({
   visibility: z.enum(["public", "private", "unlisted"]).default("public"),
   allowMembersToAddTools: z.boolean().default(true),
   tags: z.array(z.string()).optional(),
+  tools: z.array(z.string()).default([]),
 });
 
 type ClubFormValues = z.infer<typeof clubFormSchema>;
@@ -203,8 +208,67 @@ function Step1_BasicDetails() {
 }
 
 function Step2_ToolsBuilder() {
-    return <p className="text-center text-muted-foreground p-8">Step 2: Tool List Builder UI will be built here.</p>
+    const form = useFormContext<ClubFormValues>();
+    const [searchTerm, setSearchTerm] = useState('');
+
+    const selectedTools = new Set(form.watch('tools'));
+
+    const handleToggleTool = (toolName: string) => {
+        const currentTools = new Set(form.getValues('tools'));
+        if (currentTools.has(toolName)) {
+            currentTools.delete(toolName);
+        } else {
+            currentTools.add(toolName);
+        }
+        form.setValue('tools', Array.from(currentTools));
+    };
+
+    const filteredTools = allTools.filter(tool => 
+        tool.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
+    return (
+        <div className="space-y-4">
+            <div className="relative">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+                <Input 
+                    placeholder="Search for a tool to add..." 
+                    className="pl-10"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                />
+            </div>
+            <p className="text-sm text-muted-foreground">{selectedTools.size} tool(s) selected.</p>
+            <ScrollArea className="h-72 rounded-md border p-2">
+                <div className="space-y-2">
+                    {filteredTools.map((tool) => {
+                        const isSelected = selectedTools.has(tool.name);
+                        return (
+                            <div key={tool.name} className="flex items-center justify-between p-2 rounded-lg hover:bg-secondary">
+                                <div className="flex items-center gap-3">
+                                    <Image src={tool.image} alt={tool.name} width={40} height={40} className="rounded-md" />
+                                    <div>
+                                        <p className="font-semibold">{tool.name}</p>
+                                        <p className="text-xs text-muted-foreground">{tool.category}</p>
+                                    </div>
+                                </div>
+                                <Button
+                                    variant={isSelected ? 'secondary' : 'outline'}
+                                    size="sm"
+                                    onClick={() => handleToggleTool(tool.name)}
+                                >
+                                    {isSelected ? <Check className="w-4 h-4 mr-2" /> : <Plus className="w-4 h-4 mr-2" />}
+                                    {isSelected ? 'Added' : 'Add'}
+                                </Button>
+                            </div>
+                        )
+                    })}
+                </div>
+            </ScrollArea>
+        </div>
+    );
 }
+
 function Step3_ChatSettings() {
     return <p className="text-center text-muted-foreground p-8">Step 3: Community Chat Settings UI will be built here.</p>
 }
@@ -224,6 +288,7 @@ export default function CreateClubPage() {
             visibility: 'public',
             allowMembersToAddTools: true,
             tags: [],
+            tools: [],
         },
     });
 
