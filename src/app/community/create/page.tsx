@@ -26,7 +26,19 @@ import { useRouter } from 'next/navigation';
 import { useToast } from '@/hooks/use-toast';
 
 
-const categories = ["AI", "Design", "Coding", "Video", "Writing", "Productivity", "Gaming", "Tools"] as const;
+const categories = [
+    "AI Art & Design", 
+    "Writing & Content", 
+    "Development & Code", 
+    "Productivity & Tools",
+    "Video & Audio",
+    "Gaming & Fun",
+    "Business & Startups",
+    "Marketing & Sales",
+    "Education & Learning",
+    "Health & Fitness",
+    "Just for Fun"
+] as const;
 
 const clubFormSchema = z.object({
   clubName: z.string().min(3, { message: "Club name must be at least 3 characters." }),
@@ -312,6 +324,7 @@ export default function CreateClubPage() {
             ownerId: user.uid,
             createdAt: serverTimestamp(),
             memberCount: 1,
+            avatar: `https://picsum.photos/seed/${data.clubName.replace(/\s/g, '-')}/40/40`
           });
     
           const groupId = groupRef.id;

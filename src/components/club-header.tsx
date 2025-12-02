@@ -1,3 +1,4 @@
+
 'use client';
 
 import Link from 'next/link';
@@ -10,12 +11,14 @@ type ClubHeaderProps = {
   title: string;
   showBackButton?: boolean;
   showCreateButton?: boolean;
+  showSearch?: boolean;
 };
 
 export function ClubHeader({
   title,
   showBackButton = false,
   showCreateButton = false,
+  showSearch = false,
 }: ClubHeaderProps) {
   const router = useRouter();
 
@@ -40,7 +43,9 @@ export function ClubHeader({
         <h1 className="text-2xl font-bold text-foreground">{title}</h1>
       </div>
       <div className="flex items-center gap-2">
-        <Button variant="ghost" size="icon" className="rounded-full h-12 w-12"><Search className="w-6 h-6"/></Button>
+        {showSearch && (
+            <Button variant="ghost" size="icon" className="rounded-full h-12 w-12"><Search className="w-6 h-6"/></Button>
+        )}
         {showCreateButton && (
            <Link href="/community/create">
              <Button variant="default" className="rounded-full h-12 text-base glow-shadow">
