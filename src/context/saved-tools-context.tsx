@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, useState, useEffect, useCallback, ReactNode, useMemo } from 'react';
 import { useAuth, useFirestore, useUser } from '@/firebase';
-import { doc, getDoc, setDoc, updateDoc, arrayUnion, arrayRemove } from 'firebase/firestore';
+import { doc, getDoc, setDoc, onSnapshot } from 'firebase/firestore';
 
 interface SavedToolsContextType {
   savedTools: Set<string>;
@@ -15,56 +15,63 @@ const SavedToolsContext = createContext<SavedToolsContextType | undefined>(undef
 export const SavedToolsProvider = ({ children }: { children: ReactNode }) => {
   const { user } = useUser();
   const firestore = useFirestore();
-  const auth = useAuth();
-  
   const [savedTools, setSavedTools] = useState<Set<string>>(new Set());
   const [isLoading, setIsLoading] = useState(true);
 
-  // Fetch saved tools from Firestore when user logs in
   useEffect(() => {
     if (user && firestore) {
       setIsLoading(true);
       const userDocRef = doc(firestore, 'users', user.uid);
-      getDoc(userDocRef).then(docSnap => {
+      
+      const unsubscribe = onSnapshot(userDocRef, (docSnap) => {
         if (docSnap.exists() && docSnap.data().savedTools) {
           setSavedTools(new Set(docSnap.data().savedTools));
         } else {
           setSavedTools(new Set());
         }
         setIsLoading(false);
-      }).catch(error => {
-        console.error("Error fetching saved tools:", error);
+      }, (error) => {
+        console.error("Error listening to saved tools:", error);
         setIsLoading(false);
       });
-    } else if (!user) {
-      // For guest users, load from localStorage
-      const localSaved = localStorage.getItem('savedTools');
-      setSavedTools(localSaved ? new Set(JSON.parse(localSaved)) : new Set());
+
+      return () => unsubscribe(); // Cleanup listener on unmount
+    } else {
+      // Not logged in, so no saved tools from firestore
+      setSavedTools(new Set());
       setIsLoading(false);
     }
   }, [user, firestore]);
 
-  const handleSaveToggle = useCallback((toolName: string) => {
-    const newSavedTools = new Set(savedTools);
-    if (newSavedTools.has(toolName)) {
-      newSavedTools.delete(toolName);
-    } else {
-      newSavedTools.add(toolName);
+  const handleSaveToggle = useCallback(async (toolName: string) => {
+    if (!user || !firestore) {
+      // Or redirect to login
+      alert("Please log in to save tools.");
+      return;
     }
-    setSavedTools(newSavedTools);
 
-    if (user && firestore) {
-      const userDocRef = doc(firestore, 'users', user.uid);
-      if (savedTools.has(toolName)) {
-        updateDoc(userDocRef, {
-          savedTools: arrayRemove(toolName)
-        }).catch(err => console.error("Error removing from firestore", err));
-      } else {
-        setDoc(userDocRef, { savedTools: arrayUnion(toolName) }, { merge: true })
-        .catch(err => console.error("Error adding to firestore", err));
-      }
-    } else {
-      localStorage.setItem('savedTools', JSON.stringify(Array.from(newSavedTools)));
+    const newSavedTools = new Set(savedTools);
+    const userDocRef = doc(firestore, 'users', user.uid);
+
+    try {
+        const docSnap = await getDoc(userDocRef);
+        const currentSavedTools = docSnap.exists() && docSnap.data().savedTools ? docSnap.data().savedTools : [];
+        
+        let updatedTools;
+        if (currentSavedTools.includes(toolName)) {
+            updatedTools = currentSavedTools.filter((t: string) => t !== toolName);
+            newSavedTools.delete(toolName);
+        } else {
+            updatedTools = [...currentSavedTools, toolName];
+            newSavedTools.add(toolName);
+        }
+        
+        await setDoc(userDocRef, { savedTools: updatedTools }, { merge: true });
+        setSavedTools(newSavedTools);
+
+    } catch (error) {
+        console.error("Error updating saved tools:", error);
+        // Optionally revert UI change on error
     }
   }, [savedTools, user, firestore]);
 

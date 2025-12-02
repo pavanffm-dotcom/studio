@@ -4,13 +4,14 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { 
-    ArrowLeft, ExternalLink, Star, Share2, Youtube, MessageSquare, BookOpen, FileText, HelpCircle, Book, Zap, Calendar, Brain, Search, Type, Presentation, Wand2, Mic, File, GraduationCap, Filter
+    ArrowLeft, ExternalLink, Star, Share2, Youtube, MessageSquare, BookOpen, FileText, HelpCircle, Book, Zap, Calendar, Brain, Search, Type, Presentation, Wand2, Mic, File, GraduationCap, Filter, Heart
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import { useSavedTools } from '@/context/saved-tools-context';
 
 
 type Tool = {
@@ -705,177 +706,6 @@ const toolData: ToolCategory[] = [
             { name: 'Buncee', description: 'Creation and communication tool.', url: 'https://www.buncee.com/', image: 'https://picsum.photos/seed/buncee/600/400', dataAiHint: 'student creations', pricing: 'Paid' },
             { name: 'Sway', description: 'Create and share interactive reports, presentations.', url: 'https://sway.office.com/', image: 'https://picsum.photos/seed/sway/600/400', dataAiHint: 'microsoft sway', pricing: 'Free' },
         ]
-    },
-    {
-        title: "Formula & Concept Explainer Tools",
-        icon: <Wand2 className="w-5 h-5 text-primary"/>,
-        tools: [
-            { name: 'Khan Academy', description: 'Free online courses, lessons, and practice.', url: 'https://www.khanacademy.org/', image: 'https://picsum.photos/seed/khanacademy/600/400', dataAiHint: 'online learning', pricing: 'Free' },
-            { name: 'PhET Simulations', description: 'Interactive simulations for science and math.', url: 'https://phet.colorado.edu/', image: 'https://picsum.photos/seed/phet/600/400', dataAiHint: 'science simulation', pricing: 'Free' },
-            { name: 'ChemGuide', description: 'Helping you to understand Chemistry.', url: 'https://www.chemguide.co.uk/', image: 'https://picsum.photos/seed/chemguide/600/400', dataAiHint: 'chemistry help', pricing: 'Free' },
-            { name: 'BioRender', description: 'Create professional science figures in minutes.', url: 'https://biorender.com/', image: 'https://picsum.photos/seed/biorender/600/400', dataAiHint: 'science illustration', pricing: 'Freemium' },
-            { name: 'TeachMe', description: 'AI-powered learning companion.', url: 'https://www.teachme.ai/', image: 'https://picsum.photos/seed/teachme/600/400', dataAiHint: 'learning ai', pricing: 'Paid' },
-            { name: 'Wolfram Alpha', description: 'Computational intelligence.', url: 'https://www.wolframalpha.com/', image: 'https://picsum.photos/seed/wolfram-concept/600/400', dataAiHint: 'computational', pricing: 'Freemium' },
-            { name: 'Symbolab', description: 'Math solver with step-by-step solutions.', url: 'https://www.symbolab.com/', image: 'https://picsum.photos/seed/symbolab-concept/600/400', dataAiHint: 'math steps', pricing: 'Freemium' },
-            { name: 'Mathway', description: 'Step-by-step math problem solver.', url: 'https://www.mathway.com/', image: 'https://picsum.photos/seed/mathway-concept/600/400', dataAiHint: 'problem solver', pricing: 'Freemium' },
-            { name: 'Desmos', description: 'Graphing calculator.', url: 'https://www.desmos.com/calculator', image: 'https://picsum.photos/seed/desmos-concept/600/400', dataAiHint: 'graphing tool', pricing: 'Free' },
-            { name: 'GeoGebra', description: 'Graphing, geometry, algebra, and more.', url: 'https://www.geogebra.org/', image: 'https://picsum.photos/seed/geogebra-concept/600/400', dataAiHint: 'math tool', pricing: 'Free' },
-            { name: 'Physics Classroom', description: 'Physics tutorials and interactives.', url: 'https://www.physicsclassroom.com/', image: 'https://picsum.photos/seed/physicsclassroom-concept/600/400', dataAiHint: 'physics tutorials', pricing: 'Free' },
-            { name: 'HyperPhysics', description: 'Exploration in physics.', url: 'http://hyperphysics.phy-astr.gsu.edu/hbase/index.html', image: 'https://picsum.photos/seed/hyperphysics-concept/600/400', dataAiHint: 'physics concepts', pricing: 'Free' },
-            { name: 'ChemDoodle', description: 'Chemical drawing software.', url: 'https://www.chemdoodle.com/', image: 'https://picsum.photos/seed/chemdoodle/600/400', dataAiHint: 'chemical drawing', pricing: 'Paid' },
-            { name: 'MolView', description: 'Online molecular modeling.', url: 'https://molview.org/', image: 'https://picsum.photos/seed/molview/600/400', dataAiHint: 'molecular model', pricing: 'Free' },
-            { name: 'The Algorithmic Beauty of Plants', description: 'Book on plant modeling.', url: 'http://algorithmicbotany.org/papers/', image: 'https://picsum.photos/seed/plantalgo/600/400', dataAiHint: 'plant modeling', pricing: 'Free' },
-            { name: 'Brilliant.org', description: 'Build quantitative skills.', url: 'https://brilliant.org/', image: 'https://picsum.photos/seed/brilliant-concept/600/400', dataAiHint: 'quantitative skills', pricing: 'Freemium' },
-            { name: '3Blue1Brown', description: 'Math lessons with a focus on intuition.', url: 'https://www.youtube.com/c/3blue1brown', image: 'https://picsum.photos/seed/3b1b/600/400', dataAiHint: 'math intuition', pricing: 'Free' },
-            { name: 'Numberphile', description: 'Videos about numbers.', url: 'https://www.numberphile.com/', image: 'https://picsum.photos/seed/numberphile/600/400', dataAiHint: 'number videos', pricing: 'Free' },
-            { name: 'Socratic', description: 'Learning app from Google.', url: 'https://socratic.org/', image: 'https://picsum.photos/seed/socratic-concept/600/400', dataAiHint: 'google learning', pricing: 'Free' },
-            { name: 'Course Hero', description: 'Study resources.', url: 'https://www.coursehero.com/', image: 'https://picsum.photos/seed/coursehero-concept/600/400', dataAiHint: 'study resources', pricing: 'Paid' },
-            { name: 'Chegg', description: 'Homework help.', url: 'https://www.chegg.com/study', image: 'https://picsum.photos/seed/chegg-concept/600/400', dataAiHint: 'homework help', pricing: 'Paid' },
-            { name: 'Explain That Stuff', description: 'Easy-to-understand explanations of how things work.', url: 'https://www.explainthatstuff.com/', image: 'https://picsum.photos/seed/explainthatstuff/600/400', dataAiHint: 'how things work', pricing: 'Free' },
-            { name: 'HowStuffWorks', description: 'Explains thousands of topics.', url: 'https://www.howstuffworks.com/', image: 'https://picsum.photos/seed/howstuffworks/600/400', dataAiHint: 'topic explanations', pricing: 'Free' },
-            { name: 'Simple English Wikipedia', description: 'Wikipedia in Simple English.', url: 'https://simple.wikipedia.org/wiki/Main_Page', image: 'https://picsum.photos/seed/simplewiki/600/400', dataAiHint: 'simple english', pricing: 'Free' },
-            { name: 'ELI5', description: 'Explain Like I\'m 5.', url: 'https://www.reddit.com/r/explainlikeimfive/', image: 'https://picsum.photos/seed/eli5/600/400', dataAiHint: 'simple explanations', pricing: 'Free' },
-            { name: 'ChatGPT', description: 'AI assistant for explaining concepts.', url: 'https://chat.openai.com/', image: 'https://picsum.photos/seed/chatgpt-concept/600/400', dataAiHint: 'ai explainer', pricing: 'Freemium' },
-            { name: 'Gemini', description: 'Google\'s AI for learning.', url: 'https://gemini.google.com/', image: 'https://picsum.photos/seed/gemini-concept/600/400', dataAiHint: 'google explainer', pricing: 'Free' },
-            { name: 'Perplexity AI', description: 'Answer engine for complex topics.', url: 'https://www.perplexity.ai/', image: 'https://picsum.photos/seed/perplexity-concept/600/400', dataAiHint: 'answer engine', pricing: 'Freemium' },
-            { name: 'The Feynman Technique', description: 'A mental model for learning.', url: 'https://fs.blog/feynman-technique/', image: 'https://picsum.photos/seed/feynman/600/400', dataAiHint: 'learning technique', pricing: 'Free' },
-            { name: 'In a Nutshell – Kurzgesagt', description: 'Animated educational videos.', url: 'https://www.youtube.com/c/inanutshell', image: 'https://picsum.photos/seed/kurzgesagt/600/400', dataAiHint: 'animated videos', pricing: 'Free' },
-            { name: 'TED-Ed', description: 'Lessons worth sharing.', url: 'https://ed.ted.com/', image: 'https://picsum.photos/seed/teded/600/400', dataAiHint: 'educational lessons', pricing: 'Free' },
-            { name: 'Crash Course', description: 'Educational YouTube channel.', url: 'https://www.youtube.com/c/crashcourse', image: 'https://picsum.photos/seed/crashcourse/600/400', dataAiHint: 'youtube education', pricing: 'Free' },
-            { name: 'SmarterEveryDay', description: 'Exploring the world using science.', url: 'https://www.youtube.com/c/smartereveryday', image: 'https://picsum.photos/seed/smartereveryday/600/400', dataAiHint: 'science exploration', pricing: 'Free' },
-            { name: 'Veritasium', description: 'An element of truth.', url: 'https://www.youtube.com/c/veritasium', image: 'https://picsum.photos/seed/veritasium/600/400', dataAiHint: 'science channel', pricing: 'Free' },
-            { name: 'MinutePhysics', description: 'Simply explained physics and other science.', url: 'https://www.youtube.com/c/minutephysics', image: 'https://picsum.photos/seed/minutephysics/600/400', dataAiHint: 'physics explained', pricing: 'Free' },
-            { name: 'Vsauce', description: 'Educational YouTube channels.', url: 'https://www.youtube.com/c/vsauce1', image: 'https://picsum.photos/seed/vsauce/600/400', dataAiHint: 'youtube science', pricing: 'Free' },
-            { name: 'Mark Rober', description: 'Science and engineering videos.', url: 'https://www.youtube.com/c/markrober', image: 'https://picsum.photos/seed/markrober/600/400', dataAiHint: 'engineering videos', pricing: 'Free' },
-            { name: 'OverSimplified', description: 'Animated history videos.', url: 'https://www.youtube.com/c/OverSimplified', image: 'https://picsum.photos/seed/oversimplified/600/400', dataAiHint: 'animated history', pricing: 'Free' },
-            { name: 'CGP Grey', description: 'Complex things explained.', url: 'https://www.youtube.com/c/CGPGrey', image: 'https://picsum.photos/seed/cgpgrey/600/400', dataAiHint: 'complex explanations', pricing: 'Free' },
-            { name: 'BetterExplained', description: 'Math lessons for lasting insight.', url: 'https://betterexplained.com/', image: 'https://picsum.photos/seed/betterexplained/600/400', dataAiHint: 'math insight', pricing: 'Free' },
-            { name: 'Wait But Why', description: 'A popular long-form, stick-figure-illustrated blog.', url: 'https://waitbutwhy.com/', image: 'https://picsum.photos/seed/waitbutwhy/600/400', dataAiHint: 'long-form blog', pricing: 'Free' },
-            { name: 'LessWrong', description: 'A community blog devoted to refining the art of human rationality.', url: 'https://www.lesswrong.com/', image: 'https://picsum.photos/seed/lesswrong/600/400', dataAiHint: 'rationality', pricing: 'Free' },
-            { name: 'Farnam Street', description: 'Mastering the best of what other people have already figured out.', url: 'https://fs.blog/', image: 'https://picsum.photos/seed/farnamstreet/600/400', dataAiHint: 'mental models', pricing: 'Free' },
-            { name: 'Distill.pub', description: 'Technical journal for machine learning.', url: 'https://distill.pub/', image: 'https://picsum.photos/seed/distillpub/600/400', dataAiHint: 'machine learning', pricing: 'Free' },
-            { name: 'Excalidraw', description: 'Virtual whiteboard for sketching hand-drawn like diagrams.', url: 'https://excalidraw.com/', image: 'https://picsum.photos/seed/excalidraw/600/400', dataAiHint: 'virtual whiteboard', pricing: 'Free' },
-            { name: 'tldraw', description: 'A tiny little drawing app.', url: 'https://www.tldraw.com/', image: 'https://picsum.photos/seed/tldraw/600/400', dataAiHint: 'drawing app', pricing: 'Free' },
-            { name: 'Diagrams.net (draw.io)', description: 'Free online diagram software.', url: 'https://app.diagrams.net/', image: 'https://picsum.photos/seed/drawio/600/400', dataAiHint: 'diagram software', pricing: 'Free' },
-            { name: 'Mermaid Live Editor', description: 'Create diagrams from text.', url: 'https://mermaid.live/', image: 'https://picsum.photos/seed/mermaidlive/600/400', dataAiHint: 'text to diagram', pricing: 'Free' },
-            { name: 'PlantUML', description: 'Create UML diagrams from a simple text language.', url: 'https://plantuml.com/', image: 'https://picsum.photos/seed/plantuml/600/400', dataAiHint: 'uml diagrams', pricing: 'Free' },
-            { name: 'Notion', description: 'Formulas and database features for calculations.', url: 'https://www.notion.so/', image: 'https://picsum.photos/seed/notion-formula/600/400', dataAiHint: 'notion formulas', pricing: 'Freemium' },
-            { name: 'Airtable', description: 'Formulas for spreadsheet-like calculations.', url: 'https://www.airtable.com/', image: 'https://picsum.photos/seed/airtable-formula/600/400', dataAiHint: 'airtable formulas', pricing: 'Freemium' },
-            { name: 'Coda', description: 'Formulas and automations in docs.', url: 'https://coda.io/', image: 'https://picsum.photos/seed/coda-formula/600/400', dataAiHint: 'coda formulas', pricing: 'Freemium' },
-        ]
-    },
-    {
-        title: "Audio Learning Tools",
-        icon: <Mic className="w-5 h-5 text-primary"/>,
-        tools: [
-            { name: 'Speechify', description: 'The #1 text-to-speech reader.', url: 'https://speechify.com/', image: 'https://picsum.photos/seed/speechify-audio/600/400', dataAiHint: 'text reader', pricing: 'Freemium' },
-            { name: 'NaturalReader', description: 'AI text to speech solution.', url: 'https://www.naturalreaders.com/', image: 'https://picsum.photos/seed/naturalreader/600/400', dataAiHint: 'tts software', pricing: 'Freemium' },
-            { name: 'TTSReader', description: 'Reads text out loud for you.', url: 'https://ttsreader.com/', image: 'https://picsum.photos/seed/ttsreader/600/400', dataAiHint: 'web reader', pricing: 'Free' },
-            { name: 'VoiceAloud', description: 'Read aloud web pages and documents.', url: 'https://play.google.com/store/apps/details?id=com.hyperionics.fbreader.plugin.tts_plus', image: 'https://picsum.photos/seed/voicealoud/600/400', dataAiHint: 'android tts', pricing: 'Free' },
-            { name: 'Read Aloud Extension', description: 'A Text to Speech voice reader.', url: 'https://chrome.google.com/webstore/detail/read-aloud-a-text-to-spee/hdhinadidafjejdhmfkjgnolgimiaplp', image: 'https://picsum.photos/seed/readaloud/600/400', dataAiHint: 'chrome extension', pricing: 'Free' },
-            { name: 'Audible', description: 'Audiobooks and podcasts.', url: 'https://www.audible.com/', image: 'https://picsum.photos/seed/audible/600/400', dataAiHint: 'audiobooks', pricing: 'Paid' },
-            { name: 'LibriVox', description: 'Free public domain audiobooks.', url: 'https://librivox.org/', image: 'https://picsum.photos/seed/librivox/600/400', dataAiHint: 'free audiobooks', pricing: 'Free' },
-            { name: 'Blinkist', description: 'Get the key ideas from bestselling nonfiction.', url: 'https://www.blinkist.com/', image: 'https://picsum.photos/seed/blinkist/600/400', dataAiHint: 'book summaries', pricing: 'Paid' },
-            { name: 'getAbstract', description: 'Summaries of business books, articles, and video talks.', url: 'https://www.getabstract.com/', image: 'https://picsum.photos/seed/getabstract/600/400', dataAiHint: 'business summaries', pricing: 'Paid' },
-            { name: 'Umano', description: 'Listen to articles from top publications (discontinued).', url: 'https://play.google.com/store/apps/details?id=com.sothree.umano&hl=en_US&gl=US', image: 'https://picsum.photos/seed/umano/600/400', dataAiHint: 'article audio', pricing: 'Free' },
-            { name: 'Audm', description: 'Listen to long-form journalism.', url: 'https://www.audm.com/', image: 'https://picsum.photos/seed/audm/600/400', dataAiHint: 'long-form audio', pricing: 'Paid' },
-            { name: 'Noa', description: 'Listen to opinion journalism from the world\'s best publishers.', url: 'https://www.newsoveraudio.com/', image: 'https://picsum.photos/seed/noa/600/400', dataAiHint: 'opinion audio', pricing: 'Freemium' },
-            { name: 'Curio', description: 'Listen to the world\'s best journalism.', url: 'https://curio.io/', image: 'https://picsum.photos/seed/curio/600/400', dataAiHint: 'journalism audio', pricing: 'Paid' },
-            { name: 'Spotify', description: 'Music and podcasts.', url: 'https://www.spotify.com/', image: 'https://picsum.photos/seed/spotify-audio/600/400', dataAiHint: 'podcasts', pricing: 'Freemium' },
-            { name: 'Apple Podcasts', description: 'Millions of shows, free.', url: 'https://www.apple.com/apple-podcasts/', image: 'https://picsum.photos/seed/applepodcasts/600/400', dataAiHint: 'free podcasts', pricing: 'Free' },
-            { name: 'Google Podcasts', description: 'A new way to discover podcasts.', url: 'https://podcasts.google.com/', image: 'https://picsum.photos/seed/googlepodcasts/600/400', dataAiHint: 'discover podcasts', pricing: 'Free' },
-            { name: 'Overcast', description: 'A powerful yet simple podcast player.', url: 'https://overcast.fm/', image: 'https://picsum.photos/seed/overcast/600/400', dataAiHint: 'podcast player', pricing: 'Freemium' },
-            { name: 'Pocket Casts', description: 'The world\'s most powerful podcast platform.', url: 'https://www.pocketcasts.com/', image: 'https://picsum.photos/seed/pocketcasts/600/400', dataAiHint: 'podcast platform', pricing: 'Freemium' },
-            { name: 'Castro', description: 'A podcast player that helps you manage your listening.', url: 'https://castro.fm/', image: 'https://picsum.photos/seed/castro/600/400', dataAiHint: 'podcast queue', pricing: 'Freemium' },
-            { name: 'Podcast Addict', description: 'The #1 podcast app on Android.', url: 'https://podcastaddict.com/', image: 'https://picsum.photos/seed/podcastaddict/600/400', dataAiHint: 'android podcast', pricing: 'Freemium' },
-            { name: 'Stitcher', description: 'Listen to your favorite podcasts.', url: 'https://www.stitcher.com/', image: 'https://picsum.photos/seed/stitcher/600/400', dataAiHint: 'favorite podcasts', pricing: 'Freemium' },
-            { name: 'The Podcast App', description: 'A free podcast app.', url: 'https://podcast.app/', image: 'https://picsum.photos/seed/thepodcastapp/600/400', dataAiHint: 'free podcast', pricing: 'Free' },
-            { name: 'Castbox', description: 'The best free podcast app.', url: 'https://castbox.fm/', image: 'https://picsum.photos/seed/castbox/600/400', dataAiHint: 'free app', pricing: 'Freemium' },
-            { name: 'Scribd', description: 'The world’s largest digital library.', url: 'https://www.scribd.com/', image: 'https://picsum.photos/seed/scribd-audio/600/400', dataAiHint: 'digital library', pricing: 'Paid' },
-            { name: 'Pimsleur', description: 'The Pimsleur Method for language learning.', url: 'https://www.pimsleur.com/', image: 'https://picsum.photos/seed/pimsleur-audio/600/400', dataAiHint: 'language method', pricing: 'Paid' },
-            { name: 'Michel Thomas Method', description: 'The natural way to learn a language.', url: 'https://www.michelthomas.com/', image: 'https://picsum.photos/seed/michelthomas-audio/600/400', dataAiHint: 'natural learning', pricing: 'Paid' },
-            { name: 'Duolingo Podcasts', description: 'Podcasts for language learners.', url: 'https://podcast.duolingo.com/', image: 'https://picsum.photos/seed/duolingo-podcasts/600/400', dataAiHint: 'language podcasts', pricing: 'Free' },
-            { name: 'Coffee Break Languages', description: 'Learn a language on your coffee break.', url: 'https://coffeebreaklanguages.com/', image: 'https://picsum.photos/seed/coffeebreak/600/400', dataAiHint: 'coffee break', pricing: 'Freemium' },
-            { name: 'Loyal Books', description: 'Free Public Domain Audiobooks & eBook Downloads.', url: 'http://www.loyalbooks.com/', image: 'https://picsum.photos/seed/loyalbooks/600/400', dataAiHint: 'public domain audio', pricing: 'Free' },
-            { name: 'Storynory', description: 'Free audio stories for kids.', url: 'https://www.storynory.com/', image: 'https://picsum.photos/seed/storynory/600/400', dataAiHint: 'kids audio stories', pricing: 'Free' },
-            { name: 'Project Gutenberg', description: 'Free ebooks and audiobooks.', url: 'https://www.gutenberg.org/', image: 'https://picsum.photos/seed/gutenberg-audio/600/400', dataAiHint: 'free ebooks', pricing: 'Free' },
-            { name: 'Podiobooks', description: 'Free serialized audiobooks.', url: 'https://podiobooks.com/', image: 'https://picsum.photos/seed/podiobooks/600/400', dataAiHint: 'serialized audiobooks', pricing: 'Free' },
-            { name: 'Libro.fm', description: 'Support local bookstores with your audiobook purchases.', url: 'https://libro.fm/', image: 'https://picsum.photos/seed/librofm/600/400', dataAiHint: 'local bookstore', pricing: 'Paid' },
-            { name: 'Chirp Audiobooks', description: 'Limited-time deals on audiobooks.', url: 'https://www.chirpbooks.com/', image: 'https://picsum.photos/seed/chirp-audio/600/400', dataAiHint: 'audiobook deals', pricing: 'Paid' },
-            { name: 'Downpour', description: 'Digital audiobooks and rentals.', url: 'https://www.downpour.com/', image: 'https://picsum.photos/seed/downpour/600/400', dataAiHint: 'audiobook rentals', pricing: 'Paid' },
-            { name: 'Audiobooks.com', description: 'Get audiobooks for your commute.', url: 'https://www.audiobooks.com/', image: 'https://picsum.photos/seed/audiobookscom/600/400', dataAiHint: 'commute audio', pricing: 'Paid' },
-            { name: 'Kobo Audiobooks', description: 'Listen to audiobooks on the go.', url: 'https://www.kobo.com/audiobooks', image: 'https://picsum.photos/seed/kobo-audio/600/400', dataAiHint: 'kobo audio', pricing: 'Paid' },
-            { name: 'Google Play Books', description: 'Audiobooks on Google Play.', url: 'https://play.google.com/store/books/category/audiobooks', image: 'https://picsum.photos/seed/gplay-audio/600/400', dataAiHint: 'google audiobooks', pricing: 'Paid' },
-            { name: 'Nook Audiobooks', description: 'Audiobooks from Barnes & Noble.', url: 'https://www.barnesandnoble.com/b/nook-audiobooks/_/N-2ori', image: 'https://picsum.photos/seed/nook-audio/600/400', dataAiHint: 'barnes and noble', pricing: 'Paid' },
-            { name: 'Hoopla', description: 'Digital media service offered by your local public library.', url: 'https://www.hoopladigital.com/', image: 'https://picsum.photos/seed/hoopla/600/400', dataAiHint: 'library audiobooks', pricing: 'Free' },
-            { name: 'Libby', description: 'Borrow ebooks and audiobooks from your library.', url: 'https://www.overdrive.com/apps/libby/', image: 'https://picsum.photos/seed/libby/600/400', dataAiHint: 'library app', pricing: 'Free' },
-            { name: 'Audible Plus', description: 'A catalog of thousands of audiobooks, podcasts, and originals.', url: 'https://www.audible.com/ep/audible-plus-member-benefit', image: 'https://picsum.photos/seed/audibleplus/600/400', dataAiHint: 'audible originals', pricing: 'Paid' },
-            { name: 'SoundCloud', description: 'Audio platform that lets you listen to what you love and share the sounds you create.', url: 'https://soundcloud.com/', image: 'https://picsum.photos/seed/soundcloud-audio/600/400', dataAiHint: 'audio platform', pricing: 'Freemium' },
-            { name: 'TuneIn Radio', description: 'Live sports, news, music, and podcasts.', url: 'https://tunein.com/', image: 'https://picsum.photos/seed/tunein/600/400', dataAiHint: 'internet radio', pricing: 'Freemium' },
-            { name: 'iHeartRadio', description: 'Radio, music, and podcasts.', url: 'https://www.iheart.com/', image: 'https://picsum.photos/seed/iheartradio/600/400', dataAiHint: 'live radio', pricing: 'Free' },
-            { name: 'BBC Sounds', description: 'The best of BBC radio, music, and podcasts.', url: 'https://www.bbc.co.uk/sounds', image: 'https://picsum.photos/seed/bbcsounds/600/400', dataAiHint: 'bbc audio', pricing: 'Free' },
-            { name: 'Luminol', description: 'Podcast app with a focus on discovery.', url: 'https://luminol.fm/', image: 'https://picsum.photos/seed/luminol/600/400', dataAiHint: 'podcast discovery', pricing: 'Freemium' },
-            { name: 'Goodpods', description: 'Podcast app where you can follow your friends.', url: 'https://www.goodpods.com/', image: 'https://picsum.photos/seed/goodpods/600/400', dataAiHint: 'social podcast', pricing: 'Free' },
-            { name: 'Podchaser', description: 'The podcast database.', url: 'https://www.podchaser.com/', image: 'https://picsum.photos/seed/podchaser/600/400', dataAiHint: 'podcast imdb', pricing: 'Free' },
-            { name: 'Listen Notes', description: 'The podcast search engine.', url: 'https://www.listennotes.com/', image: 'https://picsum.photos/seed/listennotes/600/400', dataAiHint: 'podcast search', pricing: 'Free' },
-        ]
-    },
-    {
-        title: "File Convert / PDF Tools",
-        icon: <File className="w-5 h-5 text-primary"/>,
-        tools: [
-            { name: 'iLovePDF', description: 'Every tool you need to work with PDFs.', url: 'https://www.ilovepdf.com/', image: 'https://picsum.photos/seed/ilovepdf-file/600/400', dataAiHint: 'pdf editor', pricing: 'Freemium' },
-            { name: 'SmallPDF', description: 'We make PDF easy.', url: 'https://smallpdf.com/', image: 'https://picsum.photos/seed/smallpdf-file/600/400', dataAiHint: 'pdf converter', pricing: 'Freemium' },
-            { name: 'PDF24', description: 'Free and online PDF tools.', url: 'https://tools.pdf24.org/en/', image: 'https://picsum.photos/seed/pdf24/600/400', dataAiHint: 'online pdf', pricing: 'Free' },
-            { name: 'CloudConvert', description: 'Online file converter.', url: 'https://cloudconvert.com/', image: 'https://picsum.photos/seed/cloudconvert-file/600/400', dataAiHint: 'file format', pricing: 'Freemium' },
-            { name: 'DocTranslator', description: 'Translate documents online.', url: 'https://www.onlinedoctranslator.com/', image: 'https://picsum.photos/seed/doctranslator/600/400', dataAiHint: 'document translation', pricing: 'Free' },
-            { name: 'Adobe Acrobat', description: 'The original PDF solution.', url: 'https://acrobat.adobe.com/', image: 'https://picsum.photos/seed/acrobat-file/600/400', dataAiHint: 'pdf solution', pricing: 'Paid' },
-            { name: 'Nitro PDF', description: 'PDF editor, converter, and eSignature software.', url: 'https://www.gonitro.com/', image: 'https://picsum.photos/seed/nitropdf-file/600/400', dataAiHint: 'esignature software', pricing: 'Paid' },
-            { name: 'Foxit PDF Editor', description: 'A powerful and easy to use PDF editor.', url: 'https://www.foxit.com/pdf-editor/', image: 'https://picsum.photos/seed/foxit-file/600/400', dataAiHint: 'powerful pdf', pricing: 'Freemium' },
-            { name: 'PDFelement', description: 'Smart PDF editor.', url: 'https://pdf.wondershare.com/', image: 'https://picsum.photos/seed/pdfelement-file/600/400', dataAiHint: 'smart editor', pricing: 'Paid' },
-            { name: 'Sejda', description: 'Easy, pleasant and productive PDF editor.', url: 'https://www.sejda.com/', image: 'https://picsum.photos/seed/sejda-file/600/400', dataAiHint: 'productive pdf', pricing: 'Freemium' },
-            { name: 'PDFescape', description: 'Free PDF editor & form filler.', url: 'https://www.pdfescape.com/', image: 'https://picsum.photos/seed/pdfescape-file/600/400', dataAiHint: 'form filler', pricing: 'Freemium' },
-            { name: 'PDF Expert', description: 'The go-to PDF editor for Mac and iOS.', url: 'https://pdfexpert.com/', image: 'https://picsum.photos/seed/pdfexpert-file/600/400', dataAiHint: 'apple pdf', pricing: 'Paid' },
-            { name: 'PDF-XChange Editor', description: 'The smallest, fastest, most feature-rich PDF editor.', url: 'https://www.tracker-software.com/product/pdf-xchange-editor', image: 'https://picsum.photos/seed/pdfxchange/600/400', dataAiHint: 'feature rich', pricing: 'Freemium' },
-            { name: 'Soda PDF', description: 'Easy-to-use PDF tools.', url: 'https://www.sodapdf.com/', image: 'https://picsum.photos/seed/sodapdf/600/400', dataAiHint: 'easy pdf', pricing: 'Paid' },
-            { name: 'Master PDF Editor', description: 'Complete solution for editing PDF files.', url: 'https://code-industry.net/masterpdfeditor/', image: 'https://picsum.photos/seed/masterpdf/600/400', dataAiHint: 'complete solution', pricing: 'Paid' },
-            { name: 'Able2Extract Professional', description: 'Convert, Create, and Edit PDF Documents.', url: 'https://www.investintech.com/able2extract/', image: 'https://picsum.photos/seed/able2extract-file/600/400', dataAiHint: 'create pdf', pricing: 'Paid' },
-            { name: 'DocFly', description: 'Online PDF editor.', url: 'https://docfly.com/', image: 'https://picsum.photos/seed/docfly-file/600/400', dataAiHint: 'online editor', pricing: 'Freemium' },
-            { name: 'Lumin PDF', description: 'Edit, sign and share PDFs online.', url: 'https://www.luminpdf.com/', image: 'https://picsum.photos/seed/luminpdf-file/600/400', dataAiHint: 'share pdf', pricing: 'Freemium' },
-            { name: 'ApowerPDF', description: 'One-stop solution for PDF files.', url: 'https://www.apowersoft.com/pdf-editor', image: 'https://picsum.photos/seed/apowerpdf-file/600/400', dataAiHint: 'one-stop solution', pricing: 'Paid' },
-            { name: 'PDFpen', description: 'Powerful PDF editing on the Mac.', url: 'https://pdfpen.com/', image: 'https://picsum.photos/seed/pdfpen/600/400', dataAiHint: 'mac pdf', pricing: 'Paid' },
-            { name: 'PDFsam', description: 'PDF Split and Merge.', url: 'https://pdfsam.org/', image: 'https://picsum.photos/seed/pdfsam/600/400', dataAiHint: 'pdf split', pricing: 'Freemium' },
-            { name: 'Zamzar', description: 'File conversion, made easy.', url: 'https://www.zamzar.com/', image: 'https://picsum.photos/seed/zamzar-file/600/400', dataAiHint: 'easy conversion', pricing: 'Freemium' },
-            { name: 'Convertio', description: 'Convert your files to any format.', url: 'https://convertio.co/', image: 'https://picsum.photos/seed/convertio/600/400', dataAiHint: 'any format', pricing: 'Freemium' },
-            { name: 'Online-Convert.com', description: 'Convert files like images, video, documents, and more.', url: 'https://www.online-convert.com/', image: 'https://picsum.photos/seed/onlineconvert/600/400', dataAiHint: 'document conversion', pricing: 'Free' },
-            { name: 'FreeConvert', description: 'Free online file converter.', url: 'https://www.freeconvert.com/', image: 'https://picsum.photos/seed/freeconvert/600/400', dataAiHint: 'free converter', pricing: 'Free' },
-            { name: 'AnyConv', description: 'Online file converter.', url: 'https://anyconv.com/', image: 'https://picsum.photos/seed/anyconv/600/400', dataAiHint: 'online converter', pricing: 'Free' },
-            { name: 'File-Converter-Online.com', description: 'Convert files online for free.', url: 'https://file-converter-online.com/', image: 'https://picsum.photos/seed/fileconverter-file/600/400', dataAiHint: 'free online', pricing: 'Free' },
-            { name: 'Aconvert', description: 'Convert all kinds of documents, images, videos online for free.', url: 'https://www.aconvert.com/', image: 'https://picsum.photos/seed/aconvert/600/400', dataAiHint: 'all kinds', pricing: 'Free' },
-            { name: 'PDFtoGO', description: 'A free online PDF editor and converter.', url: 'https://www.pdftogo.com/', image: 'https://picsum.photos/seed/pdftogo/600/400', dataAiHint: 'pdf to go', pricing: 'Free' },
-            { name: 'Cometdocs', description: 'Free online document conversion.', url: 'https://www.cometdocs.com/', image: 'https://picsum.photos/seed/cometdocs/600/400', dataAiHint: 'document conversion', pricing: 'Free' },
-            { name: 'Online OCR', description: 'Free online OCR service.', url: 'https://www.onlineocr.net/', image: 'https://picsum.photos/seed/onlineocr/600/400', dataAiHint: 'ocr service', pricing: 'Free' },
-            { name: 'NewOCR', description: 'Free online OCR.', url: 'https://www.newocr.com/', image: 'https://picsum.photos/seed/newocr/600/400', dataAiHint: 'free ocr', pricing: 'Free' },
-            { name: 'i2OCR', description: 'Free online Optical Character Recognition.', url: 'https://www.i2ocr.com/', image: 'https://picsum.photos/seed/i2ocr/600/400', dataAiHint: 'optical character', pricing: 'Free' },
-            { name: 'ScanWritr', description: 'Online editor, converter, and form filler.', url: 'https://www.scanwritr.com/', image: 'https://picsum.photos/seed/scanwritr/600/400', dataAiHint: 'online editor', pricing: 'Free' },
-            { name: 'PDF Candy', description: 'Edit PDF for free.', url: 'https://pdfcandy.com/', image: 'https://picsum.photos/seed/pdfcandy/600/400', dataAiHint: 'pdf candy', pricing: 'Free' },
-            { name: 'PDF Online', description: 'Convert PDF to Word for free.', url: 'https://www.pdfonline.com/', image: 'https://picsum.photos/seed/pdfonline/600/400', dataAiHint: 'pdf to word', pricing: 'Free' },
-            { name: 'Go4Convert', description: 'Online file converter.', url: 'https://www.go4convert.com/', image: 'https://picsum.photos/seed/go4convert/600/400', dataAiHint: 'file converter', pricing: 'Free' },
-            { name: 'ConvertFiles', description: 'Convert any document, archive file, spreadsheet, and more.', url: 'https://www.convertfiles.com/', image: 'https://picsum.photos/seed/convertfiles/600/400', dataAiHint: 'archive file', pricing: 'Free' },
-            { name: 'The Online Converter', description: 'Convert videos, images, audio, and documents for free.', url: 'https://theonlineconverter.com/', image: 'https://picsum.photos/seed/theonlineconverter/600/400', dataAiHint: 'video image', pricing: 'Free' },
-            { name: 'To PDF', description: 'Free PDF converter.', url: 'https://topdf.com/', image: 'https://picsum.photos/seed/topdf/600/400', dataAiHint: 'free pdf', pricing: 'Free' },
-            { name: 'FreeFileConvert', description: 'Convert files online.', url: 'https://www.freefileconvert.com/', image: 'https://picsum.photos/seed/freefileconvert/600/400', dataAiHint: 'convert online', pricing: 'Free' },
-            { name: 'FileZigZag', description: 'Free online converter.', url: 'https://www.filezigzag.com/', image: 'https://picsum.photos/seed/filezigzag/600/400', dataAiHint: 'online converter', pricing: 'Free' },
-            { name: 'Office Converter', description: 'Convert videos, documents, and more online.', url: 'https://www.office-converter.com/', image: 'https://picsum.photos/seed/officeconverter/600/400', dataAiHint: 'office converter', pricing: 'Free' },
-            { name: 'Hipdf', description: 'All-in-one online PDF solution.', url: 'https://www.hipdf.com/', image: 'https://picsum.photos/seed/hipdf/600/400', dataAiHint: 'online pdf', pricing: 'Freemium' },
-            { name: 'PDF Converter', description: 'Convert to and from PDF.', url: 'https://www.freepdfconvert.com/', image: 'https://picsum.photos/seed/pdfconverter/600/400', dataAiHint: 'convert to pdf', pricing: 'Free' },
-            { name: 'PDF2DOC', description: 'Convert PDF to DOC online.', url: 'https://pdf2doc.com/', image: 'https://picsum.photos/seed/pdf2doc/600/400', dataAiHint: 'pdf to doc', pricing: 'Free' },
-            { name: 'Online2PDF', description: 'Free online PDF converter.', url: 'https://online2pdf.com/', image: 'https://picsum.photos/seed/online2pdf/600/400', dataAiHint: 'free online', pricing: 'Free' },
-            { name: 'Simply PDF', description: 'Online PDF editor and converter.', url: 'https://simplypdf.com/', image: 'https://picsum.photos/seed/simplypdf/600/400', dataAiHint: 'simply pdf', pricing: 'Free' },
-            { name: 'DocuPub', description: 'Free online PDF converter.', url: 'https://www.docupub.com/pdfconvert/', image: 'https://picsum.photos/seed/docupub/600/400', dataAiHint: 'pdf convert', pricing: 'Free' },
-            { name: 'Investintech Online PDF Tools', description: 'Free online PDF tools.', url: 'https://www.investintech.com/resources/freetools/', image: 'https://picsum.photos/seed/investintech-tools/600/400', dataAiHint: 'free tools', pricing: 'Free' },
-            { name: 'EasePDF', description: 'Online PDF converter and editor.', url: 'https://www.easepdf.com/', image: 'https://picsum.photos/seed/easepdf/600/400', dataAiHint: 'ease pdf', pricing: 'Free' },
-        ]
     }
 ];
 
@@ -910,7 +740,17 @@ export default function StudentToolsPage() {
         }
     }, [toast]);
 
-    const ToolCard = ({ tool }: { tool: Tool }) => (
+    const ToolCard = ({ tool }: { tool: Tool }) => {
+        const { savedTools, handleSaveToggle } = useSavedTools();
+        const isSaved = savedTools.has(tool.name);
+    
+        const handleHeartClick = (e: React.MouseEvent) => {
+            e.preventDefault();
+            e.stopPropagation();
+            handleSaveToggle(tool.name);
+        }
+
+        return (
         <Link href={tool.url} key={tool.name} target="_blank" rel="noopener noreferrer" className="block group w-40 shrink-0">
           <Card 
             className="bg-white/80 border-none rounded-3xl soft-shadow transition-all duration-300 group-hover:scale-[1.02] group-hover:shadow-lg overflow-hidden h-full flex flex-col"
@@ -939,12 +779,15 @@ export default function StudentToolsPage() {
                       <Button variant="ghost" size="icon" className="w-7 h-7 rounded-full text-foreground/80 bg-white/30 hover:bg-white/50" onClick={(e) => handleShareTool(e, tool)}>
                           <Share2 className="w-3 h-3" />
                       </Button>
+                      <Button variant="ghost" size="icon" className="w-7 h-7 rounded-full text-foreground/80 bg-white/30 hover:bg-white/50" onClick={handleHeartClick}>
+                        <Heart className={cn('w-4 h-4 transition-all', isSaved ? 'fill-red-500 text-red-500' : 'text-foreground/60')}/>
+                      </Button>
                   </div>
               </div>
             </div>
           </Card>
         </Link>
-    );
+    )};
 
     const filteredToolData = React.useMemo(() => {
         if (priceFilter === 'All') {
@@ -1023,5 +866,6 @@ export default function StudentToolsPage() {
     </div>
   );
 }
+
 
 
