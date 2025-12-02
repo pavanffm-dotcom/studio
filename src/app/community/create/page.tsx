@@ -9,14 +9,13 @@ import { ClubHeader } from '@/components/club-header';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
-import { ArrowLeft, ArrowRight, Bot, Brush, Check, ChevronsUpDown, Tv, Users, Plus, Search } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Bot, Check, ChevronsUpDown, Users, Plus, Search } from 'lucide-react';
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '@/components/ui/command';
 import { Switch } from '@/components/ui/switch';
-import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
 import { useUser } from '@/firebase';
 import Image from 'next/image';
@@ -42,23 +41,21 @@ const StepIndicator = ({ currentStep }: { currentStep: number }) => {
   const steps = [
     { name: "Details", icon: Users },
     { name: "Tools", icon: Bot },
-    { name: "Chat", icon: Tv },
-    { name: "Design", icon: Brush },
   ];
 
   return (
-    <div className="flex justify-between items-center mb-8">
+    <div className="flex justify-between items-center mb-8 max-w-sm mx-auto">
       {steps.map((step, index) => (
         <React.Fragment key={step.name}>
           <div className="flex flex-col items-center">
             <div className={cn("w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300", 
-              index === currentStep ? 'bg-primary text-primary-foreground' : 'bg-secondary text-muted-foreground'
+              index <= currentStep ? 'bg-primary text-primary-foreground' : 'bg-secondary text-muted-foreground'
             )}>
               <step.icon className="w-6 h-6" />
             </div>
-            <p className={cn("mt-2 text-sm font-medium", index === currentStep ? 'text-primary' : 'text-muted-foreground')}>{step.name}</p>
+            <p className={cn("mt-2 text-sm font-medium", index <= currentStep ? 'text-primary' : 'text-muted-foreground')}>{step.name}</p>
           </div>
-          {index < steps.length - 1 && <div className="flex-1 h-0.5 bg-border" />}
+          {index < steps.length - 1 && <div className="flex-1 h-0.5 bg-border mx-4" />}
         </React.Fragment>
       ))}
     </div>
@@ -269,13 +266,6 @@ function Step2_ToolsBuilder() {
     );
 }
 
-function Step3_ChatSettings() {
-    return <p className="text-center text-muted-foreground p-8">Step 3: Community Chat Settings UI will be built here.</p>
-}
-function Step4_DesignAndPublish() {
-    return <p className="text-center text-muted-foreground p-8">Step 4: Design & Publish UI will be built here.</p>
-}
-
 export default function CreateClubPage() {
     const [currentStep, setCurrentStep] = useState(0);
     const { user } = useUser();
@@ -297,14 +287,12 @@ export default function CreateClubPage() {
         // Here we'll eventually save to Firestore
     };
     
-    const nextStep = () => setCurrentStep(prev => (prev < 3 ? prev + 1 : prev));
+    const nextStep = () => setCurrentStep(prev => (prev < 1 ? prev + 1 : prev));
     const prevStep = () => setCurrentStep(prev => (prev > 0 ? prev - 1 : prev));
 
     const steps = [
         <Step1_BasicDetails key="step1" />,
         <Step2_ToolsBuilder key="step2" />,
-        <Step3_ChatSettings key="step3" />,
-        <Step4_DesignAndPublish key="step4" />,
     ];
 
     return (
@@ -329,7 +317,7 @@ export default function CreateClubPage() {
                             <Button type="button" variant="outline" onClick={prevStep} disabled={currentStep === 0}>
                                 <ArrowLeft className="mr-2" /> Previous
                             </Button>
-                            {currentStep < 3 ? (
+                            {currentStep < 1 ? (
                                 <Button type="button" onClick={nextStep}>
                                     Next Step <ArrowRight className="ml-2" />
                                 </Button>
@@ -345,3 +333,5 @@ export default function CreateClubPage() {
         </div>
     );
 }
+
+    
