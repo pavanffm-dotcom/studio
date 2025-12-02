@@ -262,6 +262,7 @@ function Step2_ToolsBuilder() {
                                     </div>
                                 </div>
                                 <Button
+                                    type="button"
                                     variant={isSelected ? 'secondary' : 'outline'}
                                     size="sm"
                                     onClick={() => handleToggleTool(tool.name)}
