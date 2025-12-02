@@ -150,6 +150,21 @@
             "role": { "type": "string", "enum": ["owner", "admin", "member"] }
         },
         "required": ["userId", "joinedAt", "role"]
+    },
+    "Message": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Message",
+      "type": "object",
+      "description": "A chat message within a group.",
+      "properties": {
+        "id": { "type": "string" },
+        "text": { "type": "string" },
+        "userId": { "type": "string" },
+        "userName": { "type": "string" },
+        "userAvatar": { "type": "string", "format": "uri" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["text", "userId", "userName", "createdAt"]
     }
   },
   "auth": {
@@ -206,6 +221,14 @@
               "entityName": "GroupTool",
               "schema": { "$ref": "#/backend/entities/GroupTool" },
               "description": "Stores AI tools added to a club."
+          }
+      },
+      {
+          "path": "/groups/{groupId}/messages/{messageId}",
+          "definition": {
+              "entityName": "Message",
+              "schema": { "$ref": "#/backend/entities/Message" },
+              "description": "Stores chat messages for a club."
           }
       }
     ]

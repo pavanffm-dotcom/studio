@@ -1,14 +1,26 @@
 'use client';
 
+import { useState } from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
 import { ClubHeader } from '@/components/club-header';
 import { Card, CardContent, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, ExternalLink, Heart, MessageCircle, Star, ThumbsUp, Users, Send } from 'lucide-react';
-import Link from 'next/link';
-import Image from 'next/image';
+import { ArrowRight, ExternalLink, Heart, MessageCircle, Send, Star, ThumbsUp, Users } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { Input } from '@/components/ui/input';
+import { useUser, useFirestore, useCollection, useMemoFirebase } from '@/firebase';
+import { collection, addDoc, serverTimestamp, query, orderBy, Timestamp } from 'firebase/firestore';
+
+interface Message {
+  id: string;
+  text: string;
+  userId: string;
+  userName: string;
+  userAvatar: string;
+  createdAt: Timestamp;
+}
 
 // Dummy data for a single club, to be replaced with Firestore data
 const club = { id: '1', name: 'AI for Designers', description: 'A place to discuss how AI is changing the design world.', members: 1200, isPublic: true };
@@ -18,15 +30,39 @@ const tools = [
   { name: 'Galileo AI', url: 'https://www.usegalileo.ai/', image: 'https://picsum.photos/seed/galileo-club/300/200', dataAiHint: 'ui design', upvotes: 85, comments: 5, addedBy: 'Alex Ray' },
   { name: 'Khroma', url: 'http://khroma.co/', image: 'https://picsum.photos/seed/khroma-club/300/200', dataAiHint: 'color palette', upvotes: 72, comments: 3, addedBy: 'Sarah Lee' },
 ];
-const messages = [
-    { user: 'Jane Doe', text: 'Hey everyone! 👋 Just joined. So excited to talk about AI in design.', avatar: 'https://i.pravatar.cc/150?u=jane' },
-    { user: 'Alex Ray', text: 'Welcome Jane! Has anyone tried out the new Galileo AI update? Looks promising for UI generation.', avatar: 'https://i.pravatar.cc/150?u=alex' },
-    { user: 'You', text: 'I have! The component generation is crazy fast. Still a bit buggy though.', avatar: 'https://i.pravatar.cc/150?u=you' },
-    { user: 'Sarah Lee', text: 'Totally agree. Great for initial mockups but not for production-ready code yet.', avatar: 'https://i.pravatar.cc/150?u=sarah' },
-]
-
 
 export default function ClubDetailsPage({ params }: { params: { clubId: string } }) {
+  const { user } = useUser();
+  const firestore = useFirestore();
+  const [newMessage, setNewMessage] = useState('');
+
+  const messagesRef = useMemoFirebase(() => {
+    if (!firestore) return null;
+    return collection(firestore, 'groups', params.clubId, 'messages');
+  }, [firestore, params.clubId]);
+
+  const messagesQuery = useMemoFirebase(() => {
+    if (!messagesRef) return null;
+    return query(messagesRef, orderBy('createdAt', 'asc'));
+  }, [messagesRef]);
+
+  const { data: messages, isLoading: messagesLoading } = useCollection<Message>(messagesQuery);
+  
+  const handleSendMessage = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!user || !firestore || !newMessage.trim() || !messagesRef) return;
+
+    await addDoc(messagesRef, {
+      text: newMessage,
+      userId: user.uid,
+      userName: user.displayName || 'Anonymous',
+      userAvatar: user.photoURL || `https://i.pravatar.cc/150?u=${user.uid}`,
+      createdAt: serverTimestamp(),
+    });
+
+    setNewMessage('');
+  };
+
   return (
     <div className="bg-background min-h-screen flex flex-col items-center justify-start font-body relative">
       <div className="absolute inset-0 z-0 opacity-50">
@@ -58,27 +94,34 @@ export default function ClubDetailsPage({ params }: { params: { clubId: string }
             
             {/* Chat Messages */}
             <div className="px-4 space-y-4 flex-grow">
-                {messages.map((msg, index) => (
-                    <div key={index} className={`flex items-start gap-3 ${msg.user === 'You' ? 'flex-row-reverse' : ''}`}>
-                        <Image src={msg.avatar} alt={msg.user} width={40} height={40} className="rounded-full" />
-                        <div className={`p-3 rounded-2xl max-w-xs ${msg.user === 'You' ? 'bg-primary text-primary-foreground rounded-br-none' : 'bg-secondary rounded-bl-none'}`}>
-                            {msg.user !== 'You' && <p className="font-semibold text-sm text-primary">{msg.user}</p>}
+                {messagesLoading && <p>Loading chat...</p>}
+                {messages?.map((msg) => (
+                    <div key={msg.id} className={`flex items-start gap-3 ${msg.userId === user?.uid ? 'flex-row-reverse' : ''}`}>
+                        <Image src={msg.userAvatar} alt={msg.userName} width={40} height={40} className="rounded-full" />
+                        <div className={`p-3 rounded-2xl max-w-xs ${msg.userId === user?.uid ? 'bg-primary text-primary-foreground rounded-br-none' : 'bg-secondary rounded-bl-none'}`}>
+                            {msg.userId !== user?.uid && <p className="font-semibold text-sm text-primary">{msg.userName}</p>}
                             <p>{msg.text}</p>
                         </div>
                     </div>
                 ))}
             </div>
-
           </div>
+          
           {/* Chat Input */}
-            <div className="p-4 bg-background/50 border-t mt-auto">
-                <div className="relative">
-                    <Input placeholder="Type a message..." className="rounded-full h-12 pr-12" />
-                    <Button size="icon" className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full w-9 h-9">
-                        <Send className="w-5 h-5"/>
-                    </Button>
-                </div>
-            </div>
+          <form onSubmit={handleSendMessage} className="p-4 bg-background/50 border-t mt-auto">
+              <div className="relative">
+                  <Input 
+                      placeholder="Type a message..." 
+                      className="rounded-full h-12 pr-12" 
+                      value={newMessage}
+                      onChange={(e) => setNewMessage(e.target.value)}
+                      disabled={!user}
+                  />
+                  <Button type="submit" size="icon" className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full w-9 h-9" disabled={!user || !newMessage.trim()}>
+                      <Send className="w-5 h-5"/>
+                  </Button>
+              </div>
+          </form>
         </div>
       </div>
     </div>

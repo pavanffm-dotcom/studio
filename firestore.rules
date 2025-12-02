@@ -17,6 +17,7 @@
  *   - Members can be added/managed (future implementation).
  *   - Members can add tools to a group.
  *   - Members can upvote tools within a group (future implementation).
+ *   - Members can send messages in a group chat.
  */
 rules_version = '2';
 service cloud.firestore {
@@ -43,9 +44,11 @@ service cloud.firestore {
     }
     
     function isGroupMember(groupId) {
-      // For now, allow any signed-in user to act as a member of public groups for simplicity.
-      // A full implementation would check a 'members' subcollection.
-      return isSignedIn() && get(/databases/$(database)/documents/groups/$(groupId)).data.isPublic == true;
+      // A user is a member if they exist in the members subcollection OR if the group is public.
+      return isSignedIn() && (
+        exists(/databases/$(database)/documents/groups/$(groupId)/members/$(request.auth.uid)) ||
+        get(/databases/$(database)/documents/groups/$(groupId)).data.isPublic == true
+      );
     }
 
     //-------------------------------------------------------------------------
@@ -81,7 +84,7 @@ service cloud.firestore {
     
     match /groups/{groupId} {
       // Anyone can read public groups
-      allow get: if resource.data.isPublic == true;
+      allow get: if resource.data.isPublic == true || isGroupMember(groupId);
       // Any signed-in user can list all groups (for the community page)
       allow list: if isSignedIn();
       // Any signed-in user can create a group, making them the owner
@@ -104,6 +107,13 @@ service cloud.firestore {
         allow delete: if isGroupMember(groupId) && (resource.data.addedBy == request.auth.uid || isGroupOwner(groupId));
         // Members can upvote (future implementation)
         allow update: if isGroupMember(groupId);
+      }
+
+      // Rules for chat messages within a group
+      match /messages/{messageId} {
+        allow list, get: if isGroupMember(groupId);
+        allow create: if isGroupMember(groupId) && request.resource.data.userId == request.auth.uid;
+        allow update, delete: if isGroupOwner(groupId) || isOwner(resource.data.userId);
       }
     }
   }
