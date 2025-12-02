@@ -48,8 +48,7 @@
             "emptyDescription": "आपके द्वारा देखे गए उपकरण यहाँ दिखाई देंगे।"
         },
         "favourites": {
-            "title": "Saved Tools",
-            "empty": "अभी तक कोई पसंदीदा नहीं।"
+            "title": "Saved Tools"
         },
         "seeAll": "सभी देखें"
     },

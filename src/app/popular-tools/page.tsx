@@ -3,13 +3,15 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ArrowLeft, Share2, TrendingUp, Video, ImageIcon, Film, Mic, Voicemail } from 'lucide-react';
+import { ArrowLeft, Share2, TrendingUp, Video, ImageIcon, Film, Mic, Voicemail, Heart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/hooks/use-toast';
 import { useLanguage } from '@/lib/language';
 import { Tool } from '@/lib/tools-data';
+import { useSavedTools } from '@/context/saved-tools-context';
+import { cn } from '@/lib/utils';
 
 const textToVideoTools: Tool[] = [
   { name: 'Runway', url: 'https://runwayml.com/', image: 'https://picsum.photos/seed/runway-pop/300/200', category: 'Video', dataAiHint: 'abstract animation', isTrending: true },
@@ -52,6 +54,15 @@ const voiceCloningTools: Tool[] = [
 ];
 
 const ToolCard = React.memo(({ tool, onShare, t }: { tool: Tool, onShare: (e: React.MouseEvent, tool: Tool) => void, t: (key: string) => string }) => {
+  const { savedTools, handleSaveToggle } = useSavedTools();
+  const isSaved = savedTools.has(tool.name);
+
+  const handleHeartClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    handleSaveToggle(tool.name);
+  }
+
   return (
     <Link href={tool.url} target="_blank" rel="noopener noreferrer" className="block w-40 shrink-0">
       <Card className="relative overflow-hidden group cursor-pointer bg-white/50 border-white/20 border-2 rounded-3xl h-full soft-shadow transition-transform hover:scale-105 duration-300">
@@ -69,6 +80,9 @@ const ToolCard = React.memo(({ tool, onShare, t }: { tool: Tool, onShare: (e: Re
             <div className="flex items-center gap-1 scale-90">
               <Button variant="ghost" size="icon" className="w-7 h-7 rounded-full text-white bg-white/20 hover:bg-white/30 backdrop-blur-sm" onClick={(e) => onShare(e, tool)}>
                 <Share2 className="w-3 h-3" />
+              </Button>
+              <Button variant="ghost" size="icon" className="w-7 h-7 rounded-full text-white bg-white/20 hover:bg-white/30 backdrop-blur-sm" onClick={handleHeartClick}>
+                <Heart className={cn('w-4 h-4 transition-all', isSaved ? 'fill-red-500 text-red-500' : 'text-white')}/>
               </Button>
             </div>
           </div>

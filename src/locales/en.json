@@ -48,8 +48,7 @@
             "emptyDescription": "Tools you visit will appear here."
         },
         "favourites": {
-            "title": "Saved Tools",
-            "empty": "No Favourites yet."
+            "title": "Saved Tools"
         },
         "seeAll": "See all"
     },

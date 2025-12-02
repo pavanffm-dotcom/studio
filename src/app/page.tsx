@@ -66,6 +66,7 @@ import {
     allTools,
 } from '@/lib/tools-data';
 import { ToolIcon } from '@/lib/tool-icons';
+import { useSavedTools } from '@/context/saved-tools-context';
 
 
 type ChatMessage = {
@@ -134,12 +135,20 @@ const ChatInputComponent = ({ chatInput, setChatInput, handleSendMessage, isGene
 };
 
 const ToolCard = React.memo(({ tool, onShare, onClick, t }: { tool: Tool, onShare: (e: React.MouseEvent, tool: Tool) => void, onClick: (tool: Tool) => void, t: (key: string) => string }) => {
-  
+    const { savedTools, handleSaveToggle } = useSavedTools();
+    const isSaved = savedTools.has(tool.name);
+
     const handleCardClick = useCallback((e: React.MouseEvent) => {
         e.preventDefault();
         onClick(tool);
         window.open(tool.url, '_blank', 'noopener,noreferrer');
     }, [tool, onClick]);
+
+    const handleHeartClick = (e: React.MouseEvent) => {
+        e.preventDefault();
+        e.stopPropagation();
+        handleSaveToggle(tool.name);
+    }
   
     return (
       <a href={tool.url} target="_blank" rel="noopener noreferrer" onClick={handleCardClick}>
@@ -158,6 +167,9 @@ const ToolCard = React.memo(({ tool, onShare, onClick, t }: { tool: Tool, onShar
               <div className="flex items-center gap-1">
                 <Button variant="ghost" size="icon" className="w-8 h-8 rounded-full text-white bg-white/20 hover:bg-white/30 backdrop-blur-sm" onClick={(e) => onShare(e, tool)}>
                   <Share2 />
+                </Button>
+                <Button variant="ghost" size="icon" className="w-8 h-8 rounded-full text-white bg-white/20 hover:bg-white/30 backdrop-blur-sm" onClick={handleHeartClick}>
+                    <Heart className={cn('w-5 h-5 transition-all', isSaved ? 'fill-red-500 text-red-500' : 'text-white')} />
                 </Button>
               </div>
             </div>
@@ -181,6 +193,11 @@ function App() {
   const [chatInput, setChatInput] = React.useState('');
   const chatContainerRef = React.useRef<HTMLDivElement>(null);
   const { toast } = useToast();
+  const { savedTools } = useSavedTools();
+
+  const savedToolsDetails = useMemo(() => {
+    return allTools.filter(tool => savedTools.has(tool.name));
+  }, [savedTools]);
   
   const handleShareTool = useCallback(async (e: React.MouseEvent, tool: Tool) => {
     e.preventDefault();
@@ -489,9 +506,30 @@ function App() {
                   )}
               </TabsContent>
               <TabsContent value="favourites" className="mt-4">
-                 <div className="text-center py-10 text-muted-foreground">
-                    <p className="mt-4 text-base">This section is ready for your new feature.</p>
-                </div>
+                {savedToolsDetails.length > 0 ? (
+                    <div className="space-y-3">
+                    {savedToolsDetails.map(tool => (
+                        <Card key={tool.name} className="p-3 flex items-center gap-4 bg-white/80 border-none rounded-3xl soft-shadow">
+                            {tool.image && <Image src={tool.image} alt={tool.name} width={56} height={56} className="rounded-2xl" data-ai-hint={tool.dataAiHint} />}
+                            <div className="flex-grow">
+                                <h5 className="font-semibold text-base">{tool.name}</h5>
+                                <p className="text-sm text-muted-foreground">{tool.category}</p>
+                            </div>
+                            <Link href={tool.url} target="_blank">
+                                <Button variant="ghost" size="icon" className="text-muted-foreground rounded-full w-10 h-10">
+                                    <ChevronRight />
+                                </Button>
+                            </Link>
+                        </Card>
+                    ))}
+                    </div>
+                ) : (
+                    <div className="text-center py-10 text-muted-foreground">
+                        <Heart className="mx-auto w-10 h-10" />
+                        <p className="mt-4 text-base">No saved tools yet.</p>
+                        <p className="text-sm">Tools you save will appear here.</p>
+                    </div>
+                )}
               </TabsContent>
           </Tabs>
       </section>

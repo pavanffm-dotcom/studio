@@ -4,12 +4,14 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { 
-    ArrowLeft, ExternalLink, Paintbrush, Share2, Palette, Instagram, Youtube, Clapperboard, Megaphone, Tv, Layout, FileText, Globe, Gem, Braces, Smartphone, LayoutDashboard, BookOpen, Contact, Type, PenTool, ImagePlay, Sparkles, Shapes, UserCircle, BrainCircuit, Newspaper, BoxSelect, MousePointerClick, BookCopy, Wallpaper, Car, Store, TowerControl, Box, Truck, Film, SquareParking, Filter
+    ArrowLeft, ExternalLink, Paintbrush, Share2, Palette, Instagram, Youtube, Clapperboard, Megaphone, Tv, Layout, FileText, Globe, Gem, Braces, Smartphone, LayoutDashboard, BookOpen, Contact, Type, PenTool, ImagePlay, Sparkles, Shapes, UserCircle, BrainCircuit, Newspaper, BoxSelect, MousePointerClick, BookCopy, Wallpaper, Car, Store, TowerControl, Box, Truck, Film, SquareParking, Filter, Heart
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import { useSavedTools } from '@/context/saved-tools-context';
+import { cn } from '@/lib/utils';
 
 
 type Tool = {
@@ -504,7 +506,7 @@ const toolData: ToolCategory[] = [
             { name: 'Adobe InDesign', description: 'The industry-leading layout and page design software.', url: 'https://www.adobe.com/products/indesign.html', image: 'https://picsum.photos/seed/indesign-mag/600/400', dataAiHint: 'page layout', pricing: 'Paid' },
             { name: 'Canva', description: 'Create beautiful magazine covers and layouts online.', url: 'https://www.canva.com/create/magazines/', image: 'https://picsum.photos/seed/canva-mag/600/400', dataAiHint: 'online design', pricing: 'Freemium' },
             { name: 'Scribus', description: 'Free and open-source professional page layout software.', url: 'https://www.scribus.net/', image: 'https://picsum.photos/seed/scribus-mag/600/400', dataAiHint: 'desktop publishing', pricing: 'Free' },
-            { name: 'Lucidpress (Marq)', description: 'Brand templating platform for magazines and catalogs.', url: 'https://www.marq.com/', image: 'https://picsum.photos/seed/marq-mag/600/400', dataAiHint: 'brand templates', pricing: 'Paid' },
+            { name: 'Marq (Lucidpress)', description: 'Brand templating platform for magazines and catalogs.', url: 'https://www.marq.com/', image: 'https://picsum.photos/seed/marq-mag/600/400', dataAiHint: 'brand templates', pricing: 'Paid' },
             { name: 'Flipsnack', description: 'An online tool for creating interactive digital magazines.', url: 'https://www.flipsnack.com/magazine-maker', image: 'https://picsum.photos/seed/flipsnack-mag/600/400', dataAiHint: 'digital magazine', pricing: 'Freemium' },
             { name: 'Affinity Publisher', description: 'Professional publishing software for desktop and iPad.', url: 'https://affinity.serif.com/en-us/publisher/', image: 'https://picsum.photos/seed/affinity-mag/600/400', dataAiHint: 'publishing app', pricing: 'Paid' },
             { name: 'Joomag', description: 'Digital publishing platform for magazines and catalogs.', url: 'https://www.joomag.com/', image: 'https://picsum.photos/seed/joomag-mag/600/400', dataAiHint: 'digital publishing', pricing: 'Paid' },
@@ -690,7 +692,17 @@ export default function GraphicDesignToolsPage() {
         }
     }, [toast]);
 
-  const ToolCard = ({ tool }: { tool: Tool }) => (
+  const ToolCard = ({ tool }: { tool: Tool }) => {
+    const { savedTools, handleSaveToggle } = useSavedTools();
+    const isSaved = savedTools.has(tool.name);
+
+    const handleHeartClick = (e: React.MouseEvent) => {
+        e.preventDefault();
+        e.stopPropagation();
+        handleSaveToggle(tool.name);
+    }
+    
+    return (
     <Link href={tool.url} key={tool.name} target="_blank" rel="noopener noreferrer" className="block group w-40 shrink-0">
       <Card 
         className="bg-white/80 border-none rounded-3xl soft-shadow transition-all duration-300 group-hover:scale-[1.02] group-hover:shadow-lg overflow-hidden"
@@ -719,12 +731,15 @@ export default function GraphicDesignToolsPage() {
                   <Button variant="ghost" size="icon" className="w-7 h-7 rounded-full text-foreground/80 bg-white/30 hover:bg-white/50" onClick={(e) => handleShareTool(e, tool)}>
                       <Share2 className="w-3 h-3" />
                   </Button>
+                  <Button variant="ghost" size="icon" className="w-7 h-7 rounded-full text-foreground/80 bg-white/30 hover:bg-white/50" onClick={handleHeartClick}>
+                    <Heart className={cn('w-4 h-4 transition-all', isSaved ? 'fill-red-500 text-red-500' : 'text-foreground/60')}/>
+                  </Button>
               </div>
           </div>
         </div>
       </Card>
     </Link>
-  );
+  )};
 
     const filteredToolData = React.useMemo(() => {
         if (priceFilter === 'All') {

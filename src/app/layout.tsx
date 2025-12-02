@@ -3,7 +3,7 @@ import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
 import { FirebaseProviderWrapper } from '@/firebase/client-provider-wrapper';
 import { LanguageProvider } from '@/lib/language';
-import { FavouritesProvider } from '@/context/favourites-context';
+import { SavedToolsProvider } from '@/context/saved-tools-context';
 
 export const metadata: Metadata = {
   title: 'AI Atlas',
@@ -29,9 +29,9 @@ export default function RootLayout({
       <body className="font-body antialiased">
         <LanguageProvider>
           <FirebaseProviderWrapper>
-            <FavouritesProvider>
+            <SavedToolsProvider>
               {children}
-            </FavouritesProvider>
+            </SavedToolsProvider>
           </FirebaseProviderWrapper>
         </LanguageProvider>
         <Toaster />
