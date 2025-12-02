@@ -140,15 +140,15 @@ function Step1_BasicDetails() {
               <PopoverContent className="w-[--radix-popover-trigger-width] p-0">
                 <Command>
                   <CommandInput placeholder="Search category..." />
-                   <CommandList>
+                  <CommandList>
                     <CommandEmpty>No category found.</CommandEmpty>
                     <CommandGroup>
                         {categories.map((category) => (
                           <CommandItem
                             value={category}
                             key={category}
-                            onSelect={(currentValue) => {
-                              form.setValue("category", currentValue === field.value ? "" : currentValue)
+                            onSelect={() => {
+                              form.setValue("category", category)
                               setOpen(false)
                             }}
                           >
