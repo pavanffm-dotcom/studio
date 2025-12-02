@@ -2,7 +2,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { useForm, FormProvider } from 'react-hook-form';
+import { useForm, FormProvider, useFormContext } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { ClubHeader } from '@/components/club-header';
@@ -122,25 +122,27 @@ function Step1_BasicDetails() {
                   <CommandInput placeholder="Search category..." />
                   <CommandEmpty>No category found.</CommandEmpty>
                   <CommandGroup>
-                    {categories.map((category) => (
-                      <CommandItem
-                        value={category}
-                        key={category}
-                        onSelect={() => {
-                          form.setValue("category", category)
-                        }}
-                      >
-                        <Check
-                          className={cn(
-                            "mr-2 h-4 w-4",
-                            category === field.value
-                              ? "opacity-100"
-                              : "opacity-0"
-                          )}
-                        />
-                        {category}
-                      </CommandItem>
-                    ))}
+                    <CommandList>
+                      {categories.map((category) => (
+                        <CommandItem
+                          value={category}
+                          key={category}
+                          onSelect={() => {
+                            form.setValue("category", category)
+                          }}
+                        >
+                          <Check
+                            className={cn(
+                              "mr-2 h-4 w-4",
+                              category === field.value
+                                ? "opacity-100"
+                                : "opacity-0"
+                            )}
+                          />
+                          {category}
+                        </CommandItem>
+                      ))}
+                    </CommandList>
                   </CommandGroup>
                 </Command>
               </PopoverContent>
@@ -160,6 +162,7 @@ function Step1_BasicDetails() {
                     {(["public", "private", "unlisted"] as const).map((v) => (
                         <Button
                             key={v}
+                            type="button"
                             variant={field.value === v ? "default" : "outline"}
                             onClick={() => form.setValue('visibility', v)}
                             className="capitalize"
@@ -277,4 +280,3 @@ export default function CreateClubPage() {
         </div>
     );
 }
-
