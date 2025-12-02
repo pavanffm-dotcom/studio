@@ -11,7 +11,7 @@ import { Card, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
-import { useSavedTools } from '@/context/saved-tools-context';
+import { useUserPreferences } from '@/context/user-preferences-context';
 
 
 type Tool = {
@@ -607,7 +607,7 @@ const toolData: ToolCategory[] = [
             { name: 'QuillBot', description: 'AI-powered paraphrasing tool.', url: 'https://quillbot.com/', image: 'https://picsum.photos/seed/quillbot-write/600/400', dataAiHint: 'sentence rewriter', pricing: 'Freemium' },
             { name: 'Hemingway Editor', description: 'Makes your writing bold and clear.', url: 'https://hemingwayapp.com/', image: 'https://picsum.photos/seed/hemingway-write/600/400', dataAiHint: 'readability tool', pricing: 'Free' },
             { name: 'LanguageTool', description: 'Multilingual grammar, style, and spell checker.', url: 'https://languagetool.org/', image: 'https://picsum.photos/seed/languagetool/600/400', dataAiHint: 'spell check', pricing: 'Freemium' },
-            { name: 'WordTune', description: 'Your personal writing companion.', url: 'https://www.wordtune.com/', image: 'https://picsum.photos/seed/wordtune/600/400', dataAiHint: 'ai writing', pricing: 'Freemium' },
+            { name: 'WordTune', description: 'Your personal writing companion.', url: 'https://www.wordtune.com/', image: 'https://picsum.photos/seed/wordtune-write/600/400', dataAiHint: 'ai writing', pricing: 'Freemium' },
             { name: 'ProWritingAid', description: 'A grammar checker, style editor, and writing mentor.', url: 'https://prowritingaid.com/', image: 'https://picsum.photos/seed/prowritingaid/600/400', dataAiHint: 'style editor', pricing: 'Paid' },
             { name: 'Ginger Software', description: 'Grammar checker and writing assistant.', url: 'https://www.gingersoftware.com/', image: 'https://picsum.photos/seed/gingersoftware/600/400', dataAiHint: 'writing assistant', pricing: 'Freemium' },
             { name: 'Slick Write', description: 'A powerful, free tool for writers.', url: 'https://www.slickwrite.com/', image: 'https://picsum.photos/seed/slickwrite/600/400', dataAiHint: 'free writing tool', pricing: 'Free' },
@@ -713,6 +713,7 @@ export default function StudentToolsPage() {
     const { toast } = useToast();
     const [priceFilter, setPriceFilter] = React.useState('All');
     const [open, setOpen] = React.useState(false);
+    const { starredTools, handleStarToggle } = useUserPreferences();
 
 
     const handleShareTool = React.useCallback(async (e: React.MouseEvent, tool: Tool) => {
@@ -741,13 +742,12 @@ export default function StudentToolsPage() {
     }, [toast]);
 
     const ToolCard = ({ tool }: { tool: Tool }) => {
-        const { savedTools, handleSaveToggle } = useSavedTools();
-        const isSaved = savedTools.has(tool.name);
+        const isStarred = starredTools.has(tool.name);
     
-        const handleHeartClick = (e: React.MouseEvent) => {
+        const handleStarClick = (e: React.MouseEvent) => {
             e.preventDefault();
             e.stopPropagation();
-            handleSaveToggle(tool.name);
+            handleStarToggle(tool.name);
         }
 
         return (
@@ -779,8 +779,8 @@ export default function StudentToolsPage() {
                       <Button variant="ghost" size="icon" className="w-7 h-7 rounded-full text-foreground/80 bg-white/30 hover:bg-white/50" onClick={(e) => handleShareTool(e, tool)}>
                           <Share2 className="w-3 h-3" />
                       </Button>
-                      <Button variant="ghost" size="icon" className="w-7 h-7 rounded-full text-foreground/80 bg-white/30 hover:bg-white/50" onClick={handleHeartClick}>
-                        <Heart className={cn('w-4 h-4 transition-all', isSaved ? 'fill-red-500 text-red-500' : 'text-foreground/60')}/>
+                      <Button variant="ghost" size="icon" className="w-7 h-7 rounded-full text-foreground/80 bg-white/30 hover:bg-white/50" onClick={handleStarClick}>
+                        <Star className={cn('w-4 h-4 transition-all', isStarred ? 'fill-yellow-300 text-yellow-300' : 'text-foreground/60')}/>
                       </Button>
                   </div>
               </div>
@@ -869,3 +869,6 @@ export default function StudentToolsPage() {
 
 
 
+
+
+    
