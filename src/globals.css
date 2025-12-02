@@ -1,0 +1,245 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root, html[data-theme="default"] {
+    --background: 255 75% 98%;
+    --foreground: 255 20% 25%;
+
+    --card: 255 100% 100%;
+    --card-foreground: 255 20% 25%;
+
+    --popover: 255 100% 100%;
+    --popover-foreground: 255 20% 25%;
+
+    --primary: 258 100% 70%;
+    --primary-foreground: 255 100% 100%;
+
+    --secondary: 255 100% 95%;
+    --secondary-foreground: 258 100% 70%;
+    
+    --muted: 255 75% 95%;
+    --muted-foreground: 255 20% 45%;
+
+    --accent: 200 100% 95%;
+    --accent-foreground: 198 50% 45%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    
+    --border: 255 100% 90%;
+    --input: 255 100% 90%;
+
+    --ring: 258 100% 70%;
+    --radius: 1.5rem;
+
+    --baby-pink: 340 100% 96%;
+    --soft-blue: 198 100% 94%;
+    --lavender: 255 100% 96%;
+  }
+
+  html[data-theme="neoglass"] {
+    --background: 210 60% 98%;
+    --foreground: 215 40% 15%;
+    --card: 210 60% 99% / 0.6;
+    --card-foreground: 215 40% 10%;
+    --popover: 210 60% 98%;
+    --popover-foreground: 215 40% 10%;
+    --primary: 220 100% 65%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 60% 94%;
+    --secondary-foreground: 220 90% 55%;
+    --muted: 210 60% 94%;
+    --muted-foreground: 215 30% 50%;
+    --accent: 210 60% 90%;
+    --accent-foreground: 220 90% 45%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 210 40% 88% / 0.5;
+    --input: 210 40% 92% / 0.7;
+    --ring: 220 100% 65%;
+    --radius: 1.5rem;
+  }
+  
+  html[data-theme="cyberwave"] {
+    --background: 225 20% 10%;
+    --foreground: 210 40% 98%;
+    --card: 225 20% 15% / 0.8;
+    --card-foreground: 210 40% 98%;
+    --popover: 225 20% 8%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 180 100% 50%;
+    --primary-foreground: 225 20% 5%;
+    --secondary: 225 20% 20%;
+    --secondary-foreground: 180 100% 50%;
+    --muted: 225 20% 20%;
+    --muted-foreground: 215 20% 65%;
+    --accent: 225 20% 25%;
+    --accent-foreground: 180 100% 50%;
+    --destructive: 0 70% 50%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 180 100% 25%;
+    --input: 225 20% 20%;
+    --ring: 180 100% 50%;
+    --radius: 1rem;
+  }
+
+  html[data-theme="minimal-white"] {
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+    --primary: 240 5.9% 10%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 240 5.9% 10%;
+    --radius: 0.5rem;
+  }
+
+  html[data-theme="claymorphic"] {
+    --background: 25 80% 96%;
+    --foreground: 25 30% 25%;
+    --card: 25 80% 97%;
+    --card-foreground: 25 30% 25%;
+    --popover: 25 80% 94%;
+    --popover-foreground: 25 30% 25%;
+    --primary: 15 85% 60%;
+    --primary-foreground: 25 85% 98%;
+    --secondary: 25 80% 92%;
+    --secondary-foreground: 15 85% 60%;
+    --muted: 25 80% 92%;
+    --muted-foreground: 25 30% 55%;
+    --accent: 25 80% 88%;
+    --accent-foreground: 15 85% 50%;
+    --destructive: 0 70% 55%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 25 80% 90%;
+    --input: 25 80% 90%;
+    --ring: 15 85% 60%;
+    --radius: 1rem;
+  }
+
+  .dark {
+    --background: 224 71% 4%;
+    --foreground: 210 40% 98%;
+    --card: 224 71% 9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 224 71% 4%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 217 91% 60%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 217 91% 60%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 224 71% 9%;
+    --muted-foreground: 215 20% 65%;
+    --accent: 217 91% 60%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 224 71% 14%;
+    --input: 224 71% 14%;
+    --ring: 217 91% 60%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground transition-colors duration-300;
+    background: linear-gradient(180deg, hsl(var(--soft-blue)), hsl(var(--lavender)), hsl(var(--baby-pink)));
+  }
+
+  html[data-theme="default"] body {
+      background: linear-gradient(180deg, hsl(var(--soft-blue)), hsl(var(--lavender)), hsl(var(--baby-pink)));
+  }
+
+  html[data-theme="neoglass"] body {
+      background: linear-gradient(180deg, hsl(210 80% 90%), hsl(220 80% 95%));
+  }
+
+  html[data-theme="cyberwave"] body {
+      background: radial-gradient(circle, hsl(225 30% 20%), hsl(225 20% 10%));
+  }
+  
+  html.dark body {
+    background: hsl(var(--background));
+  }
+
+  html[data-theme="minimal-white"] body {
+      background: hsl(0 0% 98%);
+  }
+
+  html[data-theme="claymorphic"] body {
+      background: linear-gradient(180deg, hsl(25 80% 92%), hsl(15 85% 90%));
+  }
+
+  .font-size-small {
+    font-size: 14px;
+  }
+  .font-size-medium {
+    font-size: 16px;
+  }
+  .font-size-large {
+    font-size: 18px;
+  }
+}
+
+.glow-shadow {
+  box-shadow: 0px 4px 20px hsl(var(--primary) / 0.3);
+}
+
+html[data-theme="claymorphic"] .glow-shadow {
+   box-shadow: 0px 4px 20px hsl(var(--ring) / 0.3);
+}
+
+.soft-shadow {
+  box-shadow: 0px 8px 24px hsla(var(--primary) / 0.1), 0px 4px 12px hsla(var(--primary) / 0.08);
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.5s ease-out forwards;
+}
+
+html[data-theme="neoglass"] .soft-shadow {
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+html[data-theme="cyberwave"] .soft-shadow {
+  box-shadow: 0px 0px 15px hsl(var(--primary) / 0.5), 0px 0px 5px hsl(var(--primary) / 0.7);
+  border: 1px solid hsl(var(--primary) / 0.7);
+}
+
+html[data-theme="minimal-white"] .soft-shadow {
+  box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.05);
+}
+
+html[data-theme="claymorphic"] .soft-shadow {
+  box-shadow: 7px 7px 15px hsl(var(--background) / 0.7), -7px -7px 15px hsl(var(--card) / 1.2);
+}
+
+@keyframes fade-in-up {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
