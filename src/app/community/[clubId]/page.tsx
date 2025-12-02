@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import { ClubHeader } from '@/components/club-header';
 import { Button } from '@/components/ui/button';
@@ -22,7 +22,10 @@ interface Message {
 // Dummy data for a single club, to be replaced with Firestore data
 const club = { id: '1', name: 'AI for Designers', description: 'A place to discuss how AI is changing the design world.', members: 1200, isPublic: true };
 
-export default function ClubDetailsPage({ params: { clubId } }: { params: { clubId: string } }) {
+export default function ClubDetailsPage({ params }: { params: { clubId: string } }) {
+  const resolvedParams = React.use(params);
+  const clubId = resolvedParams.clubId;
+  
   const { user } = useUser();
   const firestore = useFirestore();
   const [newMessage, setNewMessage] = useState('');
