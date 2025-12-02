@@ -17,10 +17,13 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '@/components/ui/command';
 import { Switch } from '@/components/ui/switch';
 import { cn } from '@/lib/utils';
-import { useUser } from '@/firebase';
+import { useUser, useFirestore } from '@/firebase';
 import Image from 'next/image';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { allTools, Tool } from '@/lib/tools-data';
+import { addDoc, collection, serverTimestamp, doc, setDoc } from 'firebase/firestore';
+import { useRouter } from 'next/navigation';
+import { useToast } from '@/hooks/use-toast';
 
 
 const categories = ["AI", "Design", "Coding", "Video", "Writing", "Productivity", "Gaming", "Tools"] as const;
@@ -44,7 +47,7 @@ const StepIndicator = ({ currentStep }: { currentStep: number }) => {
   ];
 
   return (
-    <div className="flex justify-between items-center mb-8 max-w-sm mx-auto">
+    <div className="flex justify-between items-center mb-8 max-w-xs mx-auto">
       {steps.map((step, index) => (
         <React.Fragment key={step.name}>
           <div className="flex flex-col items-center">
@@ -243,7 +246,7 @@ function Step2_ToolsBuilder() {
                         return (
                             <div key={tool.name} className="flex items-center justify-between p-2 rounded-lg hover:bg-secondary">
                                 <div className="flex items-center gap-3">
-                                    <Image src={tool.image} alt={tool.name} width={40} height={40} className="rounded-md" />
+                                    <Image src={tool.image} alt={tool.name} width={40} height={40} className="rounded-md" data-ai-hint={tool.dataAiHint}/>
                                     <div>
                                         <p className="font-semibold">{tool.name}</p>
                                         <p className="text-xs text-muted-foreground">{tool.category}</p>
@@ -269,6 +272,10 @@ function Step2_ToolsBuilder() {
 export default function CreateClubPage() {
     const [currentStep, setCurrentStep] = useState(0);
     const { user } = useUser();
+    const firestore = useFirestore();
+    const router = useRouter();
+    const { toast } = useToast();
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const methods = useForm<ClubFormValues>({
         resolver: zodResolver(clubFormSchema),
@@ -282,10 +289,73 @@ export default function CreateClubPage() {
         },
     });
 
-    const onSubmit = (data: ClubFormValues) => {
-        console.log('Submitting club data:', data);
-        // Here we'll eventually save to Firestore
-    };
+    const onSubmit = async (data: ClubFormValues) => {
+        if (!user || !firestore) {
+          toast({
+            variant: 'destructive',
+            title: 'You must be logged in to create a club.',
+          });
+          return;
+        }
+    
+        setIsSubmitting(true);
+    
+        try {
+          // 1. Create the main group document
+          const groupRef = await addDoc(collection(firestore, 'groups'), {
+            name: data.clubName,
+            description: data.clubDescription,
+            category: data.category,
+            isPublic: data.visibility === 'public',
+            ownerId: user.uid,
+            createdAt: serverTimestamp(),
+            memberCount: 1,
+          });
+    
+          const groupId = groupRef.id;
+    
+          // 2. Add the creator as the owner in the members subcollection
+          const memberRef = doc(firestore, 'groups', groupId, 'members', user.uid);
+          await setDoc(memberRef, {
+            userId: user.uid,
+            joinedAt: serverTimestamp(),
+            role: 'owner',
+          });
+    
+          // 3. Add the selected tools to the tools subcollection
+          const toolsCollectionRef = collection(firestore, 'groups', groupId, 'tools');
+          for (const toolName of data.tools) {
+            const toolData = allTools.find(t => t.name === toolName);
+            if (toolData) {
+              await addDoc(toolsCollectionRef, {
+                toolName: toolData.name,
+                toolUrl: toolData.url,
+                toolDescription: toolData.description,
+                addedBy: user.uid,
+                addedAt: serverTimestamp(),
+                upvotes: 0,
+              });
+            }
+          }
+    
+          toast({
+            title: 'Club Created!',
+            description: `Your club "${data.clubName}" is now live.`,
+          });
+    
+          router.push(`/community/${groupId}`);
+    
+        } catch (error) {
+          console.error("Error creating club:", error);
+          toast({
+            variant: 'destructive',
+            title: 'Error creating club',
+            description: 'Something went wrong. Please try again.',
+          });
+        } finally {
+          setIsSubmitting(false);
+        }
+      };
     
     const nextStep = () => setCurrentStep(prev => (prev < 1 ? prev + 1 : prev));
     const prevStep = () => setCurrentStep(prev => (prev > 0 ? prev - 1 : prev));
@@ -322,8 +392,8 @@ export default function CreateClubPage() {
                                     Next Step <ArrowRight className="ml-2" />
                                 </Button>
                             ) : (
-                                <Button type="submit">
-                                    Publish Club
+                                <Button type="submit" disabled={isSubmitting}>
+                                    {isSubmitting ? 'Publishing...' : 'Publish Club'}
                                 </Button>
                             )}
                         </div>
@@ -333,5 +403,7 @@ export default function CreateClubPage() {
         </div>
     );
 }
+
+    
 
     
