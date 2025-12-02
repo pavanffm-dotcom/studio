@@ -1,13 +1,10 @@
 'use client';
 
 import { useState } from 'react';
-import Link from 'next/link';
 import Image from 'next/image';
 import { ClubHeader } from '@/components/club-header';
-import { Card, CardContent, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, ExternalLink, Heart, MessageCircle, Send, Star, ThumbsUp, Users } from 'lucide-react';
-import { Badge } from '@/components/ui/badge';
+import { Send, Users } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 import { Input } from '@/components/ui/input';
 import { useUser, useFirestore, useCollection, useMemoFirebase } from '@/firebase';
@@ -24,15 +21,8 @@ interface Message {
 
 // Dummy data for a single club, to be replaced with Firestore data
 const club = { id: '1', name: 'AI for Designers', description: 'A place to discuss how AI is changing the design world.', members: 1200, isPublic: true };
-const tools = [
-  { name: 'Midjourney', url: 'https://www.midjourney.com/', image: 'https://picsum.photos/seed/midjourney-club/300/200', dataAiHint: 'generative art', upvotes: 123, comments: 12, addedBy: 'Jane Doe' },
-  { name: 'Framer AI', url: 'https://www.framer.com/ai', image: 'https://picsum.photos/seed/framer-club/300/200', dataAiHint: 'website builder', upvotes: 98, comments: 8, addedBy: 'John Smith' },
-  { name: 'Galileo AI', url: 'https://www.usegalileo.ai/', image: 'https://picsum.photos/seed/galileo-club/300/200', dataAiHint: 'ui design', upvotes: 85, comments: 5, addedBy: 'Alex Ray' },
-  { name: 'Khroma', url: 'http://khroma.co/', image: 'https://picsum.photos/seed/khroma-club/300/200', dataAiHint: 'color palette', upvotes: 72, comments: 3, addedBy: 'Sarah Lee' },
-];
 
-export default function ClubDetailsPage({ params }: { params: { clubId: string } }) {
-  const { clubId } = params;
+export default function ClubDetailsPage({ params: { clubId } }: { params: { clubId: string } }) {
   const { user } = useUser();
   const firestore = useFirestore();
   const [newMessage, setNewMessage] = useState('');
