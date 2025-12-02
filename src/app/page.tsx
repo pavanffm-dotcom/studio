@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import Image from 'next/image';
 import {
   Clapperboard,
@@ -66,7 +66,7 @@ import {
     allTools,
 } from '@/lib/tools-data';
 import { ToolIcon } from '@/lib/tool-icons';
-import { useSavedTools } from '@/context/saved-tools-context';
+import { useUserPreferences } from '@/context/user-preferences-context';
 
 
 type ChatMessage = {
@@ -135,8 +135,8 @@ const ChatInputComponent = ({ chatInput, setChatInput, handleSendMessage, isGene
 };
 
 const ToolCard = React.memo(({ tool, onShare, onClick, t }: { tool: Tool, onShare: (e: React.MouseEvent, tool: Tool) => void, onClick: (tool: Tool) => void, t: (key: string) => string }) => {
-    const { savedTools, handleSaveToggle } = useSavedTools();
-    const isSaved = savedTools.has(tool.name);
+    const { heartedTools, handleHeartToggle } = useUserPreferences();
+    const isHearted = heartedTools.has(tool.name);
 
     const handleCardClick = useCallback((e: React.MouseEvent) => {
         e.preventDefault();
@@ -147,7 +147,7 @@ const ToolCard = React.memo(({ tool, onShare, onClick, t }: { tool: Tool, onShar
     const handleHeartClick = (e: React.MouseEvent) => {
         e.preventDefault();
         e.stopPropagation();
-        handleSaveToggle(tool.name);
+        handleHeartToggle(tool.name);
     }
   
     return (
@@ -169,7 +169,7 @@ const ToolCard = React.memo(({ tool, onShare, onClick, t }: { tool: Tool, onShar
                   <Share2 />
                 </Button>
                 <Button variant="ghost" size="icon" className="w-8 h-8 rounded-full text-white bg-white/20 hover:bg-white/30 backdrop-blur-sm" onClick={handleHeartClick}>
-                    <Heart className={cn('w-5 h-5 transition-all', isSaved ? 'fill-red-500 text-red-500' : 'text-white')} />
+                    <Heart className={cn('w-5 h-5 transition-all', isHearted ? 'fill-red-500 text-red-500' : 'text-white')} />
                 </Button>
               </div>
             </div>
@@ -193,11 +193,17 @@ function App() {
   const [chatInput, setChatInput] = React.useState('');
   const chatContainerRef = React.useRef<HTMLDivElement>(null);
   const { toast } = useToast();
-  const { savedTools } = useSavedTools();
+  const { heartedTools, starredTools } = useUserPreferences();
+  const [activeSavedTab, setActiveSavedTab] = useState('recent');
 
-  const savedToolsDetails = useMemo(() => {
-    return allTools.filter(tool => savedTools.has(tool.name));
-  }, [savedTools]);
+
+  const heartedToolsDetails = useMemo(() => {
+    return allTools.filter(tool => heartedTools.has(tool.name));
+  }, [heartedTools]);
+
+  const starredToolsDetails = useMemo(() => {
+    return allTools.filter(tool => starredTools.has(tool.name));
+  }, [starredTools]);
   
   const handleShareTool = useCallback(async (e: React.MouseEvent, tool: Tool) => {
     e.preventDefault();
@@ -474,41 +480,17 @@ function App() {
       </section>
       
       <section className="mt-6 mb-16">
-          <Tabs defaultValue="recent" className="w-full">
-              <TabsList className="grid w-full grid-cols-2 bg-secondary rounded-full h-12 p-1">
-                  <TabsTrigger value="recent" className="rounded-full h-full text-base">{t('home.recents.title')}</TabsTrigger>
-                  <TabsTrigger value="saved" className="rounded-full h-full text-base">{t('home.favourites.title')}</TabsTrigger>
-              </TabsList>
-              <TabsContent value="recent" className="mt-4">
-                  {recentTools.length > 0 ? (
-                      <div className="space-y-3">
-                      {recentTools.map(tool => (
-                          <Card key={tool.name} className="p-3 flex items-center gap-4 bg-white/80 border-none rounded-3xl soft-shadow">
-                              {tool.image && <Image src={tool.image} alt={tool.name} width={56} height={56} className="rounded-2xl" data-ai-hint={tool.dataAiHint} />}
-                              <div className="flex-grow">
-                                  <h5 className="font-semibold text-base">{tool.name}</h5>
-                                  <p className="text-sm text-muted-foreground">{tool.category}</p>
-                              </div>
-                              <Link href={tool.url} target="_blank">
-                                  <Button variant="ghost" size="icon" className="text-muted-foreground rounded-full w-10 h-10">
-                                      <ChevronRight />
-                                  </Button>
-                              </Link>
-                          </Card>
-                      ))}
-                      </div>
-                  ) : (
-                      <div className="text-center py-10 text-muted-foreground">
-                          <History className="mx-auto w-10 h-10" />
-                          <p className="mt-4 text-base">{t('home.recents.empty')}</p>
-                          <p className="text-sm">{t('home.recents.emptyDescription')}</p>
-                      </div>
-                  )}
-              </TabsContent>
-              <TabsContent value="saved" className="mt-4">
-                {savedToolsDetails.length > 0 ? (
+        <div className="flex justify-center items-center gap-4 my-4">
+            <Button variant={activeSavedTab === 'heart' ? 'secondary' : 'ghost'} size="icon" onClick={() => setActiveSavedTab('heart')} className="w-16 h-16 rounded-2xl"><Heart className="w-7 h-7"/></Button>
+            <Button variant={activeSavedTab === 'recent' ? 'secondary' : 'ghost'} size="icon" onClick={() => setActiveSavedTab('recent')} className="w-20 h-20 rounded-3xl"><History className="w-9 h-9"/></Button>
+            <Button variant={activeSavedTab === 'star' ? 'secondary' : 'ghost'} size="icon" onClick={() => setActiveSavedTab('star')} className="w-16 h-16 rounded-2xl"><Star className="w-7 h-7"/></Button>
+        </div>
+        
+        {activeSavedTab === 'recent' && (
+             <div className="mt-4">
+                {recentTools.length > 0 ? (
                     <div className="space-y-3">
-                    {savedToolsDetails.map(tool => (
+                    {recentTools.map(tool => (
                         <Card key={tool.name} className="p-3 flex items-center gap-4 bg-white/80 border-none rounded-3xl soft-shadow">
                             {tool.image && <Image src={tool.image} alt={tool.name} width={56} height={56} className="rounded-2xl" data-ai-hint={tool.dataAiHint} />}
                             <div className="flex-grow">
@@ -525,13 +507,71 @@ function App() {
                     </div>
                 ) : (
                     <div className="text-center py-10 text-muted-foreground">
-                        <Heart className="mx-auto w-10 h-10" />
-                        <p className="mt-4 text-base">No saved tools yet.</p>
-                        <p className="text-sm">Tools you save will appear here.</p>
+                        <History className="mx-auto w-10 h-10" />
+                        <p className="mt-4 text-base">{t('home.recents.empty')}</p>
+                        <p className="text-sm">{t('home.recents.emptyDescription')}</p>
                     </div>
                 )}
-              </TabsContent>
-          </Tabs>
+            </div>
+        )}
+        
+        {activeSavedTab === 'heart' && (
+            <div className="mt-4">
+            {heartedToolsDetails.length > 0 ? (
+                <div className="space-y-3">
+                {heartedToolsDetails.map(tool => (
+                    <Card key={tool.name} className="p-3 flex items-center gap-4 bg-white/80 border-none rounded-3xl soft-shadow">
+                        {tool.image && <Image src={tool.image} alt={tool.name} width={56} height={56} className="rounded-2xl" data-ai-hint={tool.dataAiHint} />}
+                        <div className="flex-grow">
+                            <h5 className="font-semibold text-base">{tool.name}</h5>
+                            <p className="text-sm text-muted-foreground">{tool.category}</p>
+                        </div>
+                        <Link href={tool.url} target="_blank">
+                            <Button variant="ghost" size="icon" className="text-muted-foreground rounded-full w-10 h-10">
+                                <ChevronRight />
+                            </Button>
+                        </Link>
+                    </Card>
+                ))}
+                </div>
+            ) : (
+                <div className="text-center py-10 text-muted-foreground">
+                    <Heart className="mx-auto w-10 h-10" />
+                    <p className="mt-4 text-base">No hearted tools yet.</p>
+                    <p className="text-sm">Tools you heart will appear here.</p>
+                </div>
+            )}
+            </div>
+        )}
+
+        {activeSavedTab === 'star' && (
+             <div className="mt-4">
+                {starredToolsDetails.length > 0 ? (
+                    <div className="space-y-3">
+                    {starredToolsDetails.map(tool => (
+                        <Card key={tool.name} className="p-3 flex items-center gap-4 bg-white/80 border-none rounded-3xl soft-shadow">
+                            {tool.image && <Image src={tool.image} alt={tool.name} width={56} height={56} className="rounded-2xl" data-ai-hint={tool.dataAiHint} />}
+                            <div className="flex-grow">
+                                <h5 className="font-semibold text-base">{tool.name}</h5>
+                                <p className="text-sm text-muted-foreground">{tool.category}</p>
+                            </div>
+                            <Link href={tool.url} target="_blank">
+                                <Button variant="ghost" size="icon" className="text-muted-foreground rounded-full w-10 h-10">
+                                    <ChevronRight />
+                                </Button>
+                            </Link>
+                        </Card>
+                    ))}
+                    </div>
+                ) : (
+                    <div className="text-center py-10 text-muted-foreground">
+                        <Star className="mx-auto w-10 h-10" />
+                        <p className="mt-4 text-base">No starred tools yet.</p>
+                        <p className="text-sm">Tools you star will appear here.</p>
+                    </div>
+                )}
+            </div>
+        )}
       </section>
     </>
   )

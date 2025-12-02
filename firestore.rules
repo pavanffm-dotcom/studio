@@ -84,19 +84,16 @@ service cloud.firestore {
     }
     
     /**
-     * @description Controls access to user-specific data.
+     * @description Controls access to user-specific data, including saved and starred tools.
      */
     match /users/{userId} {
-      // Users can only access their own document.
-      allow read, update, delete: if isOwner(userId);
+      // Users can read their own document.
+      // They can create it, and update their hearted/starred tools.
+      allow read: if isOwner(userId);
       allow create: if isSignedIn();
-
-      /**
-       * @description Controls access to a user's list of favourite tools.
-       */
-      match /favourites/{favouriteId} {
-        allow read, write: if isOwner(userId);
-      }
+      allow update: if isOwner(userId);
+      // Disallow client-side deletion of the main user document for safety.
+      allow delete: if false;
     }
   }
 }
