@@ -598,114 +598,6 @@ const toolData: ToolCategory[] = [
             { name: 'Figshare', description: 'A repository where users can make all of their research outputs available.', url: 'https://figshare.com/', image: 'https://picsum.photos/seed/figshare/600/400', dataAiHint: 'research outputs', pricing: 'Freemium' },
             { name: 'Dryad', description: 'A general-purpose home for a wide diversity of datatypes.', url: 'https://datadryad.org/', image: 'https://picsum.photos/seed/dryad/600/400', dataAiHint: 'data repository', pricing: 'Free' },
         ]
-    },
-    {
-        title: "English Grammar & Writing Tools",
-        icon: <Type className="w-5 h-5 text-primary"/>,
-        tools: [
-            { name: 'Grammarly', description: 'Your AI-powered writing assistant.', url: 'https://www.grammarly.com/', image: 'https://picsum.photos/seed/grammarly-write/600/400', dataAiHint: 'grammar check', pricing: 'Freemium' },
-            { name: 'QuillBot', description: 'AI-powered paraphrasing tool.', url: 'https://quillbot.com/', image: 'https://picsum.photos/seed/quillbot-write/600/400', dataAiHint: 'sentence rewriter', pricing: 'Freemium' },
-            { name: 'Hemingway Editor', description: 'Makes your writing bold and clear.', url: 'https://hemingwayapp.com/', image: 'https://picsum.photos/seed/hemingway-write/600/400', dataAiHint: 'readability tool', pricing: 'Free' },
-            { name: 'LanguageTool', description: 'Multilingual grammar, style, and spell checker.', url: 'https://languagetool.org/', image: 'https://picsum.photos/seed/languagetool/600/400', dataAiHint: 'spell check', pricing: 'Freemium' },
-            { name: 'WordTune', description: 'Your personal writing companion.', url: 'https://www.wordtune.com/', image: 'https://picsum.photos/seed/wordtune-write/600/400', dataAiHint: 'ai writing', pricing: 'Freemium' },
-            { name: 'ProWritingAid', description: 'A grammar checker, style editor, and writing mentor.', url: 'https://prowritingaid.com/', image: 'https://picsum.photos/seed/prowritingaid/600/400', dataAiHint: 'style editor', pricing: 'Paid' },
-            { name: 'Ginger Software', description: 'Grammar checker and writing assistant.', url: 'https://www.gingersoftware.com/', image: 'https://picsum.photos/seed/gingersoftware/600/400', dataAiHint: 'writing assistant', pricing: 'Freemium' },
-            { name: 'Slick Write', description: 'A powerful, free tool for writers.', url: 'https://www.slickwrite.com/', image: 'https://picsum.photos/seed/slickwrite/600/400', dataAiHint: 'free writing tool', pricing: 'Free' },
-            { name: 'WhiteSmoke', description: 'Grammar, spelling, style, and punctuation checker.', url: 'https://www.whitesmoke.com/', image: 'https://picsum.photos/seed/whitesmoke/600/400', dataAiHint: 'punctuation checker', pricing: 'Paid' },
-            { name: 'PaperRater', description: 'Online proofreader.', url: 'https://www.paperrater.com/', image: 'https://picsum.photos/seed/paperrater/600/400', dataAiHint: 'online proofreader', pricing: 'Free' },
-            { name: 'Reverso', description: 'Translation, dictionary, grammar.', url: 'https://www.reverso.net/', image: 'https://picsum.photos/seed/reverso/600/400', dataAiHint: 'translation tool', pricing: 'Free' },
-            { name: 'Readable', description: 'Readability test tool.', url: 'https://readable.com/', image: 'https://picsum.photos/seed/readable/600/400', dataAiHint: 'readability score', pricing: 'Paid' },
-            { name: 'Writer.com', description: 'AI writing platform for teams.', url: 'https://writer.com/', image: 'https://picsum.photos/seed/writercom/600/400', dataAiHint: 'team writing', pricing: 'Paid' },
-            { name: 'Ludwig', description: 'Sentence search engine.', url: 'https://ludwig.guru/', image: 'https://picsum.photos/seed/ludwig/600/400', dataAiHint: 'sentence search', pricing: 'Freemium' },
-            { name: 'Text-cortex', description: 'AI writing assistant.', url: 'https://textcortex.com/', image: 'https://picsum.photos/seed/textcortex-write/600/400', dataAiHint: 'content creation', pricing: 'Freemium' },
-            { name: 'Sapling', description: 'AI messaging assistant for customer-facing teams.', url: 'https://sapling.ai/', image: 'https://picsum.photos/seed/sapling/600/400', dataAiHint: 'messaging assistant', pricing: 'Freemium' },
-            { name: 'Trinka AI', description: 'AI-powered grammar checker and language enhancement tool.', url: 'https://www.trinka.ai/', image: 'https://picsum.photos/seed/trinka/600/400', dataAiHint: 'academic writing', pricing: 'Freemium' },
-            { name: 'Writefull', description: 'AI-based language feedback.', url: 'https://www.writefull.com/', image: 'https://picsum.photos/seed/writefull/600/400', dataAiHint: 'language feedback', pricing: 'Freemium' },
-            { name: 'Paperpal', description: 'The AI academic writing assistant.', url: 'https://paperpal.com/', image: 'https://picsum.photos/seed/paperpal/600/400', dataAiHint: 'scientific writing', pricing: 'Freemium' },
-            { name: 'Antidote', description: 'A powerful corrector, dictionary, and guide suite.', url: 'https://www.antidote.info/', image: 'https://picsum.photos/seed/antidote/600/400', dataAiHint: 'writing suite', pricing: 'Paid' },
-            { name: 'StyleWriter', description: 'Plain English editing software.', url: 'https://editorsoftware.com/', image: 'https://picsum.photos/seed/stylewriter/600/400', dataAiHint: 'plain english', pricing: 'Paid' },
-            { name: 'Atomic Reach', description: 'Content intelligence platform.', url: 'https://www.atomicreach.com/', image: 'https://picsum.photos/seed/atomicreach/600/400', dataAiHint: 'content intelligence', pricing: 'Paid' },
-            { name: 'Zoho Writer', description: 'A powerful word processor.', url: 'https://www.zoho.com/writer/', image: 'https://picsum.photos/seed/zohowriter/600/400', dataAiHint: 'word processor', pricing: 'Free' },
-            { name: 'Google Docs', description: 'Online document editor.', url: 'https://www.google.com/docs/about/', image: 'https://picsum.photos/seed/gdocs-write/600/400', dataAiHint: 'online editor', pricing: 'Free' },
-            { name: 'Microsoft Word', description: 'Word processing software.', url: 'https://www.microsoft.com/en-us/microsoft-365/word', image: 'https://picsum.photos/seed/msword-write/600/400', dataAiHint: 'word software', pricing: 'Paid' },
-            { name: 'Scrivener', description: 'The go-to app for writers.', url: 'https://www.literatureandlatte.com/scrivener/overview', image: 'https://picsum.photos/seed/scrivener-write/600/400', dataAiHint: 'writers app', pricing: 'Paid' },
-            { name: 'Ulysses', description: 'The ultimate writing app for Mac, iPad, and iPhone.', url: 'https://ulysses.app/', image: 'https://picsum.photos/seed/ulysses-write/600/400', dataAiHint: 'apple writing', pricing: 'Paid' },
-            { name: 'iA Writer', description: 'The focused writing app.', url: 'https://ia.net/writer', image: 'https://picsum.photos/seed/iawriter-write/600/400', dataAiHint: 'focused app', pricing: 'Paid' },
-            { name: 'Byword', description: 'Simple and efficient text editing.', url: 'https://bywordapp.com/', image: 'https://picsum.photos/seed/byword/600/400', dataAiHint: 'text editing', pricing: 'Paid' },
-            { name: 'FocusWriter', description: 'A simple, distraction-free writing environment.', url: 'https://gottcode.org/focuswriter/', image: 'https://picsum.photos/seed/focuswriter/600/400', dataAiHint: 'distraction free', pricing: 'Free' },
-            { name: 'Calmly Writer', description: 'A professional text editor.', url: 'https://www.calmlywriter.com/', image: 'https://picsum.photos/seed/calmlywriter/600/400', dataAiHint: 'focus mode', pricing: 'Freemium' },
-            { name: 'OmmWriter', description: 'A tool for writers, a place for your thoughts.', url: 'https://ommwriter.com/', image: 'https://picsum.photos/seed/ommwriter/600/400', dataAiHint: 'writing thoughts', pricing: 'Paid' },
-            { name: 'Typely', description: 'Free online proofreading.', url: 'https://typely.com/', image: 'https://picsum.photos/seed/typely-write/600/400', dataAiHint: 'online proofreading', pricing: 'Free' },
-            { name: 'GrammarCheck', description: 'Free grammar and spelling checker.', url: 'https://www.grammarcheck.net/', image: 'https://picsum.photos/seed/grammarcheck/600/400', dataAiHint: 'free checker', pricing: 'Free' },
-            { name: 'OnlineCorrection.com', description: 'Free online spelling and grammar checker.', url: 'https://www.onlinecorrection.com/', image: 'https://picsum.photos/seed/onlinecorrection/600/400', dataAiHint: 'spelling checker', pricing: 'Free' },
-            { name: 'SpellCheckPlus', description: 'Free online spell and grammar checker.', url: 'https://spellcheckplus.com/', image: 'https://picsum.photos/seed/spellcheckplus/600/400', dataAiHint: 'grammar checker', pricing: 'Free' },
-            { name: 'After the Deadline', description: 'Grammar and spelling checker.', url: 'https://www.afterthedeadline.com/', image: 'https://picsum.photos/seed/afterthedeadline/600/400', dataAiHint: 'polish writing', pricing: 'Free' },
-            { name: 'AutoCrit', description: 'Editing software for fiction writers.', url: 'https://www.autocrit.com/', image: 'https://picsum.photos/seed/autocrit/600/400', dataAiHint: 'fiction editing', pricing: 'Paid' },
-            { name: 'SmartEdit', description: 'Editing software for novelists.', url: 'https://www.smart-edit.com/', image: 'https://picsum.photos/seed/smartedit/600/400', dataAiHint: 'novelists software', pricing: 'Paid' },
-            { name: 'Thesaurus.com', description: 'Find synonyms and antonyms.', url: 'https://www.thesaurus.com/', image: 'https://picsum.photos/seed/thesaurus/600/400', dataAiHint: 'synonyms', pricing: 'Free' },
-            { name: 'Power Thesaurus', description: 'Crowdsourced thesaurus.', url: 'https://www.powerthesaurus.org/', image: 'https://picsum.photos/seed/powerthesaurus/600/400', dataAiHint: 'crowdsourced', pricing: 'Free' },
-            { name: 'OneLook', description: 'A dictionary search engine.', url: 'https://www.onelook.com/', image: 'https://picsum.photos/seed/onelook/600/400', dataAiHint: 'dictionary search', pricing: 'Free' },
-            { name: 'Etymonline', description: 'Online etymology dictionary.', url: 'https://www.etymonline.com/', image: 'https://picsum.photos/seed/etymonline/600/400', dataAiHint: 'etymology', pricing: 'Free' },
-            { name: 'WordHippo', description: 'A multi-purpose word tool.', url: 'https://www.wordhippo.com/', image: 'https://picsum.photos/seed/wordhippo/600/400', dataAiHint: 'word tool', pricing: 'Free' },
-            { name: 'Cliché Finder', description: 'Find clichés in your text.', url: 'https://cliche.theinfo.org/', image: 'https://picsum.photos/seed/clichefinder/600/400', dataAiHint: 'find cliches', pricing: 'Free' },
-            { name: 'Wordcounter', description: 'Word count and text statistics.', url: 'https://wordcounter.net/', image: 'https://picsum.photos/seed/wordcounter/600/400', dataAiHint: 'word count', pricing: 'Free' },
-            { name: 'Copyscape', description: 'Plagiarism checker.', url: 'https://www.copyscape.com/', image: 'https://picsum.photos/seed/copyscape/600/400', dataAiHint: 'plagiarism checker', pricing: 'Paid' },
-            { name: 'Plagscan', description: 'Plagiarism checker.', url: 'https://www.plagscan.com/', image: 'https://picsum.photos/seed/plagscan/600/400', dataAiHint: 'check plagiarism', pricing: 'Paid' },
-            { name: 'Unicheck', description: 'Plagiarism checker.', url: 'https://unicheck.com/', image: 'https://picsum.photos/seed/unicheck/600/400', dataAiHint: 'similarity checker', pricing: 'Paid' },
-            { name: 'Scribbr', description: 'Your path to academic success.', url: 'https://www.scribbr.com/', image: 'https://picsum.photos/seed/scribbr-write/600/400', dataAiHint: 'academic success', pricing: 'Paid' },
-            { name: 'Citation Machine', description: 'Citation generator.', url: 'https://www.citationmachine.net/', image: 'https://picsum.photos/seed/citationmachine/600/400', dataAiHint: 'apa mla', pricing: 'Free' },
-            { name: 'EasyBib', description: 'Citation generator.', url: 'https://www.easybib.com/', image: 'https://picsum.photos/seed/easybib/600/400', dataAiHint: 'bibliography', pricing: 'Free' },
-        ]
-    },
-    {
-        title: "Presentation & Assignment Maker Tools",
-        icon: <Presentation className="w-5 h-5 text-primary"/>,
-        tools: [
-            { name: 'Canva', description: 'Design presentations, documents, and more.', url: 'https://www.canva.com/', image: 'https://picsum.photos/seed/canva-present/600/400', dataAiHint: 'design platform', pricing: 'Freemium' },
-            { name: 'Gamma App', description: 'A new medium for presenting ideas.', url: 'https://gamma.app/', image: 'https://picsum.photos/seed/gamma-app/600/400', dataAiHint: 'ai presentation', pricing: 'Freemium' },
-            { name: 'Beautiful.ai', description: 'Presentation software that designs for you.', url: 'https://www.beautiful.ai/', image: 'https://picsum.photos/seed/beautifulai/600/400', dataAiHint: 'slide design', pricing: 'Paid' },
-            { name: 'Tome AI', description: 'The AI-powered storytelling format.', url: 'https://tome.app/', image: 'https://picsum.photos/seed/tome-ai/600/400', dataAiHint: 'storytelling', pricing: 'Freemium' },
-            { name: 'SlidesGo', description: 'Free Google Slides and PowerPoint templates.', url: 'https://slidesgo.com/', image: 'https://picsum.photos/seed/slidesgo/600/400', dataAiHint: 'presentation templates', pricing: 'Free' },
-            { name: 'Prezi', description: 'Conversational presenting.', url: 'https://prezi.com/', image: 'https://picsum.photos/seed/prezi/600/400', dataAiHint: 'zooming presentation', pricing: 'Freemium' },
-            { name: 'Google Slides', description: 'Create and edit presentations online.', url: 'https://www.google.com/slides/about/', image: 'https://picsum.photos/seed/googleslides/600/400', dataAiHint: 'online slides', pricing: 'Free' },
-            { name: 'Microsoft PowerPoint', description: 'Presentation software.', url: 'https://www.microsoft.com/en-us/microsoft-365/powerpoint', image: 'https://picsum.photos/seed/powerpoint/600/400', dataAiHint: 'presentation software', pricing: 'Paid' },
-            { name: 'Keynote', description: 'Beautiful presentations for everyone.', url: 'https://www.apple.com/keynote/', image: 'https://picsum.photos/seed/keynote/600/400', dataAiHint: 'apple presentation', pricing: 'Free' },
-            { name: 'Visme', description: 'Create presentations, infographics, and more.', url: 'https://www.visme.co/', image: 'https://picsum.photos/seed/visme-present/600/400', dataAiHint: 'visual content', pricing: 'Freemium' },
-            { name: 'Piktochart', description: 'Infographic and presentation maker.', url: 'https://piktochart.com/', image: 'https://picsum.photos/seed/piktochart-present/600/400', dataAiHint: 'infographics', pricing: 'Freemium' },
-            { name: 'Genially', description: 'The tool for creating interactive content.', url: 'https://genial.ly/', image: 'https://picsum.photos/seed/genially/600/400', dataAiHint: 'interactive content', pricing: 'Freemium' },
-            { name: 'DeckRobot', description: 'AI for PowerPoint presentations.', url: 'https://www.deckrobot.com/', image: 'https://picsum.photos/seed/deckrobot/600/400', dataAiHint: 'powerpoint ai', pricing: 'Paid' },
-            { name: 'SlidesAI.io', description: 'Create presentation slides with AI in seconds.', url: 'https://www.slidesai.io/', image: 'https://picsum.photos/seed/slidesai/600/400', dataAiHint: 'ai slides', pricing: 'Freemium' },
-            { name: 'Presentations.AI', description: 'Your AI presentation assistant.', url: 'https://presentations.ai/', image: 'https://picsum.photos/seed/presentationsai/600/400', dataAiHint: 'presentation assistant', pricing: 'Freemium' },
-            { name: 'Mentimeter', description: 'Interactive presentation software.', url: 'https://www.mentimeter.com/', image: 'https://picsum.photos/seed/mentimeter/600/400', dataAiHint: 'audience interaction', pricing: 'Freemium' },
-            { name: 'AhaSlides', description: 'Interactive presentation software.', url: 'https://ahaslides.com/', image: 'https://picsum.photos/seed/ahaslides/600/400', dataAiHint: 'live polls', pricing: 'Freemium' },
-            { name: 'Slidebean', description: 'Presentation design services and software.', url: 'https://slidebean.com/', image: 'https://picsum.photos/seed/slidebean/600/400', dataAiHint: 'pitch decks', pricing: 'Paid' },
-            { name: 'Pitch', description: 'Collaborative presentation software.', url: 'https://pitch.com/', image: 'https://picsum.photos/seed/pitch/600/400', dataAiHint: 'collaborative slides', pricing: 'Freemium' },
-            { name: 'Haiku Deck', description: 'The fastest way to create a beautiful presentation.', url: 'https://www.haikudeck.com/', image: 'https://picsum.photos/seed/haikudeck/600/400', dataAiHint: 'simple presentation', pricing: 'Freemium' },
-            { name: 'Emaze', description: 'Create, share, and analyze presentations.', url: 'https://www.emaze.com/', image: 'https://picsum.photos/seed/emaze/600/400', dataAiHint: '3d presentations', pricing: 'Freemium' },
-            { name: 'Zoho Show', description: 'Online presentation tool.', url: 'https://www.zoho.com/show/', image: 'https://picsum.photos/seed/zohoshow/600/400', dataAiHint: 'zoho presentation', pricing: 'Freemium' },
-            { name: 'Powtoon', description: 'Animated presentations and videos.', url: 'https://www.powtoon.com/', image: 'https://picsum.photos/seed/powtoon-present/600/400', dataAiHint: 'animated video', pricing: 'Freemium' },
-            { name: 'Renderforest', description: 'Online video, logo, and website maker.', url: 'https://www.renderforest.com/', image: 'https://picsum.photos/seed/renderforest-present/600/400', dataAiHint: 'video maker', pricing: 'Freemium' },
-            { name: 'InVideo', description: 'Online video editor.', url: 'https://invideo.io/', image: 'https://picsum.photos/seed/invideo-present/600/400', dataAiHint: 'ai video', pricing: 'Freemium' },
-            { name: 'Lumen5', description: 'Video creation platform.', url: 'https://lumen5.com/', image: 'https://picsum.photos/seed/lumen5-present/600/400', dataAiHint: 'social media video', pricing: 'Freemium' },
-            { name: 'VEED.IO', description: 'Online video editor.', url: 'https://www.veed.io/', image: 'https://picsum.photos/seed/veed-present/600/400', dataAiHint: 'video suite', pricing: 'Freemium' },
-            { name: 'Wideo', description: 'Animated video maker.', url: 'https://wideo.co/', image: 'https://picsum.photos/seed/wideo-present/600/400', dataAiHint: 'marketing videos', pricing: 'Freemium' },
-            { name: 'Moovly', description: 'Online video creator.', url: 'https://www.moovly.com/', image: 'https://picsum.photos/seed/moovly-present/600/400', dataAiHint: 'video creator', pricing: 'Freemium' },
-            { name: 'Vyond', description: 'Animated video software.', url: 'https://www.vyond.com/', image: 'https://picsum.photos/seed/vyond-present/600/400', dataAiHint: 'business animation', pricing: 'Paid' },
-            { name: 'Animaker', description: 'DIY animated video maker.', url: 'https://www.animaker.com/', image: 'https://picsum.photos/seed/animaker-present/600/400', dataAiHint: 'diy animation', pricing: 'Freemium' },
-            { name: 'Biteable', description: 'Create studio-quality videos.', url: 'https://biteable.com/', image: 'https://picsum.photos/seed/biteable-present/600/400', dataAiHint: 'studio video', pricing: 'Freemium' },
-            { name: 'FlexClip', description: 'Free online video editor.', url: 'https://www.flexclip.com/', image: 'https://picsum.photos/seed/flexclip-present/600/400', dataAiHint: 'free editor', pricing: 'Freemium' },
-            { name: 'Crello (VistaCreate)', description: 'Free design tool.', url: 'https://create.vista.com/', image: 'https://picsum.photos/seed/crello-present/600/400', dataAiHint: 'visual editor', pricing: 'Freemium' },
-            { name: 'Fotor', description: 'Online photo editor and design maker.', url: 'https://www.fotor.com/', image: 'https://picsum.photos/seed/fotor-present/600/400', dataAiHint: 'design maker', pricing: 'Freemium' },
-            { name: 'Snappa', description: 'Create online graphics in a snap.', url: 'https://snappa.com/', image: 'https://picsum.photos/seed/snappa-present/600/400', dataAiHint: 'online graphics', pricing: 'Freemium' },
-            { name: 'DesignCap', description: 'Free online poster and flyer maker.', url: 'https://www.designcap.com/', image: 'https://picsum.photos/seed/designcap/600/400', dataAiHint: 'graphic designer', pricing: 'Free' },
-            { name: 'PosterMyWall', description: 'Create amazing posters and social media graphics.', url: 'https://www.postermywall.com/', image: 'https://picsum.photos/seed/postermywall-present/600/400', dataAiHint: 'social graphics', pricing: 'Freemium' },
-            { name: 'Venngage', description: 'Infographic maker.', url: 'https://venngage.com/', image: 'https://picsum.photos/seed/venngage-present/600/400', dataAiHint: 'infographic maker', pricing: 'Freemium' },
-            { name: 'Infogram', description: 'Create engaging infographics and reports.', url: 'https://infogram.com/', image: 'https://picsum.photos/seed/infogram/600/400', dataAiHint: 'data visualization', pricing: 'Freemium' },
-            { name: 'Easel.ly', description: 'Simple infographic maker.', url: 'https://www.easel.ly/', image: 'https://picsum.photos/seed/easelly/600/400', dataAiHint: 'infographic tool', pricing: 'Freemium' },
-            { name: 'Glogster', description: 'Multimedia posters.', url: 'https://edu.glogster.com/', image: 'https://picsum.photos/seed/glogster/600/400', dataAiHint: 'interactive posters', pricing: 'Freemium' },
-            { name: 'Buncee', description: 'Creation and communication tool.', url: 'https://www.buncee.com/', image: 'https://picsum.photos/seed/buncee/600/400', dataAiHint: 'student creations', pricing: 'Paid' },
-            { name: 'Sway', description: 'Create and share interactive reports, presentations.', url: 'https://sway.office.com/', image: 'https://picsum.photos/seed/sway/600/400', dataAiHint: 'microsoft sway', pricing: 'Free' },
-        ]
     }
 ];
 
@@ -788,7 +680,7 @@ export default function StudentToolsPage() {
           </Card>
         </Link>
     )};
-
+    
     const filteredToolData = React.useMemo(() => {
         if (priceFilter === 'All') {
             return toolData;
@@ -866,9 +758,3 @@ export default function StudentToolsPage() {
     </div>
   );
 }
-
-
-
-
-
-    
