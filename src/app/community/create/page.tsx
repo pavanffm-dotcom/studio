@@ -67,6 +67,7 @@ const StepIndicator = ({ currentStep }: { currentStep: number }) => {
 
 function Step1_BasicDetails() {
   const form = useFormContext<ClubFormValues>();
+  const [open, setOpen] = useState(false)
 
   return (
     <div className="space-y-6">
@@ -102,7 +103,7 @@ function Step1_BasicDetails() {
         render={({ field }) => (
           <FormItem className="flex flex-col">
             <FormLabel>Category</FormLabel>
-            <Popover>
+            <Popover open={open} onOpenChange={setOpen}>
               <PopoverTrigger asChild>
                 <FormControl>
                   <Button
@@ -134,6 +135,7 @@ function Step1_BasicDetails() {
                           key={category}
                           onSelect={() => {
                             form.setValue("category", category)
+                            setOpen(false)
                           }}
                         >
                           <Check
