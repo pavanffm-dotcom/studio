@@ -43,7 +43,9 @@ const categories = [
 const clubFormSchema = z.object({
   clubName: z.string().min(3, { message: "Club name must be at least 3 characters." }),
   clubDescription: z.string().max(500, { message: "Description cannot exceed 500 characters." }),
-  category: z.enum(categories),
+  category: z.string({
+    required_error: "Please select a category.",
+  }),
   visibility: z.enum(["public", "private", "unlisted"]).default("public"),
   allowMembersToAddTools: z.boolean().default(true),
   tags: z.array(z.string()).optional(),
@@ -138,7 +140,7 @@ function Step1_BasicDetails() {
               <PopoverContent className="w-[--radix-popover-trigger-width] p-0">
                 <Command>
                   <CommandInput placeholder="Search category..." />
-                  <CommandList>
+                   <CommandList>
                     <CommandEmpty>No category found.</CommandEmpty>
                     <CommandGroup>
                         {categories.map((category) => (
@@ -418,7 +420,3 @@ export default function CreateClubPage() {
         </div>
     );
 }
-
-    
-
-    
