@@ -477,7 +477,7 @@ function App() {
           <Tabs defaultValue="recent" className="w-full">
               <TabsList className="grid w-full grid-cols-2 bg-secondary rounded-full h-12 p-1">
                   <TabsTrigger value="recent" className="rounded-full h-full text-base">{t('home.recents.title')}</TabsTrigger>
-                  <TabsTrigger value="favourites" className="rounded-full h-full text-base">{t('home.favourites.title')}</TabsTrigger>
+                  <TabsTrigger value="saved" className="rounded-full h-full text-base">{t('home.favourites.title')}</TabsTrigger>
               </TabsList>
               <TabsContent value="recent" className="mt-4">
                   {recentTools.length > 0 ? (
@@ -505,7 +505,7 @@ function App() {
                       </div>
                   )}
               </TabsContent>
-              <TabsContent value="favourites" className="mt-4">
+              <TabsContent value="saved" className="mt-4">
                 {savedToolsDetails.length > 0 ? (
                     <div className="space-y-3">
                     {savedToolsDetails.map(tool => (
