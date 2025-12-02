@@ -147,8 +147,8 @@ function Step1_BasicDetails() {
                           <CommandItem
                             value={category}
                             key={category}
-                            onSelect={() => {
-                              form.setValue("category", category)
+                            onSelect={(currentValue) => {
+                              form.setValue("category", currentValue === field.value ? "" : currentValue)
                               setOpen(false)
                             }}
                           >
