@@ -32,14 +32,15 @@ const tools = [
 ];
 
 export default function ClubDetailsPage({ params }: { params: { clubId: string } }) {
+  const { clubId } = params;
   const { user } = useUser();
   const firestore = useFirestore();
   const [newMessage, setNewMessage] = useState('');
 
   const messagesRef = useMemoFirebase(() => {
     if (!firestore) return null;
-    return collection(firestore, 'groups', params.clubId, 'messages');
-  }, [firestore, params.clubId]);
+    return collection(firestore, 'groups', clubId, 'messages');
+  }, [firestore, clubId]);
 
   const messagesQuery = useMemoFirebase(() => {
     if (!messagesRef) return null;
