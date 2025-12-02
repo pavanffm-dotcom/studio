@@ -1,14 +1,16 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { ClubHeader } from '@/components/club-header';
 import { Button } from '@/components/ui/button';
-import { Send, Users } from 'lucide-react';
+import { Send, Users, ShieldCheck } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 import { Input } from '@/components/ui/input';
-import { useUser, useFirestore, useCollection, useMemoFirebase } from '@/firebase';
-import { collection, addDoc, serverTimestamp, query, orderBy, Timestamp } from 'firebase/firestore';
+import { useUser, useFirestore, useCollection, useDoc, useMemoFirebase } from '@/firebase';
+import { collection, addDoc, serverTimestamp, query, orderBy, Timestamp, doc, setDoc } from 'firebase/firestore';
+import { setDocumentNonBlocking } from '@/firebase/non-blocking-updates';
+import { Skeleton } from '@/components/ui/skeleton';
 
 interface Message {
   id: string;
@@ -17,6 +19,12 @@ interface Message {
   userName: string;
   userAvatar: string;
   createdAt: Timestamp;
+}
+
+interface GroupMember {
+    userId: string;
+    joinedAt: Timestamp;
+    role: 'member' | 'admin' | 'owner';
 }
 
 // Dummy data for a single club, to be replaced with Firestore data
@@ -30,10 +38,18 @@ export default function ClubDetailsPage({ params }: { params: { clubId: string }
   const firestore = useFirestore();
   const [newMessage, setNewMessage] = useState('');
 
+  const memberRef = useMemoFirebase(() => {
+    if (!firestore || !user) return null;
+    return doc(firestore, 'groups', clubId, 'members', user.uid);
+  }, [firestore, clubId, user]);
+  
+  const { data: memberData, isLoading: memberLoading } = useDoc<GroupMember>(memberRef);
+  const isMember = !!memberData;
+
   const messagesRef = useMemoFirebase(() => {
-    if (!firestore) return null;
+    if (!firestore || !isMember) return null; // Only fetch if member
     return collection(firestore, 'groups', clubId, 'messages');
-  }, [firestore, clubId]);
+  }, [firestore, clubId, isMember]);
 
   const messagesQuery = useMemoFirebase(() => {
     if (!messagesRef) return null;
@@ -44,18 +60,45 @@ export default function ClubDetailsPage({ params }: { params: { clubId: string }
   
   const handleSendMessage = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!user || !firestore || !newMessage.trim() || !messagesRef) return;
+    if (!user || !firestore || !newMessage.trim() || !messagesRef || !isMember) return;
 
-    await addDoc(messagesRef, {
-      text: newMessage,
-      userId: user.uid,
-      userName: user.displayName || 'Anonymous',
-      userAvatar: user.photoURL || `https://i.pravatar.cc/150?u=${user.uid}`,
-      createdAt: serverTimestamp(),
-    });
-
-    setNewMessage('');
+    try {
+        await addDoc(messagesRef, {
+        text: newMessage,
+        userId: user.uid,
+        userName: user.displayName || 'Anonymous',
+        userAvatar: user.photoURL || `https://i.pravatar.cc/150?u=${user.uid}`,
+        createdAt: serverTimestamp(),
+        });
+        setNewMessage('');
+    } catch (error) {
+        console.error("Error sending message:", error);
+    }
   };
+
+  const handleJoinClub = async () => {
+    if (!user || !firestore || !memberRef) return;
+    const memberData: GroupMember = {
+        userId: user.uid,
+        joinedAt: Timestamp.now(),
+        role: 'member'
+    };
+    setDocumentNonBlocking(memberRef, memberData, { merge: true });
+  }
+
+  const ChatSkeleton = () => (
+    <div className="px-4 space-y-4 flex-grow">
+      {[...Array(3)].map((_, i) => (
+        <div key={i} className={`flex items-start gap-3 ${i % 2 ? 'flex-row-reverse' : ''}`}>
+          <Skeleton className="w-10 h-10 rounded-full" />
+          <div className="flex-1">
+            <Skeleton className="h-6 w-1/2 mb-2" />
+            <Skeleton className="h-10 w-full" />
+          </div>
+        </div>
+      ))}
+    </div>
+  );
 
   return (
     <div className="bg-background min-h-screen flex flex-col items-center justify-start font-body relative">
@@ -76,7 +119,16 @@ export default function ClubDetailsPage({ params }: { params: { clubId: string }
                         <Users className="w-4 h-4 mr-2" />
                         {club.members.toLocaleString()} members
                     </div>
-                    <Button>Join Club</Button>
+                    {!memberLoading && (
+                        isMember ? (
+                            <Button variant="secondary" disabled>
+                                <ShieldCheck className="w-4 h-4 mr-2" />
+                                Joined
+                            </Button>
+                        ) : (
+                            <Button onClick={handleJoinClub} disabled={!user}>Join Club</Button>
+                        )
+                    )}
                 </div>
             </div>
 
@@ -86,36 +138,44 @@ export default function ClubDetailsPage({ params }: { params: { clubId: string }
                  <h2 className="text-xl font-bold text-foreground">Community Chat</h2>
             </div>
             
-            {/* Chat Messages */}
-            <div className="px-4 space-y-4 flex-grow">
-                {messagesLoading && <p>Loading chat...</p>}
-                {messages?.map((msg) => (
-                    <div key={msg.id} className={`flex items-start gap-3 ${msg.userId === user?.uid ? 'flex-row-reverse' : ''}`}>
-                        <Image src={msg.userAvatar} alt={msg.userName} width={40} height={40} className="rounded-full" />
-                        <div className={`p-3 rounded-2xl max-w-xs ${msg.userId === user?.uid ? 'bg-primary text-primary-foreground rounded-br-none' : 'bg-secondary rounded-bl-none'}`}>
-                            {msg.userId !== user?.uid && <p className="font-semibold text-sm text-primary">{msg.userName}</p>}
-                            <p>{msg.text}</p>
+            {/* Chat Area */}
+            {isMember ? (
+                <div className="px-4 space-y-4 flex-grow">
+                    {messagesLoading && <ChatSkeleton />}
+                    {messages?.map((msg) => (
+                        <div key={msg.id} className={`flex items-start gap-3 ${msg.userId === user?.uid ? 'flex-row-reverse' : ''}`}>
+                            <Image src={msg.userAvatar} alt={msg.userName} width={40} height={40} className="rounded-full" />
+                            <div className={`p-3 rounded-2xl max-w-xs ${msg.userId === user?.uid ? 'bg-primary text-primary-foreground rounded-br-none' : 'bg-secondary rounded-bl-none'}`}>
+                                {msg.userId !== user?.uid && <p className="font-semibold text-sm text-primary">{msg.userName}</p>}
+                                <p>{msg.text}</p>
+                            </div>
                         </div>
-                    </div>
-                ))}
-            </div>
+                    ))}
+                </div>
+            ) : (
+                <div className="text-center text-muted-foreground p-8">
+                    <p>You must join the club to see and send messages.</p>
+                </div>
+            )}
           </div>
           
           {/* Chat Input */}
-          <form onSubmit={handleSendMessage} className="p-4 bg-background/50 border-t mt-auto">
-              <div className="relative">
-                  <Input 
-                      placeholder="Type a message..." 
-                      className="rounded-full h-12 pr-12" 
-                      value={newMessage}
-                      onChange={(e) => setNewMessage(e.target.value)}
-                      disabled={!user}
-                  />
-                  <Button type="submit" size="icon" className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full w-9 h-9" disabled={!user || !newMessage.trim()}>
-                      <Send className="w-5 h-5"/>
-                  </Button>
-              </div>
-          </form>
+          {isMember && (
+            <form onSubmit={handleSendMessage} className="p-4 bg-background/50 border-t mt-auto">
+                <div className="relative">
+                    <Input 
+                        placeholder="Type a message..." 
+                        className="rounded-full h-12 pr-12" 
+                        value={newMessage}
+                        onChange={(e) => setNewMessage(e.target.value)}
+                        disabled={!user || messagesLoading}
+                    />
+                    <Button type="submit" size="icon" className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full w-9 h-9" disabled={!user || !newMessage.trim() || messagesLoading}>
+                        <Send className="w-5 h-5"/>
+                    </Button>
+                </div>
+            </form>
+          )}
         </div>
       </div>
     </div>
