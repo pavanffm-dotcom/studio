@@ -3,10 +3,12 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ArrowLeft, ExternalLink, DollarSign, Share2 } from 'lucide-react';
+import { ArrowLeft, ExternalLink, DollarSign, Share2, Heart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
+import { useSavedTools } from '@/context/saved-tools-context';
+import { cn } from '@/lib/utils';
 
 const accountingTools = [
   {
@@ -34,6 +36,7 @@ const accountingTools = [
 
 export default function AccountingToolsPage() {
     const { toast } = useToast();
+    const { savedTools, handleSaveToggle } = useSavedTools();
 
     const handleShareTool = React.useCallback(async (e: React.MouseEvent, tool: typeof accountingTools[0]) => {
         e.preventDefault();
@@ -85,7 +88,14 @@ export default function AccountingToolsPage() {
       <main className="relative z-10 w-full max-w-sm flex-1 bg-card/80 backdrop-blur-3xl rounded-t-[2.5rem] shadow-2xl flex flex-col min-h-0 border-t-2 border-white/50 soft-shadow mt-6">
         <div className="flex-grow overflow-y-auto no-scrollbar p-4">
           <div className="space-y-4">
-            {accountingTools.map((tool, index) => (
+            {accountingTools.map((tool, index) => {
+              const isSaved = savedTools.has(tool.name);
+              const handleHeartClick = (e: React.MouseEvent) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  handleSaveToggle(tool.name);
+              };
+              return (
               <Link href={tool.url} key={tool.name} target="_blank" rel="noopener noreferrer" className="block group">
                 <Card 
                   className="bg-white/80 border-none rounded-3xl soft-shadow transition-all duration-300 group-hover:scale-[1.02] group-hover:shadow-lg overflow-hidden opacity-0 animate-fade-in-up"
@@ -115,12 +125,15 @@ export default function AccountingToolsPage() {
                             <Button variant="ghost" size="icon" className="w-8 h-8 rounded-full text-foreground/80 bg-white/30 hover:bg-white/50" onClick={(e) => handleShareTool(e, tool)}>
                                 <Share2 className="w-4 h-4" />
                             </Button>
+                            <Button variant="ghost" size="icon" className="w-8 h-8 rounded-full text-foreground/80 bg-white/30 hover:bg-white/50" onClick={handleHeartClick}>
+                              <Heart className={cn('w-4 h-4 transition-all', isSaved ? 'fill-red-500 text-red-500' : 'text-foreground/60')}/>
+                            </Button>
                         </div>
                     </div>
                   </div>
                 </Card>
               </Link>
-            ))}
+            )})}
           </div>
         </div>
       </main>
