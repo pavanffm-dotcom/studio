@@ -1,8 +1,9 @@
+
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
-import { Send, Users, ShieldCheck, ArrowDown, MoreVertical, Phone, Search } from 'lucide-react';
+import { Send, Users, ShieldCheck, ArrowDown, MoreVertical, Phone, Search, ArrowLeft } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 import { Input } from '@/components/ui/input';
 import { useUser, useFirestore, useCollection, useDoc, useMemoFirebase } from '@/firebase';
