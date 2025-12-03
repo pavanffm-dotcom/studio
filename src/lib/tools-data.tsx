@@ -447,27 +447,6 @@ export const toolCategories = [
     { name: 'AI Avatar', icon: 'UserSquare', gradient: 'bg-gradient-to-br from-yellow-400 to-amber-400' },
 ];
 
-export const allTools: Tool[] = Array.from(new Set([
-    ...popularTools,
-    ...imageToVideoTools,
-    ...textToVideoTools,
-    ...textToSpeechTools,
-    ...voiceCloningTools,
-    ...aiAvatarTools,
-    ...textToImageTools,
-].map(t => t.name))).map(name => {
-    return [
-        ...popularTools,
-        ...imageToVideoTools,
-        ...textToVideoTools,
-        ...textToSpeechTools,
-        ...voiceCloningTools,
-        ...aiAvatarTools,
-        ...textToImageTools,
-    ].find(t => t.name === name)!
-});
-
-
 export const businessToolData: ToolCategory[] = [
     {
         title: "Task & Project Management",
@@ -581,6 +560,16 @@ export const businessToolData: ToolCategory[] = [
             { name: 'Taskade', description: 'Your second brain for teams.', url: 'https://www.taskade.com/', image: 'https://picsum.photos/seed/taskade/600/400', dataAiHint: 'team brain', pricing: 'Freemium' },
         ]
     },
+    {
+        title: "Time Management",
+        icon: <Clock className="w-5 h-5 text-primary"/>,
+        tools: [
+            { name: 'Toggl Track', description: 'Effortless and powerful time tracking.', url: 'https://toggl.com/track/', image: 'https://picsum.photos/seed/toggl-time/600/400', dataAiHint: 'time tracker', pricing: 'Freemium' },
+            { name: 'Clockify', description: 'The most popular free time tracker for teams.', url: 'https://clockify.me/', image: 'https://picsum.photos/seed/clockify-time/600/400', dataAiHint: 'team time', pricing: 'Free' },
+            { name: 'Harvest', description: 'Time tracking, invoicing, and reporting software.', url: 'https://www.getharvest.com/', image: 'https://picsum.photos/seed/harvest-time/600/400', dataAiHint: 'invoicing app', pricing: 'Freemium' },
+            { name: 'RescueTime', description: 'Automated time-tracking and productivity tool.', url: 'https://www.rescuetime.com/', image: 'https://picsum.photos/seed/rescuetime-time/600/400', dataAiHint: 'productivity tool', pricing: 'Freemium' },
+        ]
+    },
 ];
 
 export const graphicDesignToolData: ToolCategory[] = [
@@ -616,7 +605,29 @@ export const codingToolData: ToolCategory[] = [
     },
 ];
 
-// ... Other data exports can be added here if they were defined in the original files
-// but for the sake of the provided error, only businessToolData needs to be exported.
 
-    
+export const allTools: Tool[] = Array.from(new Set([
+    ...popularTools,
+    ...imageToVideoTools,
+    ...textToVideoTools,
+    ...textToSpeechTools,
+    ...voiceCloningTools,
+    ...aiAvatarTools,
+    ...textToImageTools,
+    ...businessToolData.flatMap(cat => cat.tools),
+    ...graphicDesignToolData.flatMap(cat => cat.tools),
+    ...codingToolData.flatMap(cat => cat.tools),
+].map(t => t.name))).map(name => {
+    return [
+        ...popularTools,
+        ...imageToVideoTools,
+        ...textToVideoTools,
+        ...textToSpeechTools,
+        ...voiceCloningTools,
+        ...aiAvatarTools,
+        ...textToImageTools,
+        ...businessToolData.flatMap(cat => cat.tools),
+        ...graphicDesignToolData.flatMap(cat => cat.tools),
+        ...codingToolData.flatMap(cat => cat.tools),
+    ].find(t => t.name === name)!
+});
