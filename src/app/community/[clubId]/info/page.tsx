@@ -7,10 +7,11 @@ import { useFirestore, useDoc, useCollection, useUser, useMemoFirebase } from '@
 import { doc, collection, query, orderBy, Timestamp } from 'firebase/firestore';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Bell, Search, Users, Image as ImageIcon, Link2, FileText, Lock, BadgeCheck, Phone, MoreHorizontal } from 'lucide-react';
+import { ArrowLeft, Bell, Search, Users, Image as ImageIcon, Link2, FileText, Lock, BadgeCheck, Phone, MoreHorizontal, Video, Star, BellOff } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 import { Skeleton } from '@/components/ui/skeleton';
 import Image from 'next/image';
+import { Card } from '@/components/ui/card';
 
 interface Group {
     id: string;
@@ -210,23 +211,5 @@ const MemberListSkeleton = () => (
 const ChevronRight = (props: React.SVGProps<SVGSVGElement>) => (
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
         <polyline points="9 18 15 12 9 6"></polyline>
-    </svg>
-);
-
-const Video = (props: React.SVGProps<SVGSVGElement>) => (
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
-        <path d="m22 8-6 4 6 4V8Z"></path>
-        <rect width="14" height="12" x="2" y="6" rx="2" ry="2"></rect>
-    </svg>
-);
-
-const BellOff = (props: React.SVGProps<SVGSVGElement>) => (
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
-        <path d="M8.7 3A6.4 6.4 0 0 1 12 2c2 0 3.7.8 5 2.1l-1.4.9A3.6 3.6 0 0 0 12 4a3.6 3.6 0 0 0-3.3 2.8"></path>
-        <path d="M19.3 14.8A6.4 6.4 0 0 1 12 22a6.4 6.4 0 0 1-7.3-7.2"></path>
-        <path d="M2 2l20 20"></path>
-        <path d="M10.2 6.1a3.6 3.6 0 0 1 3.6-1.3l-2.9 2.9"></path>
-        <path d="M16 17a3 3 0 0 0-3-3"></path>
-        <path d="M12 8a3 3 0 0 0-3 3"></path>
     </svg>
 );
