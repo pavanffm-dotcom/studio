@@ -176,7 +176,6 @@ export default function ClubDetailsPage({ params }: { params: { clubId: string }
               </div>
               <div className="flex items-center">
                   <Button variant="ghost" size="icon" className="rounded-full"><Search /></Button>
-                  <Button variant="ghost" size="icon" className="rounded-full"><Phone /></Button>
                   <Button variant="ghost" size="icon" className="rounded-full"><MoreVertical /></Button>
               </div>
           </header>

@@ -112,16 +112,16 @@ export default function GroupInfoPage({ params }: { params: { clubId: string } }
 
                     <div className="flex justify-around my-6">
                         <div className="flex flex-col items-center gap-1 text-primary">
-                            <Button variant="ghost" size="icon" className="w-12 h-12 rounded-full bg-primary/10"><Video/></Button>
-                            <span className="text-xs">Video call</span>
+                            <Button variant="ghost" size="icon" className="w-12 h-12 rounded-full bg-primary/10"><Users /></Button>
+                            <span className="text-xs">Community</span>
+                        </div>
+                         <div className="flex flex-col items-center gap-1 text-muted-foreground">
+                            <Button variant="ghost" size="icon" className="w-12 h-12 rounded-full bg-secondary"><Search/></Button>
+                            <span className="text-xs">Search</span>
                         </div>
                         <div className="flex flex-col items-center gap-1 text-muted-foreground">
                             <Button variant="ghost" size="icon" className="w-12 h-12 rounded-full bg-secondary"><BellOff/></Button>
                             <span className="text-xs">Mute</span>
-                        </div>
-                        <div className="flex flex-col items-center gap-1 text-muted-foreground">
-                            <Button variant="ghost" size="icon" className="w-12 h-12 rounded-full bg-secondary"><MoreHorizontal/></Button>
-                            <span className="text-xs">More</span>
                         </div>
                     </div>
 
