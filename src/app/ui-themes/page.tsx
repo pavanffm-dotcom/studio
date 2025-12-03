@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { useState, useEffect } from 'react';
@@ -19,8 +20,10 @@ const themes: { name: string; id: Theme; icon: React.ReactNode }[] = [
 
 export default function UiThemesPage() {
   const [activeTheme, setActiveTheme] = useState<Theme>('default');
+  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
+    setIsClient(true);
     const savedTheme = localStorage.getItem('app-theme') as Theme | null;
     const initialTheme = savedTheme || 'default';
     setActiveTheme(initialTheme);
@@ -59,16 +62,16 @@ export default function UiThemesPage() {
                 key={theme.id} 
                 className={cn(
                     "bg-card/80 border-2 rounded-3xl soft-shadow aspect-square flex flex-col items-center justify-center text-center p-4 group hover:scale-105 transition-all duration-300 cursor-pointer",
-                    activeTheme === theme.id ? 'border-ring glow-shadow' : 'border-border/50'
+                    isClient && activeTheme === theme.id ? 'border-ring glow-shadow' : 'border-border/50'
                 )}
                 onClick={() => handleThemeChange(theme.id)}
               >
-                {activeTheme === theme.id && (
+                {isClient && activeTheme === theme.id && (
                   <div className="absolute top-3 right-3 bg-ring text-primary-foreground rounded-full p-1">
                     <CheckCircle className="w-4 h-4" />
                   </div>
                 )}
-                <div className={cn("w-16 h-16 rounded-2xl bg-secondary flex items-center justify-center text-muted-foreground soft-shadow mb-3 transition-colors", activeTheme === theme.id && 'bg-primary text-primary-foreground')}>
+                <div className={cn("w-16 h-16 rounded-2xl bg-secondary flex items-center justify-center text-muted-foreground soft-shadow mb-3 transition-colors", isClient && activeTheme === theme.id && 'bg-primary text-primary-foreground')}>
                   {theme.icon}
                 </div>
                 <CardTitle className="text-sm font-semibold text-foreground">{theme.name}</CardTitle>
