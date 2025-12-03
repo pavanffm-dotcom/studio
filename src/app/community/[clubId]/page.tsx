@@ -4,13 +4,14 @@ import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { ClubHeader } from '@/components/club-header';
 import { Button } from '@/components/ui/button';
-import { Send, Users, ShieldCheck } from 'lucide-react';
+import { Send, Users, ShieldCheck, ArrowDown } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 import { Input } from '@/components/ui/input';
 import { useUser, useFirestore, useCollection, useDoc, useMemoFirebase } from '@/firebase';
 import { collection, addDoc, serverTimestamp, query, orderBy, Timestamp, doc, setDoc } from 'firebase/firestore';
 import { setDocumentNonBlocking } from '@/firebase/non-blocking-updates';
 import { Skeleton } from '@/components/ui/skeleton';
+import { format } from 'date-fns';
 
 interface Message {
   id: string;
@@ -37,6 +38,9 @@ export default function ClubDetailsPage({ params }: { params: { clubId: string }
   const { user } = useUser();
   const firestore = useFirestore();
   const [newMessage, setNewMessage] = useState('');
+  const chatContainerRef = React.useRef<HTMLDivElement>(null);
+  const [showScrollToBottom, setShowScrollToBottom] = useState(false);
+
 
   const memberRef = useMemoFirebase(() => {
     if (!firestore || !user) return null;
@@ -75,6 +79,32 @@ export default function ClubDetailsPage({ params }: { params: { clubId: string }
         console.error("Error sending message:", error);
     }
   };
+  
+  useEffect(() => {
+    const chatEl = chatContainerRef.current;
+    if (chatEl) {
+        const handleScroll = () => {
+            const isScrolledToBottom = chatEl.scrollHeight - chatEl.scrollTop <= chatEl.clientHeight + 100;
+            setShowScrollToBottom(!isScrolledToBottom);
+        };
+        chatEl.addEventListener('scroll', handleScroll);
+        return () => chatEl.removeEventListener('scroll', handleScroll);
+    }
+  }, []);
+  
+  const scrollToBottom = () => {
+    chatContainerRef.current?.scrollTo({ top: chatContainerRef.current.scrollHeight, behavior: 'smooth' });
+  }
+
+  useEffect(() => {
+    if (chatContainerRef.current) {
+        const isScrolledToBottom = chatContainerRef.current.scrollHeight - chatContainerRef.current.scrollTop <= chatContainerRef.current.clientHeight + 200;
+        if(isScrolledToBottom) {
+             setTimeout(() => scrollToBottom(), 100);
+        }
+    }
+  }, [messages]);
+
 
   const handleJoinClub = async () => {
     if (!user || !firestore || !memberRef) return;
@@ -88,7 +118,7 @@ export default function ClubDetailsPage({ params }: { params: { clubId: string }
 
   const ChatSkeleton = () => (
     <div className="px-4 space-y-4 flex-grow">
-      {[...Array(3)].map((_, i) => (
+      {[...Array(5)].map((_, i) => (
         <div key={i} className={`flex items-start gap-3 ${i % 2 ? 'flex-row-reverse' : ''}`}>
           <Skeleton className="w-10 h-10 rounded-full" />
           <div className="flex-1">
@@ -111,7 +141,7 @@ export default function ClubDetailsPage({ params }: { params: { clubId: string }
             <ClubHeader title={club.name} showBackButton />
           </div>
           
-          <div className='flex-grow overflow-y-auto no-scrollbar'>
+          <div className='flex-grow overflow-y-auto no-scrollbar' ref={chatContainerRef}>
             <div className="p-4">
                 <p className='text-muted-foreground text-center'>{club.description}</p>
                 <div className="flex justify-center items-center mt-4 gap-4">
@@ -134,23 +164,38 @@ export default function ClubDetailsPage({ params }: { params: { clubId: string }
 
             <Separator />
             
-            <div className="p-4 text-center">
-                 <h2 className="text-xl font-bold text-foreground">Community Chat</h2>
-            </div>
-            
             {/* Chat Area */}
             {isMember ? (
-                <div className="px-4 space-y-4 flex-grow">
+                <div className="p-4 space-y-2 flex-grow">
                     {messagesLoading && <ChatSkeleton />}
-                    {messages?.map((msg) => (
-                        <div key={msg.id} className={`flex items-start gap-3 ${msg.userId === user?.uid ? 'flex-row-reverse' : ''}`}>
-                            <Image src={msg.userAvatar} alt={msg.userName} width={40} height={40} className="rounded-full" />
-                            <div className={`p-3 rounded-2xl max-w-xs ${msg.userId === user?.uid ? 'bg-primary text-primary-foreground rounded-br-none' : 'bg-secondary rounded-bl-none'}`}>
-                                {msg.userId !== user?.uid && <p className="font-semibold text-sm text-primary">{msg.userName}</p>}
-                                <p>{msg.text}</p>
+                    {messages?.map((msg, index) => {
+                      const showAvatarAndName = index === 0 || messages[index-1].userId !== msg.userId;
+                      return (
+                        <div key={msg.id} className={`flex items-end gap-3 ${msg.userId === user?.uid ? 'flex-row-reverse' : ''}`}>
+                            <div className="w-10">
+                                {showAvatarAndName && msg.userId !== user?.uid && (
+                                    <Image src={msg.userAvatar} alt={msg.userName} width={40} height={40} className="rounded-full"/>
+                                )}
+                            </div>
+                            
+                            <div className={`relative max-w-xs md:max-w-md ${msg.userId === user?.uid ? 'bg-primary text-primary-foreground' : 'bg-secondary'}`} style={{
+                                borderRadius: '1.25rem',
+                                borderBottomRightRadius: msg.userId === user?.uid ? '0.25rem' : '1.25rem',
+                                borderBottomLeftRadius: msg.userId !== user?.uid ? '0.25rem' : '1.25rem',
+                            }}>
+                                <div className="px-4 py-2">
+                                  {showAvatarAndName && msg.userId !== user?.uid && (
+                                      <p className="font-semibold text-sm text-primary mb-1">{msg.userName}</p>
+                                  )}
+                                  <p className="break-words">{msg.text}</p>
+                                  <p className="text-xs opacity-70 mt-1 text-right">
+                                    {msg.createdAt ? format(msg.createdAt.toDate(), 'p') : '...'}
+                                  </p>
+                                </div>
                             </div>
                         </div>
-                    ))}
+                      )
+                    })}
                 </div>
             ) : (
                 <div className="text-center text-muted-foreground p-8">
@@ -159,13 +204,21 @@ export default function ClubDetailsPage({ params }: { params: { clubId: string }
             )}
           </div>
           
+           {showScrollToBottom && (
+              <div className="absolute bottom-24 right-6 z-20">
+                <Button size="icon" className="rounded-full shadow-lg" onClick={scrollToBottom}>
+                  <ArrowDown className="w-5 h-5"/>
+                </Button>
+              </div>
+            )}
+            
           {/* Chat Input */}
           {isMember && (
             <form onSubmit={handleSendMessage} className="p-4 bg-background/50 border-t mt-auto">
                 <div className="relative">
                     <Input 
                         placeholder="Type a message..." 
-                        className="rounded-full h-12 pr-12" 
+                        className="rounded-full h-12 pr-12 bg-background" 
                         value={newMessage}
                         onChange={(e) => setNewMessage(e.target.value)}
                         disabled={!user || messagesLoading}
