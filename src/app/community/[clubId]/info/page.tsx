@@ -68,7 +68,7 @@ export default function GroupInfoPage({ params }: { params: { clubId: string } }
             <div className="p-4 space-y-4">
                 <Skeleton className="h-8 w-3/4" />
                 <div className="flex justify-around">
-                    {[...Array(4)].map((_, i) => (
+                    {[...Array(3)].map((_, i) => (
                         <div key={i} className="flex flex-col items-center gap-1">
                             <Skeleton className="h-10 w-10 rounded-full" />
                             <Skeleton className="h-4 w-12" />
@@ -111,10 +111,6 @@ export default function GroupInfoPage({ params }: { params: { clubId: string } }
                     <p className="text-muted-foreground">Active</p>
 
                     <div className="flex justify-around my-6">
-                        <div className="flex flex-col items-center gap-1 text-primary">
-                            <Button variant="ghost" size="icon" className="w-12 h-12 rounded-full bg-primary/10"><Phone/></Button>
-                            <span className="text-xs">Audio call</span>
-                        </div>
                         <div className="flex flex-col items-center gap-1 text-primary">
                             <Button variant="ghost" size="icon" className="w-12 h-12 rounded-full bg-primary/10"><Video/></Button>
                             <span className="text-xs">Video call</span>

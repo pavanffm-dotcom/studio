@@ -11,7 +11,6 @@ import { collection, addDoc, serverTimestamp, query, orderBy, Timestamp, doc, se
 import { setDocumentNonBlocking } from '@/firebase/non-blocking-updates';
 import { Skeleton } from '@/components/ui/skeleton';
 import { format } from 'date-fns';
-import { ClubHeader } from '@/components/club-header';
 import Link from 'next/link';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { useRouter } from 'next/navigation';
