@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
-import { Send, Users, ShieldCheck, ArrowDown } from 'lucide-react';
+import { Send, Users, ShieldCheck, ArrowDown, MoreVertical, Phone, Search } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 import { Input } from '@/components/ui/input';
 import { useUser, useFirestore, useCollection, useDoc, useMemoFirebase } from '@/firebase';
@@ -11,6 +11,9 @@ import { setDocumentNonBlocking } from '@/firebase/non-blocking-updates';
 import { Skeleton } from '@/components/ui/skeleton';
 import { format } from 'date-fns';
 import { ClubHeader } from '@/components/club-header';
+import Link from 'next/link';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { useRouter } from 'next/navigation';
 
 interface Message {
   id: string;
@@ -38,7 +41,7 @@ interface GroupMember {
 export default function ClubDetailsPage({ params }: { params: { clubId: string } }) {
   const resolvedParams = React.use(params);
   const clubId = resolvedParams.clubId;
-
+  const router = useRouter();
   const { user } = useUser();
   const firestore = useFirestore();
   const [newMessage, setNewMessage] = useState('');
@@ -139,6 +142,14 @@ export default function ClubDetailsPage({ params }: { params: { clubId: string }
     </div>
   );
 
+  const handleBack = () => {
+    if (window.history.length > 1) {
+      router.back();
+    } else {
+      router.push('/community');
+    }
+  };
+
   return (
     <div className="bg-background min-h-screen flex flex-col items-center justify-start font-body relative">
       <div className="absolute inset-0 z-0 opacity-50">
@@ -146,52 +157,52 @@ export default function ClubDetailsPage({ params }: { params: { clubId: string }
       </div>
       <div className="relative z-10 w-full max-w-lg p-0 md:p-6">
         <div className="bg-card/80 backdrop-blur-3xl md:rounded-[2.5rem] shadow-2xl flex flex-col min-h-screen md:min-h-0 md:max-h-[calc(100vh-3rem)] border-t-2 border-white/50 soft-shadow">
-          <div className="p-4 border-b">
-            <ClubHeader title={clubData?.name || "Loading..."} showBackButton />
-          </div>
+          
+          <header className="flex justify-between items-center p-2 border-b">
+              <div className="flex items-center gap-2">
+                  <Button variant="ghost" size="icon" className="w-12 h-12 rounded-full" onClick={handleBack}>
+                      <ArrowLeft />
+                  </Button>
+                  <Link href={`/community/${clubId}/info`} className="flex items-center gap-3">
+                      <Avatar className='h-10 w-10'>
+                          <AvatarImage src={clubData?.avatar} alt={clubData?.name} />
+                          <AvatarFallback>{clubData?.name?.charAt(0)}</AvatarFallback>
+                      </Avatar>
+                      <div>
+                          <h1 className="font-semibold text-lg line-clamp-1">{clubData?.name || <Skeleton className="h-5 w-32" />}</h1>
+                          <p className='text-sm text-muted-foreground'>{groupLoading ? <Skeleton className="h-4 w-24" /> : `${clubData?.memberCount || '...'} members`}</p>
+                      </div>
+                  </Link>
+              </div>
+              <div className="flex items-center">
+                  <Button variant="ghost" size="icon" className="rounded-full"><Search /></Button>
+                  <Button variant="ghost" size="icon" className="rounded-full"><Phone /></Button>
+                  <Button variant="ghost" size="icon" className="rounded-full"><MoreVertical /></Button>
+              </div>
+          </header>
           
           <div className='flex-grow overflow-y-auto no-scrollbar' ref={chatContainerRef}>
-            <div className="p-4">
-                <p className='text-muted-foreground text-center'>{clubData?.description || <Skeleton className="h-4 w-full" />}</p>
-                <div className="flex justify-center items-center mt-4 gap-4">
-                    <div className="flex items-center text-sm text-muted-foreground">
-                        <Users className="w-4 h-4 mr-2" />
-                        {groupLoading ? <Skeleton className="h-4 w-20" /> : `${clubData?.memberCount.toLocaleString()} members`}
-                    </div>
-                    {!memberLoading && (
-                        isMember ? (
-                            <Button variant="secondary" disabled>
-                                <ShieldCheck className="w-4 h-4 mr-2" />
-                                Joined
-                            </Button>
-                        ) : (
-                            <Button onClick={handleJoinClub} disabled={!user}>Join Club</Button>
-                        )
-                    )}
-                </div>
-            </div>
-
-            <Separator />
-            
             {/* Chat Area */}
             {isMember ? (
-                <div className="p-4 space-y-4 flex-grow">
+                <div className="p-4 space-y-1 flex-grow">
                     {messagesLoading && <ChatSkeleton />}
                     {messages?.map((msg) => (
-                        <div key={msg.id} className={`flex items-start gap-2 ${msg.userId === user?.uid ? 'flex-row-reverse' : ''}`}>
-                            <div className={`p-3 rounded-xl max-w-xs ${msg.userId === user?.uid ? 'bg-primary text-primary-foreground' : 'bg-secondary'}`}>
-                                <p className="font-semibold text-sm mb-1">{msg.userName}</p>
-                                <p className="break-words">{msg.text}</p>
-                                <p className="text-xs opacity-70 mt-1 text-right">
-                                  {msg.createdAt ? format(msg.createdAt.toDate(), 'p') : '...'}
-                                </p>
-                            </div>
+                      <div key={msg.id} className={`flex items-end gap-2 ${msg.userId === user?.uid ? 'justify-end' : 'justify-start'}`}>
+                        <div className={`p-3 rounded-2xl max-w-[70%] relative ${msg.userId === user?.uid ? 'bg-primary text-primary-foreground rounded-br-none' : 'bg-secondary rounded-bl-none'}`}>
+                            {msg.userId !== user?.uid && <p className="font-semibold text-sm mb-1 text-primary">{msg.userName}</p>}
+                            <p className="break-words">{msg.text}</p>
+                            <p className="text-xs opacity-70 mt-1 text-right">
+                              {msg.createdAt ? format(msg.createdAt.toDate(), 'p') : '...'}
+                            </p>
                         </div>
+                      </div>
                     ))}
                 </div>
             ) : (
-                <div className="text-center text-muted-foreground p-8">
-                    <p>You must join the club to see and send messages.</p>
+                <div className="text-center text-muted-foreground p-8 flex flex-col items-center gap-4">
+                    <p className='text-lg font-medium'>You are not a member of this club.</p>
+                    {clubData?.description && <p>{clubData.description}</p>}
+                    <Button onClick={handleJoinClub} disabled={!user || memberLoading}>Join Club</Button>
                 </div>
             )}
           </div>
