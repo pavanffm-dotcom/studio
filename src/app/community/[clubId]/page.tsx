@@ -171,7 +171,7 @@ export default function ClubDetailsPage({ params }: { params: { clubId: string }
                       </Avatar>
                       <div>
                           <h1 className="font-semibold text-lg line-clamp-1">{clubData?.name || <Skeleton className="h-5 w-32" />}</h1>
-                          <p className='text-sm text-muted-foreground'>{groupLoading ? <Skeleton className="h-4 w-24" /> : `${clubData?.memberCount || '...'} members`}</p>
+                          <div className='text-sm text-muted-foreground'>{groupLoading ? <Skeleton className="h-4 w-24" /> : `${clubData?.memberCount || '...'} members`}</div>
                       </div>
                   </Link>
               </div>
