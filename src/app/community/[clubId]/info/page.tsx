@@ -1,3 +1,4 @@
+
 'use client';
 
 import React from 'react';
@@ -29,7 +30,8 @@ interface GroupMember {
 }
 
 export default function GroupInfoPage({ params }: { params: { clubId: string } }) {
-    const clubId = params.clubId;
+    const resolvedParams = React.use(params);
+    const clubId = resolvedParams.clubId;
     const router = useRouter();
     const firestore = useFirestore();
     const { user } = useUser();
