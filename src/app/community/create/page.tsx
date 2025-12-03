@@ -9,7 +9,7 @@ import { ClubHeader } from '@/components/club-header';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
-import { ArrowLeft, ArrowRight, Bot, Check, ChevronsUpDown, Users, Plus, Search } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Bot, Check, ChevronsUpDown, Users, Plus, Search, Image as ImageIcon } from 'lucide-react';
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -22,6 +22,8 @@ import Image from 'next/image';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { allTools, Tool } from '@/lib/tools-data';
 import { addDoc, collection, serverTimestamp, doc, setDoc } from 'firebase/firestore';
+import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { v4 as uuidv4 } from 'uuid';
 import { useRouter } from 'next/navigation';
 import { useToast } from '@/hooks/use-toast';
 
@@ -50,6 +52,7 @@ const clubFormSchema = z.object({
   allowMembersToAddTools: z.boolean().default(true),
   tags: z.array(z.string()).optional(),
   tools: z.array(z.string()).default([]),
+  avatar: z.any().optional(),
 });
 
 type ClubFormValues = z.infer<typeof clubFormSchema>;
@@ -57,11 +60,12 @@ type ClubFormValues = z.infer<typeof clubFormSchema>;
 const StepIndicator = ({ currentStep }: { currentStep: number }) => {
   const steps = [
     { name: "Details", icon: Users },
+    { name: "Avatar", icon: ImageIcon },
     { name: "Tools", icon: Bot },
   ];
 
   return (
-    <div className="flex justify-between items-center mb-8 max-w-xs mx-auto">
+    <div className="flex justify-between items-center mb-8 max-w-md mx-auto">
       {steps.map((step, index) => (
         <React.Fragment key={step.name}>
           <div className="flex flex-col items-center">
@@ -135,29 +139,29 @@ function Step1_BasicDetails() {
               </PopoverTrigger>
               <PopoverContent className="w-[--radix-popover-trigger-width] p-0">
                  <ScrollArea className="h-72">
-                  <div className="p-1">
-                    {categories.map((category) => (
-                      <Button
-                        variant="ghost"
-                        key={category}
-                        onClick={() => {
-                          form.setValue("category", category);
-                          setOpen(false);
-                        }}
-                        className="w-full justify-start"
-                      >
-                        <Check
-                          className={cn(
-                            "mr-2 h-4 w-4",
-                            category === field.value
-                              ? "opacity-100"
-                              : "opacity-0"
-                          )}
-                        />
-                        {category}
-                      </Button>
-                    ))}
-                  </div>
+                   <Command>
+                    <CommandList>
+                      {categories.map((category) => (
+                        <CommandItem
+                          key={category}
+                          onSelect={() => {
+                            form.setValue("category", category);
+                            setOpen(false);
+                          }}
+                        >
+                          <Check
+                            className={cn(
+                              "mr-2 h-4 w-4",
+                              category === field.value
+                                ? "opacity-100"
+                                : "opacity-0"
+                            )}
+                          />
+                          {category}
+                        </CommandItem>
+                      ))}
+                    </CommandList>
+                   </Command>
                 </ScrollArea>
               </PopoverContent>
             </Popover>
@@ -216,7 +220,49 @@ function Step1_BasicDetails() {
   );
 }
 
-function Step2_ToolsBuilder() {
+function Step2_Avatar() {
+  const form = useFormContext<ClubFormValues>();
+  const [preview, setPreview] = useState<string | null>(null);
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      form.setValue('avatar', file);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPreview(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  return (
+    <div className="space-y-4 text-center">
+      <FormLabel>Club Avatar (Optional)</FormLabel>
+      <FormControl>
+        <div className="flex justify-center">
+          <label htmlFor="avatar-upload" className="cursor-pointer">
+            <div className="w-32 h-32 rounded-full bg-secondary flex items-center justify-center border-2 border-dashed border-muted-foreground/50 hover:border-primary transition-all">
+              {preview ? (
+                <Image src={preview} alt="Avatar preview" width={128} height={128} className="rounded-full object-cover w-full h-full" />
+              ) : (
+                <div className="text-center text-muted-foreground">
+                  <ImageIcon className="w-8 h-8 mx-auto" />
+                  <p className="text-sm mt-1">Upload Image</p>
+                </div>
+              )}
+            </div>
+            <Input id="avatar-upload" type="file" accept="image/*" className="hidden" onChange={handleFileChange} />
+          </label>
+        </div>
+      </FormControl>
+      <FormMessage>{form.formState.errors.avatar?.message as string}</FormMessage>
+    </div>
+  );
+}
+
+
+function Step3_ToolsBuilder() {
     const form = useFormContext<ClubFormValues>();
     const [searchTerm, setSearchTerm] = useState('');
 
@@ -281,7 +327,7 @@ function Step2_ToolsBuilder() {
 
 export default function CreateClubPage() {
     const [currentStep, setCurrentStep] = useState(0);
-    const { user } = useUser();
+    const { user, firebaseApp } = useUser();
     const firestore = useFirestore();
     const router = useRouter();
     const { toast } = useToast();
@@ -300,7 +346,7 @@ export default function CreateClubPage() {
     });
 
     const onSubmit = async (data: ClubFormValues) => {
-        if (!user || !firestore) {
+        if (!user || !firestore || !firebaseApp) {
           toast({
             variant: 'destructive',
             title: 'You must be logged in to create a club.',
@@ -311,8 +357,17 @@ export default function CreateClubPage() {
         setIsSubmitting(true);
     
         try {
-          // 1. Create the main group document
-          const groupRef = await addDoc(collection(firestore, 'groups'), {
+          let avatarUrl = `https://picsum.photos/seed/${data.clubName.replace(/\s/g, '-')}/40/40`;
+
+          if (data.avatar && data.avatar instanceof File) {
+            const storage = getStorage(firebaseApp);
+            const avatarFile = data.avatar;
+            const storageRef = ref(storage, `group_avatars/${uuidv4()}-${avatarFile.name}`);
+            const snapshot = await uploadBytes(storageRef, avatarFile);
+            avatarUrl = await getDownloadURL(snapshot.ref);
+          }
+
+          const groupData = {
             name: data.clubName,
             description: data.clubDescription,
             category: data.category,
@@ -320,12 +375,12 @@ export default function CreateClubPage() {
             ownerId: user.uid,
             createdAt: serverTimestamp(),
             memberCount: 1,
-            avatar: `https://picsum.photos/seed/${data.clubName.replace(/\s/g, '-')}/40/40`
-          });
-    
+            avatar: avatarUrl,
+          };
+
+          const groupRef = await addDoc(collection(firestore, 'groups'), groupData);
           const groupId = groupRef.id;
     
-          // 2. Add the creator as the owner in the members subcollection
           const memberRef = doc(firestore, 'groups', groupId, 'members', user.uid);
           await setDoc(memberRef, {
             userId: user.uid,
@@ -333,7 +388,6 @@ export default function CreateClubPage() {
             role: 'owner',
           });
     
-          // 3. Add the selected tools to the tools subcollection
           const toolsCollectionRef = collection(firestore, 'groups', groupId, 'tools');
           for (const toolName of data.tools) {
             const toolData = allTools.find(t => t.name === toolName);
@@ -368,12 +422,13 @@ export default function CreateClubPage() {
         }
       };
     
-    const nextStep = () => setCurrentStep(prev => (prev < 1 ? prev + 1 : prev));
+    const nextStep = () => setCurrentStep(prev => (prev < 2 ? prev + 1 : prev));
     const prevStep = () => setCurrentStep(prev => (prev > 0 ? prev - 1 : prev));
 
     const steps = [
         <Step1_BasicDetails key="step1" />,
-        <Step2_ToolsBuilder key="step2" />,
+        <Step2_Avatar key="step2" />,
+        <Step3_ToolsBuilder key="step3" />,
     ];
 
     return (
@@ -398,7 +453,7 @@ export default function CreateClubPage() {
                             <Button type="button" variant="outline" onClick={prevStep} disabled={currentStep === 0}>
                                 <ArrowLeft className="mr-2" /> Previous
                             </Button>
-                            {currentStep < 1 ? (
+                            {currentStep < 2 ? (
                                 <Button type="button" onClick={nextStep}>
                                     Next Step <ArrowRight className="ml-2" />
                                 </Button>
