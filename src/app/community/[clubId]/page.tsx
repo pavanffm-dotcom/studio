@@ -1,9 +1,8 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import Image from 'next/image';
 import { Button } from '@/components/ui/button';
-import { Send, Users, ShieldCheck, ArrowDown, ArrowLeft, Search, Phone, MoreVertical } from 'lucide-react';
+import { Send, Users, ShieldCheck, ArrowDown } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 import { Input } from '@/components/ui/input';
 import { useUser, useFirestore, useCollection, useDoc, useMemoFirebase } from '@/firebase';
@@ -11,15 +10,13 @@ import { collection, addDoc, serverTimestamp, query, orderBy, Timestamp, doc, se
 import { setDocumentNonBlocking } from '@/firebase/non-blocking-updates';
 import { Skeleton } from '@/components/ui/skeleton';
 import { format } from 'date-fns';
-import { useRouter } from 'next/navigation';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { ClubHeader } from '@/components/club-header';
 
 interface Message {
   id: string;
   text: string;
   userId: string;
   userName: string;
-  userAvatar: string;
   createdAt: Timestamp;
 }
 
@@ -41,7 +38,6 @@ interface GroupMember {
 export default function ClubDetailsPage({ params }: { params: { clubId: string } }) {
   const resolvedParams = React.use(params);
   const clubId = resolvedParams.clubId;
-  const router = useRouter();
 
   const { user } = useUser();
   const firestore = useFirestore();
@@ -85,7 +81,6 @@ export default function ClubDetailsPage({ params }: { params: { clubId: string }
         text: newMessage,
         userId: user.uid,
         userName: user.displayName || 'Anonymous',
-        userAvatar: user.photoURL || `https://i.pravatar.cc/150?u=${user.uid}`,
         createdAt: serverTimestamp(),
         });
         setNewMessage('');
@@ -151,41 +146,9 @@ export default function ClubDetailsPage({ params }: { params: { clubId: string }
       </div>
       <div className="relative z-10 w-full max-w-lg p-0 md:p-6">
         <div className="bg-card/80 backdrop-blur-3xl md:rounded-[2.5rem] shadow-2xl flex flex-col min-h-screen md:min-h-0 md:max-h-[calc(100vh-3rem)] border-t-2 border-white/50 soft-shadow">
-          {/* Custom Header */}
-          <header className="p-2 border-b flex items-center gap-2">
-            <Button variant="ghost" size="icon" className="w-12 h-12 rounded-full" onClick={() => router.back()}>
-                <ArrowLeft />
-            </Button>
-            {groupLoading || !clubData ? (
-                <div className="flex items-center gap-3 flex-grow">
-                    <Skeleton className="w-12 h-12 rounded-full" />
-                    <div className='flex-grow space-y-2'>
-                        <Skeleton className="h-5 w-48" />
-                        <Skeleton className="h-4 w-32" />
-                    </div>
-                </div>
-            ) : (
-                <>
-                    <Avatar className="w-12 h-12 border-2 border-white">
-                        <AvatarImage src={clubData.avatar} alt={clubData.name} />
-                        <AvatarFallback>{clubData.name.charAt(0)}</AvatarFallback>
-                    </Avatar>
-                    <div className='flex-grow'>
-                        <h1 className="font-bold text-lg text-foreground">{clubData.name}</h1>
-                        <p className="text-sm text-muted-foreground">{clubData.memberCount} members</p>
-                    </div>
-                </>
-            )}
-            <Button variant="ghost" size="icon" className="w-12 h-12 rounded-full">
-                <Search />
-            </Button>
-            <Button variant="ghost" size="icon" className="w-12 h-12 rounded-full">
-                <Phone />
-            </Button>
-            <Button variant="ghost" size="icon" className="w-12 h-12 rounded-full">
-                <MoreVertical />
-            </Button>
-          </header>
+          <div className="p-4 border-b">
+            <ClubHeader title={clubData?.name || "Loading..."} showBackButton />
+          </div>
           
           <div className='flex-grow overflow-y-auto no-scrollbar' ref={chatContainerRef}>
             <div className="p-4">
@@ -212,37 +175,19 @@ export default function ClubDetailsPage({ params }: { params: { clubId: string }
             
             {/* Chat Area */}
             {isMember ? (
-                <div className="p-4 space-y-2 flex-grow">
+                <div className="p-4 space-y-4 flex-grow">
                     {messagesLoading && <ChatSkeleton />}
-                    {messages?.map((msg, index) => {
-                      const showAvatarAndName = index === 0 || messages[index-1].userId !== msg.userId;
-                      return (
-                        <div key={msg.id} className={`flex items-end gap-2 ${msg.userId === user?.uid ? 'flex-row-reverse' : ''}`}>
-                            {msg.userId !== user?.uid && (
-                                <div className="w-8 shrink-0">
-                                    {showAvatarAndName && (
-                                        <Image src={msg.userAvatar} alt={msg.userName} width={32} height={32} className="rounded-full"/>
-                                    )}
-                                </div>
-                            )}
-                            <div className={`relative max-w-xs md:max-w-md ${msg.userId === user?.uid ? 'bg-primary text-primary-foreground' : 'bg-secondary'}`} style={{
-                                borderRadius: '1.25rem',
-                                borderBottomRightRadius: msg.userId === user?.uid ? '0.25rem' : '1.25rem',
-                                borderBottomLeftRadius: msg.userId !== user?.uid ? '0.25rem' : '1.25rem',
-                            }}>
-                                <div className="px-4 py-2">
-                                  {showAvatarAndName && msg.userId !== user?.uid && (
-                                      <p className="font-semibold text-sm text-primary mb-1">{msg.userName}</p>
-                                  )}
-                                  <p className="break-words">{msg.text}</p>
-                                  <p className="text-xs opacity-70 mt-1 text-right">
-                                    {msg.createdAt ? format(msg.createdAt.toDate(), 'p') : '...'}
-                                  </p>
-                                </div>
+                    {messages?.map((msg) => (
+                        <div key={msg.id} className={`flex items-start gap-2 ${msg.userId === user?.uid ? 'flex-row-reverse' : ''}`}>
+                            <div className={`p-3 rounded-xl max-w-xs ${msg.userId === user?.uid ? 'bg-primary text-primary-foreground' : 'bg-secondary'}`}>
+                                <p className="font-semibold text-sm mb-1">{msg.userName}</p>
+                                <p className="break-words">{msg.text}</p>
+                                <p className="text-xs opacity-70 mt-1 text-right">
+                                  {msg.createdAt ? format(msg.createdAt.toDate(), 'p') : '...'}
+                                </p>
                             </div>
                         </div>
-                      )
-                    })}
+                    ))}
                 </div>
             ) : (
                 <div className="text-center text-muted-foreground p-8">
