@@ -1,10 +1,9 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
-import { ClubHeader } from '@/components/club-header';
 import { Button } from '@/components/ui/button';
-import { Send, Users, ShieldCheck, ArrowDown } from 'lucide-react';
+import { Send, Users, ShieldCheck, ArrowDown, ArrowLeft, Search, Phone, MoreVertical } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 import { Input } from '@/components/ui/input';
 import { useUser, useFirestore, useCollection, useDoc, useMemoFirebase } from '@/firebase';
@@ -12,6 +11,8 @@ import { collection, addDoc, serverTimestamp, query, orderBy, Timestamp, doc, se
 import { setDocumentNonBlocking } from '@/firebase/non-blocking-updates';
 import { Skeleton } from '@/components/ui/skeleton';
 import { format } from 'date-fns';
+import { useRouter } from 'next/navigation';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
 interface Message {
   id: string;
@@ -22,26 +23,39 @@ interface Message {
   createdAt: Timestamp;
 }
 
+interface Group {
+    id: string;
+    name: string;
+    description: string;
+    memberCount: number;
+    avatar: string;
+    isPublic: boolean;
+}
+
 interface GroupMember {
     userId: string;
     joinedAt: Timestamp;
     role: 'member' | 'admin' | 'owner';
 }
 
-// Dummy data for a single club, to be replaced with Firestore data
-const club = { id: '1', name: 'AI for Designers', description: 'A place to discuss how AI is changing the design world.', members: 1200, isPublic: true };
-
 export default function ClubDetailsPage({ params }: { params: { clubId: string } }) {
   const resolvedParams = React.use(params);
   const clubId = resolvedParams.clubId;
-  
+  const router = useRouter();
+
   const { user } = useUser();
   const firestore = useFirestore();
   const [newMessage, setNewMessage] = useState('');
-  const chatContainerRef = React.useRef<HTMLDivElement>(null);
+  const chatContainerRef = useRef<HTMLDivElement>(null);
   const [showScrollToBottom, setShowScrollToBottom] = useState(false);
 
-
+  // Fetch Group Data
+  const groupRef = useMemoFirebase(() => {
+    if (!firestore) return null;
+    return doc(firestore, 'groups', clubId);
+  }, [firestore, clubId]);
+  const { data: clubData, isLoading: groupLoading } = useDoc<Group>(groupRef);
+  
   const memberRef = useMemoFirebase(() => {
     if (!firestore || !user) return null;
     return doc(firestore, 'groups', clubId, 'members', user.uid);
@@ -137,17 +151,49 @@ export default function ClubDetailsPage({ params }: { params: { clubId: string }
       </div>
       <div className="relative z-10 w-full max-w-lg p-0 md:p-6">
         <div className="bg-card/80 backdrop-blur-3xl md:rounded-[2.5rem] shadow-2xl flex flex-col min-h-screen md:min-h-0 md:max-h-[calc(100vh-3rem)] border-t-2 border-white/50 soft-shadow">
-          <div className="p-4 border-b">
-            <ClubHeader title={club.name} showBackButton />
-          </div>
+          {/* Custom Header */}
+          <header className="p-2 border-b flex items-center gap-2">
+            <Button variant="ghost" size="icon" className="w-12 h-12 rounded-full" onClick={() => router.back()}>
+                <ArrowLeft />
+            </Button>
+            {groupLoading || !clubData ? (
+                <div className="flex items-center gap-3 flex-grow">
+                    <Skeleton className="w-12 h-12 rounded-full" />
+                    <div className='flex-grow space-y-2'>
+                        <Skeleton className="h-5 w-48" />
+                        <Skeleton className="h-4 w-32" />
+                    </div>
+                </div>
+            ) : (
+                <>
+                    <Avatar className="w-12 h-12 border-2 border-white">
+                        <AvatarImage src={clubData.avatar} alt={clubData.name} />
+                        <AvatarFallback>{clubData.name.charAt(0)}</AvatarFallback>
+                    </Avatar>
+                    <div className='flex-grow'>
+                        <h1 className="font-bold text-lg text-foreground">{clubData.name}</h1>
+                        <p className="text-sm text-muted-foreground">{clubData.memberCount} members</p>
+                    </div>
+                </>
+            )}
+            <Button variant="ghost" size="icon" className="w-12 h-12 rounded-full">
+                <Search />
+            </Button>
+            <Button variant="ghost" size="icon" className="w-12 h-12 rounded-full">
+                <Phone />
+            </Button>
+            <Button variant="ghost" size="icon" className="w-12 h-12 rounded-full">
+                <MoreVertical />
+            </Button>
+          </header>
           
           <div className='flex-grow overflow-y-auto no-scrollbar' ref={chatContainerRef}>
             <div className="p-4">
-                <p className='text-muted-foreground text-center'>{club.description}</p>
+                <p className='text-muted-foreground text-center'>{clubData?.description || <Skeleton className="h-4 w-full" />}</p>
                 <div className="flex justify-center items-center mt-4 gap-4">
                     <div className="flex items-center text-sm text-muted-foreground">
                         <Users className="w-4 h-4 mr-2" />
-                        {club.members.toLocaleString()} members
+                        {groupLoading ? <Skeleton className="h-4 w-20" /> : `${clubData?.memberCount.toLocaleString()} members`}
                     </div>
                     {!memberLoading && (
                         isMember ? (
@@ -171,13 +217,14 @@ export default function ClubDetailsPage({ params }: { params: { clubId: string }
                     {messages?.map((msg, index) => {
                       const showAvatarAndName = index === 0 || messages[index-1].userId !== msg.userId;
                       return (
-                        <div key={msg.id} className={`flex items-end gap-3 ${msg.userId === user?.uid ? 'flex-row-reverse' : ''}`}>
-                            <div className="w-10">
-                                {showAvatarAndName && msg.userId !== user?.uid && (
-                                    <Image src={msg.userAvatar} alt={msg.userName} width={40} height={40} className="rounded-full"/>
-                                )}
-                            </div>
-                            
+                        <div key={msg.id} className={`flex items-end gap-2 ${msg.userId === user?.uid ? 'flex-row-reverse' : ''}`}>
+                            {msg.userId !== user?.uid && (
+                                <div className="w-8 shrink-0">
+                                    {showAvatarAndName && (
+                                        <Image src={msg.userAvatar} alt={msg.userName} width={32} height={32} className="rounded-full"/>
+                                    )}
+                                </div>
+                            )}
                             <div className={`relative max-w-xs md:max-w-md ${msg.userId === user?.uid ? 'bg-primary text-primary-foreground' : 'bg-secondary'}`} style={{
                                 borderRadius: '1.25rem',
                                 borderBottomRightRadius: msg.userId === user?.uid ? '0.25rem' : '1.25rem',
