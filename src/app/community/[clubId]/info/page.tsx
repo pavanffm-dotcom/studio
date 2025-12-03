@@ -7,9 +7,10 @@ import { useFirestore, useDoc, useCollection, useUser, useMemoFirebase } from '@
 import { doc, collection, query, orderBy, Timestamp } from 'firebase/firestore';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Bell, Search, Users, Image as ImageIcon, Link2, FileText, Lock, BadgeCheck } from 'lucide-react';
+import { ArrowLeft, Bell, Search, Users, Image as ImageIcon, Link2, FileText, Lock, BadgeCheck, Phone, MoreHorizontal } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 import { Skeleton } from '@/components/ui/skeleton';
+import Image from 'next/image';
 
 interface Group {
     id: string;
@@ -25,7 +26,7 @@ interface GroupMember {
     userId: string;
     joinedAt: Timestamp;
     role: 'member' | 'admin' | 'owner';
-    displayName?: string; 
+    displayName?: string;
     photoURL?: string;
 }
 
@@ -58,143 +59,174 @@ export default function GroupInfoPage({ params }: { params: { clubId: string } }
         router.back();
     };
 
-    const InfoCardSkeleton = () => (
-        <div className="flex flex-col items-center p-6 bg-card/80 backdrop-blur-3xl rounded-b-3xl soft-shadow">
-            <Skeleton className="h-28 w-28 rounded-full" />
-            <Skeleton className="h-8 w-48 mt-4" />
-            <Skeleton className="h-4 w-32 mt-2" />
-            <div className="flex gap-8 mt-6">
-                <Skeleton className="h-10 w-20" />
-                <Skeleton className="h-10 w-20" />
+    const InfoPageSkeleton = () => (
+        <div className="flex flex-col">
+            <div className="relative h-72 bg-muted">
+                <Skeleton className="h-full w-full" />
             </div>
-        </div>
-    );
-    
-    const MemberListSkeleton = () => (
-        <div className='p-4 space-y-4'>
-            {[...Array(5)].map((_, i) => (
-                <div key={i} className="flex items-center gap-4">
-                    <Skeleton className="h-12 w-12 rounded-full" />
-                    <div className="flex-grow space-y-2">
-                        <Skeleton className="h-4 w-3/4" />
-                        <Skeleton className="h-3 w-1/2" />
-                    </div>
+            <div className="p-4 space-y-4">
+                <Skeleton className="h-8 w-3/4" />
+                <div className="flex justify-around">
+                    {[...Array(4)].map((_, i) => (
+                        <div key={i} className="flex flex-col items-center gap-1">
+                            <Skeleton className="h-10 w-10 rounded-full" />
+                            <Skeleton className="h-4 w-12" />
+                        </div>
+                    ))}
                 </div>
-            ))}
+                 <Skeleton className="h-20 w-full" />
+                 <Skeleton className="h-20 w-full" />
+                 <Skeleton className="h-20 w-full" />
+            </div>
         </div>
     );
 
-    return (
-        <div className="bg-background min-h-screen flex flex-col items-center justify-start font-body relative">
-            <div className="absolute inset-0 z-0 opacity-50">
-                <div className="absolute inset-0 bg-gradient-to-br from-soft-blue via-lavender to-baby-pink"></div>
+    if (groupLoading) {
+        return (
+            <div className="bg-background min-h-screen">
+                <InfoPageSkeleton />
             </div>
-
-            <div className="relative z-10 w-full max-w-lg">
-                <header className="absolute top-0 left-0 right-0 p-2 flex justify-between items-center z-20">
-                    <Button variant="ghost" size="icon" className="w-12 h-12 rounded-full bg-black/20 text-white backdrop-blur-sm" onClick={handleBack}>
+        );
+    }
+    
+    return (
+        <div className="bg-background min-h-screen font-body">
+            <div className="relative">
+                <div className="relative h-72">
+                    <Image
+                        src={clubData?.avatar || "https://picsum.photos/seed/default-group/800/600"}
+                        alt={clubData?.name || "Group"}
+                        layout="fill"
+                        objectFit="cover"
+                        className="bg-muted"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+                    <Button variant="ghost" size="icon" className="absolute top-4 left-4 w-12 h-12 rounded-full bg-black/20 text-white backdrop-blur-sm" onClick={handleBack}>
                         <ArrowLeft />
                     </Button>
-                </header>
+                </div>
+                <div className="p-4 bg-background rounded-t-3xl -mt-6 relative z-10">
+                    <h1 className="text-3xl font-bold">{clubData?.name}</h1>
+                    <p className="text-muted-foreground">Active</p>
 
-                {groupLoading ? <InfoCardSkeleton /> : (
-                    <div className="flex flex-col items-center p-6 pt-20 bg-card/80 backdrop-blur-3xl rounded-b-3xl soft-shadow text-center">
-                        <Avatar className='h-28 w-28 border-4 border-white shadow-lg'>
-                            <AvatarImage src={clubData?.avatar} alt={clubData?.name} />
-                            <AvatarFallback>{clubData?.name?.charAt(0)}</AvatarFallback>
-                        </Avatar>
-                        <h1 className="text-3xl font-bold mt-4">{clubData?.name}</h1>
-                        <p className="text-muted-foreground mt-1">Group · {clubData?.memberCount} members</p>
-                        <div className="flex gap-8 mt-6">
-                            <div className="flex flex-col items-center gap-1">
-                                <Button variant="secondary" size="icon" className="w-12 h-12 rounded-full"><Users /></Button>
-                                <span className="text-xs text-muted-foreground">Community</span>
-                            </div>
-                             <div className="flex flex-col items-center gap-1">
-                                <Button variant="secondary" size="icon" className="w-12 h-12 rounded-full"><Search /></Button>
-                                <span className="text-xs text-muted-foreground">Search</span>
-                            </div>
+                    <div className="flex justify-around my-6">
+                        <div className="flex flex-col items-center gap-1 text-primary">
+                            <Button variant="ghost" size="icon" className="w-12 h-12 rounded-full bg-primary/10"><Phone/></Button>
+                            <span className="text-xs">Audio call</span>
                         </div>
-                    </div>
-                )}
-                
-                <main className="p-4 space-y-4 mt-4">
-                    <div className='bg-card/80 backdrop-blur-sm rounded-2xl soft-shadow p-4'>
-                        <h3 className="text-muted-foreground font-semibold mb-2">Media, links, and docs</h3>
-                         <div className="flex justify-between items-center">
-                            <p>11</p>
-                            <ChevronRight className="w-5 h-5 text-muted-foreground"/>
+                        <div className="flex flex-col items-center gap-1 text-primary">
+                            <Button variant="ghost" size="icon" className="w-12 h-12 rounded-full bg-primary/10"><Video/></Button>
+                            <span className="text-xs">Video call</span>
                         </div>
-                        <div className="grid grid-cols-4 gap-2 mt-2">
-                            <Skeleton className="w-full aspect-square rounded-lg" />
-                            <Skeleton className="w-full aspect-square rounded-lg" />
-                            <Skeleton className="w-full aspect-square rounded-lg" />
-                            <Skeleton className="w-full aspect-square rounded-lg bg-secondary flex items-center justify-center text-primary font-bold">11+</Skeleton>
+                        <div className="flex flex-col items-center gap-1 text-muted-foreground">
+                            <Button variant="ghost" size="icon" className="w-12 h-12 rounded-full bg-secondary"><BellOff/></Button>
+                            <span className="text-xs">Mute</span>
+                        </div>
+                        <div className="flex flex-col items-center gap-1 text-muted-foreground">
+                            <Button variant="ghost" size="icon" className="w-12 h-12 rounded-full bg-secondary"><MoreHorizontal/></Button>
+                            <span className="text-xs">More</span>
                         </div>
                     </div>
 
-                    <div className='bg-card/80 backdrop-blur-sm rounded-2xl soft-shadow p-2'>
-                        <div className="flex items-center justify-between p-2">
-                           <div className='flex items-center gap-4'>
-                             <Bell className="w-5 h-5 text-muted-foreground"/>
-                             <span>Notifications</span>
-                           </div>
-                           <span className="text-muted-foreground">On</span>
-                        </div>
-                         <Separator/>
-                         <div className="flex items-center justify-between p-2">
-                           <div className='flex items-center gap-4'>
-                             <ImageIcon className="w-5 h-5 text-muted-foreground"/>
-                             <span>Media visibility</span>
-                           </div>
-                           <span className="text-muted-foreground">Default</span>
-                        </div>
-                    </div>
-
-                     <div className='bg-card/80 backdrop-blur-sm rounded-2xl soft-shadow p-2'>
-                        <div className="flex items-center p-2">
-                           <div className='flex items-center gap-4'>
-                             <Lock className="w-5 h-5 text-muted-foreground"/>
-                             <div>
-                                <span>Encryption</span>
-                                <p className='text-xs text-muted-foreground'>Messages and calls are end-to-end encrypted. Tap to learn more.</p>
-                             </div>
-                           </div>
-                        </div>
-                    </div>
-
-                    <div className='bg-card/80 backdrop-blur-sm rounded-2xl soft-shadow p-4'>
-                        <div className="flex justify-between items-center mb-2">
-                             <h3 className="text-muted-foreground font-semibold">{clubData?.memberCount} members</h3>
-                             <Button variant="ghost" size="icon"><Search/></Button>
-                        </div>
-                        <div className="space-y-4">
-                            {membersLoading ? <MemberListSkeleton /> : members?.map((member) => (
-                                <div key={member.userId} className="flex items-center justify-between">
-                                    <div className="flex items-center gap-4">
-                                        <Avatar className='h-12 w-12'>
-                                            <AvatarImage src={member.photoURL} />
-                                            <AvatarFallback>{member.displayName?.charAt(0) || 'U'}</AvatarFallback>
-                                        </Avatar>
-                                        <div>
-                                            <p className="font-semibold">{member.userId === user?.uid ? 'You' : member.displayName || 'Community Member'}</p>
-                                            {member.role === 'owner' && <p className='text-xs text-muted-foreground'>Group Creator</p>}
-                                        </div>
-                                    </div>
-                                    {member.role === 'admin' && <Badge variant="secondary" className='bg-green-100 text-green-800'>Admin</Badge>}
-                                    {member.role === 'owner' && <Badge variant="secondary" className='bg-green-100 text-green-800'>Admin</Badge>}
+                    <div className="space-y-2">
+                        <Card className="p-4 rounded-2xl bg-card/80">
+                            <p className="text-muted-foreground text-sm">About</p>
+                            <p className="font-semibold">{clubData?.description}</p>
+                        </Card>
+                        
+                        <div className='bg-card/80 rounded-2xl'>
+                            <div className="p-4">
+                                <h3 className="text-muted-foreground font-semibold mb-2">Media, links, and docs</h3>
+                                <div className="grid grid-cols-4 gap-2 mt-2">
+                                    <Skeleton className="w-full aspect-square rounded-lg" />
+                                    <Skeleton className="w-full aspect-square rounded-lg" />
+                                    <Skeleton className="w-full aspect-square rounded-lg" />
+                                    <Skeleton className="w-full aspect-square rounded-lg bg-secondary flex items-center justify-center text-primary font-bold">11+</Skeleton>
                                 </div>
-                            ))}
+                            </div>
+                            <Separator />
+                             <div className="flex items-center justify-between p-4">
+                               <div className='flex items-center gap-4'>
+                                 <Star className="w-5 h-5 text-muted-foreground"/>
+                                 <span>Starred Messages</span>
+                               </div>
+                               <ChevronRight className="w-5 h-5 text-muted-foreground"/>
+                            </div>
+                            <Separator/>
+                             <div className="flex items-center justify-between p-4">
+                               <div className='flex items-center gap-4'>
+                                 <Bell className="w-5 h-5 text-muted-foreground"/>
+                                 <span>Notifications</span>
+                               </div>
+                               <span className="text-muted-foreground">On</span>
+                            </div>
+                        </div>
+
+                         <div className='bg-card/80 rounded-2xl p-4'>
+                            <div className="flex justify-between items-center mb-2">
+                                <h3 className="text-muted-foreground font-semibold">{clubData?.memberCount} members</h3>
+                                <Button variant="ghost" size="icon"><Search/></Button>
+                            </div>
+                            <div className="space-y-4">
+                                {membersLoading ? <MemberListSkeleton /> : members?.map((member) => (
+                                    <div key={member.userId} className="flex items-center justify-between">
+                                        <div className="flex items-center gap-4">
+                                            <Avatar className='h-12 w-12'>
+                                                <AvatarImage src={member.photoURL} />
+                                                <AvatarFallback>{member.displayName?.charAt(0) || 'U'}</AvatarFallback>
+                                            </Avatar>
+                                            <div>
+                                                <p className="font-semibold">{member.userId === user?.uid ? 'You' : member.displayName || 'Community Member'}</p>
+                                                {member.role === 'owner' && <p className='text-xs text-muted-foreground'>Group Creator</p>}
+                                            </div>
+                                        </div>
+                                        {member.role === 'owner' && <BadgeCheck className='text-green-500' />}
+                                    </div>
+                                ))}
+                            </div>
                         </div>
                     </div>
-                </main>
+                </div>
             </div>
         </div>
     );
 }
 
+const MemberListSkeleton = () => (
+    <div className='space-y-4'>
+        {[...Array(3)].map((_, i) => (
+            <div key={i} className="flex items-center gap-4">
+                <Skeleton className="h-12 w-12 rounded-full" />
+                <div className="flex-grow space-y-2">
+                    <Skeleton className="h-4 w-3/4" />
+                    <Skeleton className="h-3 w-1/2" />
+                </div>
+            </div>
+        ))}
+    </div>
+);
+
+
 const ChevronRight = (props: React.SVGProps<SVGSVGElement>) => (
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
         <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+);
+
+const Video = (props: React.SVGProps<SVGSVGElement>) => (
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+        <path d="m22 8-6 4 6 4V8Z"></path>
+        <rect width="14" height="12" x="2" y="6" rx="2" ry="2"></rect>
+    </svg>
+);
+
+const BellOff = (props: React.SVGProps<SVGSVGElement>) => (
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+        <path d="M8.7 3A6.4 6.4 0 0 1 12 2c2 0 3.7.8 5 2.1l-1.4.9A3.6 3.6 0 0 0 12 4a3.6 3.6 0 0 0-3.3 2.8"></path>
+        <path d="M19.3 14.8A6.4 6.4 0 0 1 12 22a6.4 6.4 0 0 1-7.3-7.2"></path>
+        <path d="M2 2l20 20"></path>
+        <path d="M10.2 6.1a3.6 3.6 0 0 1 3.6-1.3l-2.9 2.9"></path>
+        <path d="M16 17a3 3 0 0 0-3-3"></path>
+        <path d="M12 8a3 3 0 0 0-3 3"></path>
     </svg>
 );
