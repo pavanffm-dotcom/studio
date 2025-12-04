@@ -450,92 +450,70 @@ export const toolCategories = [
 
 export const businessToolData: ToolCategory[] = [
     {
-        title: "Task & Project Management",
-        icon: <ListChecks className="w-5 h-5 text-primary"/>,
+        title: "Accounting & Finance",
+        icon: <DollarSign className="w-5 h-5 text-primary"/>,
         tools: [
-            { name: 'Trello', description: 'Collaborate, manage projects, and reach new productivity peaks.', url: 'https://trello.com/', image: 'https://picsum.photos/seed/trello-prod/600/400', dataAiHint: 'kanban board', pricing: 'Freemium' },
-            { name: 'Asana', description: 'Manage your team’s work, projects, & tasks online.', url: 'https://asana.com/', image: 'https://picsum.photos/seed/asana-prod/600/400', dataAiHint: 'work management', pricing: 'Freemium' },
-            { name: 'Jira', description: 'The #1 software development tool used by agile teams.', url: 'https://www.atlassian.com/software/jira', image: 'https://picsum.photos/seed/jira-prod/600/400', dataAiHint: 'agile tool', pricing: 'Freemium' },
-            { name: 'Todoist', description: 'The to-do list to organize work & life.', url: 'https://todoist.com/', image: 'https://picsum.photos/seed/todoist-prod/600/400', dataAiHint: 'task list', pricing: 'Freemium' },
-            { name: 'ClickUp', description: 'One app to replace them all. It\'s the future of work.', url: 'https://clickup.com/', image: 'https://picsum.photos/seed/clickup/600/400', dataAiHint: 'productivity platform', pricing: 'Freemium' },
-            { name: 'Monday.com', description: 'A work operating system where teams run their projects and workflows.', url: 'https://monday.com/', image: 'https://picsum.photos/seed/monday/600/400', dataAiHint: 'work os', pricing: 'Paid' },
-            { name: 'Wrike', description: 'The most versatile work management platform.', url: 'https://www.wrike.com/', image: 'https://picsum.photos/seed/wrike/600/400', dataAiHint: 'work management', pricing: 'Paid' },
-            { name: 'Smartsheet', description: 'The leading work execution platform.', url: 'https://www.smartsheet.com/', image: 'https://picsum.photos/seed/smartsheet/600/400', dataAiHint: 'spreadsheet power', pricing: 'Paid' },
-            { name: 'Basecamp', description: 'The All-in-One Toolkit for Working Remotely.', url: 'https://basecamp.com/', image: 'https://picsum.photos/seed/basecamp/600/400', dataAiHint: 'remote work', pricing: 'Paid' },
-            { name: 'Teamwork', description: 'The project management software for client work.', url: 'https://www.teamwork.com/', image: 'https://picsum.photos/seed/teamwork/600/400', dataAiHint: 'client work', pricing: 'Paid' },
-            { name: 'Podio', description: 'A work collaboration tool that you can customize.', url: 'https://podio.com/', image: 'https://picsum.photos/seed/podio/600/400', dataAiHint: 'customizable workspace', pricing: 'Freemium' },
-            { name: 'Freedcamp', description: 'An intelligent project management tool for teams.', url: 'https://freedcamp.com/', image: 'https://picsum.photos/seed/freedcamp/600/400', dataAiHint: 'free project management', pricing: 'Freemium' },
-            { name: 'MeisterTask', description: 'Beautifully intuitive task management.', url: 'https://www.meistertask.com/', image: 'https://picsum.photos/seed/meistertask/600/400', dataAiHint: 'intuitive tasks', pricing: 'Freemium' },
-            { name: 'Paymo', description: 'Work & project management for small businesses.', url: 'https://www.paymoapp.com/', image: 'https://picsum.photos/seed/paymo/600/400', dataAiHint: 'invoicing time tracking', pricing: 'Paid' },
-            { name: 'Nifty', description: 'The project management tool that keeps teams inspired.', url: 'https://niftypm.com/', image: 'https://picsum.photos/seed/nifty/600/400', dataAiHint: 'team collaboration', pricing: 'Paid' },
-            { name: 'Airtable', description: 'Connect everything. Achieve anything.', url: 'https://www.airtable.com/', image: 'https://picsum.photos/seed/airtable/600/400', dataAiHint: 'spreadsheet database', pricing: 'Freemium' },
-            { name: 'Notion', description: 'The all-in-one workspace for your notes, tasks, wikis, and databases.', url: 'https://www.notion.so/', image: 'https://picsum.photos/seed/notion-prod/600/400', dataAiHint: 'workspace app', pricing: 'Freemium' },
+            { name: 'QuickBooks', description: 'Smart, simple online accounting software for small business.', url: 'https://quickbooks.intuit.com/', image: 'https://picsum.photos/seed/quickbooks/600/400', dataAiHint: 'accounting software', pricing: 'Paid' },
+            { name: 'Xero', description: 'Online accounting software for your small business.', url: 'https://www.xero.com/', image: 'https://picsum.photos/seed/xero/600/400', dataAiHint: 'small business', pricing: 'Paid' },
+            { name: 'FreshBooks', description: 'Accounting software built for owners.', url: 'https://www.freshbooks.com/', image: 'https://picsum.photos/seed/freshbooks/600/400', dataAiHint: 'invoicing freelance', pricing: 'Paid' },
         ]
     },
     {
-        title: "Communication & Collaboration",
-        icon: <Users className="w-5 h-5 text-primary"/>,
+        title: "Human Resources",
+        icon: <UserCog className="w-5 h-5 text-primary"/>,
         tools: [
-            { name: 'Slack', description: 'Where work happens.', url: 'https://slack.com/', image: 'https://picsum.photos/seed/slack-prod/600/400', dataAiHint: 'team chat', pricing: 'Freemium' },
-            { name: 'Microsoft Teams', description: 'The hub for teamwork in Microsoft 365.', url: 'https://www.microsoft.com/en-us/microsoft-teams/group-chat-software', image: 'https://picsum.photos/seed/msteams-prod/600/400', dataAiHint: 'video conference', pricing: 'Freemium' },
-            { name: 'Zoom', description: 'Video conferencing, web conferencing, webinars.', url: 'https://zoom.us/', image: 'https://picsum.photos/seed/zoom-prod/600/400', dataAiHint: 'online meetings', pricing: 'Freemium' },
-            { name: 'Discord', description: 'Your place to talk.', url: 'https://discord.com/', image: 'https://picsum.photos/seed/discord/600/400', dataAiHint: 'community chat', pricing: 'Freemium' },
-            { name: 'Google Meet', description: 'Secure video meetings for your business.', url: 'https://meet.google.com/', image: 'https://picsum.photos/seed/googlemeet/600/400', dataAiHint: 'video meetings', pricing: 'Freemium' },
-            { name: 'Skype', description: 'Communication tool for free calls and chat.', url: 'https://www.skype.com/', image: 'https://picsum.photos/seed/skype/600/400', dataAiHint: 'video calls', pricing: 'Freemium' },
-            { name: 'Miro', description: 'The online collaborative whiteboard platform.', url: 'https://miro.com/', image: 'https://picsum.photos/seed/miro/600/400', dataAiHint: 'visual collaboration', pricing: 'Freemium' },
-            { name: 'Mural', description: 'A digital workspace for visual collaboration.', url: 'https://www.mural.co/', image: 'https://picsum.photos/seed/mural/600/400', dataAiHint: 'digital workspace', pricing: 'Paid' },
-            { name: 'Loom', description: 'Video messaging for work.', url: 'https://www.loom.com/', image: 'https://picsum.photos/seed/loom/600/400', dataAiHint: 'screen recording', pricing: 'Freemium' },
-            { name: 'Twist', description: 'A Slack alternative for mindful teamwork.', url: 'https://twist.com/', image: 'https://picsum.photos/seed/twist/600/400', dataAiHint: 'asynchronous chat', pricing: 'Freemium' },
-            { name: 'Flock', description: 'Team messaging and online collaboration tool.', url: 'https://www.flock.com/', image: 'https://picsum.photos/seed/flock/600/400', dataAiHint: 'team messaging', pricing: 'Freemium' },
-            { name: 'Front', description: 'The customer communication platform.', url: 'https://front.com/', image: 'https://picsum.photos/seed/front/600/400', dataAiHint: 'shared inbox', pricing: 'Paid' },
-            { name: 'Confluence', description: 'A team workspace where knowledge and collaboration meet.', url: 'https://www.atlassian.com/software/confluence', image: 'https://picsum.photos/seed/confluence/600/400', dataAiHint: 'team wiki', pricing: 'Freemium' },
-            { name: 'Dropbox Paper', description: 'A collaborative workspace that helps teams create and share early ideas.', url: 'https://www.dropbox.com/paper', image: 'https://picsum.photos/seed/dbxpaper/600/400', dataAiHint: 'collaborative docs', pricing: 'Freemium' },
-            { name: 'Coda', description: 'A new doc that brings words, data, and teams together.', url: 'https://coda.io/', image: 'https://picsum.photos/seed/coda/600/400', dataAiHint: 'interactive docs', pricing: 'Freemium' },
+            { name: 'Gusto', description: 'An all-in-one platform for payroll, benefits, and HR.', url: 'https://gusto.com/', image: 'https://picsum.photos/seed/gusto/600/400', dataAiHint: 'payroll hr', pricing: 'Paid' },
+            { name: 'Rippling', description: 'The first way to manage all your HR & IT.', url: 'https://www.rippling.com/', image: 'https://picsum.photos/seed/rippling/600/400', dataAiHint: 'hr it', pricing: 'Paid' },
+            { name: 'BambooHR', description: 'The #1 Online HR Software for Small and Medium Business.', url: 'https://www.bamboohr.com/', image: 'https://picsum.photos/seed/bamboohr/600/400', dataAiHint: 'hr software', pricing: 'Paid' },
         ]
     },
     {
-        title: "Automation & Integration",
-        icon: <Workflow className="w-5 h-5 text-primary"/>,
-        tools: [
-            { name: 'Zapier', description: 'Easy automation for busy people.', url: 'https://zapier.com/', image: 'https://picsum.photos/seed/zapier-prod/600/400', dataAiHint: 'app integration', pricing: 'Freemium' },
-            { name: 'Make (formerly Integromat)', description: 'A visual platform for any workflow.', url: 'https://www.make.com/', image: 'https://picsum.photos/seed/make-prod/600/400', dataAiHint: 'workflow automation', pricing: 'Freemium' },
-            { name: 'IFTTT', description: 'Helps your apps and devices work together in new ways.', url: 'https://ifttt.com/', image: 'https://picsum.photos/seed/ifttt-prod/600/400', dataAiHint: 'applets service', pricing: 'Freemium' },
-            { name: 'n8n', description: 'Free and open workflow automation tool.', url: 'https://n8n.io/', image: 'https://picsum.photos/seed/n8n/600/400', dataAiHint: 'open source automation', pricing: 'Free' },
-            { name: 'Tray.io', description: 'The leader in low-code automation.', url: 'https://tray.io/', image: 'https://picsum.photos/seed/trayio/600/400', dataAiHint: 'low-code automation', pricing: 'Paid' },
-            { name: 'Workato', description: 'The leading Enterprise Automation Platform.', url: 'https://www.workato.com/', image: 'https://picsum.photos/seed/workato/600/400', dataAiHint: 'enterprise automation', pricing: 'Paid' },
-            { name: 'Automate.io', description: 'Connect all your cloud applications with ease.', url: 'https://automate.io/', image: 'https://picsum.photos/seed/automateio/600/400', dataAiHint: 'cloud integration', pricing: 'Freemium' },
-            { name: 'Pabbly Connect', description: 'Automation software to connect multiple applications.', url: 'https://www.pabbly.com/connect/', image: 'https://picsum.photos/seed/pabbly/600/400', dataAiHint: 'zapier alternative', pricing: 'Paid' },
-            { name: 'Microsoft Power Automate', description: 'Streamline repetitive tasks and paperless processes.', url: 'https://powerautomate.microsoft.com/', image: 'https://picsum.photos/seed/powerautomate/600/400', dataAiHint: 'microsoft workflow', pricing: 'Paid' },
-            { name: 'Alloy Automation', description: 'The integration platform for ecommerce.', url: 'https://www.runalloy.com/', image: 'https://picsum.photos/seed/alloy/600/400', dataAiHint: 'ecommerce automation', pricing: 'Paid' },
-            { name: 'Celigo', description: 'Integration Platform as a Service (iPaaS).', url: 'https://www.celigo.com/', image: 'https://picsum.photos/seed/celigo/600/400', dataAiHint: 'ipaas platform', pricing: 'Paid' },
-            { name: 'Jitterbit', description: 'API integration platform.', url: 'https://www.jitterbit.com/', image: 'https://picsum.photos/seed/jitterbit/600/400', dataAiHint: 'api integration', pricing: 'Paid' },
-            { name: 'MuleSoft', description: 'Integration platform for connecting SaaS and enterprise applications.', url: 'https://www.mulesoft.com/', image: 'https://picsum.photos/seed/mulesoft/600/400', dataAiHint: 'salesforce integration', pricing: 'Paid' },
-            { name: 'Boomi', description: 'The integration platform as a service (iPaaS).', url: 'https://boomi.com/', image: 'https://picsum.photos/seed/boomi/600/400', dataAiHint: 'dell ipaas', pricing: 'Paid' },
-            { name: 'Parabola', description: 'Automate your manual data tasks.', url: 'https://parabola.io/', image: 'https://picsum.photos/seed/parabola/600/400', dataAiHint: 'data automation', pricing: 'Paid' },
-        ]
-    },
-     {
         title: "Customer Relationship Management (CRM)",
         icon: <Contact className="w-5 h-5 text-primary"/>,
         tools: [
             { name: 'HubSpot CRM', description: 'Free CRM software with everything you need to grow.', url: 'https://www.hubspot.com/products/crm', image: 'https://picsum.photos/seed/hubspot-crm/600/400', dataAiHint: 'sales software', pricing: 'Free' },
             { name: 'Salesforce', description: 'The Customer Company.', url: 'https://www.salesforce.com/', image: 'https://picsum.photos/seed/salesforce-crm/600/400', dataAiHint: 'customer 360', pricing: 'Paid' },
             { name: 'Zoho CRM', description: 'Convert more leads, engage with customers, and grow your revenue.', url: 'https://www.zoho.com/crm/', image: 'https://picsum.photos/seed/zoho-crm/600/400', dataAiHint: 'business crm', pricing: 'Freemium' },
-            { name: 'Pipedrive', description: 'Sales CRM & Pipeline Management Software.', url: 'https://www.pipedrive.com/', image: 'https://picsum.photos/seed/pipedrive/600/400', dataAiHint: 'sales pipeline', pricing: 'Paid' },
-            { name: 'Freshworks CRM', description: 'The sales CRM that helps you close deals faster.', url: 'https://www.freshworks.com/crm/', image: 'https://picsum.photos/seed/freshworks/600/400', dataAiHint: 'deals faster', pricing: 'Freemium' },
-            { name: 'Zendesk Sell', description: 'Make conversations, not just sales.', url: 'https://www.zendesk.com/sell/', image: 'https://picsum.photos/seed/zendesksell/600/400', dataAiHint: 'sales conversations', pricing: 'Paid' },
-            { name: 'Copper', description: 'The CRM for Google Workspace.', url: 'https://www.copper.com/', image: 'https://picsum.photos/seed/copper/600/400', dataAiHint: 'google crm', pricing: 'Paid' },
-            { name: 'Insightly', description: 'A modern CRM for growing teams.', url: 'https://www.insightly.com/', image: 'https://picsum.photos/seed/insightly/600/400', dataAiHint: 'growing teams', pricing: 'Paid' },
-            { name: 'Agile CRM', description: 'All-in-one CRM with sales, marketing, and service.', url: 'https://www.agilecrm.com/', image: 'https://picsum.photos/seed/agilecrm/600/400', dataAiHint: 'all-in-one crm', pricing: 'Freemium' },
-            { name: 'Apptivo', description: 'Integrated suite of business apps.', url: 'https://www.apptivo.com/', image: 'https://picsum.photos/seed/apptivo/600/400', dataAiHint: 'business apps', pricing: 'Freemium' },
-            { name: 'Less Annoying CRM', description: 'A simple CRM for small businesses.', url: 'https://www.lessannoyingcrm.com/', image: 'https://picsum.photos/seed/lessannoyingcrm/600/400', dataAiHint: 'simple crm', pricing: 'Paid' },
-            { name: 'Nimble', description: 'The simple, smart CRM for Office 365 and Google Workspace.', url: 'https://www.nimble.com/', image: 'https://picsum.photos/seed/nimble/600/400', dataAiHint: 'smart crm', pricing: 'Paid' },
-            { name: 'Capsule', description: 'The smart simple CRM.', url: 'https://capsulecrm.com/', image: 'https://picsum.photos/seed/capsule/600/400', dataAiHint: 'simple crm', pricing: 'Freemium' },
-            { name: 'Bitrix24', description: 'Free collaboration platform and CRM.', url: 'https://www.bitrix24.com/', image: 'https://picsum.photos/seed/bitrix24/600/400', dataAiHint: 'free crm', pricing: 'Freemium' },
-            { name: 'Really Simple Systems', description: 'CRM for small businesses.', url: 'https://www.reallysimplesystems.com/', image: 'https://picsum.photos/seed/rss/600/400', dataAiHint: 'smb crm', pricing: 'Freemium' },
+        ]
+    }
+];
+
+export const productivityToolData: ToolCategory[] = [
+    {
+        title: "Task & Project Management",
+        icon: <ListChecks className="w-5 h-5 text-primary"/>,
+        tools: [
+            { name: 'Trello', description: 'Collaborate, manage projects, and reach new productivity peaks.', url: 'https://trello.com/', image: 'https://picsum.photos/seed/trello-prod/600/400', dataAiHint: 'kanban board', pricing: 'Freemium' },
+            { name: 'Asana', description: 'Manage your team’s work, projects, & tasks online.', url: 'https://asana.com/', image: 'https://picsum.photos/seed/asana-prod/600/400', dataAiHint: 'work management', pricing: 'Freemium' },
+            { name: 'Todoist', description: 'The to-do list to organize work & life.', url: 'https://todoist.com/', image: 'https://picsum.photos/seed/todoist-prod/600/400', dataAiHint: 'task list', pricing: 'Freemium' },
+            { name: 'ClickUp', description: 'One app to replace them all. It\'s the future of work.', url: 'https://clickup.com/', image: 'https://picsum.photos/seed/clickup/600/400', dataAiHint: 'productivity platform', pricing: 'Freemium' },
+            { name: 'Monday.com', description: 'A work operating system where teams run their projects and workflows.', url: 'https://monday.com/', image: 'https://picsum.photos/seed/monday/600/400', dataAiHint: 'work os', pricing: 'Paid' },
         ]
     },
+    {
+        title: "Note-Taking & Knowledge Management",
+        icon: <BookCopy className="w-5 h-5 text-primary"/>,
+        tools: [
+            { name: 'Notion', description: 'The all-in-one workspace for your notes, tasks, wikis, and databases.', url: 'https://www.notion.so/', image: 'https://picsum.photos/seed/notion-prod/600/400', dataAiHint: 'workspace app', pricing: 'Freemium' },
+            { name: 'Evernote', description: 'Remember everything. Accomplish anything.', url: 'https://evernote.com/', image: 'https://picsum.photos/seed/evernote/600/400', dataAiHint: 'digital notebook', pricing: 'Freemium' },
+            { name: 'Obsidian', description: 'A powerful knowledge base on top of a local folder of plain text files.', url: 'https://obsidian.md/', image: 'https://picsum.photos/seed/obsidian/600/400', dataAiHint: 'second brain', pricing: 'Free' },
+            { name: 'Roam Research', description: 'A note-taking tool for networked thought.', url: 'https://roamresearch.com/', image: 'https://picsum.photos/seed/roam/600/400', dataAiHint: 'networked thought', pricing: 'Paid' },
+            { name: 'Airtable', description: 'Connect everything. Achieve anything.', url: 'https://www.airtable.com/', image: 'https://picsum.photos/seed/airtable/600/400', dataAiHint: 'spreadsheet database', pricing: 'Freemium' },
+        ]
+    },
+    {
+        title: "Time Management & Focus",
+        icon: <Clock className="w-5 h-5 text-primary"/>,
+        tools: [
+            { name: 'RescueTime', description: 'Find your ideal work-life balance.', url: 'https://www.rescuetime.com/', image: 'https://picsum.photos/seed/rescuetime/600/400', dataAiHint: 'time tracking', pricing: 'Freemium' },
+            { name: 'Toggl Track', description: 'Effortless time tracking and reporting.', url: 'https://toggl.com/track/', image: 'https://picsum.photos/seed/toggl/600/400', dataAiHint: 'work timer', pricing: 'Freemium' },
+            { name: 'Forest', description: 'Stay focused, be present.', url: 'https://www.forestapp.cc/', image: 'https://picsum.photos/seed/forest/600/400', dataAiHint: 'focus timer', pricing: 'Freemium' },
+            { name: 'Focus@Will', description: 'Music scientifically optimized for focus.', url: 'https://www.focusatwill.com/', image: 'https://picsum.photos/seed/focusatwill/600/400', dataAiHint: 'focus music', pricing: 'Paid' },
+            { name: 'Freedom', description: 'Block websites, apps, and the internet to be more productive.', url: 'https://freedom.to/', image: 'https://picsum.photos/seed/freedom/600/400', dataAiHint: 'distraction blocker', pricing: 'Paid' },
+        ]
+    }
 ];
+
 
 export const graphicDesignToolData: ToolCategory[] = [
     {
@@ -580,6 +558,7 @@ export const allTools: Tool[] = Array.from(new Set([
     ...aiAvatarTools,
     ...textToImageTools,
     ...businessToolData.flatMap(cat => cat.tools),
+    ...productivityToolData.flatMap(cat => cat.tools),
     ...graphicDesignToolData.flatMap(cat => cat.tools),
     ...codingToolData.flatMap(cat => cat.tools),
 ].map(t => t.name))).map(name => {
@@ -592,6 +571,7 @@ export const allTools: Tool[] = Array.from(new Set([
         ...aiAvatarTools,
         ...textToImageTools,
         ...businessToolData.flatMap(cat => cat.tools),
+        ...productivityToolData.flatMap(cat => cat.tools),
         ...graphicDesignToolData.flatMap(cat => cat.tools),
         ...codingToolData.flatMap(cat => cat.tools),
     ].find(t => t.name === name)!
