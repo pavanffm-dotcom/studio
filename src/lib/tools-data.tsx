@@ -4,7 +4,7 @@ import {
     Briefcase, DollarSign, UserCog, CreditCard, Users, MessageSquare, Video, Megaphone, BarChart, GitBranch, ListChecks, Lightbulb, Cpu, Code, Filter, TrendingUp, Link2, Server, Layers,
     Paintbrush, Youtube, HelpCircle, Book, Zap, Calendar, Brain, Search, Type, Presentation, Wand2, Mic, File, GraduationCap, Scissors, Film, ImageIcon, Palette, Bot, Mic2, FileText,
     Terminal, Database, CloudCog, Bug, Box, TerminalSquare, PackageCheck, Shield, Smartphone, Gamepad2, TestTube, Gauge,
-    LayoutDashboard, BookOpen, Contact, Gem, MonitorPlay, Wallet, Receipt, FileSignature, Folder, Workflow, Clock, Timer, Hourglass, Share, Copy, RotateCw, Cloud, Sparkles, BookCopy, Mail, ShoppingCart, Layout, ImagePlay, Shapes, UserCircle, BrainCircuit, Newspaper, BoxSelect, MousePointerClick, BookCopy as BookCopyIcon, Wallpaper, Car, Store, TowerControl, Truck, SquareParking, PenTool
+    LayoutDashboard, BookOpen, Contact, Gem, MonitorPlay, Wallet, Receipt, FileSignature, Folder, Workflow, Clock, Timer, Hourglass, Share, Copy, RotateCw, Cloud, Sparkles, BookCopy, Mail, ShoppingCart, Layout, ImagePlay, Shapes, UserCircle, BrainCircuit, Newspaper, BoxSelect, MousePointerClick, BookCopy as BookCopyIcon, Wallpaper, Car, Store, TowerControl, Truck, SquareParking, PenTool, Feather, Key, Quote, Tv
 } from 'lucide-react';
 import React from 'react';
 
@@ -635,6 +635,93 @@ export const codingToolData: ToolCategory[] = [
     },
 ];
 
+export const writingToolData: ToolCategory[] = [
+    {
+        title: "Content Writing Tools",
+        icon: <Feather className="w-5 h-5 text-primary"/>,
+        tools: [
+            { name: 'Jasper AI', description: 'AI Content Platform for teams.', url: 'https://www.jasper.ai/', image: 'https://picsum.photos/seed/jasper-content/600/400', dataAiHint: 'ai content', pricing: 'Paid' },
+            { name: 'Writesonic', description: 'Create SEO-friendly content.', url: 'https://writesonic.com/', image: 'https://picsum.photos/seed/writesonic-content/600/400', dataAiHint: 'seo writing', pricing: 'Freemium' },
+            { name: 'Rytr', description: 'A better, 10x faster way to write.', url: 'https://rytr.me/', image: 'https://picsum.photos/seed/rytr-content/600/400', dataAiHint: 'writing assistant', pricing: 'Freemium' },
+            { name: 'Copy.ai', description: 'Write better marketing copy.', url: 'https://www.copy.ai/', image: 'https://picsum.photos/seed/copyai-content/600/400', dataAiHint: 'copywriting tool', pricing: 'Freemium' },
+            { name: 'Anyword', description: 'AI that converts.', url: 'https://anyword.com/', image: 'https://picsum.photos/seed/anyword-content/600/400', dataAiHint: 'ad copy', pricing: 'Paid' },
+        ]
+    },
+    {
+        title: "Blog Writing Tools",
+        icon: <BookOpen className="w-5 h-5 text-primary"/>,
+        tools: [
+            { name: 'Surfer AI', description: 'Write and optimize articles with AI.', url: 'https://surferseo.com/surfer-ai', image: 'https://picsum.photos/seed/surferai-blog/600/400', dataAiHint: 'ai article', pricing: 'Paid' },
+            { name: 'Frase', description: 'Research, write, and optimize content.', url: 'https://www.frase.io/', image: 'https://picsum.photos/seed/frase-blog/600/400', dataAiHint: 'content optimization', pricing: 'Paid' },
+            { name: 'ContentBot', description: 'AI writer for bloggers and marketers.', url: 'https://contentbot.ai/', image: 'https://picsum.photos/seed/contentbot-blog/600/400', dataAiHint: 'ai blogger', pricing: 'Freemium' },
+        ]
+    },
+    {
+        title: "SEO Writing Tools",
+        icon: <Search className="w-5 h-5 text-primary"/>,
+        tools: [
+            { name: 'SurferSEO', description: 'Content intelligence tool for SEO.', url: 'https://surferseo.com/', image: 'https://picsum.photos/seed/surferseo-seo/600/400', dataAiHint: 'seo audit', pricing: 'Paid' },
+            { name: 'NeuronWriter', description: 'Optimize your content for Google.', url: 'https://neuronwriter.com/', image: 'https://picsum.photos/seed/neuronwriter-seo/600/400', dataAiHint: 'content optimizer', pricing: 'Paid' },
+            { name: 'PageOptimizer Pro AI', description: 'On-page SEO tool for professionals.', url: 'https://pageoptimizer.pro/', image: 'https://picsum.photos/seed/pop-seo/600/400', dataAiHint: 'on-page seo', pricing: 'Paid' },
+        ]
+    },
+    {
+        title: "Article Rewriting / Paraphrasing Tools",
+        icon: <FileText className="w-5 h-5 text-primary"/>,
+        tools: [
+            { name: 'QuillBot', description: 'AI-powered paraphrasing tool.', url: 'https://quillbot.com/', image: 'https://picsum.photos/seed/quillbot-rewrite/600/400', dataAiHint: 'paraphraser', pricing: 'Freemium' },
+            { name: 'Spinbot', description: 'Article spinning, text rewriting, and content creation tool.', url: 'https://spinbot.com/', image: 'https://picsum.photos/seed/spinbot-rewrite/600/400', dataAiHint: 'text spinner', pricing: 'Freemium' },
+            { name: 'Wordtune', description: 'Your personal writing companion.', url: 'https://www.wordtune.com/', image: 'https://picsum.photos/seed/wordtune-rewrite/600/400', dataAiHint: 'ai editor', pricing: 'Freemium' },
+        ]
+    },
+    {
+        title: "Script Writing Tools",
+        icon: <Tv className="w-5 h-5 text-primary"/>,
+        tools: [
+            { name: 'Jasper Script Generator', description: 'Generate video scripts with AI.', url: 'https://www.jasper.ai/', image: 'https://picsum.photos/seed/jasper-script/600/400', dataAiHint: 'video script', pricing: 'Paid' },
+            { name: 'Writesonic Script AI', description: 'AI script writer for videos and podcasts.', url: 'https://writesonic.com/ai-script-writer', image: 'https://picsum.photos/seed/writesonic-script/600/400', dataAiHint: 'podcast script', pricing: 'Freemium' },
+            { name: 'DeepStory', description: 'AI story and script generation.', url: 'https://deepstory.ai/', image: 'https://picsum.photos/seed/deepstory/600/400', dataAiHint: 'story generator', pricing: 'Paid' },
+        ]
+    },
+    {
+        title: "Social Media Writing Tools",
+        icon: <Users className="w-5 h-5 text-primary"/>,
+        tools: [
+            { name: 'Predis.ai', description: 'AI Social Media Marketing tool.', url: 'https://predis.ai/', image: 'https://picsum.photos/seed/predis-social/600/400', dataAiHint: 'social marketing', pricing: 'Freemium' },
+            { name: 'Hypefury AI', description: 'Grow and monetize your Twitter account.', url: 'https://hypefury.com/', image: 'https://picsum.photos/seed/hypefury-social/600/400', dataAiHint: 'twitter growth', pricing: 'Paid' },
+            { name: 'Buffer', description: 'Plan and schedule your social media campaigns.', url: 'https://buffer.com/', image: 'https://picsum.photos/seed/buffer-social/600/400', dataAiHint: 'social media campaigns', pricing: 'Freemium' },
+        ]
+    },
+    {
+        title: "Email Writing Tools",
+        icon: <Mail className="w-5 h-5 text-primary"/>,
+        tools: [
+            { name: 'Flowrite', description: 'Turn your instructions into ready-to-send emails.', url: 'https://www.flowrite.com/', image: 'https://picsum.photos/seed/flowrite-email/600/400', dataAiHint: 'ai email', pricing: 'Paid' },
+            { name: 'Lavender AI', description: 'The AI email assistant.', url: 'https://www.lavender.ai/', image: 'https://picsum.photos/seed/lavender-email/600/400', dataAiHint: 'email assistant', pricing: 'Freemium' },
+            { name: 'Gmass AI Writer', description: 'AI to write emails inside Gmail.', url: 'https://www.gmass.co/blog/ai-writer/', image: 'https://picsum.photos/seed/gmass-email/600/400', dataAiHint: 'gmail writer', pricing: 'Freemium' },
+        ]
+    },
+    {
+        title: "Ad Copywriting Tools",
+        icon: <MonitorPlay className="w-5 h-5 text-primary"/>,
+        tools: [
+            { name: 'Anyword Ad Copy', description: 'AI that generates and optimizes your copy.', url: 'https://anyword.com/', image: 'https://picsum.photos/seed/anyword-ad/600/400', dataAiHint: 'optimize copy', pricing: 'Paid' },
+            { name: 'Jasper Ads', description: 'Generate high-converting ad copy.', url: 'https://www.jasper.ai/', image: 'https://picsum.photos/seed/jasper-ad/600/400', dataAiHint: 'ad generator', pricing: 'Paid' },
+            { name: 'Adcreative.ai', description: 'Generate conversion-focused ad creatives.', url: 'https://www.adcreative.ai/', image: 'https://picsum.photos/seed/adcreative-ad/600/400', dataAiHint: 'ad creatives', pricing: 'Paid' },
+        ]
+    },
+    {
+        title: "Creative Writing Tools",
+        icon: <BrainCircuit className="w-5 h-5 text-primary"/>,
+        tools: [
+            { name: 'Sudowrite', description: 'The AI writing partner for fiction writers.', url: 'https://www.sudowrite.com/', image: 'https://picsum.photos/seed/sudowrite-creative/600/400', dataAiHint: 'fiction writer', pricing: 'Paid' },
+            { name: 'NovelAI', description: 'AI-assisted authorship.', url: 'https://novelai.net/', image: 'https://picsum.photos/seed/novelai-creative/600/400', dataAiHint: 'ai authorship', pricing: 'Paid' },
+            { name: 'AI Dungeon', description: 'A text-based AI adventure game.', url: 'https://aidungeon.io/', image: 'https://picsum.photos/seed/aidungeon/600/400', dataAiHint: 'ai game', pricing: 'Free' },
+        ]
+    }
+];
+
+
 
 export const allTools: Tool[] = Array.from(new Set([
     ...popularTools,
@@ -648,6 +735,7 @@ export const allTools: Tool[] = Array.from(new Set([
     ...productivityToolData.flatMap(cat => cat.tools),
     ...graphicDesignToolData.flatMap(cat => cat.tools),
     ...codingToolData.flatMap(cat => cat.tools),
+    ...writingToolData.flatMap(cat => cat.tools)
 ].map(t => t.name))).map(name => {
     return [
         ...popularTools,
@@ -661,5 +749,6 @@ export const allTools: Tool[] = Array.from(new Set([
         ...productivityToolData.flatMap(cat => cat.tools),
         ...graphicDesignToolData.flatMap(cat => cat.tools),
         ...codingToolData.flatMap(cat => cat.tools),
+        ...writingToolData.flatMap(cat => cat.tools),
     ].find(t => t.name === name)!
 });
