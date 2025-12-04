@@ -4,6 +4,7 @@ import { Toaster } from '@/components/ui/toaster';
 import { FirebaseProviderWrapper } from '@/firebase/client-provider-wrapper';
 import { LanguageProvider } from '@/lib/language';
 import { UserPreferencesProvider } from '@/context/user-preferences-context';
+import { ThemeProvider } from '@/context/theme-provider';
 
 export const metadata: Metadata = {
   title: 'AI Atlas',
@@ -30,7 +31,9 @@ export default function RootLayout({
         <LanguageProvider>
           <FirebaseProviderWrapper>
             <UserPreferencesProvider>
-              {children}
+              <ThemeProvider>
+                {children}
+              </ThemeProvider>
             </UserPreferencesProvider>
           </FirebaseProviderWrapper>
         </LanguageProvider>
