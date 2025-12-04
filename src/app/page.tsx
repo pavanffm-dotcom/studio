@@ -36,6 +36,8 @@ import {
   MessageSquare,
   ImageDown,
   Send,
+  Home,
+  Settings,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -584,155 +586,177 @@ function App() {
       </section>
     </>
   )
-
+  
   return (
-    <div className="bg-background min-h-screen flex flex-col items-center justify-start font-body relative">
-      
-      <main className="relative z-10 w-full max-w-md flex-1 bg-card/80 backdrop-blur-3xl rounded-t-[2.5rem] shadow-2xl flex flex-col min-h-0 border-t-2 border-white/50 soft-shadow">
-        <div className={cn("flex-shrink-0 px-6 pt-6")}>
-          <header className="flex justify-between items-start py-2">
-            <div className="flex flex-col">
-                <div className="flex items-center gap-2">
-                  <GalaxyLogo className="w-8 h-8" />
-                  <span className="text-2xl font-bold text-foreground">AI Atlas</span>
-                </div>
-            </div>
-            <div className='flex items-center gap-2'>
-              {(showChat || chatMessages.length > 0) ? (
-                  <Button variant="ghost" size="icon" onClick={handleCloseChat} className='rounded-full w-10 h-10'>
-                      <X className="w-6 h-6"/>
-                      <span className="sr-only">End Chat</span>
-                  </Button>
-              ) : (
-                <div className="flex flex-col items-center gap-1">
-                  <Link href="/mode" passHref>
-                    <Button variant="ghost" size="icon" className="rounded-full w-10 h-10 bg-secondary">
-                      <Wand2 className="w-5 h-5 text-primary"/>
+    <div className="bg-background min-h-screen flex flex-col items-center font-body">
+      <div className="w-full max-w-md flex flex-col h-screen">
+        <main className="flex-1 overflow-y-auto no-scrollbar pb-24">
+          <div className={cn("px-6 pt-6")}>
+            <header className="flex justify-between items-start py-2">
+              <div className="flex flex-col">
+                  <div className="flex items-center gap-2">
+                    <GalaxyLogo className="w-8 h-8" />
+                    <span className="text-2xl font-bold text-foreground">AI Atlas</span>
+                  </div>
+              </div>
+              <div className='flex items-center gap-2'>
+                {(showChat || chatMessages.length > 0) ? (
+                    <Button variant="ghost" size="icon" onClick={handleCloseChat} className='rounded-full w-10 h-10'>
+                        <X className="w-6 h-6"/>
+                        <span className="sr-only">End Chat</span>
                     </Button>
-                  </Link>
-                  <span className="text-xs font-medium text-muted-foreground">Modes</span>
-                </div>
-              )}
-            </div>
-          </header>
-          <nav className={cn("mt-4", (showChat || chatMessages.length > 0) && 'hidden')}>
-            <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-              <TabsList className="grid w-full grid-cols-4 bg-transparent p-0">
-                <TabsTrigger value="home" className="data-[state=active]:border-primary data-[state=active]:text-primary text-lg font-semibold border-b-4 border-transparent rounded-none pb-3 transition-all duration-300">{t('tabs.home')}</TabsTrigger>
-                <TabsTrigger value="tools" className="data-[state=active]:border-primary data-[state=active]:text-primary text-lg font-semibold border-b-4 border-transparent rounded-none pb-3 transition-all duration-300">{t('tabs.tools')}</TabsTrigger>
-                <TabsTrigger value="trending" className="data-[state=active]:border-primary data-[state=active]:text-primary text-lg font-semibold border-b-4 border-transparent rounded-none pb-3 transition-all duration-300">{t('tabs.trending')}</TabsTrigger>
-                <TabsTrigger value="settings" className="data-[state=active]:border-primary data-[state=active]:text-primary text-lg font-semibold border-b-4 border-transparent rounded-none pb-3 transition-all duration-300">{t('tabs.settings')}</TabsTrigger>
-              </TabsList>
-            </Tabs>
-          </nav>
-        </div>
+                ) : (
+                  <div className="flex flex-col items-center gap-1">
+                    <Link href="/mode" passHref>
+                      <Button variant="ghost" size="icon" className="rounded-full w-10 h-10 bg-secondary">
+                        <Wand2 className="w-5 h-5 text-primary"/>
+                      </Button>
+                    </Link>
+                    <span className="text-xs font-medium text-muted-foreground">Modes</span>
+                  </div>
+                )}
+              </div>
+            </header>
+            <nav className={cn("mt-4", (showChat || chatMessages.length > 0) && 'hidden')}>
+              <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+                <TabsList className="grid w-full grid-cols-4 bg-transparent p-0">
+                  <TabsTrigger value="home" className="data-[state=active]:border-primary data-[state=active]:text-primary text-lg font-semibold border-b-4 border-transparent rounded-none pb-3 transition-all duration-300">{t('tabs.home')}</TabsTrigger>
+                  <TabsTrigger value="tools" className="data-[state=active]:border-primary data-[state=active]:text-primary text-lg font-semibold border-b-4 border-transparent rounded-none pb-3 transition-all duration-300">{t('tabs.tools')}</TabsTrigger>
+                  <TabsTrigger value="trending" className="data-[state=active]:border-primary data-[state=active]:text-primary text-lg font-semibold border-b-4 border-transparent rounded-none pb-3 transition-all duration-300">{t('tabs.trending')}</TabsTrigger>
+                  <TabsTrigger value="settings" className="data-[state=active]:border-primary data-[state=active]:text-primary text-lg font-semibold border-b-4 border-transparent rounded-none pb-3 transition-all duration-300">{t('tabs.settings')}</TabsTrigger>
+                </TabsList>
+              </Tabs>
+            </nav>
+          </div>
+          
+          <Tabs value={activeTab} className="flex-grow flex flex-col overflow-hidden">
+              <TabsContent value="home" className="flex-grow overflow-y-auto px-6 no-scrollbar mt-0" ref={chatContainerRef}>
+                  {(showChat || chatMessages.length > 0) ? renderChatInterface() : renderHomeScreen()}
+                  {(showChat || chatMessages.length > 0) &&
+                      <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-sm p-4 bg-card/80 backdrop-blur-3xl">
+                          <ChatInputComponent
+                            chatInput={chatInput}
+                            setChatInput={setChatInput}
+                            handleSendMessage={handleSendMessage}
+                            isGenerating={isGenerating}
+                          />
+                      </div>
+                  }
+              </TabsContent>
+
+              <TabsContent value="tools" className="flex-grow overflow-hidden flex flex-col mt-4">
+                  <div className="px-4 pb-2">
+                      <div className="flex gap-3 overflow-x-auto no-scrollbar py-2 -mx-4 px-4">
+                          {toolCategories.map(cat => (
+                            <Button 
+                                  key={cat.name} 
+                                  variant={'ghost'}
+                                  className={cn(
+                                      'flex items-center gap-2 rounded-full h-12 px-6 text-base font-semibold transition-all duration-300 soft-shadow whitespace-nowrap',
+                                      activeCategory === cat.name
+                                          ? 'glow-shadow bg-primary text-primary-foreground'
+                                          : 'text-black',
+                                          cat.gradient
+                                  )}
+                                  onClick={() => setActiveCategory(cat.name)}
+                              >
+                                  {cat.icon && <ToolIcon name={cat.icon} />}
+                                  <span>{cat.name}</span>
+                              </Button>
+                          ))}
+                      </div>
+                  </div>
+                  <div className="flex-grow overflow-y-auto px-4 no-scrollbar pt-2 pb-4">
+                      <div className="grid grid-cols-2 gap-4">
+                          {filteredTools.map(tool => (
+                              <ToolCard
+                                  key={tool.name}
+                                  tool={tool}
+                                  onShare={(e) => handleShareTool(e, tool)}
+                                  onClick={handleToolClick}
+                                  t={t}
+                              />
+                          ))}
+                      </div>
+                  </div>
+              </TabsContent>
+              
+              <TabsContent value="trending" className="flex-grow overflow-y-auto no-scrollbar mt-4 px-6">
+                  <div className="space-y-4">
+                      <Link href="https://explodingtopics.com/blog/most-popular-ai-tools" target="_blank" rel="noopener noreferrer" className="block group">
+                          <Card className="bg-white/80 border-none rounded-3xl soft-shadow overflow-hidden transition-all duration-300 group-hover:scale-[1.02] group-hover:shadow-lg">
+                              <div className="relative">
+                                  <Image 
+                                      src="https://picsum.photos/seed/trending-ai/600/300"
+                                      alt="Trending AI Tools"
+                                      width={600}
+                                      height={300}
+                                      className="w-full h-auto object-cover"
+                                      data-ai-hint="data chart"
+                                  />
+                                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+                                  <div className="absolute top-4 right-4 bg-primary/80 text-primary-foreground rounded-full p-2 backdrop-blur-sm">
+                                      <ExternalLink className="w-5 h-5"/>
+                                  </div>
+                              </div>
+                              <div className="p-4">
+                                  <h3 className="font-bold text-lg text-foreground">Trending AI Tools</h3>
+                                  <p className="text-muted-foreground text-sm mt-1">Discover the fastest-growing AI tools of the past months. Provided by Exploding Topics.</p>
+                              </div>
+                          </Card>
+                      </Link>
+                      <Link href="https://www.producthunt.com/" target="_blank" rel="noopener noreferrer" className="block group">
+                          <Card className="bg-white/80 border-none rounded-3xl soft-shadow overflow-hidden transition-all duration-300 group-hover:scale-[1.02] group-hover:shadow-lg">
+                              <div className="relative">
+                                  <Image 
+                                      src="https://picsum.photos/seed/new-ai/600/300"
+                                      alt="New AI Tools"
+                                      width={600}
+                                      height={300}
+                                      className="w-full h-auto object-cover"
+                                      data-ai-hint="rocket launch"
+                                  />
+                                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+                                  <div className="absolute top-4 right-4 bg-primary/80 text-primary-foreground rounded-full p-2 backdrop-blur-sm">
+                                      <ExternalLink className="w-5 h-5"/>
+                                  </div>
+                              </div>
+                              <div className="p-4">
+                                  <h3 className="font-bold text-lg text-foreground">New AI Tools</h3>
+                                  <p className="text-muted-foreground text-sm mt-1">Find the latest and greatest AI tools fresh from the launchpad. Provided by Product Hunt.</p>
+                              </div>
+                          </Card>
+                      </Link>
+                  </div>
+              </TabsContent>
+
+              <TabsContent value="settings" className="flex-grow overflow-y-auto no-scrollbar mt-0 bg-secondary/30">
+                  <SettingsPage />
+              </TabsContent>
+          </Tabs>
+        </main>
         
-        <Tabs value={activeTab} className="flex-grow flex flex-col overflow-hidden">
-            <TabsContent value="home" className="flex-grow overflow-y-auto px-6 pb-24 no-scrollbar mt-0" ref={chatContainerRef}>
-                {(showChat || chatMessages.length > 0) ? renderChatInterface() : renderHomeScreen()}
-                 {(showChat || chatMessages.length > 0) &&
-                    <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-sm p-4 bg-card/80 backdrop-blur-3xl">
-                        <ChatInputComponent
-                          chatInput={chatInput}
-                          setChatInput={setChatInput}
-                          handleSendMessage={handleSendMessage}
-                          isGenerating={isGenerating}
-                        />
-                    </div>
-                }
-            </TabsContent>
-
-            <TabsContent value="tools" className="flex-grow overflow-hidden flex flex-col mt-4 pb-24">
-                <div className="px-4 pb-2">
-                    <div className="flex gap-3 overflow-x-auto no-scrollbar py-2 -mx-4 px-4">
-                        {toolCategories.map(cat => (
-                           <Button 
-                                key={cat.name} 
-                                variant={'ghost'}
-                                className={cn(
-                                    'flex items-center gap-2 rounded-full h-12 px-6 text-base font-semibold transition-all duration-300 soft-shadow whitespace-nowrap',
-                                    activeCategory === cat.name
-                                        ? 'glow-shadow bg-primary text-primary-foreground'
-                                        : 'text-black',
-                                        cat.gradient
-                                )}
-                                onClick={() => setActiveCategory(cat.name)}
-                            >
-                                {cat.icon && <ToolIcon name={cat.icon} />}
-                                <span>{cat.name}</span>
-                            </Button>
-                        ))}
-                    </div>
-                </div>
-                <div className="flex-grow overflow-y-auto px-4 no-scrollbar pt-2 pb-4">
-                    <div className="grid grid-cols-2 gap-4">
-                        {filteredTools.map(tool => (
-                            <ToolCard
-                                key={tool.name}
-                                tool={tool}
-                                onShare={(e) => handleShareTool(e, tool)}
-                                onClick={handleToolClick}
-                                t={t}
-                            />
-                        ))}
-                    </div>
-                </div>
-            </TabsContent>
-            
-            <TabsContent value="trending" className="flex-grow overflow-y-auto no-scrollbar mt-4 px-6 pb-24">
-                <div className="space-y-4">
-                    <Link href="https://explodingtopics.com/blog/most-popular-ai-tools" target="_blank" rel="noopener noreferrer" className="block group">
-                        <Card className="bg-white/80 border-none rounded-3xl soft-shadow overflow-hidden transition-all duration-300 group-hover:scale-[1.02] group-hover:shadow-lg">
-                            <div className="relative">
-                                <Image 
-                                    src="https://picsum.photos/seed/trending-ai/600/300"
-                                    alt="Trending AI Tools"
-                                    width={600}
-                                    height={300}
-                                    className="w-full h-auto object-cover"
-                                    data-ai-hint="data chart"
-                                />
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-                                <div className="absolute top-4 right-4 bg-primary/80 text-primary-foreground rounded-full p-2 backdrop-blur-sm">
-                                    <ExternalLink className="w-5 h-5"/>
-                                </div>
-                            </div>
-                            <div className="p-4">
-                                <h3 className="font-bold text-lg text-foreground">Trending AI Tools</h3>
-                                <p className="text-muted-foreground text-sm mt-1">Discover the fastest-growing AI tools of the past months. Provided by Exploding Topics.</p>
-                            </div>
-                        </Card>
-                    </Link>
-                    <Link href="https://www.producthunt.com/" target="_blank" rel="noopener noreferrer" className="block group">
-                        <Card className="bg-white/80 border-none rounded-3xl soft-shadow overflow-hidden transition-all duration-300 group-hover:scale-[1.02] group-hover:shadow-lg">
-                            <div className="relative">
-                                <Image 
-                                    src="https://picsum.photos/seed/new-ai/600/300"
-                                    alt="New AI Tools"
-                                    width={600}
-                                    height={300}
-                                    className="w-full h-auto object-cover"
-                                    data-ai-hint="rocket launch"
-                                />
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-                                <div className="absolute top-4 right-4 bg-primary/80 text-primary-foreground rounded-full p-2 backdrop-blur-sm">
-                                    <ExternalLink className="w-5 h-5"/>
-                                </div>
-                            </div>
-                            <div className="p-4">
-                                <h3 className="font-bold text-lg text-foreground">New AI Tools</h3>
-                                <p className="text-muted-foreground text-sm mt-1">Find the latest and greatest AI tools fresh from the launchpad. Provided by Product Hunt.</p>
-                            </div>
-                        </Card>
-                    </Link>
-                </div>
-            </TabsContent>
-
-            <TabsContent value="settings" className="flex-grow overflow-y-auto no-scrollbar mt-0 bg-secondary/30 pb-24">
-                <SettingsPage />
-            </TabsContent>
-        </Tabs>
-      </main>
+        <nav className="fixed bottom-0 left-0 right-0 w-full max-w-md mx-auto bg-card/80 backdrop-blur-xl border-t border-border/50 shadow-t-lg">
+            <div className="flex justify-around items-center h-16">
+                <Button variant="ghost" className="flex flex-col items-center h-full rounded-none" onClick={() => setActiveTab('home')}>
+                    <Home className={cn("w-6 h-6", activeTab === 'home' ? 'text-primary' : 'text-muted-foreground')} />
+                    <span className={cn("text-xs", activeTab === 'home' ? 'text-primary' : 'text-muted-foreground')}>Home</span>
+                </Button>
+                <Button variant="ghost" className="flex flex-col items-center h-full rounded-none" onClick={() => setActiveTab('tools')}>
+                    <LayoutGrid className={cn("w-6 h-6", activeTab === 'tools' ? 'text-primary' : 'text-muted-foreground')} />
+                    <span className={cn("text-xs", activeTab === 'tools' ? 'text-primary' : 'text-muted-foreground')}>Tools</span>
+                </Button>
+                <Button variant="ghost" className="flex flex-col items-center h-full rounded-none" onClick={() => setActiveTab('trending')}>
+                    <TrendingUp className={cn("w-6 h-6", activeTab === 'trending' ? 'text-primary' : 'text-muted-foreground')} />
+                    <span className={cn("text-xs", activeTab === 'trending' ? 'text-primary' : 'text-muted-foreground')}>Trending</span>
+                </Button>
+                <Button variant="ghost" className="flex flex-col items-center h-full rounded-none" onClick={() => setActiveTab('settings')}>
+                    <Settings className={cn("w-6 h-6", activeTab === 'settings' ? 'text-primary' : 'text-muted-foreground')} />
+                    <span className={cn("text-xs", activeTab === 'settings' ? 'text-primary' : 'text-muted-foreground')}>Settings</span>
+                </Button>
+            </div>
+        </nav>
+      </div>
     </div>
   );
 }
