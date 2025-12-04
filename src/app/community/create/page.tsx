@@ -28,27 +28,10 @@ import { useRouter } from 'next/navigation';
 import { useToast } from '@/hooks/use-toast';
 
 
-const categories = [
-    "AI Art & Design", 
-    "Writing & Content", 
-    "Development & Code", 
-    "Productivity & Tools",
-    "Video & Audio",
-    "Gaming & Fun",
-    "Business & Startups",
-    "Marketing & Sales",
-    "Education & Learning",
-    "Health & Fitness",
-    "Just for Fun"
-] as const;
-
 const clubFormSchema = z.object({
   clubName: z.string().min(3, { message: "Club name must be at least 3 characters." }),
   clubDescription: z.string().max(500, { message: "Description cannot exceed 500 characters." }),
-  category: z.string({
-    required_error: "Please select a category.",
-  }),
-  visibility: z.enum(["public", "private", "unlisted"]).default("public"),
+  visibility: z.enum(["public", "private"]).default("public"),
   allowMembersToAddTools: z.boolean().default(true),
   tags: z.array(z.string()).optional(),
   tools: z.array(z.string()).default([]),
@@ -85,7 +68,6 @@ const StepIndicator = ({ currentStep }: { currentStep: number }) => {
 
 function Step1_BasicDetails() {
   const form = useFormContext<ClubFormValues>();
-  const [open, setOpen] = useState(false)
 
   return (
     <div className="space-y-6">
@@ -115,60 +97,7 @@ function Step1_BasicDetails() {
           </FormItem>
         )}
       />
-       <FormField
-        control={form.control}
-        name="category"
-        render={({ field }) => (
-          <FormItem className="flex flex-col">
-            <FormLabel>Category</FormLabel>
-            <Popover open={open} onOpenChange={setOpen}>
-              <PopoverTrigger asChild>
-                <FormControl>
-                  <Button
-                    variant="outline"
-                    role="combobox"
-                    className={cn(
-                      "w-full justify-between",
-                      !field.value && "text-muted-foreground"
-                    )}
-                  >
-                    {field.value || "Select category"}
-                    <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                  </Button>
-                </FormControl>
-              </PopoverTrigger>
-              <PopoverContent className="w-[--radix-popover-trigger-width] p-0">
-                 <ScrollArea className="h-72">
-                   <Command>
-                    <CommandList>
-                      {categories.map((category) => (
-                        <CommandItem
-                          key={category}
-                          onSelect={() => {
-                            form.setValue("category", category);
-                            setOpen(false);
-                          }}
-                        >
-                          <Check
-                            className={cn(
-                              "mr-2 h-4 w-4",
-                              category === field.value
-                                ? "opacity-100"
-                                : "opacity-0"
-                            )}
-                          />
-                          {category}
-                        </CommandItem>
-                      ))}
-                    </CommandList>
-                   </Command>
-                </ScrollArea>
-              </PopoverContent>
-            </Popover>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
+       
       <FormField
         control={form.control}
         name="visibility"
@@ -176,8 +105,8 @@ function Step1_BasicDetails() {
           <FormItem>
             <FormLabel>Visibility</FormLabel>
              <FormControl>
-                <div className="grid grid-cols-3 gap-2">
-                    {(["public", "private", "unlisted"] as const).map((v) => (
+                <div className="grid grid-cols-2 gap-2">
+                    {(["public", "private"] as const).map((v) => (
                         <Button
                             key={v}
                             type="button"
@@ -370,7 +299,6 @@ export default function CreateClubPage() {
           const groupData = {
             name: data.clubName,
             description: data.clubDescription,
-            category: data.category,
             isPublic: data.visibility === 'public',
             ownerId: user.uid,
             createdAt: serverTimestamp(),
@@ -469,5 +397,7 @@ export default function CreateClubPage() {
         </div>
     );
 }
+
+    
 
     
