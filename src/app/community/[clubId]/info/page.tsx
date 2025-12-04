@@ -7,7 +7,7 @@ import { useFirestore, useDoc, useCollection, useUser, useMemoFirebase } from '@
 import { doc, collection, query, orderBy, Timestamp, addDoc, serverTimestamp } from 'firebase/firestore';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Bell, Search, Users, Image as ImageIcon, Link2, FileText, Lock, BadgeCheck, Phone, MoreVertical, Video, Star, BellOff, Edit, UserPlus, Plus } from 'lucide-react';
+import { ArrowLeft, Bell, Search, Users, Image as ImageIcon, Link2, FileText, Lock, BadgeCheck, Phone, MoreVertical, Video, Star, BellOff, Edit, UserPlus, Plus, ChevronRight } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 import { Skeleton } from '@/components/ui/skeleton';
 import Image from 'next/image';
@@ -154,7 +154,7 @@ export default function GroupInfoPage({ params }: { params: { clubId: string } }
                     <Image
                         src={clubData?.avatar || "https://picsum.photos/seed/default-group/800/600"}
                         alt={clubData?.name || "Group"}
-                        layout="fill"
+                        fill
                         objectFit="cover"
                         className="bg-muted"
                     />
@@ -253,7 +253,7 @@ export default function GroupInfoPage({ params }: { params: { clubId: string } }
                                 </div>
                             </div>
                             <Separator />
-                             <div className="flex items-center justify-between p-4">
+                             <div className="flex items-center justify-between p-4 cursor-pointer hover:bg-accent/50">
                                <div className='flex items-center gap-4'>
                                  <Star className="w-5 h-5 text-muted-foreground"/>
                                  <span>Starred Messages</span>
@@ -272,7 +272,7 @@ export default function GroupInfoPage({ params }: { params: { clubId: string } }
 
                          <div className='bg-card/80 rounded-2xl p-4'>
                             <div className="flex justify-between items-center mb-2">
-                                <h3 className="text-muted-foreground font-semibold">{clubData?.memberCount} members</h3>
+                                <h3 className="text-muted-foreground font-semibold">{clubData?.memberCount || 0} members</h3>
                                 <Button variant="ghost" size="icon"><Search/></Button>
                             </div>
                             <div className="space-y-4">
@@ -312,11 +312,4 @@ const MemberListSkeleton = () => (
             </div>
         ))}
     </div>
-);
-
-
-const ChevronRight = (props: React.SVGProps<SVGSVGElement>) => (
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
-        <polyline points="9 18 15 12 9 6"></polyline>
-    </svg>
 );
