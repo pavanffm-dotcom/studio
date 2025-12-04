@@ -199,8 +199,8 @@ export default function ClubDetailsPage({ params }: { params: { clubId: string }
       <div className="absolute inset-0 z-0 opacity-50">
         <div className="absolute inset-0 bg-gradient-to-br from-soft-blue via-lavender to-baby-pink"></div>
       </div>
-      <div className="relative z-10 w-full max-w-lg p-0 md:p-6">
-        <div className="bg-card/80 backdrop-blur-3xl md:rounded-[2.5rem] shadow-2xl flex flex-col min-h-screen md:min-h-0 md:max-h-[calc(100vh-3rem)] border-t-2 border-white/50 soft-shadow">
+      <div className="relative z-10 w-full max-w-lg p-0 md:p-6 h-screen md:h-auto">
+        <div className="bg-card/80 backdrop-blur-3xl md:rounded-[2.5rem] shadow-2xl flex flex-col h-full md:max-h-[calc(100vh-3rem)] border-t-2 border-white/50 soft-shadow">
           
           <header className="flex-shrink-0">
             <div className="flex justify-between items-center p-2 border-b">
