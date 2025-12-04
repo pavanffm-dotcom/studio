@@ -66,18 +66,22 @@ export default function GroupInfoPage({ params }: { params: { clubId: string } }
     const { data: clubData, isLoading: groupLoading } = useDoc<Group>(groupRef);
 
     // Fetch Members
-    const membersRef = useMemoFirebase(() => {
+    const membersQuery = useMemoFirebase(() => {
         if (!firestore) return null;
-        return collection(firestore, 'groups', clubId, 'members');
+        return query(collection(firestore, 'groups', clubId, 'members'), orderBy('role'));
     }, [firestore, clubId]);
-    const { data: members, isLoading: membersLoading } = useCollection<GroupMember>(query(membersRef, orderBy('role')));
+    const { data: members, isLoading: membersLoading } = useCollection<GroupMember>(membersQuery);
 
     // Fetch Tools
     const toolsRef = useMemoFirebase(() => {
         if (!firestore) return null;
         return collection(firestore, 'groups', clubId, 'tools');
     }, [firestore, clubId]);
-    const { data: groupTools, isLoading: toolsLoading } = useCollection<GroupTool>(query(toolsRef, orderBy('addedAt', 'desc')));
+    const toolsQuery = useMemoFirebase(() => {
+        if (!toolsRef) return null;
+        return query(toolsRef, orderBy('addedAt', 'desc'));
+    }, [toolsRef]);
+    const { data: groupTools, isLoading: toolsLoading } = useCollection<GroupTool>(toolsQuery);
 
 
     const handleBack = () => {
