@@ -1,17 +1,23 @@
 
 'use client';
 
-import React from 'react';
+import React, { useState, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { useFirestore, useDoc, useCollection, useUser, useMemoFirebase } from '@/firebase';
-import { doc, collection, query, orderBy, Timestamp } from 'firebase/firestore';
+import { doc, collection, query, orderBy, Timestamp, addDoc, serverTimestamp } from 'firebase/firestore';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Bell, Search, Users, Image as ImageIcon, Link2, FileText, Lock, BadgeCheck, Phone, MoreHorizontal, Video, Star, BellOff } from 'lucide-react';
+import { ArrowLeft, Bell, Search, Users, Image as ImageIcon, Link2, FileText, Lock, BadgeCheck, Phone, MoreVertical, Video, Star, BellOff, Edit, UserPlus, Plus } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 import { Skeleton } from '@/components/ui/skeleton';
 import Image from 'next/image';
-import { Card } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Input } from '@/components/ui/input';
+import { allTools, Tool } from '@/lib/tools-data';
+import { useToast } from '@/hooks/use-toast';
+import { setDocumentNonBlocking } from '@/firebase/non-blocking-updates';
 
 interface Group {
     id: string;
@@ -31,12 +37,26 @@ interface GroupMember {
     photoURL?: string;
 }
 
+interface GroupTool {
+    id?: string;
+    toolName: string;
+    toolUrl: string;
+    toolDescription?: string;
+    addedBy: string;
+    addedAt: Timestamp;
+    upvotes: number;
+}
+
+
 export default function GroupInfoPage({ params }: { params: { clubId: string } }) {
     const resolvedParams = React.use(params);
     const clubId = resolvedParams.clubId;
     const router = useRouter();
     const firestore = useFirestore();
     const { user } = useUser();
+    const { toast } = useToast();
+    const [searchTerm, setSearchTerm] = useState('');
+    const [isAddToolOpen, setIsAddToolOpen] = useState(false);
 
     // Fetch Group Data
     const groupRef = useMemoFirebase(() => {
@@ -50,15 +70,52 @@ export default function GroupInfoPage({ params }: { params: { clubId: string } }
         if (!firestore) return null;
         return collection(firestore, 'groups', clubId, 'members');
     }, [firestore, clubId]);
-    const membersQuery = useMemoFirebase(() => {
-        if (!membersRef) return null;
-        return query(membersRef, orderBy('role'));
-    }, [membersRef]);
-    const { data: members, isLoading: membersLoading } = useCollection<GroupMember>(membersRef);
+    const { data: members, isLoading: membersLoading } = useCollection<GroupMember>(query(membersRef, orderBy('role')));
+
+    // Fetch Tools
+    const toolsRef = useMemoFirebase(() => {
+        if (!firestore) return null;
+        return collection(firestore, 'groups', clubId, 'tools');
+    }, [firestore, clubId]);
+    const { data: groupTools, isLoading: toolsLoading } = useCollection<GroupTool>(query(toolsRef, orderBy('addedAt', 'desc')));
+
 
     const handleBack = () => {
         router.back();
     };
+
+    const filteredTools = useMemo(() => {
+        return allTools.filter(tool => tool.name.toLowerCase().includes(searchTerm.toLowerCase()));
+    }, [searchTerm]);
+
+    const handleAddTool = async (tool: Tool) => {
+        if (!user || !firestore || !toolsRef) return;
+
+        const newTool: GroupTool = {
+            toolName: tool.name,
+            toolUrl: tool.url,
+            toolDescription: tool.description || '',
+            addedBy: user.uid,
+            addedAt: Timestamp.now(),
+            upvotes: 0,
+        };
+
+        try {
+            await addDoc(toolsRef, newTool);
+            toast({
+                title: "Tool Added!",
+                description: `${tool.name} has been added to the club.`,
+            });
+        } catch (error) {
+            console.error("Error adding tool:", error);
+            toast({
+                variant: 'destructive',
+                title: "Error",
+                description: "Could not add the tool. Please try again.",
+            });
+        }
+    };
+
 
     const InfoPageSkeleton = () => (
         <div className="flex flex-col">
@@ -105,6 +162,25 @@ export default function GroupInfoPage({ params }: { params: { clubId: string } }
                     <Button variant="ghost" size="icon" className="absolute top-4 left-4 w-12 h-12 rounded-full bg-black/20 text-white backdrop-blur-sm" onClick={handleBack}>
                         <ArrowLeft />
                     </Button>
+                    <div className="absolute top-4 right-4">
+                        <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                                <Button variant="ghost" size="icon" className="w-12 h-12 rounded-full bg-black/20 text-white backdrop-blur-sm">
+                                    <MoreVertical />
+                                </Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent align="end">
+                                <DropdownMenuItem>
+                                    <Edit className="mr-2 h-4 w-4" />
+                                    <span>Edit Group</span>
+                                </DropdownMenuItem>
+                                <DropdownMenuItem>
+                                    <UserPlus className="mr-2 h-4 w-4" />
+                                    <span>Add Members</span>
+                                </DropdownMenuItem>
+                            </DropdownMenuContent>
+                        </DropdownMenu>
+                    </div>
                 </div>
                 <div className="p-4 bg-background rounded-t-3xl -mt-6 relative z-10">
                     <h1 className="text-3xl font-bold">{clubData?.name}</h1>
@@ -130,6 +206,41 @@ export default function GroupInfoPage({ params }: { params: { clubId: string } }
                             <p className="text-muted-foreground text-sm">About</p>
                             <p className="font-semibold">{clubData?.description}</p>
                         </Card>
+
+                        <Dialog open={isAddToolOpen} onOpenChange={setIsAddToolOpen}>
+                            <Card className="p-4 rounded-2xl bg-card/80">
+                                <h3 className="text-muted-foreground font-semibold mb-2">Add AI Tools</h3>
+                                <p className="text-sm text-muted-foreground mb-4">Share your favorite AI tools with the community.</p>
+                                <DialogTrigger asChild>
+                                    <Button className="w-full">
+                                        <Plus className="mr-2 h-4 w-4"/>
+                                        Add Tool
+                                    </Button>
+                                </DialogTrigger>
+                            </Card>
+                            <DialogContent className="max-w-sm h-[80vh] flex flex-col">
+                                <DialogHeader>
+                                    <DialogTitle>Add a Tool</DialogTitle>
+                                </DialogHeader>
+                                <div className="relative">
+                                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground"/>
+                                    <Input placeholder="Search tools..." className="pl-10" value={searchTerm} onChange={e => setSearchTerm(e.target.value)}/>
+                                </div>
+                                <div className="flex-grow overflow-y-auto -mx-6 px-6">
+                                    <div className='space-y-2'>
+                                        {filteredTools.map(tool => (
+                                            <div key={tool.name} className="flex items-center gap-3 p-2 rounded-lg hover:bg-accent">
+                                                <Image src={tool.image} alt={tool.name} width={40} height={40} className="rounded-md" />
+                                                <div className="flex-grow">
+                                                    <p className="font-semibold">{tool.name}</p>
+                                                </div>
+                                                <Button size="sm" onClick={() => handleAddTool(tool)}>Add</Button>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            </DialogContent>
+                        </Dialog>
                         
                         <div className='bg-card/80 rounded-2xl'>
                             <div className="p-4">
