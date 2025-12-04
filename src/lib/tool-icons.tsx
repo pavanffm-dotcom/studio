@@ -33,6 +33,15 @@ import {
   ImageDown,
   Send,
   LucideProps,
+  Briefcase,
+  DollarSign,
+  UserCog,
+  Contact,
+  Megaphone,
+  BarChart,
+  GitBranch,
+  ListChecks,
+  Users,
 } from 'lucide-react';
 
 const iconMap: { [key: string]: React.FC<LucideProps> } = {
@@ -45,6 +54,15 @@ const iconMap: { [key: string]: React.FC<LucideProps> } = {
   Text,
   Voicemail,
   ImageDown,
+  Briefcase,
+  DollarSign,
+  UserCog,
+  Contact,
+  Megaphone,
+  BarChart,
+  GitBranch,
+  ListChecks,
+  Users,
   // Add other icons here as needed
 };
 
