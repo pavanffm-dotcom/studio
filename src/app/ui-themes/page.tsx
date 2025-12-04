@@ -19,16 +19,17 @@ const themes: { name: string; id: Theme; icon: React.ReactNode }[] = [
 ];
 
 export default function UiThemesPage() {
-  const [activeTheme, setActiveTheme] = useState<Theme>('default');
+  const [activeTheme, setActiveTheme] = useState<Theme | null>(null);
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
-    setIsClient(true);
+    // This effect runs only on the client, after the component has mounted.
     const savedTheme = localStorage.getItem('app-theme') as Theme | null;
     const initialTheme = savedTheme || 'default';
-    setActiveTheme(initialTheme);
     document.documentElement.setAttribute('data-theme', initialTheme);
-  }, []);
+    setActiveTheme(initialTheme);
+    setIsClient(true);
+  }, []); // Empty dependency array ensures this runs once on mount.
 
   const handleThemeChange = (themeId: Theme) => {
     setActiveTheme(themeId);
