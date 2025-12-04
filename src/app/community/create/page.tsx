@@ -32,7 +32,6 @@ const clubFormSchema = z.object({
   clubDescription: z.string().max(500, { message: "Description cannot exceed 500 characters." }),
   visibility: z.enum(["public", "private"]).default("public"),
   allowMembersToAddTools: z.boolean().default(true),
-  tags: z.array(z.string()).optional(),
   avatar: z.any().optional(),
 });
 
@@ -203,7 +202,6 @@ export default function CreateClubPage() {
             clubDescription: '',
             visibility: 'public',
             allowMembersToAddTools: true,
-            tags: [],
         },
     });
 
@@ -316,4 +314,3 @@ export default function CreateClubPage() {
         </div>
     );
 }
-
