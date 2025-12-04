@@ -2,29 +2,20 @@
 'use client';
 
 import React, { useState } from 'react';
-import { useForm, FormProvider, useFormContext } from 'react-hook-form';
+import { useForm, FormProvider } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { ClubHeader } from '@/components/club-header';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Separator } from '@/components/ui/separator';
-import { ArrowLeft, ArrowRight, Bot, Check, ChevronsUpDown, Users, Plus, Search, Image as ImageIcon } from 'lucide-react';
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '@/components/ui/command';
-import { Switch } from '@/components/ui/switch';
-import { cn } from '@/lib/utils';
 import { useUser, useFirestore } from '@/firebase';
-import Image from 'next/image';
-import { ScrollArea } from '@/components/ui/scroll-area';
 import { addDoc, collection, serverTimestamp, doc, setDoc } from 'firebase/firestore';
-import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import { v4 as uuidv4 } from 'uuid';
 import { useRouter } from 'next/navigation';
 import { useToast } from '@/hooks/use-toast';
+import { Switch } from '@/components/ui/switch';
 
 
 const clubFormSchema = z.object({
@@ -32,163 +23,11 @@ const clubFormSchema = z.object({
   clubDescription: z.string().max(500, { message: "Description cannot exceed 500 characters." }),
   visibility: z.enum(["public", "private"]).default("public"),
   allowMembersToAddTools: z.boolean().default(true),
-  avatar: z.any().optional(),
 });
 
 type ClubFormValues = z.infer<typeof clubFormSchema>;
 
-const StepIndicator = ({ currentStep }: { currentStep: number }) => {
-  const steps = [
-    { name: "Details", icon: Users },
-    { name: "Avatar", icon: ImageIcon },
-  ];
-
-  return (
-    <div className="flex justify-between items-center mb-8 max-w-xs mx-auto">
-      {steps.map((step, index) => (
-        <React.Fragment key={step.name}>
-          <div className="flex flex-col items-center">
-            <div className={cn("w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300", 
-              index <= currentStep ? 'bg-primary text-primary-foreground' : 'bg-secondary text-muted-foreground'
-            )}>
-              <step.icon className="w-6 h-6" />
-            </div>
-            <p className={cn("mt-2 text-sm font-medium", index <= currentStep ? 'text-primary' : 'text-muted-foreground')}>{step.name}</p>
-          </div>
-          {index < steps.length - 1 && <div className="flex-1 h-0.5 bg-border mx-4" />}
-        </React.Fragment>
-      ))}
-    </div>
-  );
-}
-
-function Step1_BasicDetails() {
-  const form = useFormContext<ClubFormValues>();
-
-  return (
-    <div className="space-y-6">
-      <FormField
-        control={form.control}
-        name="clubName"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>Club Name</FormLabel>
-            <FormControl>
-              <Input placeholder="e.g., AI Tools for Students" {...field} />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-      <FormField
-        control={form.control}
-        name="clubDescription"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>Club Description</FormLabel>
-            <FormControl>
-              <Textarea placeholder="What is your club about?" {...field} />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-       
-      <FormField
-        control={form.control}
-        name="visibility"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>Visibility</FormLabel>
-             <FormControl>
-                <div className="grid grid-cols-2 gap-2">
-                    {(["public", "private"] as const).map((v) => (
-                        <Button
-                            key={v}
-                            type="button"
-                            variant={field.value === v ? "default" : "outline"}
-                            onClick={() => form.setValue('visibility', v)}
-                            className="capitalize"
-                        >
-                            {v}
-                        </Button>
-                    ))}
-                </div>
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-       <FormField
-        control={form.control}
-        name="allowMembersToAddTools"
-        render={({ field }) => (
-          <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
-            <div className="space-y-0.5">
-              <FormLabel className="text-base">
-                Allow Members to Add Tools
-              </FormLabel>
-              <FormDescription>
-                Can members suggest new tools for the club?
-              </FormDescription>
-            </div>
-            <FormControl>
-              <Switch
-                checked={field.value}
-                onCheckedChange={field.onChange}
-              />
-            </FormControl>
-          </FormItem>
-        )}
-      />
-    </div>
-  );
-}
-
-function Step2_Avatar() {
-  const form = useFormContext<ClubFormValues>();
-  const [preview, setPreview] = useState<string | null>(null);
-
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      form.setValue('avatar', file);
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setPreview(reader.result as string);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
-  return (
-    <div className="space-y-4 text-center">
-      <FormLabel>Club Avatar (Optional)</FormLabel>
-      <FormControl>
-        <div className="flex justify-center">
-          <label htmlFor="avatar-upload" className="cursor-pointer">
-            <div className="w-32 h-32 rounded-full bg-secondary flex items-center justify-center border-2 border-dashed border-muted-foreground/50 hover:border-primary transition-all">
-              {preview ? (
-                <Image src={preview} alt="Avatar preview" width={128} height={128} className="rounded-full object-cover w-full h-full" />
-              ) : (
-                <div className="text-center text-muted-foreground">
-                  <ImageIcon className="w-8 h-8 mx-auto" />
-                  <p className="text-sm mt-1">Upload Image</p>
-                </div>
-              )}
-            </div>
-            <Input id="avatar-upload" type="file" accept="image/*" className="hidden" onChange={handleFileChange} />
-          </label>
-        </div>
-      </FormControl>
-      <FormMessage>{form.formState.errors.avatar?.message as string}</FormMessage>
-    </div>
-  );
-}
-
-
 export default function CreateClubPage() {
-    const [currentStep, setCurrentStep] = useState(0);
     const { user, firebaseApp } = useUser();
     const firestore = useFirestore();
     const router = useRouter();
@@ -217,15 +56,7 @@ export default function CreateClubPage() {
         setIsSubmitting(true);
     
         try {
-          let avatarUrl = `https://picsum.photos/seed/${data.clubName.replace(/\s/g, '-')}/400/400`;
-
-          if (data.avatar && data.avatar instanceof File) {
-            const storage = getStorage(firebaseApp);
-            const avatarFile = data.avatar;
-            const storageRef = ref(storage, `group_avatars/${uuidv4()}-${avatarFile.name}`);
-            const snapshot = await uploadBytes(storageRef, avatarFile);
-            avatarUrl = await getDownloadURL(snapshot.ref);
-          }
+          const avatarUrl = `https://picsum.photos/seed/${data.clubName.replace(/\s/g, '-')}/400/400`;
 
           const groupData = {
             name: data.clubName,
@@ -267,14 +98,6 @@ export default function CreateClubPage() {
           setIsSubmitting(false);
         }
       };
-    
-    const nextStep = () => setCurrentStep(prev => (prev < 1 ? prev + 1 : prev));
-    const prevStep = () => setCurrentStep(prev => (prev > 0 ? prev - 1 : prev));
-
-    const steps = [
-        <Step1_BasicDetails key="step1" />,
-        <Step2_Avatar key="step2" />,
-    ];
 
     return (
         <div className="bg-background min-h-screen flex flex-col items-center justify-start font-body relative">
@@ -287,26 +110,88 @@ export default function CreateClubPage() {
                     <form onSubmit={methods.handleSubmit(onSubmit)}>
                         <Card className="mt-6 bg-card/80 backdrop-blur-sm soft-shadow">
                             <CardHeader>
-                                <StepIndicator currentStep={currentStep} />
+                               <CardTitle>Club Details</CardTitle>
                             </CardHeader>
-                            <Separator />
-                            <CardContent className="p-6">
-                                {steps[currentStep]}
+                            <CardContent className="p-6 space-y-6">
+                                <FormField
+                                    control={methods.control}
+                                    name="clubName"
+                                    render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Club Name</FormLabel>
+                                        <FormControl>
+                                        <Input placeholder="e.g., AI Tools for Students" {...field} />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                    )}
+                                />
+                                <FormField
+                                    control={methods.control}
+                                    name="clubDescription"
+                                    render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Club Description</FormLabel>
+                                        <FormControl>
+                                        <Textarea placeholder="What is your club about?" {...field} />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                    )}
+                                />
+                                <FormField
+                                    control={methods.control}
+                                    name="visibility"
+                                    render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Visibility</FormLabel>
+                                        <FormControl>
+                                            <div className="grid grid-cols-2 gap-2">
+                                                {(["public", "private"] as const).map((v) => (
+                                                    <Button
+                                                        key={v}
+                                                        type="button"
+                                                        variant={field.value === v ? "default" : "outline"}
+                                                        onClick={() => methods.setValue('visibility', v)}
+                                                        className="capitalize"
+                                                    >
+                                                        {v}
+                                                    </Button>
+                                                ))}
+                                            </div>
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                    )}
+                                />
+                                <FormField
+                                    control={methods.control}
+                                    name="allowMembersToAddTools"
+                                    render={({ field }) => (
+                                    <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
+                                        <div className="space-y-0.5">
+                                        <FormLabel className="text-base">
+                                            Allow Members to Add Tools
+                                        </FormLabel>
+                                        <p className="text-sm text-muted-foreground">
+                                            Can members suggest new tools for the club?
+                                        </p>
+                                        </div>
+                                        <FormControl>
+                                        <Switch
+                                            checked={field.value}
+                                            onCheckedChange={field.onChange}
+                                        />
+                                        </FormControl>
+                                    </FormItem>
+                                    )}
+                                />
                             </CardContent>
                         </Card>
-                        <div className="flex justify-between mt-8">
-                            <Button type="button" variant="outline" onClick={prevStep} disabled={currentStep === 0}>
-                                <ArrowLeft className="mr-2" /> Previous
+                        <div className="flex justify-end mt-8">
+                            <Button type="submit" disabled={isSubmitting}>
+                                {isSubmitting ? 'Publishing...' : 'Publish Club'}
                             </Button>
-                            {currentStep < 1 ? (
-                                <Button type="button" onClick={nextStep}>
-                                    Next Step <ArrowRight className="ml-2" />
-                                </Button>
-                            ) : (
-                                <Button type="submit" disabled={isSubmitting}>
-                                    {isSubmitting ? 'Publishing...' : 'Publish Club'}
-                                </Button>
-                            )}
                         </div>
                     </form>
                 </FormProvider>
