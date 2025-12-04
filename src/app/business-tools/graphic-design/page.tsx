@@ -13,7 +13,7 @@ import { useToast } from '@/hooks/use-toast';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { useUserPreferences } from '@/context/user-preferences-context';
 import { cn } from '@/lib/utils';
-import { type Tool, type ToolCategory, graphicDesignToolData } from '@/lib/tools-data.tsx';
+import { type Tool, type ToolCategory, graphicDesignToolData } from '@/lib/tools-data';
 
 
 // Helper to get the correct icon for packaging since it's not in lucide-react by default

@@ -4,7 +4,7 @@ import {
     Briefcase, DollarSign, UserCog, CreditCard, Users, MessageSquare, Video, Megaphone, BarChart, GitBranch, ListChecks, Lightbulb, Cpu, Code, Filter, TrendingUp, Link2, Server, Layers,
     Paintbrush, Youtube, HelpCircle, Book, Zap, Calendar, Brain, Search, Type, Presentation, Wand2, Mic, File, GraduationCap, Scissors, Film, ImageIcon, Palette, Bot, Mic2, FileText,
     Terminal, Database, CloudCog, Bug, Box, TerminalSquare, PackageCheck, Shield, Smartphone, Gamepad2, TestTube, Gauge,
-    LayoutDashboard, BookOpen, Contact, Gem, MonitorPlay, Wallet, Receipt, FileSignature, Folder, Workflow, Clock, Timer, Hourglass, Share, Copy, RotateCw, Cloud, Sparkles, BookCopy, Mail, ShoppingCart
+    LayoutDashboard, BookOpen, Contact, Gem, MonitorPlay, Wallet, Receipt, FileSignature, Folder, Workflow, Clock, Timer, Hourglass, Share, Copy, RotateCw, Cloud, Sparkles, BookCopy, Mail, ShoppingCart, Layout, ImagePlay, Shapes, UserCircle, BrainCircuit, Newspaper, BoxSelect, MousePointerClick, BookCopy as BookCopyIcon, Wallpaper, Car, Store, TowerControl, Truck, SquareParking, PenTool
 } from 'lucide-react';
 import React from 'react';
 
@@ -578,20 +578,47 @@ export const productivityToolData: ToolCategory[] = [
 export const graphicDesignToolData: ToolCategory[] = [
     {
         title: 'Social Media',
-        icon: <ImageIcon className="w-5 h-5" />,
+        icon: <Youtube className="w-5 h-5" />,
         tools: [
             { name: 'Canva', description: 'Design anything. Publish anywhere.', url: 'https://www.canva.com/', image: 'https://picsum.photos/seed/canva-design/600/400', dataAiHint: 'social media design', pricing: 'Freemium' },
             { name: 'Adobe Express', description: 'Quickly and easily make standout content.', url: 'https://www.adobe.com/express/', image: 'https://picsum.photos/seed/adobe-express/600/400', dataAiHint: 'quick content', pricing: 'Freemium' },
             { name: 'Fotor', description: 'Online photo editor and design maker.', url: 'https://www.fotor.com/', image: 'https://picsum.photos/seed/fotor-design/600/400', dataAiHint: 'photo design', pricing: 'Freemium' },
+            { name: 'Visme', description: 'Create presentations, infographics, and more.', url: 'https://www.visme.co/', image: 'https://picsum.photos/seed/visme-design/600/400', dataAiHint: 'visual content', pricing: 'Freemium' },
+            { name: 'Snappa', description: 'Create online graphics in a snap.', url: 'https://snappa.com/', image: 'https://picsum.photos/seed/snappa-design/600/400', dataAiHint: 'fast graphics', pricing: 'Freemium' },
+            { name: 'Piktochart', description: 'Create infographics, reports, presentations.', url: 'https://piktochart.com/', image: 'https://picsum.photos/seed/piktochart-design/600/400', dataAiHint: 'data visualization', pricing: 'Freemium' },
+            { name: 'Easil', description: 'Drag-and-drop design tool.', url: 'https://about.easil.com/', image: 'https://picsum.photos/seed/easil-design/600/400', dataAiHint: 'design templates', pricing: 'Freemium' },
+            { name: 'Stencil', description: 'The fastest way to create beautiful visuals.', url: 'https://getstencil.com/', image: 'https://picsum.photos/seed/stencil-design/600/400', dataAiHint: 'image creator', pricing: 'Freemium' },
         ],
     },
     {
-        title: 'Logo',
+        title: 'Logo Makers',
         icon: <Gem className="w-5 h-5" />,
         tools: [
             { name: 'Looka', description: 'AI-powered logo maker and branding platform.', url: 'https://looka.com/', image: 'https://picsum.photos/seed/looka-design/600/400', dataAiHint: 'logo branding', pricing: 'Paid' },
             { name: 'Tailor Brands', description: 'An all-in-one branding platform.', url: 'https://www.tailorbrands.com/', image: 'https://picsum.photos/seed/tailor-brands/600/400', dataAiHint: 'branding platform', pricing: 'Paid' },
             { name: 'Brandmark.io', description: 'Create a unique and professional logo.', url: 'https://brandmark.io/', image: 'https://picsum.photos/seed/brandmark-design/600/400', dataAiHint: 'professional logo', pricing: 'Paid' },
+            { name: 'Hatchful', description: 'Shopify\'s free logo maker.', url: 'https://hatchful.shopify.com/', image: 'https://picsum.photos/seed/hatchful-design/600/400', dataAiHint: 'shopify logo', pricing: 'Free' },
+            { name: 'Wix Logo Maker', description: 'Create a logo you\'ll love.', url: 'https://www.wix.com/logo/maker', image: 'https://picsum.photos/seed/wix-logo/600/400', dataAiHint: 'wix logo', pricing: 'Free' },
+        ],
+    },
+    {
+        title: 'Illustration & Drawing',
+        icon: <PenTool className="w-5 h-5" />,
+        tools: [
+            { name: 'Adobe Illustrator', description: 'The industry-standard vector graphics software.', url: 'https://www.adobe.com/products/illustrator.html', image: 'https://picsum.photos/seed/illustrator-design/600/400', dataAiHint: 'vector art', pricing: 'Paid' },
+            { name: 'Procreate', description: 'Create beautiful sketches, paintings, and illustrations.', url: 'https://procreate.art/', image: 'https://picsum.photos/seed/procreate-design/600/400', dataAiHint: 'ipad drawing', pricing: 'Paid' },
+            { name: 'Affinity Designer', description: 'Professional graphic design software.', url: 'https://affinity.serif.com/en-us/designer/', image: 'https://picsum.photos/seed/affinity-design/600/400', dataAiHint: 'vector illustration', pricing: 'Paid' },
+            { name: 'Krita', description: 'A professional FREE and open source painting program.', url: 'https://krita.org/en/', image: 'https://picsum.photos/seed/krita-design/600/400', dataAiHint: 'digital painting', pricing: 'Free' },
+        ],
+    },
+    {
+        title: 'UI/UX Design',
+        icon: <LayoutDashboard className="w-5 h-5" />,
+        tools: [
+            { name: 'Figma', description: 'The collaborative interface design tool.', url: 'https://www.figma.com/', image: 'https://picsum.photos/seed/figma-design/600/400', dataAiHint: 'ui design', pricing: 'Freemium' },
+            { name: 'Sketch', description: 'The design toolkit for product designers.', url: 'https://www.sketch.com/', image: 'https://picsum.photos/seed/sketch-design/600/400', dataAiHint: 'product design', pricing: 'Paid' },
+            { name: 'Adobe XD', description: 'UI/UX design and collaboration tool.', url: 'https://www.adobe.com/products/xd.html', image: 'https://picsum.photos/seed/adobexd-design/600/400', dataAiHint: 'ux design', pricing: 'Paid' },
+            { name: 'InVision', description: 'Digital product design and development platform.', url: 'https://www.invisionapp.com/', image: 'https://picsum.photos/seed/invision-design/600/400', dataAiHint: 'prototyping tool', pricing: 'Freemium' },
         ],
     },
 ];
