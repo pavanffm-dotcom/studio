@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { Club, Palette, X } from 'lucide-react';
+import { Users, Palette, X } from 'lucide-react';
 
 export default function ModePage() {
   return (
@@ -19,12 +19,12 @@ export default function ModePage() {
       </div>
       <div className="relative z-10 flex justify-center items-center gap-8 pt-16">
         <div className="flex flex-col items-center gap-2">
-            <Link href="/club" passHref>
+            <Link href="/community" passHref>
                 <Button variant="secondary" size="icon" className="w-20 h-20 rounded-full shadow-lg soft-shadow">
-                    <Club className="h-10 w-10 text-primary" />
+                    <Users className="h-10 w-10 text-primary" />
                 </Button>
             </Link>
-            <span className="text-base font-medium text-foreground">Club</span>
+            <span className="text-base font-medium text-foreground">Community</span>
         </div>
         <div className="flex flex-col items-center gap-2">
             <Link href="/ui-themes" passHref>

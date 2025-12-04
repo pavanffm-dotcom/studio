@@ -38,6 +38,7 @@ import {
   Send,
   Home,
   Settings,
+  Users,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -54,6 +55,7 @@ import { suggestAiTool, SuggestAiToolOutput } from '@/ai/flows/suggest-ai-tool';
 import { useToast } from '@/hooks/use-toast';
 import { useLanguage } from '@/lib/language';
 import { Input } from '@/components/ui/input';
+import { useRouter } from 'next/navigation';
 import { 
     Tool,
     popularTools,
@@ -186,6 +188,7 @@ ToolCard.displayName = 'ToolCard';
 
 function App() {
   const { t } = useLanguage();
+  const router = useRouter();
   const [activeTab, setActiveTab] = React.useState('home');
   const [activeCategory, setActiveCategory] = React.useState('All');
   const [recentTools, setRecentTools] = React.useState<Tool[]>([]);
@@ -746,9 +749,9 @@ function App() {
                     <LayoutGrid className={cn("w-6 h-6", activeTab === 'tools' ? 'text-primary' : 'text-muted-foreground')} />
                     <span className={cn("text-xs", activeTab === 'tools' ? 'text-primary' : 'text-muted-foreground')}>Tools</span>
                 </Button>
-                <Button variant="ghost" className="flex flex-col items-center h-full rounded-none" onClick={() => setActiveTab('trending')}>
-                    <TrendingUp className={cn("w-6 h-6", activeTab === 'trending' ? 'text-primary' : 'text-muted-foreground')} />
-                    <span className={cn("text-xs", activeTab === 'trending' ? 'text-primary' : 'text-muted-foreground')}>Trending</span>
+                <Button variant="ghost" className="flex flex-col items-center h-full rounded-none" onClick={() => router.push('/community')}>
+                    <Users className={cn("w-6 h-6", 'text-muted-foreground')} />
+                    <span className={cn("text-xs", 'text-muted-foreground')}>Community</span>
                 </Button>
                 <Button variant="ghost" className="flex flex-col items-center h-full rounded-none" onClick={() => setActiveTab('settings')}>
                     <Settings className={cn("w-6 h-6", activeTab === 'settings' ? 'text-primary' : 'text-muted-foreground')} />
