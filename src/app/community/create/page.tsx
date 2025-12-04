@@ -20,7 +20,6 @@ import { cn } from '@/lib/utils';
 import { useUser, useFirestore } from '@/firebase';
 import Image from 'next/image';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { allTools, Tool } from '@/lib/tools-data';
 import { addDoc, collection, serverTimestamp, doc, setDoc } from 'firebase/firestore';
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { v4 as uuidv4 } from 'uuid';
@@ -34,7 +33,6 @@ const clubFormSchema = z.object({
   visibility: z.enum(["public", "private"]).default("public"),
   allowMembersToAddTools: z.boolean().default(true),
   tags: z.array(z.string()).optional(),
-  tools: z.array(z.string()).default([]),
   avatar: z.any().optional(),
 });
 
@@ -44,11 +42,10 @@ const StepIndicator = ({ currentStep }: { currentStep: number }) => {
   const steps = [
     { name: "Details", icon: Users },
     { name: "Avatar", icon: ImageIcon },
-    { name: "Tools", icon: Bot },
   ];
 
   return (
-    <div className="flex justify-between items-center mb-8 max-w-md mx-auto">
+    <div className="flex justify-between items-center mb-8 max-w-xs mx-auto">
       {steps.map((step, index) => (
         <React.Fragment key={step.name}>
           <div className="flex flex-col items-center">
@@ -191,69 +188,6 @@ function Step2_Avatar() {
 }
 
 
-function Step3_ToolsBuilder() {
-    const form = useFormContext<ClubFormValues>();
-    const [searchTerm, setSearchTerm] = useState('');
-
-    const selectedTools = new Set(form.watch('tools'));
-
-    const handleToggleTool = (toolName: string) => {
-        const currentTools = new Set(form.getValues('tools'));
-        if (currentTools.has(toolName)) {
-            currentTools.delete(toolName);
-        } else {
-            currentTools.add(toolName);
-        }
-        form.setValue('tools', Array.from(currentTools));
-    };
-
-    const filteredTools = allTools.filter(tool => 
-        tool.name.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-
-    return (
-        <div className="space-y-4">
-            <div className="relative">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-                <Input 
-                    placeholder="Search for a tool to add..." 
-                    className="pl-10"
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                />
-            </div>
-            <p className="text-sm text-muted-foreground">{selectedTools.size} tool(s) selected.</p>
-            <ScrollArea className="h-72 rounded-md border p-2">
-                <div className="space-y-2">
-                    {filteredTools.map((tool) => {
-                        const isSelected = selectedTools.has(tool.name);
-                        return (
-                            <div key={tool.name} className="flex items-center justify-between p-2 rounded-lg hover:bg-secondary">
-                                <div className="flex items-center gap-3">
-                                    <Image src={tool.image} alt={tool.name} width={40} height={40} className="rounded-md" data-ai-hint={tool.dataAiHint}/>
-                                    <div>
-                                        <p className="font-semibold">{tool.name}</p>
-                                        <p className="text-xs text-muted-foreground">{tool.category}</p>
-                                    </div>
-                                </div>
-                                <Button
-                                    type="button"
-                                    variant={isSelected ? 'secondary' : 'outline'}
-                                    size="sm"
-                                    onClick={() => handleToggleTool(tool.name)}
-                                >
-                                    {isSelected ? <Check className="w-4 h-4 mr-2" /> : <Plus className="w-4 h-4 mr-2" />}
-                                    {isSelected ? 'Added' : 'Add'}
-                                </Button>
-                            </div>
-                        )
-                    })}
-                </div>
-            </ScrollArea>
-        </div>
-    );
-}
-
 export default function CreateClubPage() {
     const [currentStep, setCurrentStep] = useState(0);
     const { user, firebaseApp } = useUser();
@@ -270,7 +204,6 @@ export default function CreateClubPage() {
             visibility: 'public',
             allowMembersToAddTools: true,
             tags: [],
-            tools: [],
         },
     });
 
@@ -318,21 +251,6 @@ export default function CreateClubPage() {
             photoURL: user.photoURL || '',
           });
     
-          const toolsCollectionRef = collection(firestore, 'groups', groupId, 'tools');
-          for (const toolName of data.tools) {
-            const toolData = allTools.find(t => t.name === toolName);
-            if (toolData) {
-              await addDoc(toolsCollectionRef, {
-                toolName: toolData.name,
-                toolUrl: toolData.url,
-                toolDescription: toolData.description,
-                addedBy: user.uid,
-                addedAt: serverTimestamp(),
-                upvotes: 0,
-              });
-            }
-          }
-    
           toast({
             title: 'Club Created!',
             description: `Your club "${data.clubName}" is now live.`,
@@ -352,13 +270,12 @@ export default function CreateClubPage() {
         }
       };
     
-    const nextStep = () => setCurrentStep(prev => (prev < 2 ? prev + 1 : prev));
+    const nextStep = () => setCurrentStep(prev => (prev < 1 ? prev + 1 : prev));
     const prevStep = () => setCurrentStep(prev => (prev > 0 ? prev - 1 : prev));
 
     const steps = [
         <Step1_BasicDetails key="step1" />,
         <Step2_Avatar key="step2" />,
-        <Step3_ToolsBuilder key="step3" />,
     ];
 
     return (
@@ -383,7 +300,7 @@ export default function CreateClubPage() {
                             <Button type="button" variant="outline" onClick={prevStep} disabled={currentStep === 0}>
                                 <ArrowLeft className="mr-2" /> Previous
                             </Button>
-                            {currentStep < 2 ? (
+                            {currentStep < 1 ? (
                                 <Button type="button" onClick={nextStep}>
                                     Next Step <ArrowRight className="ml-2" />
                                 </Button>
@@ -399,3 +316,4 @@ export default function CreateClubPage() {
         </div>
     );
 }
+
