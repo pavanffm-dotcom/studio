@@ -286,7 +286,7 @@ export default function CreateClubPage() {
         setIsSubmitting(true);
     
         try {
-          let avatarUrl = `https://picsum.photos/seed/${data.clubName.replace(/\s/g, '-')}/40/40`;
+          let avatarUrl = `https://picsum.photos/seed/${data.clubName.replace(/\s/g, '-')}/400/400`;
 
           if (data.avatar && data.avatar instanceof File) {
             const storage = getStorage(firebaseApp);
@@ -314,6 +314,8 @@ export default function CreateClubPage() {
             userId: user.uid,
             joinedAt: serverTimestamp(),
             role: 'owner',
+            displayName: user.displayName || 'Anonymous',
+            photoURL: user.photoURL || '',
           });
     
           const toolsCollectionRef = collection(firestore, 'groups', groupId, 'tools');
