@@ -195,12 +195,12 @@ export default function ClubDetailsPage({ params }: { params: { clubId: string }
   };
 
   return (
-    <div className="bg-background min-h-screen flex flex-col items-center justify-start font-body relative">
+    <div className="min-h-screen flex flex-col bg-background font-body">
       <div className="absolute inset-0 z-0 opacity-50">
         <div className="absolute inset-0 bg-gradient-to-br from-soft-blue via-lavender to-baby-pink"></div>
       </div>
-      <div className="relative z-10 w-full max-w-lg p-0 md:p-6 h-screen md:h-auto">
-        <div className="bg-card/80 backdrop-blur-3xl md:rounded-[2.5rem] shadow-2xl flex flex-col h-full md:max-h-[calc(100vh-3rem)] border-t-2 border-white/50 soft-shadow">
+      <div className="relative z-10 w-full max-w-lg mx-auto flex flex-col h-screen">
+        <div className="bg-card/80 backdrop-blur-3xl md:rounded-t-[2.5rem] shadow-2xl flex flex-col flex-grow min-h-0 border-t-2 border-white/50 soft-shadow">
           
           <header className="flex-shrink-0">
             <div className="flex justify-between items-center p-2 border-b">
@@ -273,7 +273,7 @@ export default function ClubDetailsPage({ params }: { params: { clubId: string }
             
           {/* Chat Input */}
           {isMember && (
-            <form onSubmit={handleSendMessage} className="p-4 bg-background/50 border-t mt-auto flex-shrink-0">
+            <form onSubmit={handleSendMessage} className="p-4 bg-background/50 border-t flex-shrink-0">
                 <div className="relative">
                     <Input 
                         placeholder="Type a message..." 
