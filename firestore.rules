@@ -94,8 +94,12 @@ service cloud.firestore {
 
       // Rules for group members subcollection
       match /members/{userId} {
+        // Group members should be able to see who else is in the group.
+        allow list: if isGroupMember(groupId);
+        // Only the user themselves or the group owner can get a specific member document.
+        allow get: if isGroupOwner(groupId) || isOwner(userId);
         // Only owner can add/remove members (or members can join/leave public groups)
-        allow read, write: if isGroupOwner(groupId) || isOwner(userId);
+        allow write: if isGroupOwner(groupId) || isOwner(userId);
       }
 
       // Rules for tools shared within a group
