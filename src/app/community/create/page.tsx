@@ -367,37 +367,33 @@ export default function CreateClubPage() {
             <div className="relative z-10 w-full max-w-2xl p-6">
                 <ClubHeader title="Create a New Club" showBackButton />
                 <FormProvider {...methods}>
-                    <Card className="mt-6 bg-card/80 backdrop-blur-sm soft-shadow">
-                        <CardHeader>
-                            <StepIndicator currentStep={currentStep} />
-                        </CardHeader>
-                        <Separator />
-                        <form onSubmit={methods.handleSubmit(onSubmit)}>
+                    <form onSubmit={methods.handleSubmit(onSubmit)}>
+                        <Card className="mt-6 bg-card/80 backdrop-blur-sm soft-shadow">
+                            <CardHeader>
+                                <StepIndicator currentStep={currentStep} />
+                            </CardHeader>
+                            <Separator />
                             <CardContent className="p-6">
                                 {steps[currentStep]}
                             </CardContent>
-                        </form>
-                    </Card>
-                    <div className="flex justify-between mt-8">
-                        <Button type="button" variant="outline" onClick={prevStep} disabled={currentStep === 0}>
-                            <ArrowLeft className="mr-2" /> Previous
-                        </Button>
-                        {currentStep < 2 ? (
-                            <Button type="button" onClick={nextStep}>
-                                Next Step <ArrowRight className="ml-2" />
+                        </Card>
+                        <div className="flex justify-between mt-8">
+                            <Button type="button" variant="outline" onClick={prevStep} disabled={currentStep === 0}>
+                                <ArrowLeft className="mr-2" /> Previous
                             </Button>
-                        ) : (
-                            <Button type="submit" onClick={methods.handleSubmit(onSubmit)} disabled={isSubmitting}>
-                                {isSubmitting ? 'Publishing...' : 'Publish Club'}
-                            </Button>
-                        )}
-                    </div>
+                            {currentStep < 2 ? (
+                                <Button type="button" onClick={nextStep}>
+                                    Next Step <ArrowRight className="ml-2" />
+                                </Button>
+                            ) : (
+                                <Button type="submit" disabled={isSubmitting}>
+                                    {isSubmitting ? 'Publishing...' : 'Publish Club'}
+                                </Button>
+                            )}
+                        </div>
+                    </form>
                 </FormProvider>
             </div>
         </div>
     );
 }
-
-    
-
-    
