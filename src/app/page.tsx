@@ -330,39 +330,52 @@ function App() {
   
   const carouselSlides = [
     { 
+      title: "Free Movie App", 
+      subtitle: "Watch the latest movies and shows for free.", 
+      image: "https://storage.googleapis.com/project-123-bucket/image.png",
+      dataAiHint: "movie posters",
+      gradient: "from-yellow-400 to-orange-500",
+      link: "https://filmm.me/pzcMMikJ"
+    },
+    { 
       title: "Discover 2113+ AI Tools", 
       subtitle: "Your complete guide to the world of AI.", 
       image: "https://picsum.photos/seed/slide1/800/600",
       dataAiHint: "abstract shapes",
-      gradient: "from-primary to-accent"
+      gradient: "from-primary to-accent",
+      link: "/tools"
     },
     { 
       title: "Create with AI", 
       subtitle: "Generate images, videos, and music with a simple prompt.", 
       image: "https://picsum.photos/seed/slide2/800/600",
       dataAiHint: "digital art",
-      gradient: "from-pink-400 to-rose-400"
+      gradient: "from-pink-400 to-rose-400",
+      link: "/content-creation"
     },
     { 
       title: "Boost Productivity", 
       subtitle: "Let AI handle your daily tasks and workflows.", 
       image: "https://picsum.photos/seed/slide3/800/600",
       dataAiHint: "data chart",
-      gradient: "from-teal-400 to-emerald-400"
+      gradient: "from-teal-400 to-emerald-400",
+      link: "/productivity-tools"
     },
     { 
       title: "AI for Students", 
       subtitle: "Get help with homework, research, and revision.", 
       image: "https://picsum.photos/seed/slide4/800/600",
       dataAiHint: "students studying",
-      gradient: "from-sky-400 to-blue-400"
+      gradient: "from-sky-400 to-blue-400",
+      link: "/student-tools"
     },
     { 
       title: "Join the Community", 
       subtitle: "Share and discover AI tools with other enthusiasts.", 
       image: "https://picsum.photos/seed/slide5/800/600",
       dataAiHint: "people talking",
-      gradient: "from-orange-400 to-amber-400"
+      gradient: "from-orange-400 to-amber-400",
+      link: "/community"
     },
   ];
 
@@ -471,15 +484,17 @@ function App() {
         <CarouselContent>
           {carouselSlides.map((slide, index) => (
             <CarouselItem key={index}>
-              <div className={`text-primary-foreground p-6 rounded-3xl relative overflow-hidden soft-shadow bg-gradient-to-br ${slide.gradient}`}>
-                <Image src={slide.image} alt={slide.title} layout="fill" objectFit="cover" className="absolute inset-0 z-0 opacity-20" data-ai-hint={slide.dataAiHint}/>
-                <div className="relative z-10">
-                  <Sparkles className="absolute top-0 right-0 w-8 h-8 text-white/50"/>
-                  <h3 className="font-bold text-2xl">{slide.title}</h3>
-                  <p className="text-base opacity-90 mt-2 max-w-[75%]">{slide.subtitle}</p>
-                  <Button variant="secondary" className="mt-6 bg-white text-primary hover:bg-white/90 rounded-full h-12 px-6 font-bold text-base glow-shadow" onClick={() => setActiveTab('tools')}>Explore</Button>
-                </div>
-              </div>
+              <Link href={slide.link} target={slide.link.startsWith('http') ? '_blank' : '_self'} rel="noopener noreferrer">
+                  <div className={`text-primary-foreground p-6 rounded-3xl relative overflow-hidden soft-shadow bg-gradient-to-br ${slide.gradient}`}>
+                    <Image src={slide.image} alt={slide.title} layout="fill" objectFit="cover" className="absolute inset-0 z-0 opacity-20" data-ai-hint={slide.dataAiHint}/>
+                    <div className="relative z-10">
+                      <Sparkles className="absolute top-0 right-0 w-8 h-8 text-white/50"/>
+                      <h3 className="font-bold text-2xl">{slide.title}</h3>
+                      <p className="text-base opacity-90 mt-2 max-w-[75%]">{slide.subtitle}</p>
+                      <div className="mt-6 bg-white text-primary hover:bg-white/90 rounded-full h-12 px-6 font-bold text-base glow-shadow inline-flex items-center justify-center">Explore</div>
+                    </div>
+                  </div>
+              </Link>
             </CarouselItem>
           ))}
         </CarouselContent>
