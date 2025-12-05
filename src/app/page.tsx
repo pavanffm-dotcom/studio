@@ -121,7 +121,7 @@ const ChatInputComponent = ({ chatInput, setChatInput, handleSendMessage, isGene
             <label className="block text-center text-muted-foreground text-sm mb-2">Ask what AI you want</label>
             <div className="relative">
                 <Input
-                    placeholder="e.g. 'AI to clone my voice for free?'"
+                    placeholder="Search for any AI tool..."
                     className="bg-background rounded-full h-14 text-base pl-5 pr-14 border-2 border-primary/20 shadow-lg"
                     value={chatInput}
                     onChange={(e) => setChatInput(e.target.value)}
