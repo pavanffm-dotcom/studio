@@ -15,12 +15,6 @@ const permissions = [
     description: 'Used for authentication and communication.',
     granted: true,
   },
-  {
-    icon: BarChart3,
-    title: 'App Analytics',
-    description: 'We collect anonymous data to improve the app experience.',
-    granted: false,
-  },
 ];
 
 export function DataPermissions() {
