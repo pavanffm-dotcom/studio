@@ -1,6 +1,6 @@
 'use client';
 
-import { CheckCircle2, User, Mail, Phone, BarChart3 } from 'lucide-react';
+import { CheckCircle2, User, Mail, BarChart3 } from 'lucide-react';
 
 const permissions = [
   {
@@ -14,12 +14,6 @@ const permissions = [
     title: 'Email Address',
     description: 'Used for authentication and communication.',
     granted: true,
-  },
-  {
-    icon: Phone,
-    title: 'Phone Number',
-    description: 'Used for two-factor authentication if you enable it.',
-    granted: false,
   },
   {
     icon: BarChart3,

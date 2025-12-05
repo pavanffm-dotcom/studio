@@ -21,7 +21,6 @@ import { useEffect } from 'react';
 const profileSchema = z.object({
   displayName: z.string().min(2, 'Name must be at least 2 characters.'),
   email: z.string().email(),
-  phoneNumber: z.string().optional(),
 });
 
 type ProfileFormValue = z.infer<typeof profileSchema>;
@@ -36,7 +35,6 @@ export function ProfileDetails() {
     defaultValues: {
       displayName: '',
       email: '',
-      phoneNumber: '',
     },
   });
 
@@ -45,7 +43,6 @@ export function ProfileDetails() {
       form.reset({
         displayName: user.displayName || '',
         email: user.email || '',
-        phoneNumber: user.phoneNumber || '',
       });
     }
   }, [user, form]);
@@ -63,8 +60,6 @@ export function ProfileDetails() {
     try {
       await updateProfile(auth.currentUser, {
         displayName: data.displayName,
-        // Phone number update requires a different flow (verification) and is not updated here directly.
-        // We are only storing it in our app's context for now.
       });
       toast({
         title: 'Success!',
@@ -103,19 +98,6 @@ export function ProfileDetails() {
               <FormLabel>Email</FormLabel>
               <FormControl>
                 <Input placeholder="your@email.com" {...field} readOnly disabled />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="phoneNumber"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Phone Number</FormLabel>
-              <FormControl>
-                <Input placeholder="Your Phone Number" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
