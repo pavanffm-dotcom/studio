@@ -40,19 +40,13 @@ const chatFlow = ai.defineFlow(
       
       If you are unsure about what the user is asking for, ask clarifying questions.
       
-      Respond to the user's message: {{{message}}}`,
+      Respond to the user's message: ${input.message}`,
       model: 'googleai/gemini-2.5-flash',
-      context: [
-        {
-          role: 'user',
-          content: [{ text: input.message }],
-        },
-      ],
     });
 
     const responseText = output?.text;
     if (!responseText) {
-      return { response: 'Sorry, I could not process that.' };
+      return { response: 'Maaf kijiye, mujhe is baare mein jaankari nahi mil rahi hai. Kya aap kuchh aur poochhna chahenge?' };
     }
     
     return { response: responseText };
