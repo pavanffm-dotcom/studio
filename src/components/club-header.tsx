@@ -3,7 +3,7 @@
 
 import Link from 'next/link';
 import { Button } from './ui/button';
-import { ArrowLeft, Club, Plus, Search } from 'lucide-react';
+import { ArrowLeft, Club, Plus, Search, UserCircle } from 'lucide-react';
 import { GalaxyLogo } from './galaxy-logo';
 import { useRouter } from 'next/navigation';
 
@@ -12,6 +12,7 @@ type ClubHeaderProps = {
   showBackButton?: boolean;
   showCreateButton?: boolean;
   showSearch?: boolean;
+  showProfileButton?: boolean;
 };
 
 export function ClubHeader({
@@ -19,6 +20,7 @@ export function ClubHeader({
   showBackButton = false,
   showCreateButton = false,
   showSearch = false,
+  showProfileButton = false,
 }: ClubHeaderProps) {
   const router = useRouter();
 
@@ -45,6 +47,13 @@ export function ClubHeader({
       <div className="flex items-center gap-2">
         {showSearch && (
             <Button variant="ghost" size="icon" className="rounded-full h-12 w-12"><Search className="w-6 h-6"/></Button>
+        )}
+        {showProfileButton && (
+          <Link href="/community/my-profile">
+            <Button variant="ghost" size="icon" className="rounded-full h-12 w-12 bg-white/50 backdrop-blur-sm">
+                <UserCircle className="w-6 h-6 text-primary"/>
+            </Button>
+          </Link>
         )}
         {showCreateButton && (
            <Link href="/community/create">

@@ -72,7 +72,7 @@ export default function CommunityPage() {
         <div className="bg-card/80 backdrop-blur-3xl md:rounded-[2.5rem] shadow-2xl flex flex-col min-h-screen md:min-h-0 md:max-h-[calc(100vh-3rem)] border-t-2 border-white/50 soft-shadow">
 
             <div className="p-4 border-b">
-                <ClubHeader title="Community" showCreateButton showBackButton />
+                <ClubHeader title="Community" showCreateButton showProfileButton showBackButton />
             </div>
 
             <div className="p-4">
