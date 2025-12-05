@@ -75,8 +75,6 @@ import {
 import { ToolIcon } from '@/lib/tool-icons';
 import { useUserPreferences } from '@/context/user-preferences-context';
 import { useFirestore, useUser } from '@/firebase';
-import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
-
 
 type ChatMessage = {
   id: number;
@@ -250,22 +248,7 @@ function App() {
       ...prev,
       [tool.name]: (prev[tool.name] || 0) + 1,
     }));
-    
-    if (user && firestore) {
-      try {
-        const activityLog = {
-          userId: user.uid,
-          toolName: tool.name,
-          action: 'viewed_tool',
-          timestamp: serverTimestamp()
-        };
-        await addDoc(collection(firestore, 'activity_logs'), activityLog);
-      } catch (error) {
-        console.error("Error logging activity:", error);
-      }
-    }
-
-  }, [user, firestore]);
+  }, []);
 
   React.useEffect(() => {
     if (chatContainerRef.current) {

@@ -62,7 +62,6 @@ import {
   AlertDialogTrigger,
 } from "./ui/alert-dialog"
 import { DataPermissions } from "./data-permissions"
-import { ActivityLogs } from "./activity-logs"
 import { TwoFactorAuth } from "./two-factor-auth"
 import { RadioGroup, RadioGroupItem } from "./ui/radio-group"
 import { Label } from "./ui/label"
@@ -194,7 +193,6 @@ export function SettingsPage() {
         icon: Shield,
         options: [
           { label: t('settings.privacy.permissions'), icon: Shield, component: <DataPermissions /> },
-          { label: t('settings.privacy.analytics'), icon: BarChart3, component: <ActivityLogs /> },
         ],
       },
       {

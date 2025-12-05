@@ -78,12 +78,6 @@ service cloud.firestore {
       allow delete: if false;
     }
 
-    match /activity_logs/{logId} {
-      allow read, list: if isSignedIn() && request.auth.uid == resource.data.userId;
-      allow create: if isSignedIn() && request.auth.uid == request.resource.data.userId;
-      allow update, delete: if false;
-    }
-
     //-------------------------------------------------------------------------
     // Community (Clubs) Rules
     //-------------------------------------------------------------------------
