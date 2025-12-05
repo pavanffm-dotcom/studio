@@ -1,28 +1,15 @@
+
 'use client';
 
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import * as z from 'zod';
-import { Button } from '@/components/ui/button';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
+import { useEffect, useState } from 'react';
 import { useAuth, useUser } from '@/firebase';
 import { useToast } from '@/hooks/use-toast';
-import { updateProfile } from 'firebase/auth';
-import { useEffect, useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
 import { ShieldCheck, ShieldOff } from 'lucide-react';
+import { Button } from './ui/button';
 
 
 export function TwoFactorAuth() {
-  const auth = useAuth();
   const { user } = useUser();
   const { toast } = useToast();
   const [is2faEnabled, setIs2faEnabled] = useState(false);

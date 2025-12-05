@@ -1,3 +1,4 @@
+
 "use client"
 
 import React from "react"
@@ -193,9 +194,7 @@ export function SettingsPage() {
         icon: Shield,
         options: [
           { label: t('settings.privacy.permissions'), icon: Shield, component: <DataPermissions /> },
-          { label: t('settings.privacy.logs'), icon: FileClock, component: <ActivityLogs /> },
-          { label: t('settings.privacy.analytics'), icon: BarChart3, control: "switch" },
-          { label: t('settings.privacy.twoFactor'), icon: Fingerprint, component: <TwoFactorAuth />, isDialog: true},
+          { label: t('settings.privacy.analytics'), icon: BarChart3, component: <ActivityLogs /> },
         ],
       },
       {

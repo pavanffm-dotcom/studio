@@ -74,6 +74,8 @@ import {
 } from '@/lib/tools-data.tsx';
 import { ToolIcon } from '@/lib/tool-icons';
 import { useUserPreferences } from '@/context/user-preferences-context';
+import { useFirestore, useUser } from '@/firebase';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 
 
 type ChatMessage = {
@@ -146,9 +148,8 @@ const ToolCard = React.memo(({ tool, onShare, onClick, t }: { tool: Tool, onShar
     const isHearted = heartedTools.has(tool.name);
 
     const handleCardClick = useCallback((e: React.MouseEvent) => {
-        e.preventDefault();
         onClick(tool);
-        window.open(tool.url, '_blank', 'noopener,noreferrer');
+        // No need to prevent default, let the anchor tag handle navigation.
     }, [tool, onClick]);
 
     const handleHeartClick = (e: React.MouseEvent) => {
@@ -201,6 +202,8 @@ function App() {
   const [chatInput, setChatInput] = React.useState('');
   const chatContainerRef = React.useRef<HTMLDivElement>(null);
   const { toast } = useToast();
+  const { user } = useUser();
+  const firestore = useFirestore();
   const { heartedTools, starredTools } = useUserPreferences();
   const [activeSavedTab, setActiveSavedTab] = useState('recent');
   const autoplayPlugin = useRef(Autoplay({ delay: 3000, stopOnInteraction: true }));
@@ -237,7 +240,7 @@ function App() {
     }
   }, [toast]);
 
-  const handleToolClick = useCallback((tool: Tool) => {
+  const handleToolClick = useCallback(async (tool: Tool) => {
     setRecentTools(prev => {
       const newRecents = [tool, ...prev.filter(t => t.name !== tool.name)];
       return newRecents.slice(0, 5); 
@@ -247,7 +250,22 @@ function App() {
       ...prev,
       [tool.name]: (prev[tool.name] || 0) + 1,
     }));
-  }, []);
+    
+    if (user && firestore) {
+      try {
+        const activityLog = {
+          userId: user.uid,
+          toolName: tool.name,
+          action: 'viewed_tool',
+          timestamp: serverTimestamp()
+        };
+        await addDoc(collection(firestore, 'activity_logs'), activityLog);
+      } catch (error) {
+        console.error("Error logging activity:", error);
+      }
+    }
+
+  }, [user, firestore]);
 
   React.useEffect(() => {
     if (chatContainerRef.current) {
