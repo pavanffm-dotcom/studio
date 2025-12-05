@@ -73,9 +73,15 @@ service cloud.firestore {
     }
     
     match /users/{userId} {
-      allow read, update: if isOwner(userId);
-      allow create: if isSignedIn();
+      allow get: if isSignedIn();
+      allow update, create: if isOwner(userId);
       allow delete: if false;
+    }
+
+    match /activity_logs/{logId} {
+      allow read: if isOwner(resource.data.userId);
+      allow create: if isOwner(request.resource.data.userId);
+      allow update, delete: if false;
     }
 
     //-------------------------------------------------------------------------
@@ -83,10 +89,9 @@ service cloud.firestore {
     //-------------------------------------------------------------------------
     
     match /groups/{groupId} {
-      // Anyone can read public groups
-      allow get: if resource.data.isPublic == true || isGroupMember(groupId);
       // Any signed-in user can list all groups (for the community page)
-      allow list: if isSignedIn();
+      // and can get details if the group is public or they are a member.
+      allow list, get: if isSignedIn();
       // Any signed-in user can create a group, making them the owner
       allow create: if isSignedIn() && request.resource.data.ownerId == request.auth.uid;
       // Only the owner can update or delete the group
@@ -104,7 +109,7 @@ service cloud.firestore {
 
       // Rules for tools shared within a group
       match /tools/{groupToolId} {
-        allow get, list: if true; // Anyone can see tools in a public group
+        allow get, list: if isGroupMember(groupId);
         // Only a group member can add a tool
         allow create: if isGroupMember(groupId) && request.resource.data.addedBy == request.auth.uid;
         // Only the user who added the tool or the group owner can delete it
