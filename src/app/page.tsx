@@ -1,7 +1,7 @@
 
 'use client';
 
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useState, useRef } from 'react';
 import Image from 'next/image';
 import {
   Clapperboard,
@@ -43,6 +43,8 @@ import {
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
+import Autoplay from "embla-carousel-autoplay";
 import { GalaxyLogo } from '@/components/galaxy-logo';
 import { Badge } from '@/components/ui/badge';
 import Link from 'next/link';
@@ -201,6 +203,8 @@ function App() {
   const { toast } = useToast();
   const { heartedTools, starredTools } = useUserPreferences();
   const [activeSavedTab, setActiveSavedTab] = useState('recent');
+  const autoplayPlugin = useRef(Autoplay({ delay: 3000, stopOnInteraction: true }));
+
 
   const heartedToolsDetails = useMemo(() => {
     return allTools.filter(tool => heartedTools.has(tool.name));
@@ -214,15 +218,13 @@ function App() {
     e.preventDefault();
     e.stopPropagation();
 
-    const shareData = {
-      title: tool.name,
-      text: `Check out this AI tool: ${tool.name}`,
-      url: tool.url,
-    };
-
-    if (navigator.share) {
+    if (typeof window !== 'undefined' && navigator.share) {
       try {
-        await navigator.share(shareData);
+        await navigator.share({
+          title: tool.name,
+          text: `Check out this AI tool: ${tool.name}`,
+          url: tool.url,
+        });
       } catch (err) {
         console.error("Error sharing:", err);
       }
@@ -324,6 +326,45 @@ function App() {
     setShowChat(false);
     setChatMessages([]);
   }
+  
+  const carouselSlides = [
+    { 
+      title: "Discover 2113+ AI Tools", 
+      subtitle: "Your complete guide to the world of AI.", 
+      image: "https://picsum.photos/seed/slide1/800/600",
+      dataAiHint: "abstract shapes",
+      gradient: "from-primary to-accent"
+    },
+    { 
+      title: "Create with AI", 
+      subtitle: "Generate images, videos, and music with a simple prompt.", 
+      image: "https://picsum.photos/seed/slide2/800/600",
+      dataAiHint: "digital art",
+      gradient: "from-pink-400 to-rose-400"
+    },
+    { 
+      title: "Boost Productivity", 
+      subtitle: "Let AI handle your daily tasks and workflows.", 
+      image: "https://picsum.photos/seed/slide3/800/600",
+      dataAiHint: "data chart",
+      gradient: "from-teal-400 to-emerald-400"
+    },
+    { 
+      title: "AI for Students", 
+      subtitle: "Get help with homework, research, and revision.", 
+      image: "https://picsum.photos/seed/slide4/800/600",
+      dataAiHint: "students studying",
+      gradient: "from-sky-400 to-blue-400"
+    },
+    { 
+      title: "Join the Community", 
+      subtitle: "Share and discover AI tools with other enthusiasts.", 
+      image: "https://picsum.photos/seed/slide5/800/600",
+      dataAiHint: "people talking",
+      gradient: "from-orange-400 to-amber-400"
+    },
+  ];
+
 
   const renderChatInterface = () => (
     <div className="space-y-4">
@@ -417,15 +458,28 @@ function App() {
         isGenerating={isGenerating}
       />
       
-      <div className="bg-gradient-to-br from-primary to-accent text-primary-foreground p-6 rounded-3xl my-4 relative overflow-hidden soft-shadow">
-          <div className="absolute -right-4 -bottom-10 w-36 h-36 opacity-30">
-              <Image src="https://picsum.photos/seed/ai-person/200/200" alt="AI illustration" width={144} height={144} className="object-contain" data-ai-hint="AI illustration person"/>
-          </div>
-          <Sparkles className="absolute top-4 right-4 w-8 h-8 text-white/50"/>
-          <h3 className="font-bold text-2xl">{t('home.welcome.title')}</h3>
-          <p className="text-base opacity-90 mt-2 max-w-[65%]">{t('home.welcome.subtitle')}</p>
-          <Button variant="secondary" className="mt-6 bg-white text-primary hover:bg-white/90 rounded-full h-12 px-6 font-bold text-base glow-shadow" onClick={() => setActiveTab('tools')}>{t('home.welcome.button')}</Button>
-      </div>
+      <Carousel 
+        className="my-4"
+        plugins={[autoplayPlugin.current]}
+        onMouseEnter={autoplayPlugin.current.stop}
+        onMouseLeave={autoplayPlugin.current.reset}
+      >
+        <CarouselContent>
+          {carouselSlides.map((slide, index) => (
+            <CarouselItem key={index}>
+              <div className={`text-primary-foreground p-6 rounded-3xl relative overflow-hidden soft-shadow bg-gradient-to-br ${slide.gradient}`}>
+                <Image src={slide.image} alt={slide.title} layout="fill" objectFit="cover" className="absolute inset-0 z-0 opacity-20" data-ai-hint={slide.dataAiHint}/>
+                <div className="relative z-10">
+                  <Sparkles className="absolute top-0 right-0 w-8 h-8 text-white/50"/>
+                  <h3 className="font-bold text-2xl">{slide.title}</h3>
+                  <p className="text-base opacity-90 mt-2 max-w-[75%]">{slide.subtitle}</p>
+                  <Button variant="secondary" className="mt-6 bg-white text-primary hover:bg-white/90 rounded-full h-12 px-6 font-bold text-base glow-shadow" onClick={() => setActiveTab('tools')}>Explore</Button>
+                </div>
+              </div>
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+      </Carousel>
 
       <section>
           <div className="flex justify-between items-center mb-3">
