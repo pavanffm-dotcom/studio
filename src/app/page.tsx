@@ -458,9 +458,12 @@ function App() {
         isGenerating={isGenerating}
       />
       
-      <Carousel 
-        className="my-4"
+      <Carousel
+        opts={{
+          loop: true,
+        }}
         plugins={[autoplayPlugin.current]}
+        className="my-4"
         onMouseEnter={autoplayPlugin.current.stop}
         onMouseLeave={autoplayPlugin.current.reset}
       >
