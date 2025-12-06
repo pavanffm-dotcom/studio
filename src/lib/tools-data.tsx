@@ -5,7 +5,7 @@ import {
     Paintbrush, Youtube, HelpCircle, Book, Zap, Calendar, Brain, Search, Type, Presentation, Wand2, Mic, File, GraduationCap, Scissors, Film, ImageIcon, Palette, Bot, Mic2, FileText,
     Terminal, Database, CloudCog, Bug, Box, TerminalSquare, PackageCheck, Shield, Smartphone, Gamepad2, TestTube, Gauge,
     LayoutDashboard, BookOpen, Contact, Gem, MonitorPlay, Wallet, Receipt, FileSignature, Folder, Workflow, Clock, Timer, Hourglass, Share, Copy, RotateCw, Cloud, Sparkles, BookCopy, Mail, ShoppingCart, Layout, ImagePlay, Shapes, UserCircle, BrainCircuit, Newspaper, BoxSelect, MousePointerClick, BookCopy as BookCopyIcon, Wallpaper, Car, Store, TowerControl, Truck, SquareParking, PenTool, Feather, Key, Quote, Tv, Building, FileCheck, Scale,
-    Settings, Target, ClipboardCheck, Eye, UploadCloud, Globe, Webhook
+    Settings, Target, ClipboardCheck, Eye, UploadCloud, Globe, Webhook, HardDrive, Component, GanttChartSquare, FunctionSquare, RefreshCw, Laptop, Gateway, BarChart3
 } from 'lucide-react';
 import React from 'react';
 
@@ -641,7 +641,259 @@ export const productivityToolData: ToolCategory[] = [];
 
 export const writingToolData: ToolCategory[] = [];
 
-export const codingToolData: ToolCategory[] = [];
+export const codingToolData: ToolCategory[] = [
+    {
+        title: 'Code Editors',
+        icon: <Code className="w-5 h-5 text-primary"/>,
+        tools: [...Array(51)].map((_, i) => ({ name: `Code Editor ${i + 1}`, url: '#', image: `https://picsum.photos/seed/codeeditor${i}/300/200`, dataAiHint: 'editor code' }))
+    },
+    {
+        title: 'Integrated Development Environments (IDEs)',
+        icon: <TerminalSquare className="w-5 h-5 text-primary"/>,
+        tools: [...Array(52)].map((_, i) => ({ name: `IDE ${i + 1}`, url: '#', image: `https://picsum.photos/seed/ide${i}/300/200`, dataAiHint: 'development environment' }))
+    },
+    {
+        title: 'Version Control Systems',
+        icon: <GitBranch className="w-5 h-5 text-primary"/>,
+        tools: [...Array(53)].map((_, i) => ({ name: `VCS Tool ${i + 1}`, url: '#', image: `https://picsum.photos/seed/vcs${i}/300/200`, dataAiHint: 'git code' }))
+    },
+    {
+        title: 'Source Code Hosting Platforms',
+        icon: <HardDrive className="w-5 h-5 text-primary"/>,
+        tools: [...Array(54)].map((_, i) => ({ name: `Code Hosting ${i + 1}`, url: '#', image: `https://picsum.photos/seed/codehosting${i}/300/200`, dataAiHint: 'repository hosting' }))
+    },
+    {
+        title: 'Continuous Integration (CI) Tools',
+        icon: <RefreshCw className="w-5 h-5 text-primary"/>,
+        tools: [...Array(55)].map((_, i) => ({ name: `CI Tool ${i + 1}`, url: '#', image: `https://picsum.photos/seed/ci${i}/300/200`, dataAiHint: 'integration build' }))
+    },
+    {
+        title: 'Continuous Deployment (CD) Tools',
+        icon: <UploadCloud className="w-5 h-5 text-primary"/>,
+        tools: [...Array(56)].map((_, i) => ({ name: `CD Tool ${i + 1}`, url: '#', image: `https://picsum.photos/seed/cd${i}/300/200`, dataAiHint: 'deployment pipeline' }))
+    },
+    {
+        title: 'DevOps & Automation Tools',
+        icon: <Settings className="w-5 h-5 text-primary"/>,
+        tools: [...Array(57)].map((_, i) => ({ name: `DevOps Tool ${i + 1}`, url: '#', image: `https://picsum.photos/seed/devops${i}/300/200`, dataAiHint: 'automation script' }))
+    },
+    {
+        title: 'Testing & QA Tools',
+        icon: <Bug className="w-5 h-5 text-primary"/>,
+        tools: [...Array(58)].map((_, i) => ({ name: `Testing Tool ${i + 1}`, url: '#', image: `https://picsum.photos/seed/testing${i}/300/200`, dataAiHint: 'quality assurance' }))
+    },
+    {
+        title: 'API Development Tools',
+        icon: <Component className="w-5 h-5 text-primary"/>,
+        tools: [...Array(59)].map((_, i) => ({ name: `API Dev Tool ${i + 1}`, url: '#', image: `https://picsum.photos/seed/apidev${i}/300/200`, dataAiHint: 'api development' }))
+    },
+    {
+        title: 'API Testing Tools',
+        icon: <TestTube className="w-5 h-5 text-primary"/>,
+        tools: [...Array(50)].map((_, i) => ({ name: `API Test Tool ${i + 1}`, url: '#', image: `https://picsum.photos/seed/apitest${i}/300/200`, dataAiHint: 'api testing' }))
+    },
+    {
+        title: 'API Documentation Tools',
+        icon: <BookOpen className="w-5 h-5 text-primary"/>,
+        tools: [...Array(51)].map((_, i) => ({ name: `API Doc Tool ${i + 1}`, url: '#', image: `https://picsum.photos/seed/apidoc${i}/300/200`, dataAiHint: 'api documentation' }))
+    },
+    {
+        title: 'Database Management Tools',
+        icon: <Database className="w-5 h-5 text-primary"/>,
+        tools: [...Array(52)].map((_, i) => ({ name: `DB Tool ${i + 1}`, url: '#', image: `https://picsum.photos/seed/dbtool${i}/300/200`, dataAiHint: 'database management' }))
+    },
+    {
+        title: 'Database Design & Modeling Tools',
+        icon: <Layers className="w-5 h-5 text-primary"/>,
+        tools: [...Array(53)].map((_, i) => ({ name: `DB Design Tool ${i + 1}`, url: '#', image: `https://picsum.photos/seed/dbdesign${i}/300/200`, dataAiHint: 'database schema' }))
+    },
+    {
+        title: 'Cloud Development Platforms',
+        icon: <Cloud className="w-5 h-5 text-primary"/>,
+        tools: [...Array(54)].map((_, i) => ({ name: `Cloud Platform ${i + 1}`, url: '#', image: `https://picsum.photos/seed/clouddev${i}/300/200`, dataAiHint: 'cloud service' }))
+    },
+    {
+        title: 'Backend Development Frameworks',
+        icon: <Server className="w-5 h-5 text-primary"/>,
+        tools: [...Array(55)].map((_, i) => ({ name: `Backend Framework ${i + 1}`, url: '#', image: `https://picsum.photos/seed/backend${i}/300/200`, dataAiHint: 'server side' }))
+    },
+    {
+        title: 'Frontend Development Frameworks',
+        icon: <MonitorPlay className="w-5 h-5 text-primary"/>,
+        tools: [...Array(56)].map((_, i) => ({ name: `Frontend Framework ${i + 1}`, url: '#', image: `https://picsum.photos/seed/frontend${i}/300/200`, dataAiHint: 'client side' }))
+    },
+    {
+        title: 'Mobile App Development Tools',
+        icon: <Smartphone className="w-5 h-5 text-primary"/>,
+        tools: [...Array(57)].map((_, i) => ({ name: `Mobile Dev Tool ${i + 1}`, url: '#', image: `https://picsum.photos/seed/mobiledev${i}/300/200`, dataAiHint: 'mobile development' }))
+    },
+    {
+        title: 'Cross-Platform Development Tools',
+        icon: <Globe className="w-5 h-5 text-primary"/>,
+        tools: [...Array(58)].map((_, i) => ({ name: `Cross-Platform Tool ${i + 1}`, url: '#', image: `https://picsum.photos/seed/crossplatform${i}/300/200`, dataAiHint: 'multi platform' }))
+    },
+    {
+        title: 'Game Development Tools',
+        icon: <Gamepad2 className="w-5 h-5 text-primary"/>,
+        tools: [...Array(59)].map((_, i) => ({ name: `Game Dev Tool ${i + 1}`, url: '#', image: `https://picsum.photos/seed/gamedev${i}/300/200`, dataAiHint: 'game engine' }))
+    },
+    {
+        title: 'Containerization Tools',
+        icon: <Box className="w-5 h-5 text-primary"/>,
+        tools: [...Array(50)].map((_, i) => ({ name: `Container Tool ${i + 1}`, url: '#', image: `https://picsum.photos/seed/container${i}/300/200`, dataAiHint: 'docker kubernetes' }))
+    },
+    {
+        title: 'Container Orchestration Tools',
+        icon: <Webhook className="w-5 h-5 text-primary"/>,
+        tools: [...Array(51)].map((_, i) => ({ name: `Orchestration Tool ${i + 1}`, url: '#', image: `https://picsum.photos/seed/orchestration${i}/300/200`, dataAiHint: 'kubernetes swarm' }))
+    },
+    {
+        title: 'Virtualization Tools',
+        icon: <Laptop className="w-5 h-5 text-primary"/>,
+        tools: [...Array(52)].map((_, i) => ({ name: `Virtualization Tool ${i + 1}`, url: '#', image: `https://picsum.photos/seed/virtualization${i}/300/200`, dataAiHint: 'virtual machine' }))
+    },
+    {
+        title: 'Package Managers',
+        icon: <Package className="w-5 h-5 text-primary"/>,
+        tools: [...Array(53)].map((_, i) => ({ name: `Package Manager ${i + 1}`, url: '#', image: `https://picsum.photos/seed/pkgmanager${i}/300/200`, dataAiHint: 'npm yarn' }))
+    },
+    {
+        title: 'Dependency Management Tools',
+        icon: <Link2 className="w-5 h-5 text-primary"/>,
+        tools: [...Array(54)].map((_, i) => ({ name: `Dependency Tool ${i + 1}`, url: '#', image: `https://picsum.photos/seed/dependency${i}/300/200`, dataAiHint: 'dependency management' }))
+    },
+    {
+        title: 'Build Automation Tools',
+        icon: <GanttChartSquare className="w-5 h-5 text-primary"/>,
+        tools: [...Array(55)].map((_, i) => ({ name: `Build Tool ${i + 1}`, url: '#', image: `https://picsum.photos/seed/buildtool${i}/300/200`, dataAiHint: 'webpack grunt' }))
+    },
+    {
+        title: 'Code Quality & Linting Tools',
+        icon: <FileCheck className="w-5 h-5 text-primary"/>,
+        tools: [...Array(56)].map((_, i) => ({ name: `Linter Tool ${i + 1}`, url: '#', image: `https://picsum.photos/seed/linter${i}/300/200`, dataAiHint: 'code quality' }))
+    },
+    {
+        title: 'Code Review Tools',
+        icon: <Eye className="w-5 h-5 text-primary"/>,
+        tools: [...Array(57)].map((_, i) => ({ name: `Code Review Tool ${i + 1}`, url: '#', image: `https://picsum.photos/seed/codereview${i}/300/200`, dataAiHint: 'code review' }))
+    },
+    {
+        title: 'Security & Vulnerability Scanning Tools',
+        icon: <Shield className="w-5 h-5 text-primary"/>,
+        tools: [...Array(58)].map((_, i) => ({ name: `Security Tool ${i + 1}`, url: '#', image: `https://picsum.photos/seed/securityscan${i}/300/200`, dataAiHint: 'vulnerability scan' }))
+    },
+    {
+        title: 'Authentication & Authorization Tools',
+        icon: <Key className="w-5 h-5 text-primary"/>,
+        tools: [...Array(59)].map((_, i) => ({ name: `Auth Tool ${i + 1}`, url: '#', image: `https://picsum.photos/seed/authtool${i}/300/200`, dataAiHint: 'authentication authorization' }))
+    },
+    {
+        title: 'Logging & Monitoring Tools',
+        icon: <BarChart3 className="w-5 h-5 text-primary"/>,
+        tools: [...Array(50)].map((_, i) => ({ name: `Logging Tool ${i + 1}`, url: '#', image: `https://picsum.photos/seed/logging${i}/300/200`, dataAiHint: 'monitoring logging' }))
+    },
+    {
+        title: 'Performance Profiling Tools',
+        icon: <Gauge className="w-5 h-5 text-primary"/>,
+        tools: [...Array(51)].map((_, i) => ({ name: `Profiler Tool ${i + 1}`, url: '#', image: `https://picsum.photos/seed/profiler${i}/300/200`, dataAiHint: 'performance profiling' }))
+    },
+    {
+        title: 'Serverless Development Tools',
+        icon: <FunctionSquare className="w-5 h-5 text-primary"/>,
+        tools: [...Array(52)].map((_, i) => ({ name: `Serverless Tool ${i + 1}`, url: '#', image: `https://picsum.photos/seed/serverless${i}/300/200`, dataAiHint: 'serverless aws' }))
+    },
+    {
+        title: 'Edge Computing Tools',
+        icon: <CloudCog className="w-5 h-5 text-primary"/>,
+        tools: [...Array(53)].map((_, i) => ({ name: `Edge Tool ${i + 1}`, url: '#', image: `https://picsum.photos/seed/edgecomputing${i}/300/200`, dataAiHint: 'edge computing' }))
+    },
+    {
+        title: 'AI Coding Assistants',
+        icon: <Bot className="w-5 h-5 text-primary"/>,
+        tools: [...Array(54)].map((_, i) => ({ name: `AI Assistant ${i + 1}`, url: '#', image: `https://picsum.photos/seed/aiassistant${i}/300/200`, dataAiHint: 'ai coding' }))
+    },
+    {
+        title: 'Documentation Generators',
+        icon: <BookCopy className="w-5 h-5 text-primary"/>,
+        tools: [...Array(55)].map((_, i) => ({ name: `Doc Gen Tool ${i + 1}`, url: '#', image: `https://picsum.photos/seed/docgen${i}/300/200`, dataAiHint: 'documentation generator' }))
+    },
+    {
+        title: 'UI/UX Design & Prototyping Tools',
+        icon: <LayoutDashboard className="w-5 h-5 text-primary"/>,
+        tools: [...Array(56)].map((_, i) => ({ name: `UI/UX Tool ${i + 1}`, url: '#', image: `https://picsum.photos/seed/uiuxdesign${i}/300/200`, dataAiHint: 'ui ux' }))
+    },
+    {
+        title: 'API Gateway Tools',
+        icon: <Gateway className="w-5 h-5 text-primary" />,
+        tools: [...Array(57)].map((_, i) => ({ name: `API Gateway ${i + 1}`, url: '#', image: `https://picsum.photos/seed/apigateway${i}/300/200`, dataAiHint: 'api gateway' }))
+    },
+    {
+        title: 'Web Hosting Platforms',
+        icon: <Globe className="w-5 h-5 text-primary"/>,
+        tools: [...Array(58)].map((_, i) => ({ name: `Hosting Platform ${i + 1}`, url: '#', image: `https://picsum.photos/seed/webhosting${i}/300/200`, dataAiHint: 'web hosting' }))
+    },
+    {
+        title: 'Static Site Generators',
+        icon: <FileText className="w-5 h-5 text-primary"/>,
+        tools: [...Array(59)].map((_, i) => ({ name: `SSG Tool ${i + 1}`, url: '#', image: `https://picsum.photos/seed/ssg${i}/300/200`, dataAiHint: 'static site' }))
+    },
+    {
+        title: 'Command Line Tools',
+        icon: <Terminal className="w-5 h-5 text-primary"/>,
+        tools: [...Array(50)].map((_, i) => ({ name: `CLI Tool ${i + 1}`, url: '#', image: `https://picsum.photos/seed/clitool${i}/300/200`, dataAiHint: 'command line' }))
+    },
+    {
+        title: 'Environment & Configuration Management Tools',
+        icon: <Settings className="w-5 h-5 text-primary"/>,
+        tools: [...Array(51)].map((_, i) => ({ name: `Config Tool ${i + 1}`, url: '#', image: `https://picsum.photos/seed/configtool${i}/300/200`, dataAiHint: 'configuration management' }))
+    },
+    {
+        title: 'Microservices Tools',
+        icon: <Component className="w-5 h-5 text-primary"/>,
+        tools: [...Array(52)].map((_, i) => ({ name: `Microservice Tool ${i + 1}`, url: '#', image: `https://picsum.photos/seed/microservice${i}/300/200`, dataAiHint: 'microservices' }))
+    },
+    {
+        title: 'Messaging & Queueing Tools',
+        icon: <MessageSquare className="w-5 h-5 text-primary"/>,
+        tools: [...Array(53)].map((_, i) => ({ name: `Queue Tool ${i + 1}`, url: '#', image: `https://picsum.photos/seed/queuetool${i}/300/200`, dataAiHint: 'message queue' }))
+    },
+    {
+        title: 'Schema Validation Tools',
+        icon: <FileCheck className="w-5 h-5 text-primary"/>,
+        tools: [...Array(54)].map((_, i) => ({ name: `Schema Tool ${i + 1}`, url: '#', image: `https://picsum.photos/seed/schematool${i}/300/200`, dataAiHint: 'schema validation' }))
+    },
+    {
+        title: 'Data Pipeline Tools',
+        icon: <GitBranch className="w-5 h-5 text-primary"/>,
+        tools: [...Array(55)].map((_, i) => ({ name: `Data Pipeline Tool ${i + 1}`, url: '#', image: `https://picsum.photos/seed/datapipeline${i}/300/200`, dataAiHint: 'data pipeline' }))
+    },
+    {
+        title: 'Real-Time Communication Tools',
+        icon: <MessageSquare className="w-5 h-5 text-primary"/>,
+        tools: [...Array(56)].map((_, i) => ({ name: `Real-Time Tool ${i + 1}`, url: '#', image: `https://picsum.photos/seed/realtime${i}/300/200`, dataAiHint: 'websockets webrtc' }))
+    },
+    {
+        title: 'Code Snippet Managers',
+        icon: <ClipboardCheck className="w-5 h-5 text-primary"/>,
+        tools: [...Array(57)].map((_, i) => ({ name: `Snippet Manager ${i + 1}`, url: '#', image: `https://picsum.photos/seed/snippetmanager${i}/300/200`, dataAiHint: 'code snippet' }))
+    },
+    {
+        title: 'Collaboration Tools for Developers',
+        icon: <Users className="w-5 h-5 text-primary"/>,
+        tools: [...Array(58)].map((_, i) => ({ name: `Dev Collab Tool ${i + 1}`, url: '#', image: `https://picsum.photos/seed/devcollab${i}/300/200`, dataAiHint: 'developer collaboration' }))
+    },
+    {
+        title: 'Domain & DNS Management Tools',
+        icon: <Globe className="w-5 h-5 text-primary"/>,
+        tools: [...Array(59)].map((_, i) => ({ name: `DNS Tool ${i + 1}`, url: '#', image: `https://picsum.photos/seed/dnstool${i}/300/200`, dataAiHint: 'dns management' }))
+    },
+    {
+        title: 'DevSecOps Tools',
+        icon: <Shield className="w-5 h-5 text-primary"/>,
+        tools: [...Array(50)].map((_, i) => ({ name: `DevSecOps Tool ${i + 1}`, url: '#', image: `https://picsum.photos/seed/devsecops${i}/300/200`, dataAiHint: 'devsecops' }))
+    }
+];
+
 
 const allData = [
     ...popularTools,
