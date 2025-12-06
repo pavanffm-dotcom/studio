@@ -1,6 +1,6 @@
 
 // This file holds the structure for avatar assets.
-// We are using picsum.photos for placeholders.
+// We are using picsum.photos for placeholders with specific seeds to ensure uniqueness.
 // Once you have your assets in Firebase Storage, you can replace these URLs.
 
 const urlTemplate = (seed: string) => `https://picsum.photos/seed/${seed}/200/200`;
