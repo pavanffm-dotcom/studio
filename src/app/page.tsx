@@ -39,6 +39,7 @@ import {
   Home,
   Settings,
   Users,
+  UserCircle,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -826,9 +827,9 @@ function App() {
                     <Users className={cn("w-6 h-6", 'text-muted-foreground')} />
                     <span className={cn("text-xs", 'text-muted-foreground')}>Community</span>
                 </Button>
-                <Button variant="ghost" className="flex flex-col items-center h-full rounded-none" onClick={() => setActiveTab('settings')}>
-                    <Settings className={cn("w-6 h-6", activeTab === 'settings' ? 'text-primary' : 'text-muted-foreground')} />
-                    <span className={cn("text-xs", activeTab === 'settings' ? 'text-primary' : 'text-muted-foreground')}>Settings</span>
+                <Button variant="ghost" className="flex flex-col items-center h-full rounded-none" onClick={() => router.push('/community/my-profile')}>
+                    <UserCircle className={cn("w-6 h-6", activeTab === 'profile' ? 'text-primary' : 'text-muted-foreground')} />
+                    <span className={cn("text-xs", activeTab === 'profile' ? 'text-primary' : 'text-muted-foreground')}>Profile</span>
                 </Button>
             </div>
         </nav>
