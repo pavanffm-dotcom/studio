@@ -492,6 +492,19 @@ export const graphicDesignToolData: ToolCategory[] = [
           { name: "Watercolor Logo Maker", url: "https://apps.apple.com/us/app/watercolor-logo-maker/id1040843132", image: "https://picsum.photos/seed/watercolorlogo/600/400", dataAiHint: "artistic logo", pricing: 'Paid' },
           { name: "Logopit Plus", url: "https://play.google.com/store/apps/details?id=com.logopit.logomaker", image: "https://picsum.photos/seed/logopit/600/400", dataAiHint: "android app", pricing: 'Freemium' },
           { name: "Iris Logo Maker", url: "https://play.google.com/store/apps/details?id=com.irisstudio.logomaker", image: "https://picsum.photos/seed/irislogo/600/400", dataAiHint: "logo app", pricing: 'Freemium' },
+          { name: 'LogoAI', url: 'https://www.logoai.com/', image: 'https://picsum.photos/seed/logoai/600/400', dataAiHint: 'ai logo', pricing: 'Paid' },
+          { name: 'Logomaster.ai', url: 'https://logomaster.ai/', image: 'https://picsum.photos/seed/logomaster/600/400', dataAiHint: 'startup logo', pricing: 'Paid' },
+          { name: 'Logogenie', url: 'https://www.logogenie.net/', image: 'https://picsum.photos/seed/logogenie/600/400', dataAiHint: 'online logo', pricing: 'Paid' },
+          { name: 'BrandBuilder', url: 'https://brandbuilder.ai/', image: 'https://picsum.photos/seed/brandbuilder/600/400', dataAiHint: 'ai brand', pricing: 'Paid' },
+          { name: 'Logo Maker by Shopify', url: 'https://www.shopify.com/tools/logo-maker', image: 'https://picsum.photos/seed/shopifylogo/600/400', dataAiHint: 'ecommerce logo', pricing: 'Free' },
+          { name: 'Logotype Maker', url: 'https://logotypemaker.com/', image: 'https://picsum.photos/seed/logotypemaker/600/400', dataAiHint: 'random logo', pricing: 'Freemium' },
+          { name: 'My Brand New Logo', url: 'https://mybrandnewlogo.com/', image: 'https://picsum.photos/seed/mybrandnewlogo/600/400', dataAiHint: 'professional logo', pricing: 'Paid' },
+          { name: 'Withoomph', url: 'https://www.withoomph.com/', image: 'https://picsum.photos/seed/withoomph/600/400', dataAiHint: 'instant logo', pricing: 'Paid' },
+          { name: 'Looka AI', url: 'https://looka.com/logo-maker/', image: 'https://picsum.photos/seed/lookaai/600/400', dataAiHint: 'ai branding', pricing: 'Paid' },
+          { name: 'Nameshield', url: 'https://www.nameshield.com/logo-maker/', image: 'https://picsum.photos/seed/nameshield/600/400', dataAiHint: 'brand protection', pricing: 'Freemium' },
+          { name: 'Genlogo', url: 'https://www.genlogo.com/', image: 'https://picsum.photos/seed/genlogo/600/400', dataAiHint: 'generative logo', pricing: 'Paid' },
+          { name: 'Logojoy (now Looka)', url: 'https://looka.com/', image: 'https://picsum.photos/seed/logojoy/600/400', dataAiHint: 'ai design', pricing: 'Paid' },
+          { name: 'Square Vercel', url: 'https://squarevercel.com/', image: 'https://picsum.photos/seed/squarevercel/600/400', dataAiHint: 'developer logo', pricing: 'Free' },
         ]
     },
     {
@@ -503,6 +516,19 @@ export const graphicDesignToolData: ToolCategory[] = [
             { name: 'Affinity Designer', description: 'Professional graphic design software.', url: 'https://affinity.serif.com/en-us/designer/', image: 'https://picsum.photos/seed/affinitydesigner/600/400', dataAiHint: 'vector editor', pricing: 'Paid' },
             { name: 'CorelDRAW', description: 'Graphic design, illustration and technical software.', url: 'https://www.coreldraw.com/', image: 'https://picsum.photos/seed/coreldraw/600/400', dataAiHint: 'professional graphics', pricing: 'Paid' },
             { name: 'Inkscape', description: 'Free and open-source vector graphics editor.', url: 'https://inkscape.org/', image: 'https://picsum.photos/seed/inkscape/600/400', dataAiHint: 'open source vector', pricing: 'Free' },
+            { name: 'Sketchbook', description: 'Drawing and painting software.', url: 'https://www.sketchbook.com/', image: 'https://picsum.photos/seed/sketchbook/600/400', dataAiHint: 'digital drawing', pricing: 'Free' },
+            { name: 'Krita', description: 'Free and open source painting program.', url: 'https://krita.org/', image: 'https://picsum.photos/seed/krita/600/400', dataAiHint: 'digital painting', pricing: 'Free' },
+            { name: 'Clip Studio Paint', description: 'For illustrators and comic artists.', url: 'https://www.clipstudio.net/en/', image: 'https://picsum.photos/seed/clipstudio/600/400', dataAiHint: 'comic art', pricing: 'Paid' },
+            { name: 'Vectr', description: 'Free online vector graphics editor.', url: 'https://vectr.com/', image: 'https://picsum.photos/seed/vectr/600/400', dataAiHint: 'online vector', pricing: 'Free' },
+            { name: 'Gravit Designer', description: 'A full-featured vector graphic design app.', url: 'https://www.designer.io/', image: 'https://picsum.photos/seed/gravit/600/400', dataAiHint: 'vector design', pricing: 'Freemium' },
+            { name: 'ArtRage', description: 'Natural media painting software.', url: 'https://www.artrage.com/', image: 'https://picsum.photos/seed/artrage/600/400', dataAiHint: 'natural painting', pricing: 'Paid' },
+            { name: 'Tayasui Sketches', description: 'Beautiful tools for beautiful drawings.', url: 'https://www.tayasui.com/sketches/', image: 'https://picsum.photos/seed/tayasui/600/400', dataAiHint: 'drawing app', pricing: 'Freemium' },
+            { name: 'Concepts', description: 'Infinite, flexible sketching.', url: 'https://concepts.app/', image: 'https://picsum.photos/seed/concepts/600/400', dataAiHint: 'vector sketching', pricing: 'Freemium' },
+            { name: 'MediBang Paint', description: 'Free digital painting and comic creation software.', url: 'https://medibangpaint.com/en/', image: 'https://picsum.photos/seed/medibang/600/400', dataAiHint: 'manga art', pricing: 'Free' },
+            { name: 'FireAlpaca', description: 'Free digital painting software.', url: 'https://firealpaca.com/', image: 'https://picsum.photos/seed/firealpaca/600/400', dataAiHint: 'free painting', pricing: 'Free' },
+            { name: 'PaintTool SAI', description: 'High quality and lightweight painting software.', url: 'https://www.systemax.jp/en/sai/', image: 'https://picsum.photos/seed/sai/600/400', dataAiHint: 'lightweight painting', pricing: 'Paid' },
+            { name: 'MyPaint', description: 'A fast and easy open-source graphics application.', url: 'http://mypaint.org/', image: 'https://picsum.photos/seed/mypaint/600/400', dataAiHint: 'open source graphics', pricing: 'Free' },
+            { name: 'Rebelle', description: 'Hyper-realistic paint software.', url: 'https://www.escapemotions.com/products/rebelle/', image: 'https://picsum.photos/seed/rebelle/600/400', dataAiHint: 'watercolor software', pricing: 'Paid' },
         ]
     },
     {
@@ -514,6 +540,19 @@ export const graphicDesignToolData: ToolCategory[] = [
             { name: 'Luminar Neo', description: 'AI-powered photo editor.', url: 'https://skylum.com/luminar', image: 'https://picsum.photos/seed/luminar/600/400', dataAiHint: 'ai photo', pricing: 'Paid' },
             { name: 'GIMP', description: 'Free & open source image editor.', url: 'https://www.gimp.org/', image: 'https://picsum.photos/seed/gimp/600/400', dataAiHint: 'open source editor', pricing: 'Free' },
             { name: 'Canva', description: 'Online design and publishing tool.', url: 'https://www.canva.com/', image: 'https://picsum.photos/seed/canva-photo/600/400', dataAiHint: 'online design', pricing: 'Freemium' },
+            { name: 'Capture One', description: 'Professional raw converter and image editor.', url: 'https://www.captureone.com/', image: 'https://picsum.photos/seed/captureone/600/400', dataAiHint: 'raw editor', pricing: 'Paid' },
+            { name: 'DxO PhotoLab', description: 'Advanced photo editing software.', url: 'https://www.dxo.com/dxo-photolab/', image: 'https://picsum.photos/seed/dxo/600/400', dataAiHint: 'noise reduction', pricing: 'Paid' },
+            { name: 'ON1 Photo RAW', description: 'The ultimate all-in-one photo editor.', url: 'https://www.on1.com/products/photo-raw/', image: 'https://picsum.photos/seed/on1/600/400', dataAiHint: 'all in one editor', pricing: 'Paid' },
+            { name: 'Affinity Photo', description: 'Professional image editing software.', url: 'https://affinity.serif.com/en-us/photo/', image: 'https://picsum.photos/seed/affinityphoto/600/400', dataAiHint: 'photoshop alternative', pricing: 'Paid' },
+            { name: 'Pixlr', description: 'Free online photo editor.', url: 'https://pixlr.com/', image: 'https://picsum.photos/seed/pixlr/600/400', dataAiHint: 'online editor', pricing: 'Freemium' },
+            { name: 'Fotor', description: 'Online photo editor for everyone.', url: 'https://www.fotor.com/', image: 'https://picsum.photos/seed/fotor/600/400', dataAiHint: 'collage maker', pricing: 'Freemium' },
+            { name: 'BeFunky', description: 'Photo editor, collage maker, graphic designer.', url: 'https://www.befunky.com/', image: 'https://picsum.photos/seed/befunky/600/400', dataAiHint: 'creative platform', pricing: 'Freemium' },
+            { name: 'PicMonkey', description: 'Photo editor and design tool.', url: 'https://www.picmonkey.com/', image: 'https://picsum.photos/seed/picmonkey/600/400', dataAiHint: 'online design', pricing: 'Paid' },
+            { name: 'VSCO', description: 'Photo & video editor with presets.', url: 'https://vsco.co/', image: 'https://picsum.photos/seed/vsco/600/400', dataAiHint: 'mobile presets', pricing: 'Freemium' },
+            { name: 'Snapseed', description: 'A complete and professional photo editor by Google.', url: 'https://snapseed.online/', image: 'https://picsum.photos/seed/snapseed/600/400', dataAiHint: 'mobile editor', pricing: 'Free' },
+            { name: 'Darktable', description: 'An open source photography workflow application and raw developer.', url: 'https://www.darktable.org/', image: 'https://picsum.photos/seed/darktable/600/400', dataAiHint: 'open source raw', pricing: 'Free' },
+            { name: 'RawTherapee', description: 'A powerful, cross-platform raw photo processing system.', url: 'https://rawtherapee.com/', image: 'https://picsum.photos/seed/rawtherapee/600/400', dataAiHint: 'raw processor', pricing: 'Free' },
+            { name: 'Polarr', description: 'Pro photo editor for everyone.', url: 'https://www.polarr.co/', image: 'https://picsum.photos/seed/polarr/600/400', dataAiHint: 'photo filters', pricing: 'Freemium' },
         ]
     },
     {
@@ -525,6 +564,18 @@ export const graphicDesignToolData: ToolCategory[] = [
             { name: 'Adobe XD', description: 'UI/UX design and collaboration tool.', url: 'https://www.adobe.com/products/xd.html', image: 'https://picsum.photos/seed/adobexd/600/400', dataAiHint: 'ux prototyping', pricing: 'Paid' },
             { name: 'InVision', description: 'Digital product design and development platform.', url: 'https://www.invisionapp.com/', image: 'https://picsum.photos/seed/invision/600/400', dataAiHint: 'prototyping tool', pricing: 'Freemium' },
             { name: 'Framer', description: 'Design and ship your dream site. Zero code.', url: 'https://www.framer.com/', image: 'https://picsum.photos/seed/framer/600/400', dataAiHint: 'interactive design', pricing: 'Freemium' },
+            { name: 'Principle', description: 'Animate your ideas, design better apps.', url: 'https://principle.app/', image: 'https://picsum.photos/seed/principle/600/400', dataAiHint: 'animation tool', pricing: 'Paid' },
+            { name: 'Balsamiq', description: 'Rapid, effective and fun wireframing software.', url: 'https://balsamiq.com/', image: 'https://picsum.photos/seed/balsamiq/600/400', dataAiHint: 'wireframing', pricing: 'Paid' },
+            { name: 'Axure RP', description: 'Prototyping, specifications, and diagrams.', url: 'https://www.axure.com/', image: 'https://picsum.photos/seed/axure/600/400', dataAiHint: 'ux tool', pricing: 'Paid' },
+            { name: 'Proto.io', description: 'Prototypes that feel real.', url: 'https://proto.io/', image: 'https://picsum.photos/seed/protoio/600/400', dataAiHint: 'mobile prototyping', pricing: 'Paid' },
+            { name: 'Marvel', description: 'The design platform for digital products.', url: 'https://marvelapp.com/', image: 'https://picsum.photos/seed/marvel/600/400', dataAiHint: 'design platform', pricing: 'Freemium' },
+            { name: 'Origami Studio', description: 'A new tool for designing modern interfaces.', url: 'https://origami.design/', image: 'https://picsum.photos/seed/origami/600/400', dataAiHint: 'facebook design', pricing: 'Free' },
+            { name: 'Webflow', description: 'Build responsive websites visually.', url: 'https://webflow.com/', image: 'https://picsum.photos/seed/webflow-ux/600/400', dataAiHint: 'no-code builder', pricing: 'Freemium' },
+            { name: 'Zeplin', description: 'Connected space for product teams.', url: 'https://zeplin.io/', image: 'https://picsum.photos/seed/zeplin/600/400', dataAiHint: 'design handoff', pricing: 'Freemium' },
+            { name: 'UserTesting', description: 'Get feedback from real users.', url: 'https://www.usertesting.com/', image: 'https://picsum.photos/seed/usertesting/600/400', dataAiHint: 'user feedback', pricing: 'Paid' },
+            { name: 'Maze', description: 'Rapid testing for prototypes, concepts, and copy.', url: 'https://maze.co/', image: 'https://picsum.photos/seed/maze/600/400', dataAiHint: 'prototype testing', pricing: 'Freemium' },
+            { name: 'Optimal Workshop', description: 'A user research platform.', url: 'https://www.optimalworkshop.com/', image: 'https://picsum.photos/seed/optimalworkshop/600/400', dataAiHint: 'user research', pricing: 'Paid' },
+            { name: 'Lookback', description: 'Live user research & usability testing.', url: 'https://lookback.io/', image: 'https://picsum.photos/seed/lookback/600/400', dataAiHint: 'usability testing', pricing: 'Paid' },
         ]
     },
     {
@@ -536,6 +587,13 @@ export const graphicDesignToolData: ToolCategory[] = [
             { name: 'Piktochart', description: 'Infographic maker. Presentation and report creator.', url: 'https://piktochart.com/', image: 'https://picsum.photos/seed/piktochart/600/400', dataAiHint: 'visual storytelling', pricing: 'Freemium' },
             { name: 'Infogram', description: 'Create engaging infographics and reports in minutes.', url: 'https://infogram.com/', image: 'https://picsum.photos/seed/infogram/600/400', dataAiHint: 'charts graphs', pricing: 'Freemium' },
             { name: 'Venngage', description: 'Infographic maker & design platform.', url: 'https://venngage.com/', image: 'https://picsum.photos/seed/venngage/600/400', dataAiHint: 'infographic templates', pricing: 'Freemium' },
+            { name: 'Tableau', description: 'Powerful data visualization and analytics.', url: 'https://www.tableau.com/', image: 'https://picsum.photos/seed/tableau/600/400', dataAiHint: 'business intelligence', pricing: 'Paid' },
+            { name: 'Datawrapper', description: 'Create charts, maps, and tables.', url: 'https://www.datawrapper.de/', image: 'https://picsum.photos/seed/datawrapper/600/400', dataAiHint: 'interactive charts', pricing: 'Freemium' },
+            { name: 'Flourish', description: 'Beautiful data visualization and storytelling.', url: 'https://flourish.studio/', image: 'https://picsum.photos/seed/flourish/600/400', dataAiHint: 'animated data', pricing: 'Freemium' },
+            { name: 'Google Charts', description: 'Free, rich gallery of interactive charts.', url: 'https://developers.google.com/chart', image: 'https://picsum.photos/seed/googlecharts/600/400', dataAiHint: 'chart library', pricing: 'Free' },
+            { name: 'Highcharts', description: 'Interactive JavaScript charts for your web pages.', url: 'https://www.highcharts.com/', image: 'https://picsum.photos/seed/highcharts/600/400', dataAiHint: 'javascript charts', pricing: 'Freemium' },
+            { name: 'Easel.ly', description: 'Create and share visual ideas online.', url: 'https://www.easel.ly/', image: 'https://picsum.photos/seed/easelly/600/400', dataAiHint: 'visual ideas', pricing: 'Freemium' },
+            { name: 'Snappa', description: 'Create online graphics in a snap.', url: 'https://snappa.com/', image: 'https://picsum.photos/seed/snappa/600/400', dataAiHint: 'graphic creator', pricing: 'Freemium' },
         ]
     },
     {
@@ -547,6 +605,13 @@ export const graphicDesignToolData: ToolCategory[] = [
             { name: 'Fontjoy', description: 'Font pairing made simple.', url: 'https://fontjoy.com/', image: 'https://picsum.photos/seed/fontjoy/600/400', dataAiHint: 'font pairing', pricing: 'Free' },
             { name: 'Typewolf', description: 'The definitive guide to typography.', url: 'https://www.typewolf.com/', image: 'https://picsum.photos/seed/typewolf/600/400', dataAiHint: 'font inspiration', pricing: 'Freemium' },
             { name: 'WhatFont', description: 'Browser extension to identify fonts on web pages.', url: 'https://chrome.google.com/webstore/detail/whatfont/jabopobgcpjmedljpbcaablpmlmfcogm?hl=en', image: 'https://picsum.photos/seed/whatfont/600/400', dataAiHint: 'font identifier', pricing: 'Free' },
+            { name: 'MyFonts', description: 'The #1 place for web fonts and font licenses.', url: 'https://www.myfonts.com/', image: 'https://picsum.photos/seed/myfonts/600/400', dataAiHint: 'font marketplace', pricing: 'Paid' },
+            { name: 'Fonts.com', description: 'Find, try, and buy fonts.', url: 'https://www.fonts.com/', image: 'https://picsum.photos/seed/fontscom/600/400', dataAiHint: 'commercial fonts', pricing: 'Paid' },
+            { name: 'DaFont', description: 'Download fonts for free.', url: 'https://www.dafont.com/', image: 'https://picsum.photos/seed/dafont/600/400', dataAiHint: 'download fonts', pricing: 'Free' },
+            { name: 'Font Squirrel', description: '100% free for commercial use.', url: 'https://www.fontsquirrel.com/', image: 'https://picsum.photos/seed/fontsquirrel/600/400', dataAiHint: 'commercial fonts', pricing: 'Free' },
+            { name: 'Fontspring', description: 'Worry-free fonts from the world’s best foundries.', url: 'https://www.fontspring.com/', image: 'https://picsum.photos/seed/fontspring/600/400', dataAiHint: 'font licenses', pricing: 'Paid' },
+            { name: 'Font Pair', description: 'Helps you pair Google Fonts.', url: 'https://fontpair.co/', image: 'https://picsum.photos/seed/fontpair/600/400', dataAiHint: 'google fonts', pricing: 'Free' },
+            { name: 'Typescale', description: 'A visual calculator for font sizes.', url: 'https://typescale.com/', image: 'https://picsum.photos/seed/typescale/600/400', dataAiHint: 'modular scale', pricing: 'Free' },
         ]
     },
      {
@@ -558,6 +623,11 @@ export const graphicDesignToolData: ToolCategory[] = [
           { name: 'Color Hunt', description: 'A free and open platform for color inspiration.', url: 'https://colorhunt.co/', image: 'https://picsum.photos/seed/colorhunt/600/400', dataAiHint: 'color inspiration', pricing: 'Free' },
           { name: 'Paletton', description: 'A tool for creating color combinations.', url: 'https://paletton.com/', image: 'https://picsum.photos/seed/paletton/600/400', dataAiHint: 'color combinations', pricing: 'Free' },
           { name: 'Colormind', description: 'An AI-powered color palette generator.', url: 'http://colormind.io/', image: 'https://picsum.photos/seed/colormind/600/400', dataAiHint: 'ai color', pricing: 'Free' },
+          { name: 'Huemint', description: 'AI color palette generator for branding.', url: 'https://huemint.com/', image: 'https://picsum.photos/seed/huemint/600/400', dataAiHint: 'branding color', pricing: 'Free' },
+          { name: 'ColorSpace', description: 'Generate color palettes from a single color.', url: 'https://mycolor.space/', image: 'https://picsum.photos/seed/colorspace/600/400', dataAiHint: 'color generator', pricing: 'Free' },
+          { name: 'BrandColors', description: 'The biggest collection of official brand color codes.', url: 'https://brandcolors.net/', image: 'https://picsum.photos/seed/brandcolors/600/400', dataAiHint: 'brand colors', pricing: 'Free' },
+          { name: 'Happy Hues', description: 'Curated colors in context.', url: 'https://www.happyhues.co/', image: 'https://picsum.photos/seed/happyhues/600/400', dataAiHint: 'color context', pricing: 'Free' },
+          { name: 'Sip', description: 'A better way to collect, organize & share your colors.', url: 'https://sipapp.io/', image: 'https://picsum.photos/seed/sip/600/400', dataAiHint: 'mac color', pricing: 'Paid' },
         ]
     },
     {
@@ -569,6 +639,11 @@ export const graphicDesignToolData: ToolCategory[] = [
           { name: 'Mockitt', description: 'Online prototyping and collaboration tool.', url: 'https://mockitt.wondershare.com/', image: 'https://picsum.photos/seed/mockitt/600/400', dataAiHint: 'prototyping tool', pricing: 'Freemium' },
           { name: 'Rotato', description: 'Create beautiful 3D mockups for your app.', url: 'https://rotato.app/', image: 'https://picsum.photos/seed/rotato/600/400', dataAiHint: '3d mockups', pricing: 'Paid' },
           { name: 'Artboard Studio', description: 'Online mockup and design tool.', url: 'https://artboard.studio/', image: 'https://picsum.photos/seed/artboardstudio/600/400', dataAiHint: 'animation mockups', pricing: 'Freemium' },
+          { name: 'Mockup World', description: 'Free and legal photo-realistic mockups.', url: 'https://www.mockupworld.co/', image: 'https://picsum.photos/seed/mockupworld/600/400', dataAiHint: 'free mockups', pricing: 'Free' },
+          { name: 'Mockups-Design', description: 'Free premium mockups for your projects.', url: 'https://mockups-design.com/', image: 'https://picsum.photos/seed/mockupsdesign/600/400', dataAiHint: 'premium mockups', pricing: 'Free' },
+          { name: 'Shotsnapp', description: 'Create beautiful device mockups.', url: 'https://shotsnapp.com/', image: 'https://picsum.photos/seed/shotsnapp/600/400', dataAiHint: 'device mockups', pricing: 'Free' },
+          { name: 'Cleanmock', description: 'Create stunning mockups.', url: 'https://cleanmock.com/', image: 'https://picsum.photos/seed/cleanmock/600/400', dataAiHint: 'app mockups', pricing: 'Freemium' },
+          { name: 'Pixelbuddha', description: 'Free and premium resources for designers.', url: 'https://pixelbuddha.net/mockups', image: 'https://picsum.photos/seed/pixelbuddha/600/400', dataAiHint: 'design resources', pricing: 'Freemium' },
         ]
     },
     {
@@ -580,6 +655,13 @@ export const graphicDesignToolData: ToolCategory[] = [
           { name: 'Freepik', description: 'Free graphic resources for everyone.', url: 'https://www.freepik.com/', image: 'https://picsum.photos/seed/freepik/600/400', dataAiHint: 'vector icons', pricing: 'Freemium' },
           { name: 'Adobe Stock', description: 'High-quality, royalty-free stock images.', url: 'https://stock.adobe.com/', image: 'https://picsum.photos/seed/adobestock/600/400', dataAiHint: 'royalty-free', pricing: 'Paid' },
           { name: 'Getty Images', description: 'Find high-resolution royalty-free images.', url: 'https://www.gettyimages.com/', image: 'https://picsum.photos/seed/getty/600/400', dataAiHint: 'stock photography', pricing: 'Paid' },
+          { name: 'Pixabay', description: 'Stunning free images & royalty free stock.', url: 'https://pixabay.com/', image: 'https://picsum.photos/seed/pixabay/600/400', dataAiHint: 'free stock', pricing: 'Free' },
+          { name: 'Shutterstock', description: 'Stock images, photos, vectors, video, and music.', url: 'https://www.shutterstock.com/', image: 'https://picsum.photos/seed/shutterstock/600/400', dataAiHint: 'stock assets', pricing: 'Paid' },
+          { name: 'iStock', description: 'Stock photos, royalty-free images, and vectors.', url: 'https://www.istockphoto.com/', image: 'https://picsum.photos/seed/istock/600/400', dataAiHint: 'getty images', pricing: 'Paid' },
+          { name: 'Envato Elements', description: 'Unlimited creative assets.', url: 'https://elements.envato.com/', image: 'https://picsum.photos/seed/envato/600/400', dataAiHint: 'creative assets', pricing: 'Paid' },
+          { name: 'The Noun Project', description: 'Icons for everything.', url: 'https://thenounproject.com/', image: 'https://picsum.photos/seed/nounproject/600/400', dataAiHint: 'icon library', pricing: 'Freemium' },
+          { name: 'Flaticon', description: 'Free vector icons.', url: 'https://www.flaticon.com/', image: 'https://picsum.photos/seed/flaticon/600/400', dataAiHint: 'free icons', pricing: 'Freemium' },
+          { name: 'Font Awesome', description: 'The web\'s most popular icon set and toolkit.', url: 'https://fontawesome.com/', image: 'https://picsum.photos/seed/fontawesome/600/400', dataAiHint: 'web icons', pricing: 'Freemium' },
         ]
     },
     {
@@ -591,6 +673,11 @@ export const graphicDesignToolData: ToolCategory[] = [
           { name: 'Adobe After Effects', description: 'Create cinematic movie titles, intros, and transitions.', url: 'https://www.adobe.com/products/aftereffects.html', image: 'https://picsum.photos/seed/aftereffects/600/400', dataAiHint: 'visual effects', pricing: 'Paid' },
           { name: 'Houdini', description: '3D animation and VFX software.', url: 'https://www.sidefx.com/', image: 'https://picsum.photos/seed/houdini/600/400', dataAiHint: 'vfx software', pricing: 'Paid' },
           { name: 'Spline', description: 'A friendly 3D design tool for the web.', url: 'https://spline.design/', image: 'https://picsum.photos/seed/spline/600/400', dataAiHint: '3d web', pricing: 'Freemium' },
+          { name: 'Autodesk Maya', description: '3D computer animation, modeling, simulation, and rendering software.', url: 'https://www.autodesk.com/products/maya/', image: 'https://picsum.photos/seed/maya/600/400', dataAiHint: '3d animation', pricing: 'Paid' },
+          { name: '3ds Max', description: '3D modeling and rendering software.', url: 'https://www.autodesk.com/products/3ds-max/', image: 'https://picsum.photos/seed/3dsmax/600/400', dataAiHint: '3d rendering', pricing: 'Paid' },
+          { name: 'ZBrush', description: 'The all-in-one digital sculpting solution.', url: 'https://www.maxon.net/en/zbrush', image: 'https://picsum.photos/seed/zbrush/600/400', dataAiHint: 'digital sculpting', pricing: 'Paid' },
+          { name: 'LottieFiles', description: 'Lightweight, scalable animations for your website and apps.', url: 'https://lottiefiles.com/', image: 'https://picsum.photos/seed/lottiefiles/600/400', dataAiHint: 'json animation', pricing: 'Freemium' },
+          { name: 'Rive', description: 'The interactive design tool that runs anywhere.', url: 'https://rive.app/', image: 'https://picsum.photos/seed/rive/600/400', dataAiHint: 'interactive animation', pricing: 'Freemium' },
         ]
     },
     {
@@ -602,366 +689,18 @@ export const graphicDesignToolData: ToolCategory[] = [
           { name: 'Khroma', description: 'The AI color tool for designers.', url: 'https://www.khroma.co/', image: 'https://picsum.photos/seed/khroma/600/400', dataAiHint: 'ai color', pricing: 'Free' },
           { name: 'Remove.bg', description: 'Remove image backgrounds automatically.', url: 'https://www.remove.bg/', image: 'https://picsum.photos/seed/removebg/600/400', dataAiHint: 'background remover', pricing: 'Freemium' },
           { name: 'Let\'s Enhance', description: 'AI image enhancement and upscaling.', url: 'https://letsenhance.io/', image: 'https://picsum.photos/seed/letsenhance/600/400', dataAiHint: 'image upscaler', pricing: 'Freemium' },
+          { name: 'Autodraw', description: 'Fast drawing for everyone.', url: 'https://www.autodraw.com/', image: 'https://picsum.photos/seed/autodraw/600/400', dataAiHint: 'ai drawing', pricing: 'Free' },
+          { name: 'Generated Photos', description: 'Enhance your creative works with photos generated completely by AI.', url: 'https://generated.photos/', image: 'https://picsum.photos/seed/genphotos/600/400', dataAiHint: 'ai models', pricing: 'Free' },
+          { name: 'NVIDIA Canvas', description: 'Turn simple brushstrokes into realistic landscape images.', url: 'https://www.nvidia.com/en-us/studio/canvas/', image: 'https://picsum.photos/seed/nvidiacanvas/600/400', dataAiHint: 'ai landscape', pricing: 'Free' },
+          { name: 'Fronty', description: 'AI-powered image to HTML CSS code converter.', url: 'https://fronty.com/', image: 'https://picsum.photos/seed/fronty/600/400', dataAiHint: 'image to code', pricing: 'Paid' },
+          { name: 'Rosebud AI', description: 'AI-generated stock photos.', url: 'https://www.rosebud.ai/', image: 'https://picsum.photos/seed/rosebud/600/400', dataAiHint: 'ai stock photos', pricing: 'Paid' },
         ]
     }
 ];
 
+export const businessToolData: ToolCategory[] = [];
 export const marketingSeoToolData: ToolCategory[] = [];
-
-export const businessToolData: ToolCategory[] = [
-    {
-        title: "Marketing & Advertising Tools",
-        icon: <Megaphone className="w-5 h-5 text-primary"/>,
-        tools: [
-            { name: 'HubSpot', description: 'All-in-one marketing, sales, and service software.', url: 'https://www.hubspot.com/', image: 'https://picsum.photos/seed/hubspot-mktg/600/400', dataAiHint: 'crm marketing', pricing: 'Freemium' },
-            { name: 'SEMrush', description: 'Online visibility management and content marketing platform.', url: 'https://www.semrush.com/', image: 'https://picsum.photos/seed/semrush-mktg/600/400', dataAiHint: 'seo keyword', pricing: 'Paid' },
-            { name: 'Ahrefs', description: 'All-in-one SEO toolset.', url: 'https://ahrefs.com/', image: 'https://picsum.photos/seed/ahrefs-mktg/600/400', dataAiHint: 'backlink analysis', pricing: 'Paid' },
-            { name: 'Google Analytics', description: 'Web analytics service to track and report website traffic.', url: 'https://analytics.google.com/', image: 'https://picsum.photos/seed/ga-mktg/600/400', dataAiHint: 'website analytics', pricing: 'Free' },
-            { name: 'Canva', description: 'Graphic design platform for social media graphics and presentations.', url: 'https://www.canva.com/', image: 'https://picsum.photos/seed/canva-mktg/600/400', dataAiHint: 'graphic design', pricing: 'Freemium' },
-            { name: 'Hootsuite', description: 'Social media management platform.', url: 'https://www.hootsuite.com/', image: 'https://picsum.photos/seed/hootsuite-mktg/600/400', dataAiHint: 'social media', pricing: 'Paid' },
-            { name: 'Buffer', description: 'Social media scheduling and analytics.', url: 'https://buffer.com/', image: 'https://picsum.photos/seed/buffer-mktg/600/400', dataAiHint: 'social scheduling', pricing: 'Freemium' },
-            { name: 'Mailchimp', description: 'Email marketing and automation.', url: 'https://mailchimp.com/', image: 'https://picsum.photos/seed/mailchimp-mktg/600/400', dataAiHint: 'email marketing', pricing: 'Freemium' },
-            { name: 'Constant Contact', description: 'Email marketing for small businesses.', url: 'https://www.constantcontact.com/', image: 'https://picsum.photos/seed/constantcontact-mktg/600/400', dataAiHint: 'small business', pricing: 'Paid' },
-            { name: 'BuzzSumo', description: 'Content marketing research and analysis.', url: 'https://buzzsumo.com/', image: 'https://picsum.photos/seed/buzzsumo-mktg/600/400', dataAiHint: 'content marketing', pricing: 'Paid' },
-            { name: 'Sprout Social', description: 'Social media management solutions.', url: 'https://sproutsocial.com/', image: 'https://picsum.photos/seed/sproutsocial-mktg/600/400', dataAiHint: 'social management', pricing: 'Paid' },
-            { name: 'Marketo', description: 'Marketing automation software.', url: 'https://www.marketo.com/', image: 'https://picsum.photos/seed/marketo-mktg/600/400', dataAiHint: 'marketing automation', pricing: 'Paid' },
-            { name: 'Pardot', description: 'B2B marketing automation by Salesforce.', url: 'https://www.pardot.com/', image: 'https://picsum.photos/seed/pardot-mktg/600/400', dataAiHint: 'b2b marketing', pricing: 'Paid' },
-            { name: 'Drift', description: 'Conversational marketing platform.', url: 'https://www.drift.com/', image: 'https://picsum.photos/seed/drift-mktg/600/400', dataAiHint: 'live chat', pricing: 'Paid' },
-            { name: 'Optimizely', description: 'A/B testing and experimentation platform.', url: 'https://www.optimizely.com/', image: 'https://picsum.photos/seed/optimizely-mktg/600/400', dataAiHint: 'ab testing', pricing: 'Paid' },
-            { name: 'Hotjar', description: 'Heatmaps, recordings, and user feedback.', url: 'https://www.hotjar.com/', image: 'https://picsum.photos/seed/hotjar-mktg/600/400', dataAiHint: 'user behavior', pricing: 'Freemium' },
-            { name: 'Unbounce', description: 'Landing page builder and optimization.', url: 'https://unbounce.com/', image: 'https://picsum.photos/seed/unbounce-mktg/600/400', dataAiHint: 'landing pages', pricing: 'Paid' },
-            { name: 'Instapage', description: 'Landing page platform for advertising.', url: 'https://instapage.com/', image: 'https://picsum.photos/seed/instapage-mktg/600/400', dataAiHint: 'ad landing', pricing: 'Paid' },
-            { name: 'Leadpages', description: 'Landing page builder and lead generation.', url: 'https://www.leadpages.net/', image: 'https://picsum.photos/seed/leadpages-mktg/600/400', dataAiHint: 'lead generation', pricing: 'Paid' },
-            { name: 'Klaviyo', description: 'Email marketing and SMS for e-commerce.', url: 'https://www.klaviyo.com/', image: 'https://picsum.photos/seed/klaviyo-mktg/600/400', dataAiHint: 'ecommerce marketing', pricing: 'Freemium' },
-            { name: 'ActiveCampaign', description: 'Customer experience automation.', url: 'https://www.activecampaign.com/', image: 'https://picsum.photos/seed/activecampaign-mktg/600/400', dataAiHint: 'cx automation', pricing: 'Paid' },
-            { name: 'GetResponse', description: 'Email marketing and online campaign management.', url: 'https://www.getresponse.com/', image: 'https://picsum.photos/seed/getresponse-mktg/600/400', dataAiHint: 'campaign management', pricing: 'Freemium' },
-            { name: 'AWeber', description: 'Email marketing service for small businesses.', url: 'https://www.aweber.com/', image: 'https://picsum.photos/seed/aweber-mktg/600/400', dataAiHint: 'email service', pricing: 'Freemium' },
-            { name: 'ConvertKit', description: 'Email marketing for online creators.', url: 'https://convertkit.com/', image: 'https://picsum.photos/seed/convertkit-mktg/600/400', dataAiHint: 'creator marketing', pricing: 'Freemium' },
-            { name: 'Drip', description: 'E-commerce revenue engine.', url: 'https://www.drip.com/', image: 'https://picsum.photos/seed/drip-mktg/600/400', dataAiHint: 'ecommerce crm', pricing: 'Paid' },
-            { name: 'Intercom', description: 'Customer messaging platform.', url: 'https://www.intercom.com/', image: 'https://picsum.photos/seed/intercom-mktg/600/400', dataAiHint: 'customer messaging', pricing: 'Paid' },
-            { name: 'Zendesk', description: 'Customer service software & sales CRM.', url: 'https://www.zendesk.com/', image: 'https://picsum.photos/seed/zendesk-mktg/600/400', dataAiHint: 'customer service', pricing: 'Paid' },
-            { name: 'Salesforce Marketing Cloud', description: 'Digital marketing platform.', url: 'https://www.salesforce.com/products/marketing-cloud/overview/', image: 'https://picsum.photos/seed/sfmc-mktg/600/400', dataAiHint: 'digital marketing', pricing: 'Paid' },
-            { name: 'Adobe Marketing Cloud', description: 'Integrated digital marketing solutions.', url: 'https://business.adobe.com/products/marketing/adobe-marketing-cloud.html', image: 'https://picsum.photos/seed/adobemc-mktg/600/400', dataAiHint: 'adobe marketing', pricing: 'Paid' },
-            { name: 'Oracle Eloqua', description: 'B2B marketing automation.', url: 'https://www.oracle.com/cx/marketing/automation/', image: 'https://picsum.photos/seed/eloqua-mktg/600/400', dataAiHint: 'oracle marketing', pricing: 'Paid' },
-            { name: 'Google Ads', description: 'Online advertising platform.', url: 'https://ads.google.com/', image: 'https://picsum.photos/seed/googleads-mktg/600/400', dataAiHint: 'ppc advertising', pricing: 'Paid' },
-            { name: 'Facebook Ads', description: 'Advertise on Facebook, Instagram, Messenger.', url: 'https://www.facebook.com/business/ads', image: 'https://picsum.photos/seed/fbads-mktg/600/400', dataAiHint: 'social ads', pricing: 'Paid' },
-            { name: 'LinkedIn Ads', description: 'Target a professional audience.', url: 'https://business.linkedin.com/marketing-solutions/ads', image: 'https://picsum.photos/seed/linkedinads-mktg/600/400', dataAiHint: 'b2b ads', pricing: 'Paid' },
-            { name: 'Twitter Ads', description: 'Promote your brand on Twitter.', url: 'https://ads.twitter.com/', image: 'https://picsum.photos/seed/twitterads-mktg/600/400', dataAiHint: 'twitter ads', pricing: 'Paid' },
-            { name: 'Pinterest Ads', description: 'Reach people planning their future.', url: 'https://ads.pinterest.com/', image: 'https://picsum.photos/seed/pinterestads-mktg/600/400', dataAiHint: 'visual ads', pricing: 'Paid' },
-            { name: 'Snapchat Ads', description: 'Reach a global audience on mobile.', url: 'https://forbusiness.snapchat.com/', image: 'https://picsum.photos/seed/snapchatads-mktg/600/400', dataAiHint: 'mobile ads', pricing: 'Paid' },
-            { name: 'TikTok Ads', description: 'Engage with audiences on TikTok.', url: 'https://www.tiktok.com/business/', image: 'https://picsum.photos/seed/tiktokads-mktg/600/400', dataAiHint: 'tiktok marketing', pricing: 'Paid' },
-            { name: 'Reddit Ads', description: 'Advertise to communities of interest.', url: 'https://www.redditinc.com/advertising', image: 'https://picsum.photos/seed/redditads-mktg/600/400', dataAiHint: 'community ads', pricing: 'Paid' },
-            { name: 'Quora Ads', description: 'Reach a high-intent audience.', url: 'https://www.quora.com/business', image: 'https://picsum.photos/seed/quoraads-mktg/600/400', dataAiHint: 'quora marketing', pricing: 'Paid' },
-            { name: 'Taboola', description: 'Native advertising platform.', url: 'https://www.taboola.com/', image: 'https://picsum.photos/seed/taboola-mktg/600/400', dataAiHint: 'native ads', pricing: 'Paid' },
-            { name: 'Outbrain', description: 'Content discovery and native advertising.', url: 'https://www.outbrain.com/', image: 'https://picsum.photos/seed/outbrain-mktg/600/400', dataAiHint: 'content discovery', pricing: 'Paid' },
-            { name: 'Criteo', description: 'Commerce media platform.', url: 'https://www.criteo.com/', image: 'https://picsum.photos/seed/criteo-mktg/600/400', dataAiHint: 'retargeting ads', pricing: 'Paid' },
-            { name: 'AdRoll', description: 'E-commerce marketing platform.', url: 'https://www.adroll.com/', image: 'https://picsum.photos/seed/adroll-mktg/600/400', dataAiHint: 'ad retargeting', pricing: 'Paid' },
-            { name: 'VWO', description: 'A/B testing and conversion optimization.', url: 'https://vwo.com/', image: 'https://picsum.photos/seed/vwo-mktg/600/400', dataAiHint: 'conversion optimization', pricing: 'Paid' },
-            { name: 'Google Optimize', description: 'A/B testing tool from Google (sunsetting).', url: 'https://marketingplatform.google.com/about/optimize/', image: 'https://picsum.photos/seed/googleoptimize-mktg/600/400', dataAiHint: 'google testing', pricing: 'Free' },
-            { name: 'Crazy Egg', description: 'Heatmaps and A/B testing.', url: 'https://www.crazyegg.com/', image: 'https://picsum.photos/seed/crazyegg-mktg/600/400', dataAiHint: 'website heatmaps', pricing: 'Paid' },
-            { name: 'Mouseflow', description: 'Session replay and heatmaps.', url: 'https://mouseflow.com/', image: 'https://picsum.photos/seed/mouseflow-mktg/600/400', dataAiHint: 'session replay', pricing: 'Freemium' },
-            { name: 'FullStory', description: 'Digital experience intelligence.', url: 'https://www.fullstory.com/', image: 'https://picsum.photos/seed/fullstory-mktg/600/400', dataAiHint: 'dx intelligence', pricing: 'Paid' },
-            { name: 'Looker', description: 'Business intelligence and data analytics.', url: 'https://looker.com/', image: 'https://picsum.photos/seed/looker-mktg/600/400', dataAiHint: 'data analytics', pricing: 'Paid' },
-            { name: 'Tableau', description: 'Visual analytics platform.', url: 'https://www.tableau.com/', image: 'https://picsum.photos/seed/tableau-mktg/600/400', dataAiHint: 'data visualization', pricing: 'Paid' },
-            { name: 'Mixpanel', description: 'Product analytics for user behavior.', url: 'https://mixpanel.com/', image: 'https://picsum.photos/seed/mixpanel-mktg/600/400', dataAiHint: 'product analytics', pricing: 'Freemium' },
-            { name: 'Amplitude', description: 'Product intelligence platform.', url: 'https://amplitude.com/', image: 'https://picsum.photos/seed/amplitude-mktg/600/400', dataAiHint: 'product intelligence', pricing: 'Freemium' },
-            { name: 'Segment', description: 'Customer data platform (CDP).', url: 'https://segment.com/', image: 'https://picsum.photos/seed/segment-mktg/600/400', dataAiHint: 'customer data', pricing: 'Freemium' },
-            { name: 'Heap', description: 'Product analytics for web and mobile.', url: 'https://heap.io/', image: 'https://picsum.photos/seed/heap-mktg/600/400', dataAiHint: 'autocapture analytics', pricing: 'Freemium' },
-            { name: 'Pendo', description: 'Product experience platform.', url: 'https://www.pendo.io/', image: 'https://picsum.photos/seed/pendo-mktg/600/400', dataAiHint: 'in-app guidance', pricing: 'Paid' },
-            { name: 'Typeform', description: 'Interactive forms, surveys, and quizzes.', url: 'https://www.typeform.com/', image: 'https://picsum.photos/seed/typeform-mktg/600/400', dataAiHint: 'online forms', pricing: 'Freemium' },
-            { name: 'SurveyMonkey', description: 'Online survey software.', url: 'https://www.surveymonkey.com/', image: 'https://picsum.photos/seed/surveymonkey-mktg/600/400', dataAiHint: 'surveys', pricing: 'Freemium' },
-            { name: 'Jotform', description: 'Online form builder.', url: 'https://www.jotform.com/', image: 'https://picsum.photos/seed/jotform-mktg/600/400', dataAiHint: 'form builder', pricing: 'Freemium' },
-            { name: 'Brand24', description: 'Social media monitoring tool.', url: 'https://brand24.com/', image: 'https://picsum.photos/seed/brand24-mktg/600/400', dataAiHint: 'brand monitoring', pricing: 'Paid' },
-            { name: 'Mention', description: 'Media monitoring and social listening.', url: 'https://mention.com/', image: 'https://picsum.photos/seed/mention-mktg/600/400', dataAiHint: 'social listening', pricing: 'Paid' }
-        ]
-    },
-    {
-        title: "Sales Tools",
-        icon: <DollarSign className="w-5 h-5 text-primary"/>,
-        tools: [
-            { name: 'Salesforce', description: 'The #1 CRM for sales teams.', url: 'https://www.salesforce.com/sales/', image: 'https://picsum.photos/seed/salesforce-sales/600/400', dataAiHint: 'sales crm', pricing: 'Paid' },
-            { name: 'HubSpot Sales Hub', description: 'Sales CRM software.', url: 'https://www.hubspot.com/products/sales', image: 'https://picsum.photos/seed/hubspot-sales/600/400', dataAiHint: 'crm software', pricing: 'Freemium' },
-            { name: 'Zoho CRM', description: 'Online CRM software for your business.', url: 'https://www.zoho.com/crm/', image: 'https://picsum.photos/seed/zoho-sales/600/400', dataAiHint: 'business crm', pricing: 'Freemium' },
-            { name: 'Pipedrive', description: 'Sales CRM & pipeline management software.', url: 'https://www.pipedrive.com/', image: 'https://picsum.photos/seed/pipedrive-sales/600/400', dataAiHint: 'pipeline management', pricing: 'Paid' },
-            { name: 'Freshsales', description: 'AI-powered CRM for sales teams.', url: 'https://www.freshworks.com/crm/', image: 'https://picsum.photos/seed/freshsales/600/400', dataAiHint: 'ai crm', pricing: 'Freemium' },
-            { name: 'Outreach', description: 'Sales execution platform.', url: 'https://www.outreach.io/', image: 'https://picsum.photos/seed/outreach-sales/600/400', dataAiHint: 'sales engagement', pricing: 'Paid' },
-            { name: 'SalesLoft', description: 'The #1 sales engagement platform.', url: 'https://salesloft.com/', image: 'https://picsum.photos/seed/salesloft/600/400', dataAiHint: 'engagement platform', pricing: 'Paid' },
-            { name: 'Gong', description: 'Revenue intelligence platform.', url: 'https://www.gong.io/', image: 'https://picsum.photos/seed/gong-sales/600/400', dataAiHint: 'conversation intelligence', pricing: 'Paid' },
-            { name: 'Chorus.ai', description: 'Conversation intelligence for sales.', url: 'https://www.chorus.ai/', image: 'https://picsum.photos/seed/chorus-sales/600/400', dataAiHint: 'sales intelligence', pricing: 'Paid' },
-            { name: 'LinkedIn Sales Navigator', description: 'Social selling tools.', url: 'https://business.linkedin.com/sales-solutions/sales-navigator', image: 'https://picsum.photos/seed/salesnav/600/400', dataAiHint: 'social selling', pricing: 'Paid' },
-            { name: 'ZoomInfo', description: 'B2B contact database.', url: 'https://www.zoominfo.com/', image: 'https://picsum.photos/seed/zoominfo-sales/600/400', dataAiHint: 'b2b database', pricing: 'Paid' },
-            { name: 'Hunter', description: 'Find professional email addresses.', url: 'https://hunter.io/', image: 'https://picsum.photos/seed/hunter-sales/600/400', dataAiHint: 'email finder', pricing: 'Freemium' },
-            { name: 'Apollo.io', description: 'Sales intelligence and engagement platform.', url: 'https://www.apollo.io/', image: 'https://picsum.photos/seed/apollo-sales/600/400', dataAiHint: 'sales intelligence', pricing: 'Freemium' },
-            { name: 'Lusha', description: 'Get access to B2B contact information.', url: 'https://www.lusha.com/', image: 'https://picsum.photos/seed/lusha-sales/600/400', dataAiHint: 'contact information', pricing: 'Freemium' },
-            { name: 'Clearbit', description: 'Marketing data engine for all your interactions.', url: 'https://clearbit.com/', image: 'https://picsum.photos/seed/clearbit-sales/600/400', dataAiHint: 'data enrichment', pricing: 'Paid' },
-            { name: 'PandaDoc', description: 'Document automation software.', url: 'https://www.pandadoc.com/', image: 'https://picsum.photos/seed/pandadoc-sales/600/400', dataAiHint: 'proposals quotes', pricing: 'Freemium' },
-            { name: 'DocuSign', description: 'Electronic signature and agreement cloud.', url: 'https://www.docusign.com/', image: 'https://picsum.photos/seed/docusign-sales/600/400', dataAiHint: 'esignature', pricing: 'Paid' },
-            { name: 'HelloSign', description: 'The eSignature solution for your business.', url: 'https://www.hellosign.com/', image: 'https://picsum.photos/seed/hellosign-sales/600/400', dataAiHint: 'business signature', pricing: 'Freemium' },
-            { name: 'Proposify', description: 'Proposal software that gives you control.', url: 'https://www.proposify.com/', image: 'https://picsum.photos/seed/proposify-sales/600/400', dataAiHint: 'proposal software', pricing: 'Paid' },
-            { name: 'Qwilr', description: 'Create impressive proposals and quotes.', url: 'https://qwilr.com/', image: 'https://picsum.photos/seed/qwilr-sales/600/400', dataAiHint: 'interactive proposals', pricing: 'Paid' },
-            { name: 'Calendly', description: 'Automated scheduling software.', url: 'https://calendly.com/', image: 'https://picsum.photos/seed/calendly-sales/600/400', dataAiHint: 'appointment scheduling', pricing: 'Freemium' },
-            { name: 'Chili Piper', description: 'Inbound lead conversion and scheduling.', url: 'https://www.chilipiper.com/', image: 'https://picsum.photos/seed/chilipiper-sales/600/400', dataAiHint: 'lead scheduling', pricing: 'Paid' },
-            { name: 'Highspot', description: 'Sales enablement platform.', url: 'https://www.highspot.com/', image: 'https://picsum.photos/seed/highspot-sales/600/400', dataAiHint: 'sales content', pricing: 'Paid' },
-            { name: 'Seismic', description: 'Sales enablement and marketing orchestration.', url: 'https://seismic.com/', image: 'https://picsum.photos/seed/seismic-sales/600/400', dataAiHint: 'sales enablement', pricing: 'Paid' },
-            { name: 'Showpad', description: 'Revenue enablement platform.', url: 'https://www.showpad.com/', image: 'https://picsum.photos/seed/showpad-sales/600/400', dataAiHint: 'sales training', pricing: 'Paid' },
-            { name: 'Brainshark', description: 'Sales readiness software.', url: 'https://www.brainshark.com/', image: 'https://picsum.photos/seed/brainshark-sales/600/400', dataAiHint: 'sales coaching', pricing: 'Paid' },
-            { name: 'Mindtickle', description: 'Sales readiness and enablement.', url: 'https://www.mindtickle.com/', image: 'https://picsum.photos/seed/mindtickle-sales/600/400', dataAiHint: 'sales performance', pricing: 'Paid' },
-            { name: 'LevelJump', description: 'Outcome-based sales enablement.', url: 'https://www.leveljump.com/', image: 'https://picsum.photos/seed/leveljump-sales/600/400', dataAiHint: 'sales outcomes', pricing: 'Paid' },
-            { name: 'Ambition', description: 'Sales coaching and gamification software.', url: 'https://ambition.com/', image: 'https://picsum.photos/seed/ambition-sales/600/400', dataAiHint: 'sales gamification', pricing: 'Paid' },
-            { name: 'Hoopla', description: 'Sales motivation and performance platform.', url: 'https://www.hoopla.net/', image: 'https://picsum.photos/seed/hoopla-sales/600/400', dataAiHint: 'sales motivation', pricing: 'Paid' },
-            { name: 'Cognism', description: 'Globally compliant B2B data.', url: 'https://www.cognism.com/', image: 'https://picsum.photos/seed/cognism-sales/600/400', dataAiHint: 'b2b sales data', pricing: 'Paid' },
-            { name: 'Leadfeeder', description: 'Identify companies visiting your website.', url: 'https://www.leadfeeder.com/', image: 'https://picsum.photos/seed/leadfeeder-sales/600/400', dataAiHint: 'website visitors', pricing: 'Freemium' },
-            { name: 'Adapt.io', description: 'B2B contact & company database.', url: 'https://www.adapt.io/', image: 'https://picsum.photos/seed/adaptio-sales/600/400', dataAiHint: 'b2b contacts', pricing: 'Paid' },
-            { name: 'Vidyard', description: 'Video for sales teams.', url: 'https://www.vidyard.com/sales/', image: 'https://picsum.photos/seed/vidyard-sales/600/400', dataAiHint: 'video prospecting', pricing: 'Freemium' },
-            { name: 'BombBomb', description: 'Build relationships with video messaging.', url: 'https://bombbomb.com/', image: 'https://picsum.photos/seed/bombbomb-sales/600/400', dataAiHint: 'video email', pricing: 'Paid' },
-            { name: 'Demodesk', description: 'Intelligent meeting platform for sales.', url: 'https://demodesk.com/', image: 'https://picsum.photos/seed/demodesk-sales/600/400', dataAiHint: 'sales demos', pricing: 'Paid' },
-            { name: 'Walnut', description: 'Create interactive product demos.', url: 'https://www.walnut.io/', image: 'https://picsum.photos/seed/walnut-sales/600/400', dataAiHint: 'product demos', pricing: 'Paid' },
-            { name: 'Clari', description: 'Revenue operations platform.', url: 'https://www.clari.com/', image: 'https://picsum.photos/seed/clari-sales/600/400', dataAiHint: 'revenue operations', pricing: 'Paid' },
-            { name: 'InsightSquared', description: 'Revenue intelligence solutions.', url: 'https://www.insightsquared.com/', image: 'https://picsum.photos/seed/insightsquared-sales/600/400', dataAiHint: 'revenue intelligence', pricing: 'Paid' },
-            { name: 'Yesware', description: 'Sales toolkit for email tracking and automation.', url: 'https://www.yesware.com/', image: 'https://picsum.photos/seed/yesware-sales/600/400', dataAiHint: 'email tracking', pricing: 'Paid' },
-            { name: 'Mixmax', description: 'Sales engagement for Gmail.', url: 'https://www.mixmax.com/', image: 'https://picsum.photos/seed/mixmax-sales/600/400', dataAiHint: 'gmail sales', pricing: 'Freemium' },
-            { name: 'Bigtincan', description: 'Sales enablement automation.', url: 'https://www.bigtincan.com/', image: 'https://picsum.photos/seed/bigtincan-sales/600/400', dataAiHint: 'sales automation', pricing: 'Paid' },
-            { name: 'Groove', description: 'Sales engagement platform for Salesforce.', url: 'https://groove.co/', image: 'https://picsum.photos/seed/groove-sales/600/400', dataAiHint: 'salesforce engagement', pricing: 'Paid' },
-            { name: 'VanillaSoft', description: 'Sales engagement software for inside sales.', url: 'https://vanillasoft.com/', image: 'https://picsum.photos/seed/vanillasoft-sales/600/400', dataAiHint: 'inside sales', pricing: 'Paid' },
-            { name: 'CallidusCloud (SAP Sales Cloud)', description: 'Sales performance management.', url: 'https://www.sap.com/products/sales-cloud.html', image: 'https://picsum.photos/seed/calliduscloud-sales/600/400', dataAiHint: 'sales performance', pricing: 'Paid' },
-            { name: 'Xactly', description: 'Sales performance management.', url: 'https://www.xactlycorp.com/', image: 'https://picsum.photos/seed/xactly-sales/600/400', dataAiHint: 'incentive compensation', pricing: 'Paid' },
-            { name: 'Varicent', description: 'Sales performance management software.', url: 'https://www.varicent.com/', image: 'https://picsum.photos/seed/varicent-sales/600/400', dataAiHint: 'spm software', pricing: 'Paid' },
-            { name: 'Anaplan', description: 'Platform for business planning.', url: 'https://www.anaplan.com/platform/sales/', image: 'https://picsum.photos/seed/anaplan-sales/600/400', dataAiHint: 'sales planning', pricing: 'Paid' },
-            { name: 'DealHub.io', description: 'The #1-rated CPQ and CLM platform.', url: 'https://dealhub.io/', image: 'https://picsum.photos/seed/dealhub-sales/600/400', dataAiHint: 'cpq software', pricing: 'Paid' },
-            { name: 'Conga CPQ', description: 'Configure, price, quote software.', url: 'https://conga.com/products/conga-cpq', image: 'https://picsum.photos/seed/conga-sales/600/400', dataAiHint: 'configure price quote', pricing: 'Paid' },
-            { name: 'Apttus CPQ', description: 'Quote-to-cash solutions.', url: 'https://www.apttus.com/solutions/cpq/', image: 'https://picsum.photos/seed/apttus-sales/600/400', dataAiHint: 'quote to cash', pricing: 'Paid' },
-            { name: 'PROS', description: 'AI-based pricing and selling solutions.', url: 'https://pros.com/', image: 'https://picsum.photos/seed/pros-sales/600/400', dataAiHint: 'ai pricing', pricing: 'Paid' }
-        ]
-    },
-    {
-        title: "Customer Support Tools",
-        icon: <Contact className="w-5 h-5 text-primary"/>,
-        tools: [
-            { name: 'Zendesk', description: 'Customer service software and sales CRM.', url: 'https://www.zendesk.com/', image: 'https://picsum.photos/seed/zendesk-support/600/400', dataAiHint: 'help desk', pricing: 'Paid' },
-            { name: 'Intercom', description: 'Customer messaging and support platform.', url: 'https://www.intercom.com/', image: 'https://picsum.photos/seed/intercom-support/600/400', dataAiHint: 'live chat', pricing: 'Paid' },
-            { name: 'Freshdesk', description: 'Omnichannel customer support helpdesk.', url: 'https://freshdesk.com/', image: 'https://picsum.photos/seed/freshdesk-support/600/400', dataAiHint: 'customer support', pricing: 'Freemium' },
-            { name: 'Help Scout', description: 'A better way to talk to your customers.', url: 'https://www.helpscout.com/', image: 'https://picsum.photos/seed/helpscout/600/400', dataAiHint: 'shared inbox', pricing: 'Paid' },
-            { name: 'Salesforce Service Cloud', description: 'Customer service software.', url: 'https://www.salesforce.com/products/service-cloud/overview/', image: 'https://picsum.photos/seed/sfscloud/600/400', dataAiHint: 'service crm', pricing: 'Paid' },
-            { name: 'LiveChat', description: 'Live chat software for businesses.', url: 'https://www.livechat.com/', image: 'https://picsum.photos/seed/livechat-support/600/400', dataAiHint: 'chat support', pricing: 'Paid' },
-            { name: 'Tidio', description: 'Live chat boosted with chatbots.', url: 'https://www.tidio.com/', image: 'https://picsum.photos/seed/tidio-support/600/400', dataAiHint: 'chatbots', pricing: 'Freemium' },
-            { name: 'Olark', description: 'Simple live chat software.', url: 'https://www.olark.com/', image: 'https://picsum.photos/seed/olark-support/600/400', dataAiHint: 'easy chat', pricing: 'Paid' },
-            { name: 'Drift', description: 'Revenue Acceleration platform.', url: 'https://www.drift.com/', image: 'https://picsum.photos/seed/drift-support/600/400', dataAiHint: 'conversational marketing', pricing: 'Paid' },
-            { name: 'Gorgias', description: 'Helpdesk for e-commerce stores.', url: 'https://www.gorgias.com/', image: 'https://picsum.photos/seed/gorgias/600/400', dataAiHint: 'ecommerce support', pricing: 'Paid' },
-            { name: 'Front', description: 'The customer communication platform.', url: 'https://www.front.com/', image: 'https://picsum.photos/seed/frontapp/600/400', dataAiHint: 'shared inbox', pricing: 'Paid' },
-            { name: 'Kayako', description: 'Unified customer service software.', url: 'https://www.kayako.com/', image: 'https://picsum.photos/seed/kayako/600/400', dataAiHint: 'unified helpdesk', pricing: 'Paid' },
-            { name: 'TeamSupport', description: 'B2B customer support software.', url: 'https://www.teamsupport.com/', image: 'https://picsum.photos/seed/teamsupport/600/400', dataAiHint: 'b2b support', pricing: 'Paid' },
-            { name: 'Zoho Desk', description: 'Context-aware customer service software.', url: 'https://www.zoho.com/desk/', image: 'https://picsum.photos/seed/zohodesk/600/400', dataAiHint: 'zoho support', pricing: 'Freemium' },
-            { name: 'Jira Service Management', description: 'High-velocity IT service management.', url: 'https://www.atlassian.com/software/jira/service-management', image: 'https://picsum.photos/seed/jiraservice/600/400', dataAiHint: 'itsm', pricing: 'Freemium' },
-            { name: 'HappyFox', description: 'Online help desk software.', url: 'https://www.happyfox.com/', image: 'https://picsum.photos/seed/happyfox/600/400', dataAiHint: 'help desk software', pricing: 'Paid' },
-            { name: 'Groove', description: 'Simple help desk software.', url: 'https://www.groovehq.com/', image: 'https://picsum.photos/seed/groove-support/600/400', dataAiHint: 'small business helpdesk', pricing: 'Paid' },
-            { name: 'Re:amaze', description: 'Helpdesk and live chat for e-commerce.', url: 'https://www.reamaze.com/', image: 'https://picsum.photos/seed/reamaze/600/400', dataAiHint: 'ecommerce helpdesk', pricing: 'Paid' },
-            { name: 'Kustomer', description: 'The top-rated CRM for customer service.', url: 'https://www.kustomer.com/', image: 'https://picsum.photos/seed/kustomer/600/400', dataAiHint: 'service crm', pricing: 'Paid' },
-            { name: 'Gladly', description: 'Radically personal customer service.', url: 'https://www.gladly.com/', image: 'https://picsum.photos/seed/gladly/600/400', dataAiHint: 'personal service', pricing: 'Paid' },
-            { name: 'Aircall', description: 'Cloud-based call center software.', url: 'https://aircall.io/', image: 'https://picsum.photos/seed/aircall-support/600/400', dataAiHint: 'voip support', pricing: 'Paid' },
-            { name: 'Talkdesk', description: 'Cloud contact center solution.', url: 'https://www.talkdesk.com/', image: 'https://picsum.photos/seed/talkdesk/600/400', dataAiHint: 'contact center', pricing: 'Paid' },
-            { name: 'CloudTalk', description: 'Virtual phone system for support teams.', url: 'https://www.cloudtalk.io/', image: 'https://picsum.photos/seed/cloudtalk/600/400', dataAiHint: 'phone system', pricing: 'Paid' },
-            { name: 'Five9', description: 'The intelligent cloud contact center.', url: 'https://www.five9.com/', image: 'https://picsum.photos/seed/five9/600/400', dataAiHint: 'cloud contact', pricing: 'Paid' },
-            { name: 'NICE inContact', description: 'Cloud contact center software.', url: 'https://www.niceincontact.com/', image: 'https://picsum.photos/seed/niceincontact/600/400', dataAiHint: 'cxone', pricing: 'Paid' },
-            { name: 'Genesys Cloud CX', description: 'Cloud customer experience platform.', url: 'https://www.genesys.com/genesys-cloud-cx', image: 'https://picsum.photos/seed/genesys/600/400', dataAiHint: 'customer experience', pricing: 'Paid' },
-            { name: 'RingCentral Contact Center', description: 'Omnichannel contact center.', url: 'https://www.ringcentral.com/contact-center/overview.html', image: 'https://picsum.photos/seed/ringcentral-support/600/400', dataAiHint: 'omnichannel support', pricing: 'Paid' },
-            { name: 'Nextiva', description: 'Business phone and customer service software.', url: 'https://www.nextiva.com/', image: 'https://picsum.photos/seed/nextiva-support/600/400', dataAiHint: 'business phone', pricing: 'Paid' },
-            { name: 'Dialpad', description: 'AI-powered communication platform.', url: 'https://www.dialpad.com/contact-center/', image: 'https://picsum.photos/seed/dialpad-support/600/400', dataAiHint: 'ai communications', pricing: 'Paid' },
-        ]
-    },
-    {
-        title: "Productivity & Task Management",
-        icon: <ListChecks className="w-5 h-5 text-primary"/>,
-        tools: [
-            { name: 'Trello', description: 'Collaborate, manage projects, and reach new productivity peaks.', url: 'https://trello.com/', image: 'https://picsum.photos/seed/trello-prod/600/400', dataAiHint: 'kanban board', pricing: 'Freemium' },
-            { name: 'Asana', description: 'Manage your team’s work, projects, & tasks.', url: 'https://asana.com/', image: 'https://picsum.photos/seed/asana-prod/600/400', dataAiHint: 'work management', pricing: 'Freemium' },
-            { name: 'Todoist', description: 'The to-do list to organize work & life.', url: 'https://todoist.com/', image: 'https://picsum.photos/seed/todoist-prod/600/400', dataAiHint: 'task manager', pricing: 'Freemium' },
-            { name: 'Notion', description: 'The all-in-one workspace for notes, tasks, wikis.', url: 'https://www.notion.so/', image: 'https://picsum.photos/seed/notion-prod/600/400', dataAiHint: 'workspace', pricing: 'Freemium' },
-            { name: 'ClickUp', description: 'One app to replace them all.', url: 'https://clickup.com/', image: 'https://picsum.photos/seed/clickup-prod/600/400', dataAiHint: 'productivity platform', pricing: 'Freemium' },
-            { name: 'Airtable', description: 'A low-code platform for building collaborative apps.', url: 'https://www.airtable.com/', image: 'https://picsum.photos/seed/airtable-prod/600/400', dataAiHint: 'spreadsheet database', pricing: 'Freemium' },
-            { name: 'Monday.com', description: 'Work OS that powers teams to run projects and workflows.', url: 'https://monday.com/', image: 'https://picsum.photos/seed/monday-prod/600/400', dataAiHint: 'work os', pricing: 'Paid' },
-            { name: 'TickTick', description: 'To-do list, calendar, and habit tracker.', url: 'https://ticktick.com/', image: 'https://picsum.photos/seed/ticktick-prod/600/400', dataAiHint: 'to-do list', pricing: 'Freemium' },
-            { name: 'Microsoft To Do', description: 'Intelligent task management app.', url: 'https://todo.microsoft.com/', image: 'https://picsum.photos/seed/mstodo-prod/600/400', dataAiHint: 'daily planner', pricing: 'Free' },
-            { name: 'Things', description: 'Personal task manager for Mac and iOS.', url: 'https://culturedcode.com/things/', image: 'https://picsum.photos/seed/things-prod/600/400', dataAiHint: 'task management', pricing: 'Paid' },
-            { name: 'OmniFocus', description: 'Professional to-do list manager.', url: 'https://www.omnigroup.com/omnifocus/', image: 'https://picsum.photos/seed/omnifocus-prod/600/400', dataAiHint: 'gtd app', pricing: 'Paid' },
-            { name: 'Wrike', description: 'Work management platform.', url: 'https://www.wrike.com/', image: 'https://picsum.photos/seed/wrike-prod/600/400', dataAiHint: 'project management', pricing: 'Freemium' },
-            { name: 'Smartsheet', description: 'The leading work execution platform.', url: 'https://www.smartsheet.com/', image: 'https://picsum.photos/seed/smartsheet-prod/600/400', dataAiHint: 'work execution', pricing: 'Paid' },
-            { name: 'Basecamp', description: 'The all-in-one toolkit for working remotely.', url: 'https://basecamp.com/', image: 'https://picsum.photos/seed/basecamp-prod/600/400', dataAiHint: 'remote work', pricing: 'Paid' },
-            { name: 'Jira', description: 'Issue & project tracking for software teams.', url: 'https://www.atlassian.com/software/jira', image: 'https://picsum.photos/seed/jira-prod/600/400', dataAiHint: 'agile tool', pricing: 'Freemium' },
-        ]
-    },
-    {
-        title: "Project Management Tools",
-        icon: <Briefcase className="w-5 h-5 text-primary"/>,
-        tools: [
-            { name: 'Asana', description: 'Manage your team’s work, projects, & tasks.', url: 'https://asana.com/', image: 'https://picsum.photos/seed/asana-pm/600/400', dataAiHint: 'work management', pricing: 'Freemium' },
-            { name: 'Trello', description: 'A Kanban-style list-making application.', url: 'https://trello.com/', image: 'https://picsum.photos/seed/trello-pm/600/400', dataAiHint: 'kanban board', pricing: 'Freemium' },
-            { name: 'Jira', description: 'The #1 software development tool used by agile teams.', url: 'https://www.atlassian.com/software/jira', image: 'https://picsum.photos/seed/jira-pm/600/400', dataAiHint: 'agile development', pricing: 'Freemium' },
-            { name: 'Monday.com', description: 'A work OS that powers teams.', url: 'https://monday.com/', image: 'https://picsum.photos/seed/monday-pm/600/400', dataAiHint: 'team collaboration', pricing: 'Paid' },
-            { name: 'ClickUp', description: 'One app to replace them all.', url: 'https://clickup.com/', image: 'https://picsum.photos/seed/clickup-pm/600/400', dataAiHint: 'productivity platform', pricing: 'Freemium' },
-            { name: 'Wrike', description: 'Versatile work management software.', url: 'https://www.wrike.com/', image: 'https://picsum.photos/seed/wrike-pm/600/400', dataAiHint: 'enterprise pm', pricing: 'Freemium' },
-            { name: 'Smartsheet', description: 'A dynamic workspace that empowers teams.', url: 'https://www.smartsheet.com/', image: 'https://picsum.photos/seed/smartsheet-pm/600/400', dataAiHint: 'spreadsheet pm', pricing: 'Paid' },
-            { name: 'Basecamp', description: 'Project management & team communication.', url: 'https://basecamp.com/', image: 'https://picsum.photos/seed/basecamp-pm/600/400', dataAiHint: 'remote teams', pricing: 'Paid' },
-            { name: 'Notion', description: 'The all-in-one workspace.', url: 'https://www.notion.so/', image: 'https://picsum.photos/seed/notion-pm/600/400', dataAiHint: 'connected workspace', pricing: 'Freemium' },
-            { name: 'Airtable', description: 'A low-code platform for building collaborative apps.', url: 'https://www.airtable.com/', image: 'https://picsum.photos/seed/airtable-pm/600/400', dataAiHint: 'database app', pricing: 'Freemium' },
-            { name: 'Microsoft Project', description: 'Project management software.', url: 'https://www.microsoft.com/en-us/microsoft-365/project/project-management-software', image: 'https://picsum.photos/seed/msproject-pm/600/400', dataAiHint: 'gantt charts', pricing: 'Paid' },
-            { name: 'Teamwork', description: 'Project management software for client work.', url: 'https://www.teamwork.com/', image: 'https://picsum.photos/seed/teamwork-pm/600/400', dataAiHint: 'client work', pricing: 'Paid' },
-            { name: 'Zoho Projects', description: 'Online project management software.', url: 'https://www.zoho.com/projects/', image: 'https://picsum.photos/seed/zohoprojects-pm/600/400', dataAiHint: 'zoho suite', pricing: 'Freemium' },
-            { name: 'GanttPRO', description: 'Online Gantt chart software.', url: 'https://ganttpro.com/', image: 'https://picsum.photos/seed/ganttpro-pm/600/400', dataAiHint: 'interactive gantt', pricing: 'Paid' },
-            { name: 'TeamGantt', description: 'Free online Gantt chart software.', url: 'https://www.teamgantt.com/', image: 'https://picsum.photos/seed/teamgantt-pm/600/400', dataAiHint: 'free gantt', pricing: 'Freemium' },
-            { name: 'ProofHub', description: 'All-in-one project management software.', url: 'https://www.proofhub.com/', image: 'https://picsum.photos/seed/proofhub-pm/600/400', dataAiHint: 'team proofing', pricing: 'Paid' },
-            { name: 'LiquidPlanner', description: 'Predictive project management.', url: 'https://www.liquidplanner.com/', image: 'https://picsum.photos/seed/liquidplanner-pm/600/400', dataAiHint: 'predictive scheduling', pricing: 'Paid' },
-            { name: 'Workfront (Adobe)', description: 'Enterprise work management.', url: 'https://business.adobe.com/products/workfront/adobe-workfront.html', image: 'https://picsum.photos/seed/workfront-pm/600/400', dataAiHint: 'adobe work', pricing: 'Paid' },
-            { name: 'Celoxis', description: 'Comprehensive project management tool.', url: 'https://www.celoxis.com/', image: 'https://picsum.photos/seed/celoxis-pm/600/400', dataAiHint: 'all-in-one pm', pricing: 'Paid' },
-            { name: 'Mavenlink (Kantata)', description: 'Professional services automation.', url: 'https://www.kantata.com/', image: 'https://picsum.photos/seed/mavenlink-pm/600/400', dataAiHint: 'psa software', pricing: 'Paid' },
-        ]
-    },
-    {
-        title: "Finance & Accounting",
-        icon: <CreditCard className="w-5 h-5 text-primary"/>,
-        tools: [
-            { name: 'QuickBooks', description: 'Accounting software for small businesses.', url: 'https://quickbooks.intuit.com/', image: 'https://picsum.photos/seed/quickbooks-fin/600/400', dataAiHint: 'accounting', pricing: 'Paid' },
-            { name: 'Xero', description: 'Online accounting software for your business.', url: 'https://www.xero.com/', image: 'https://picsum.photos/seed/xero-fin/600/400', dataAiHint: 'small business', pricing: 'Paid' },
-            { name: 'FreshBooks', description: 'Accounting software for small businesses and freelancers.', url: 'https://www.freshbooks.com/', image: 'https://picsum.photos/seed/freshbooks-fin/600/400', dataAiHint: 'invoicing', pricing: 'Paid' },
-            { name: 'Wave', description: 'Free invoicing & accounting software.', url: 'https://www.waveapps.com/', image: 'https://picsum.photos/seed/wave-fin/600/400', dataAiHint: 'free accounting', pricing: 'Free' },
-            { name: 'Zoho Books', description: 'Online accounting software.', url: 'https://www.zoho.com/books/', image: 'https://picsum.photos/seed/zohobooks-fin/600/400', dataAiHint: 'zoho finance', pricing: 'Freemium' },
-        ]
-    },
-    {
-        title: "HR & Hiring Tools",
-        icon: <UserCog className="w-5 h-5 text-primary"/>,
-        tools: [
-            { name: 'BambooHR', description: 'HR software for small and medium businesses.', url: 'https://www.bamboohr.com/', image: 'https://picsum.photos/seed/bamboohr-hr/600/400', dataAiHint: 'hr software', pricing: 'Paid' },
-            { name: 'Gusto', description: 'Payroll, benefits, and HR for small businesses.', url: 'https://gusto.com/', image: 'https://picsum.photos/seed/gusto-hr/600/400', dataAiHint: 'payroll', pricing: 'Paid' },
-            { name: 'Workday', description: 'Enterprise cloud applications for finance and HR.', url: 'https://www.workday.com/', image: 'https://picsum.photos/seed/workday-hr/600/400', dataAiHint: 'enterprise hr', pricing: 'Paid' },
-            { name: 'Rippling', description: 'The #1 rated HR & IT platform.', url: 'https://www.rippling.com/', image: 'https://picsum.photos/seed/rippling-hr/600/400', dataAiHint: 'workforce management', pricing: 'Paid' },
-            { name: 'Greenhouse', description: 'Hiring software for growing companies.', url: 'https://www.greenhouse.io/', image: 'https://picsum.photos/seed/greenhouse-hr/600/400', dataAiHint: 'applicant tracking', pricing: 'Paid' },
-        ]
-    },
-    {
-        title: "Content Creation (Image, Video, Audio)",
-        icon: <Paintbrush className="w-5 h-5 text-primary"/>,
-        tools: [
-            { name: 'Canva', description: 'Graphic design platform.', url: 'https://www.canva.com/', image: 'https://picsum.photos/seed/canva-content/600/400', dataAiHint: 'graphic design', pricing: 'Freemium' },
-            { name: 'Adobe Creative Cloud', description: 'A set of applications and services.', url: 'https://www.adobe.com/creativecloud.html', image: 'https://picsum.photos/seed/adobecc-content/600/400', dataAiHint: 'creative suite', pricing: 'Paid' },
-            { name: 'InVideo', description: 'Online video editor.', url: 'https://invideo.io/', image: 'https://picsum.photos/seed/invideo-content/600/400', dataAiHint: 'video maker', pricing: 'Freemium' },
-            { name: 'Descript', description: 'All-in-one audio & video editor.', url: 'https://www.descript.com/', image: 'https://picsum.photos/seed/descript-content/600/400', dataAiHint: 'podcast editor', pricing: 'Freemium' },
-            { name: 'Audacity', description: 'Free, open source, cross-platform audio software.', url: 'https://www.audacityteam.org/', image: 'https://picsum.photos/seed/audacity-content/600/400', dataAiHint: 'audio editor', pricing: 'Free' },
-        ]
-    },
-    {
-        title: "Website & App Development",
-        icon: <Code className="w-5 h-5 text-primary"/>,
-        tools: [
-            { name: 'Webflow', description: 'Build responsive websites visually.', url: 'https://webflow.com/', image: 'https://picsum.photos/seed/webflow-dev/600/400', dataAiHint: 'no-code website', pricing: 'Freemium' },
-            { name: 'Bubble', description: 'The best way to build web apps without code.', url: 'https://bubble.io/', image: 'https://picsum.photos/seed/bubble-dev/600/400', dataAiHint: 'no-code platform', pricing: 'Freemium' },
-            { name: 'GitHub', description: 'Where the world builds software.', url: 'https://github.com/', image: 'https://picsum.photos/seed/github-dev/600/400', dataAiHint: 'code hosting', pricing: 'Freemium' },
-            { name: 'Visual Studio Code', description: 'Free source-code editor made by Microsoft.', url: 'https://code.visualstudio.com/', image: 'https://picsum.photos/seed/vscode-dev/600/400', dataAiHint: 'code editor', pricing: 'Free' },
-            { name: 'Firebase', description: 'The mobile platform that helps you develop apps.', url: 'https://firebase.google.com/', image: 'https://picsum.photos/seed/firebase-dev/600/400', dataAiHint: 'backend as a service', pricing: 'Freemium' },
-        ]
-    },
-    {
-        title: "Data Analytics & Automation",
-        icon: <BarChart className="w-5 h-5 text-primary"/>,
-        tools: [
-            { name: 'Zapier', description: 'Easy automation for busy people.', url: 'https://zapier.com/', image: 'https://picsum.photos/seed/zapier-data/600/400', dataAiHint: 'workflow automation', pricing: 'Freemium' },
-            { name: 'Make (Integromat)', description: 'A visual platform to design, build, and automate.', url: 'https://www.make.com/', image: 'https://picsum.photos/seed/make-data/600/400', dataAiHint: 'visual automation', pricing: 'Freemium' },
-            { name: 'Google Data Studio', description: 'Turn your data into informative dashboards.', url: 'https://datastudio.google.com/', image: 'https://picsum.photos/seed/gds-data/600/400', dataAiHint: 'data visualization', pricing: 'Free' },
-            { name: 'Tableau', description: 'Visual analytics platform.', url: 'https://www.tableau.com/', image: 'https://picsum.photos/seed/tableau-data/600/400', dataAiHint: 'business intelligence', pricing: 'Paid' },
-            { name: 'Power BI', description: 'Business analytics service by Microsoft.', url: 'https://powerbi.microsoft.com/', image: 'https://picsum.photos/seed/powerbi-data/600/400', dataAiHint: 'data dashboard', pricing: 'Freemium' },
-        ]
-    },
-    {
-        title: "Email Marketing Tools",
-        icon: <Mail className="w-5 h-5 text-primary"/>,
-        tools: [
-            { name: 'Mailchimp', description: 'Marketing automation and email marketing service.', url: 'https://mailchimp.com/', image: 'https://picsum.photos/seed/mailchimp-email/600/400', dataAiHint: 'email campaigns', pricing: 'Freemium' },
-            { name: 'Constant Contact', description: 'Email & digital marketing platform.', url: 'https://www.constantcontact.com/', image: 'https://picsum.photos/seed/constantcontact-email/600/400', dataAiHint: 'email marketing', pricing: 'Paid' },
-            { name: 'ConvertKit', description: 'Email marketing for online creators.', url: 'https://convertkit.com/', image: 'https://picsum.photos/seed/convertkit-email/600/400', dataAiHint: 'creator marketing', pricing: 'Freemium' },
-            { name: 'AWeber', description: 'Email marketing for small businesses.', url: 'https://www.aweber.com/', image: 'https://picsum.photos/seed/aweber-email/600/400', dataAiHint: 'small business email', pricing: 'Freemium' },
-            { name: 'GetResponse', description: 'Inbound marketing software.', url: 'https://www.getresponse.com/', image: 'https://picsum.photos/seed/getresponse-email/600/400', dataAiHint: 'inbound marketing', pricing: 'Freemium' },
-        ]
-    },
-    {
-        title: "Cybersecurity Tools",
-        icon: <Shield className="w-5 h-5 text-primary"/>,
-        tools: [
-            { name: 'Norton', description: 'Antivirus and security software.', url: 'https://us.norton.com/', image: 'https://picsum.photos/seed/norton-sec/600/400', dataAiHint: 'antivirus', pricing: 'Paid' },
-            { name: 'McAfee', description: 'Antivirus and VPN software.', url: 'https://www.mcafee.com/', image: 'https://picsum.photos/seed/mcafee-sec/600/400', dataAiHint: 'cybersecurity', pricing: 'Paid' },
-            { name: 'Bitdefender', description: 'Cybersecurity solutions.', url: 'https://www.bitdefender.com/', image: 'https://picsum.photos/seed/bitdefender-sec/600/400', dataAiHint: 'internet security', pricing: 'Paid' },
-            { name: '1Password', description: 'A password manager for families and businesses.', url: 'https://1password.com/', image: 'https://picsum.photos/seed/1password-sec/600/400', dataAiHint: 'password manager', pricing: 'Paid' },
-            { name: 'LastPass', description: 'Password manager and vault app.', url: 'https://www.lastpass.com/', image: 'https://picsum.photos/seed/lastpass-sec/600/400', dataAiHint: 'password vault', pricing: 'Freemium' },
-        ]
-    },
-    {
-        title: "Business Planning & Strategy",
-        icon: <Lightbulb className="w-5 h-5 text-primary"/>,
-        tools: [
-            { name: 'LivePlan', description: 'Business plan software.', url: 'https://www.liveplan.com/', image: 'https://picsum.photos/seed/liveplan-strat/600/400', dataAiHint: 'business plan', pricing: 'Paid' },
-            { name: 'Strategyzer', description: 'Business model canvas and value proposition canvas.', url: 'https://www.strategyzer.com/', image: 'https://picsum.photos/seed/strategyzer/600/400', dataAiHint: 'business model', pricing: 'Freemium' },
-            { name: 'Miro', description: 'The online collaborative whiteboard platform.', url: 'https://miro.com/', image: 'https://picsum.photos/seed/miro-strat/600/400', dataAiHint: 'whiteboard', pricing: 'Freemium' },
-            { name: 'Mural', description: 'Digital workspace for visual collaboration.', url: 'https://www.mural.co/', image: 'https://picsum.photos/seed/mural-strat/600/400', dataAiHint: 'visual collaboration', pricing: 'Freemium' },
-            { name: 'Aha!', description: 'Roadmap software for product managers.', url: 'https://www.aha.io/', image: 'https://picsum.photos/seed/aha-strat/600/400', dataAiHint: 'product roadmap', pricing: 'Paid' },
-        ]
-    },
-    {
-        title: "E-commerce Tools",
-        icon: <ShoppingCart className="w-5 h-5 text-primary"/>,
-        tools: [
-            { name: 'Shopify', description: 'The platform commerce is built on.', url: 'https://www.shopify.com/', image: 'https://picsum.photos/seed/shopify-ecom/600/400', dataAiHint: 'ecommerce platform', pricing: 'Paid' },
-            { name: 'BigCommerce', description: 'The E-commerce Platform for a New Era.', url: 'https://www.bigcommerce.com/', image: 'https://picsum.photos/seed/bigcommerce-ecom/600/400', dataAiHint: 'online store', pricing: 'Paid' },
-            { name: 'WooCommerce', description: 'An open-source e-commerce plugin for WordPress.', url: 'https://woocommerce.com/', image: 'https://picsum.photos/seed/woocommerce-ecom/600/400', dataAiHint: 'wordpress ecommerce', pricing: 'Free' },
-            { name: 'Magento', description: 'E-commerce Platforms for All Your Needs.', url: 'https://magento.com/', image: 'https://picsum.photos/seed/magento-ecom/600/400', dataAiHint: 'adobe commerce', pricing: 'Paid' },
-            { name: 'Squarespace', description: 'Website builder for e-commerce.', url: 'https://www.squarespace.com/commerce', image: 'https://picsum.photos/seed/squarespace-ecom/600/400', dataAiHint: 'website builder', pricing: 'Paid' },
-        ]
-    },
-    {
-        title: "Social Media Management",
-        icon: <Users className="w-5 h-5 text-primary"/>,
-        tools: [
-            { name: 'Hootsuite', description: 'Manage all your social media in one place.', url: 'https://www.hootsuite.com/', image: 'https://picsum.photos/seed/hootsuite-social/600/400', dataAiHint: 'social media dashboard', pricing: 'Paid' },
-            { name: 'Buffer', description: 'Social media management platform for small business.', url: 'https://buffer.com/', image: 'https://picsum.photos/seed/buffer-social/600/400', dataAiHint: 'social scheduler', pricing: 'Freemium' },
-            { name: 'Sprout Social', description: 'Social media management solutions.', url: 'https://sproutsocial.com/', image: 'https://picsum.photos/seed/sproutsocial-social/600/400', dataAiHint: 'social analytics', pricing: 'Paid' },
-            { name: 'Agorapulse', description: 'Social media management software.', url: 'https://www.agorapulse.com/', image: 'https://picsum.photos/seed/agorapulse-social/600/400', dataAiHint: 'social inbox', pricing: 'Paid' },
-            { name: 'Later', description: 'Visually plan and schedule social media posts.', url: 'https://later.com/', image: 'https://picsum.photos/seed/later-social/600/400', dataAiHint: 'instagram scheduler', pricing: 'Freemium' },
-        ]
-    },
-    {
-        title: "Legal & Compliance Tools",
-        icon: <FileCheck className="w-5 h-5 text-primary"/>,
-        tools: [
-            { name: 'LegalZoom', description: 'Online legal services for businesses.', url: 'https://www.legalzoom.com/', image: 'https://picsum.photos/seed/legalzoom/600/400', dataAiHint: 'business formation', pricing: 'Paid' },
-            { name: 'Rocket Lawyer', description: 'Affordable and simple legal services.', url: 'https://www.rocketlawyer.com/', image: 'https://picsum.photos/seed/rocketlawyer/600/400', dataAiHint: 'legal documents', pricing: 'Paid' },
-            { name: 'Clio', description: 'Law practice management software.', url: 'https://www.clio.com/', image: 'https://picsum.photos/seed/clio-legal/600/400', dataAiHint: 'law firm software', pricing: 'Paid' },
-            { name: 'TermsFeed', description: 'Generate legal agreements for your website or app.', url: 'https://www.termsfeed.com/', image: 'https://picsum.photos/seed/termsfeed/600/400', dataAiHint: 'privacy policy', pricing: 'Freemium' },
-            { name: 'Iubenda', description: 'Compliance solutions for websites and apps.', url: 'https://www.iubenda.com/', image: 'https://picsum.photos/seed/iubenda/600/400', dataAiHint: 'gdpr compliance', pricing: 'Paid' },
-        ]
-    },
-    {
-        title: "Document & Office Tools",
-        icon: <FileText className="w-5 h-5 text-primary"/>,
-        tools: [
-            { name: 'Microsoft 365', description: 'The world\'s productivity cloud.', url: 'https://www.microsoft.com/en-us/microsoft-365', image: 'https://picsum.photos/seed/m365-office/600/400', dataAiHint: 'office suite', pricing: 'Paid' },
-            { name: 'Google Workspace', description: 'A flexible, innovative solution for people and organizations.', url: 'https://workspace.google.com/', image: 'https://picsum.photos/seed/gworkspace/600/400', dataAiHint: 'collaboration tools', pricing: 'Freemium' },
-            { name: 'Dropbox', description: 'A modern workspace designed to reduce busywork.', url: 'https://www.dropbox.com/', image: 'https://picsum.photos/seed/dropbox-office/600/400', dataAiHint: 'cloud storage', pricing: 'Freemium' },
-            { name: 'Slack', description: 'Where work happens.', url: 'https://slack.com/', image: 'https://picsum.photos/seed/slack-office/600/400', dataAiHint: 'team chat', pricing: 'Freemium' },
-            { name: 'Notion', description: 'The all-in-one workspace.', url: 'https://www.notion.so/', image: 'https://picsum.photos/seed/notion-office/600/400', dataAiHint: 'connected workspace', pricing: 'Freemium' },
-        ]
-    },
-    {
-        title: "Communication Tools",
-        icon: <MessageSquare className="w-5 h-5 text-primary"/>,
-        tools: [
-            { name: 'Slack', description: 'Where work happens.', url: 'https://slack.com/', image: 'https://picsum.photos/seed/slack-comm/600/400', dataAiHint: 'team communication', pricing: 'Freemium' },
-            { name: 'Microsoft Teams', description: 'The hub for teamwork in Microsoft 365.', url: 'https://www.microsoft.com/en-us/microsoft-teams/group-chat-software', image: 'https://picsum.photos/seed/msteams/600/400', dataAiHint: 'video conferencing', pricing: 'Freemium' },
-            { name: 'Zoom', description: 'Video conferencing, cloud phone, webinars, chat.', url: 'https://zoom.us/', image: 'https://picsum.photos/seed/zoom-comm/600/400', dataAiHint: 'online meetings', pricing: 'Freemium' },
-            { name: 'Google Meet', description: 'Secure video meetings for everyone.', url: 'https://meet.google.com/', image: 'https://picsum.photos/seed/gmeet-comm/600/400', dataAiHint: 'video calls', pricing: 'Free' },
-            { name: 'Discord', description: 'Your place to talk and hang out.', url: 'https://discord.com/', image: 'https://picsum.photos/seed/discord-comm/600/400', dataAiHint: 'voice chat', pricing: 'Freemium' },
-        ]
-    }
-];
-
 export const productivityToolData: ToolCategory[] = [];
-
 export const codingToolData: ToolCategory[] = [];
 
 const allData = [
@@ -973,7 +712,11 @@ const allData = [
     ...aiAvatarTools,
     ...textToImageTools,
     ...businessToolData.flatMap(cat => cat.tools),
-    ...graphicDesignToolData.flatMap(cat => cat.tools)
+    ...graphicDesignToolData.flatMap(cat => cat.tools),
+    ...writingToolData.flatMap(cat => cat.tools),
+    ...marketingSeoToolData.flatMap(cat => cat.tools),
+    ...productivityToolData.flatMap(cat => cat.tools),
+    ...codingToolData.flatMap(cat => cat.tools)
 ];
 
 export const allTools: Tool[] = Array.from(new Set(allData.map(t => t.name))).map(name => {
