@@ -128,7 +128,10 @@ export default function MyProfilePage() {
                             </Avatar>
                             <div>
                                 <h1 className="text-2xl font-bold">{user?.displayName || 'Community Member'}</h1>
-                                <p className="text-muted-foreground">{user?.email}</p>
+                                <div className="flex items-center gap-2 mt-1">
+                                    <p className="text-muted-foreground">{user?.email}</p>
+                                    <Button variant="outline" size="sm" className="text-xs h-7">Change Avatar</Button>
+                                </div>
                             </div>
                         </div>
 
