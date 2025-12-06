@@ -1,135 +1,136 @@
-// This file holds the structure for avatar assets, using Firebase Storage URL templates.
-// Replace '<YOUR_BUCKET>' with your actual Firebase Storage bucket name.
-const BUCKET_NAME = 'ai-planets-9-61203782-d4b23'; // Placeholder bucket name
 
-const urlTemplate = (path: string) => `https://firebasestorage.googleapis.com/v0/b/${BUCKET_NAME}.appspot.com/o/${encodeURIComponent(path)}?alt=media`;
+// This file holds the structure for avatar assets.
+// We are using picsum.photos for placeholders.
+// Once you have your assets in Firebase Storage, you can replace these URLs.
+
+const urlTemplate = (seed: string) => `https://picsum.photos/seed/${seed}/200/200`;
 
 export const avatarData = {
   "layerOrder": ["base", "pants", "shirt", "hair"],
   "characters": {
     "cat": {
       "name": "Cat",
-      "base": urlTemplate("avatars/cat/base.png"),
+      "base": urlTemplate("cat-base"),
       "hair": [
-        { "name": "Spiky", "image": urlTemplate("avatars/cat/hair_spiky.png") },
-        { "name": "Curly", "image": urlTemplate("avatars/cat/hair_curly.png") },
-        { "name": "Straight", "image": urlTemplate("avatars/cat/hair_straight.png") },
-        { "name": "Short", "image": urlTemplate("avatars/cat/hair_short.png") },
-        { "name": "Wavy", "image": urlTemplate("avatars/cat/hair_wavy.png") }
+        { "name": "Spiky", "image": urlTemplate("cat-hair-spiky") },
+        { "name": "Curly", "image": urlTemplate("cat-hair-curly") },
+        { "name": "Straight", "image": urlTemplate("cat-hair-straight") },
+        { "name": "Short", "image": urlTemplate("cat-hair-short") },
+        { "name": "Wavy", "image": urlTemplate("cat-hair-wavy") }
       ],
       "shirts": [
-        { "name": "Shirt 1", "image": urlTemplate("avatars/cat/shirt_1.png") },
-        { "name": "Shirt 2", "image": urlTemplate("avatars/cat/shirt_2.png") },
-        { "name": "Shirt 3", "image": urlTemplate("avatars/cat/shirt_3.png") },
-        { "name": "Shirt 4", "image": urlTemplate("avatars/cat/shirt_4.png") },
-        { "name": "Shirt 5", "image": urlTemplate("avatars/cat/shirt_5.png") }
+        { "name": "Shirt 1", "image": urlTemplate("cat-shirt-1") },
+        { "name": "Shirt 2", "image": urlTemplate("cat-shirt-2") },
+        { "name": "Shirt 3", "image": urlTemplate("cat-shirt-3") },
+        { "name": "Shirt 4", "image": urlTemplate("cat-shirt-4") },
+        { "name": "Shirt 5", "image": urlTemplate("cat-shirt-5") }
       ],
       "pants": [
-        { "name": "Pants 1", "image": urlTemplate("avatars/cat/pants_1.png") },
-        { "name": "Pants 2", "image": urlTemplate("avatars/cat/pants_2.png") },
-        { "name": "Pants 3", "image": urlTemplate("avatars/cat/pants_3.png") },
-        { "name": "Pants 4", "image": urlTemplate("avatars/cat/pants_4.png") },
-        { "name": "Pants 5", "image": urlTemplate("avatars/cat/pants_5.png") }
+        { "name": "Pants 1", "image": urlTemplate("cat-pants-1") },
+        { "name": "Pants 2", "image": urlTemplate("cat-pants-2") },
+        { "name": "Pants 3", "image": urlTemplate("cat-pants-3") },
+        { "name": "Pants 4", "image": urlTemplate("cat-pants-4") },
+        { "name": "Pants 5", "image": urlTemplate("cat-pants-5") }
       ]
     },
     "dog": {
-        "name": "Dog",
-      "base": urlTemplate("avatars/dog/base.png"),
+      "name": "Dog",
+      "base": urlTemplate("dog-base"),
       "hair": [
-        { "name": "Spiky", "image": urlTemplate("avatars/dog/hair_spiky.png") },
-        { "name": "Curly", "image": urlTemplate("avatars/dog/hair_curly.png") },
-        { "name": "Straight", "image": urlTemplate("avatars/dog/hair_straight.png") },
-        { "name": "Short", "image": urlTemplate("avatars/dog/hair_short.png") },
-        { "name": "Wavy", "image": urlTemplate("avatars/dog/hair_wavy.png") }
+        { "name": "Spiky", "image": urlTemplate("dog-hair-spiky") },
+        { "name": "Curly", "image": urlTemplate("dog-hair-curly") },
+        { "name": "Straight", "image": urlTemplate("dog-hair-straight") },
+        { "name": "Short", "image": urlTemplate("dog-hair-short") },
+        { "name": "Wavy", "image": urlTemplate("dog-hair-wavy") }
       ],
       "shirts": [
-        { "name": "Shirt 1", "image": urlTemplate("avatars/dog/shirt_1.png") },
-        { "name": "Shirt 2", "image": urlTemplate("avatars/dog/shirt_2.png") },
-        { "name": "Shirt 3", "image": urlTemplate("avatars/dog/shirt_3.png") },
-        { "name": "Shirt 4", "image": urlTemplate("avatars/dog/shirt_4.png") },
-        { "name": "Shirt 5", "image": urlTemplate("avatars/dog/shirt_5.png") }
+        { "name": "Shirt 1", "image": urlTemplate("dog-shirt-1") },
+        { "name": "Shirt 2", "image": urlTemplate("dog-shirt-2") },
+        { "name": "Shirt 3", "image": urlTemplate("dog-shirt-3") },
+        { "name": "Shirt 4", "image": urlTemplate("dog-shirt-4") },
+        { "name": "Shirt 5", "image": urlTemplate("dog-shirt-5") }
       ],
       "pants": [
-        { "name": "Pants 1", "image": urlTemplate("avatars/dog/pants_1.png") },
-        { "name": "Pants 2", "image": urlTemplate("avatars/dog/pants_2.png") },
-        { "name": "Pants 3", "image": urlTemplate("avatars/dog/pants_3.png") },
-        { "name": "Pants 4", "image": urlTemplate("avatars/dog/pants_4.png") },
-        { "name": "Pants 5", "image": urlTemplate("avatars/dog/pants_5.png") }
+        { "name": "Pants 1", "image": urlTemplate("dog-pants-1") },
+        { "name": "Pants 2", "image": urlTemplate("dog-pants-2") },
+        { "name": "Pants 3", "image": urlTemplate("dog-pants-3") },
+        { "name": "Pants 4", "image": urlTemplate("dog-pants-4") },
+        { "name": "Pants 5", "image": urlTemplate("dog-pants-5") }
       ]
     },
     "panda": {
       "name": "Panda",
-      "base": urlTemplate("avatars/panda/base.png"),
+      "base": urlTemplate("panda-base"),
       "hair": [
-        { "name": "Spiky", "image": urlTemplate("avatars/panda/hair_spiky.png") },
-        { "name": "Curly", "image": urlTemplate("avatars/panda/hair_curly.png") },
-        { "name": "Straight", "image": urlTemplate("avatars/panda/hair_straight.png") },
-        { "name": "Short", "image": urlTemplate("avatars/panda/hair_short.png") },
-        { "name": "Wavy", "image": urlTemplate("avatars/panda/hair_wavy.png") }
+        { "name": "Spiky", "image": urlTemplate("panda-hair-spiky") },
+        { "name": "Curly", "image": urlTemplate("panda-hair-curly") },
+        { "name": "Straight", "image": urlTemplate("panda-hair-straight") },
+        { "name": "Short", "image": urlTemplate("panda-hair-short") },
+        { "name": "Wavy", "image": urlTemplate("panda-hair-wavy") }
       ],
       "shirts": [
-        { "name": "Shirt 1", "image": urlTemplate("avatars/panda/shirt_1.png") },
-        { "name": "Shirt 2", "image": urlTemplate("avatars/panda/shirt_2.png") },
-        { "name": "Shirt 3", "image": urlTemplate("avatars/panda/shirt_3.png") },
-        { "name": "Shirt 4", "image": urlTemplate("avatars/panda/shirt_4.png") },
-        { "name": "Shirt 5", "image": urlTemplate("avatars/panda/shirt_5.png") }
+        { "name": "Shirt 1", "image": urlTemplate("panda-shirt-1") },
+        { "name": "Shirt 2", "image": urlTemplate("panda-shirt-2") },
+        { "name": "Shirt 3", "image": urlTemplate("panda-shirt-3") },
+        { "name": "Shirt 4", "image": urlTemplate("panda-shirt-4") },
+        { "name": "Shirt 5", "image": urlTemplate("panda-shirt-5") }
       ],
       "pants": [
-        { "name": "Pants 1", "image": urlTemplate("avatars/panda/pants_1.png") },
-        { "name": "Pants 2", "image": urlTemplate("avatars/panda/pants_2.png") },
-        { "name": "Pants 3", "image": urlTemplate("avatars/panda/pants_3.png") },
-        { "name": "Pants 4", "image": urlTemplate("avatars/panda/pants_4.png") },
-        { "name": "Pants 5", "image": urlTemplate("avatars/panda/pants_5.png") }
+        { "name": "Pants 1", "image": urlTemplate("panda-pants-1") },
+        { "name": "Pants 2", "image": urlTemplate("panda-pants-2") },
+        { "name": "Pants 3", "image": urlTemplate("panda-pants-3") },
+        { "name": "Pants 4", "image": urlTemplate("panda-pants-4") },
+        { "name": "Pants 5", "image": urlTemplate("panda-pants-5") }
       ]
     },
     "fox": {
       "name": "Fox",
-      "base": urlTemplate("avatars/fox/base.png"),
+      "base": urlTemplate("fox-base"),
       "hair": [
-        { "name": "Spiky", "image": urlTemplate("avatars/fox/hair_spiky.png") },
-        { "name": "Curly", "image": urlTemplate("avatars/fox/hair_curly.png") },
-        { "name": "Straight", "image": urlTemplate("avatars/fox/hair_straight.png") },
-        { "name": "Short", "image": urlTemplate("avatars/fox/hair_short.png") },
-        { "name": "Wavy", "image": urlTemplate("avatars/fox/hair_wavy.png") }
+        { "name": "Spiky", "image": urlTemplate("fox-hair-spiky") },
+        { "name": "Curly", "image": urlTemplate("fox-hair-curly") },
+        { "name": "Straight", "image": urlTemplate("fox-hair-straight") },
+        { "name": "Short", "image": urlTemplate("fox-hair-short") },
+        { "name": "Wavy", "image": urlTemplate("fox-hair-wavy") }
       ],
       "shirts": [
-        { "name": "Shirt 1", "image": urlTemplate("avatars/fox/shirt_1.png") },
-        { "name": "Shirt 2", "image": urlTemplate("avatars/fox/shirt_2.png") },
-        { "name": "Shirt 3", "image": urlTemplate("avatars/fox/shirt_3.png") },
-        { "name": "Shirt 4", "image": urlTemplate("avatars/fox/shirt_4.png") },
-        { "name": "Shirt 5", "image": urlTemplate("avatars/fox/shirt_5.png") }
+        { "name": "Shirt 1", "image": urlTemplate("fox-shirt-1") },
+        { "name": "Shirt 2", "image": urlTemplate("fox-shirt-2") },
+        { "name": "Shirt 3", "image": urlTemplate("fox-shirt-3") },
+        { "name": "Shirt 4", "image": urlTemplate("fox-shirt-4") },
+        { "name": "Shirt 5", "image": urlTemplate("fox-shirt-5") }
       ],
       "pants": [
-        { "name": "Pants 1", "image": urlTemplate("avatars/fox/pants_1.png") },
-        { "name": "Pants 2", "image": urlTemplate("avatars/fox/pants_2.png") },
-        { "name": "Pants 3", "image": urlTemplate("avatars/fox/pants_3.png") },
-        { "name": "Pants 4", "image": urlTemplate("avatars/fox/pants_4.png") },
-        { "name": "Pants 5", "image": urlTemplate("avatars/fox/pants_5.png") }
+        { "name": "Pants 1", "image": urlTemplate("fox-pants-1") },
+        { "name": "Pants 2", "image": urlTemplate("fox-pants-2") },
+        { "name": "Pants 3", "image": urlTemplate("fox-pants-3") },
+        { "name": "Pants 4", "image": urlTemplate("fox-pants-4") },
+        { "name": "Pants 5", "image": urlTemplate("fox-pants-5") }
       ]
     },
     "bunny": {
       "name": "Bunny",
-      "base": urlTemplate("avatars/bunny/base.png"),
+      "base": urlTemplate("bunny-base"),
       "hair": [
-        { "name": "Spiky", "image": urlTemplate("avatars/bunny/hair_spiky.png") },
-        { "name": "Curly", "image": urlTemplate("avatars/bunny/hair_curly.png") },
-        { "name": "Straight", "image": urlTemplate("avatars/bunny/hair_straight.png") },
-        { "name": "Short", "image": urlTemplate("avatars/bunny/hair_short.png") },
-        { "name": "Wavy", "image": urlTemplate("avatars/bunny/hair_wavy.png") }
+        { "name": "Spiky", "image": urlTemplate("bunny-hair-spiky") },
+        { "name": "Curly", "image": urlTemplate("bunny-hair-curly") },
+        { "name": "Straight", "image": urlTemplate("bunny-hair-straight") },
+        { "name": "Short", "image": urlTemplate("bunny-hair-short") },
+        { "name": "Wavy", "image": urlTemplate("bunny-hair-wavy") }
       ],
       "shirts": [
-        { "name": "Shirt 1", "image": urlTemplate("avatars/bunny/shirt_1.png") },
-        { "name": "Shirt 2", "image": urlTemplate("avatars/bunny/shirt_2.png") },
-        { "name": "Shirt 3", "image": urlTemplate("avatars/bunny/shirt_3.png") },
-        { "name": "Shirt 4", "image": urlTemplate("avatars/bunny/shirt_4.png") },
-        { "name": "Shirt 5", "image": urlTemplate("avatars/bunny/shirt_5.png") }
+        { "name": "Shirt 1", "image": urlTemplate("bunny-shirt-1") },
+        { "name": "Shirt 2", "image": urlTemplate("bunny-shirt-2") },
+        { "name": "Shirt 3", "image": urlTemplate("bunny-shirt-3") },
+        { "name": "Shirt 4", "image": urlTemplate("bunny-shirt-4") },
+        { "name": "Shirt 5", "image": urlTemplate("bunny-shirt-5") }
       ],
       "pants": [
-        { "name": "Pants 1", "image": urlTemplate("avatars/bunny/pants_1.png") },
-        { "name": "Pants 2", "image": urlTemplate("avatars/bunny/pants_2.png") },
-        { "name": "Pants 3", "image": urlTemplate("avatars/bunny/pants_3.png") },
-        { "name": "Pants 4", "image": urlTemplate("avatars/bunny/pants_4.png") },
-        { "name": "Pants 5", "image": urlTemplate("avatars/bunny/pants_5.png") }
+        { "name": "Pants 1", "image": urlTemplate("bunny-pants-1") },
+        { "name": "Pants 2", "image": urlTemplate("bunny-pants-2") },
+        { "name": "Pants 3", "image": urlTemplate("bunny-pants-3") },
+        { "name": "Pants 4", "image": urlTemplate("bunny-pants-4") },
+        { "name": "Pants 5", "image": urlTemplate("bunny-pants-5") }
       ]
     }
   }
