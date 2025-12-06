@@ -8,9 +8,12 @@ import Link from 'next/link';
 import { Card } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Users, Star } from 'lucide-react';
+import { ArrowLeft, Users, Star, MoreVertical, Edit } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
 import { ClubHeader } from '@/components/club-header';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { ProfileDetails } from '@/components/profile-details';
 
 interface Group {
     id: string;
@@ -49,6 +52,8 @@ const MyProfileSkeleton = () => (
 export default function MyProfilePage() {
     const { user, isUserLoading } = useUser();
     const firestore = useFirestore();
+    const [isEditDialogOpen, setIsEditDialogOpen] = React.useState(false);
+
 
     const groupsRef = useMemoFirebase(() => {
         if (!firestore) return null;
@@ -88,8 +93,31 @@ export default function MyProfilePage() {
 
             <div className="relative z-10 w-full max-w-lg p-0 md:p-6">
                 <div className="bg-card/80 backdrop-blur-3xl md:rounded-[2.5rem] shadow-2xl flex flex-col min-h-screen md:min-h-0 md:max-h-[calc(100vh-3rem)] border-t-2 border-white/50 soft-shadow">
-                    <div className="p-4 border-b">
+                    <div className="p-4 border-b flex justify-between items-center">
                         <ClubHeader title="My Profile" showBackButton />
+                         <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
+                            <DropdownMenu>
+                                <DropdownMenuTrigger asChild>
+                                    <Button variant="ghost" size="icon" className="rounded-full h-12 w-12">
+                                        <MoreVertical className="w-6 h-6"/>
+                                    </Button>
+                                </DropdownMenuTrigger>
+                                <DropdownMenuContent align="end">
+                                    <DialogTrigger asChild>
+                                        <DropdownMenuItem>
+                                            <Edit className="mr-2 h-4 w-4" />
+                                            <span>Edit Profile</span>
+                                        </DropdownMenuItem>
+                                    </DialogTrigger>
+                                </DropdownMenuContent>
+                            </DropdownMenu>
+                            <DialogContent>
+                                <DialogHeader>
+                                <DialogTitle>Edit Profile</DialogTitle>
+                                </DialogHeader>
+                                <ProfileDetails />
+                            </DialogContent>
+                        </Dialog>
                     </div>
 
                     <main className="flex-grow overflow-y-auto no-scrollbar p-6">
@@ -142,4 +170,3 @@ export default function MyProfilePage() {
         </div>
     );
 }
-
