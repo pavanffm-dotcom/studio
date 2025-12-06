@@ -178,7 +178,7 @@ export default function GraphicDesignToolsPage() {
                       )}
                   </div>
                   <div className="flex gap-4 overflow-x-auto no-scrollbar pb-2 -mx-4 px-4">
-                      {category.tools.slice(0, 10).map((tool, toolIndex) => (
+                      {category.tools.map((tool, toolIndex) => (
                         <ToolCard tool={tool} key={`${category.title}-${tool.name}-${toolIndex}`}/>
                       ))}
                   </div>
