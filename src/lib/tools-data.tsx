@@ -1,11 +1,10 @@
 
-
 import { 
     Briefcase, DollarSign, UserCog, CreditCard, Users, MessageSquare, Video, Megaphone, BarChart, GitBranch, ListChecks, Lightbulb, Cpu, Code, Filter, TrendingUp, Link2, Server, Layers,
     Paintbrush, Youtube, HelpCircle, Book, Zap, Calendar, Brain, Search, Type, Presentation, Wand2, Mic, File, GraduationCap, Scissors, Film, ImageIcon, Palette, Bot, Mic2, FileText,
     Terminal, Database, CloudCog, Bug, Box, TerminalSquare, PackageCheck, Shield, Smartphone, Gamepad2, TestTube, Gauge,
     LayoutDashboard, BookOpen, Contact, Gem, MonitorPlay, Wallet, Receipt, FileSignature, Folder, Workflow, Clock, Timer, Hourglass, Share, Copy, RotateCw, Cloud, Sparkles, BookCopy, Mail, ShoppingCart, Layout, ImagePlay, Shapes, UserCircle, BrainCircuit, Newspaper, BoxSelect, MousePointerClick, BookCopy as BookCopyIcon, Wallpaper, Car, Store, TowerControl, Truck, SquareParking, PenTool, Feather, Key, Quote, Tv, Building, FileCheck, Scale,
-    Settings, Target, ClipboardCheck, Eye, UploadCloud, Globe, Webhook, HardDrive, Component, GanttChartSquare, FunctionSquare, RefreshCw, Laptop, Gateway, BarChart3
+    Settings, Target, ClipboardCheck, Eye, UploadCloud, Globe, Webhook, HardDrive, Component, GanttChartSquare, FunctionSquare, RefreshCw, Laptop, BarChart3, Router
 } from 'lucide-react';
 import React from 'react';
 
@@ -560,78 +559,58 @@ export const graphicDesignToolData: ToolCategory[] = [
             { name: 'Brandmark', description: 'Create a unique, professional logo.', url: 'https://brandmark.io/', image: 'https://picsum.photos/seed/brandmark/600/400', dataAiHint: 'professional logo', pricing: 'Paid' },
             { name: 'Hatchful by Shopify', description: 'Free logo maker for businesses.', url: 'https://hatchful.shopify.com/', image: 'https://picsum.photos/seed/hatchful/600/400', dataAiHint: 'shopify logo', pricing: 'Free' },
             { name: 'Tailor Brands', description: 'AI-powered branding platform.', url: 'https://www.tailorbrands.com/', image: 'https://picsum.photos/seed/tailorbrands/600/400', dataAiHint: 'branding platform', pricing: 'Paid' },
-            { name: 'Designhill', description: 'AI logo maker and design marketplace.', url: 'https://www.designhill.com/logo-maker/', image: 'https://picsum.photos/seed/designhill/600/400', dataAiHint: 'design marketplace', pricing: 'Freemium' },
+            ...[...Array(50)].map((_, i) => ({ name: `Branding Tool ${i + 1}`, description: `Advanced tool for branding solution #${i + 1}`, url: '#', image: `https://picsum.photos/seed/brandtool${i}/600/400`, dataAiHint: 'branding solution', pricing: 'Paid' as 'Paid' | 'Free' | 'Freemium' }))
         ]
     },
     {
         title: "Illustration & Drawing",
         icon: <PenTool className="w-5 h-5 text-primary"/>,
-        tools: [
-            // Tools will be added here
-        ]
+        tools: [...Array(55)].map((_, i) => ({ name: `Illustration Tool ${i + 1}`, description: `Creative tool for illustration #${i + 1}`, url: '#', image: `https://picsum.photos/seed/illustool${i}/600/400`, dataAiHint: 'illustration art', pricing: 'Freemium' as 'Paid' | 'Free' | 'Freemium' }))
     },
     {
         title: "Photo Editing & Retouching",
         icon: <ImagePlay className="w-5 h-5 text-primary"/>,
-        tools: [
-            // Tools will be added here
-        ]
+        tools: [...Array(60)].map((_, i) => ({ name: `Photo Editor ${i + 1}`, description: `Tool for professional photo editing #${i + 1}`, url: '#', image: `https://picsum.photos/seed/photoedit${i}/600/400`, dataAiHint: 'photo editing', pricing: 'Paid' as 'Paid' | 'Free' | 'Freemium' }))
     },
     {
         title: "UI/UX Design & Prototyping",
         icon: <LayoutDashboard className="w-5 h-5 text-primary"/>,
-        tools: [
-            // Tools will be added here
-        ]
+        tools: [...Array(52)].map((_, i) => ({ name: `UI/UX Tool ${i + 1}`, description: `Tool for UI/UX design and prototyping #${i + 1}`, url: '#', image: `https://picsum.photos/seed/uiuxtool${i}/600/400`, dataAiHint: 'interface design', pricing: 'Freemium' as 'Paid' | 'Free' | 'Freemium' }))
     },
     {
         title: "Infographics & Data Visualization",
         icon: <BarChart className="w-5 h-5 text-primary"/>,
-        tools: [
-            // Tools will be added here
-        ]
+        tools: [...Array(58)].map((_, i) => ({ name: `Infographic Tool ${i + 1}`, description: `Tool for creating infographics #${i + 1}`, url: '#', image: `https://picsum.photos/seed/infograph${i}/600/400`, dataAiHint: 'data visualization', pricing: 'Free' as 'Paid' | 'Free' | 'Freemium' }))
     },
     {
         title: "Typography Tools",
         icon: <Type className="w-5 h-5 text-primary"/>,
-        tools: [
-            // Tools will be added here
-        ]
+        tools: [...Array(53)].map((_, i) => ({ name: `Typography Tool ${i + 1}`, description: `Tool for typography and fonts #${i + 1}`, url: '#', image: `https://picsum.photos/seed/typetool${i}/600/400`, dataAiHint: 'font design', pricing: 'Paid' as 'Paid' | 'Free' | 'Freemium' }))
     },
     {
         title: "Color Palette Generators",
         icon: <Palette className="w-5 h-5 text-primary"/>,
-        tools: [
-            // Tools will be added here
-        ]
+        tools: [...Array(51)].map((_, i) => ({ name: `Color Tool ${i + 1}`, description: `Tool for generating color palettes #${i + 1}`, url: '#', image: `https://picsum.photos/seed/colortool${i}/600/400`, dataAiHint: 'color palette', pricing: 'Freemium' as 'Paid' | 'Free' | 'Freemium' }))
     },
     {
         title: "Mockup Generators",
         icon: <Shapes className="w-5 h-5 text-primary"/>,
-        tools: [
-            // Tools will be added here
-        ]
+        tools: [...Array(56)].map((_, i) => ({ name: `Mockup Tool ${i + 1}`, description: `Tool for creating mockups #${i + 1}`, url: '#', image: `https://picsum.photos/seed/mockuptool${i}/600/400`, dataAiHint: 'product mockup', pricing: 'Paid' as 'Paid' | 'Free' | 'Freemium' }))
     },
     {
         title: "Asset & Stock Photo Resources",
         icon: <ImageIcon className="w-5 h-5 text-primary"/>,
-        tools: [
-            // Tools will be added here
-        ]
+        tools: [...Array(54)].map((_, i) => ({ name: `Stock Photo Site ${i + 1}`, description: `Resource for stock photos and assets #${i + 1}`, url: '#', image: `https://picsum.photos/seed/stockphoto${i}/600/400`, dataAiHint: 'stock images', pricing: 'Free' as 'Paid' | 'Free' | 'Freemium' }))
     },
     {
         title: "3D & Motion Graphics",
         icon: <Film className="w-5 h-5 text-primary"/>,
-        tools: [
-            // Tools will be added here
-        ]
+        tools: [...Array(59)].map((_, i) => ({ name: `3D/Motion Tool ${i + 1}`, description: `Tool for 3D and motion graphics #${i + 1}`, url: '#', image: `https://picsum.photos/seed/3dmotion${i}/600/400`, dataAiHint: '3d animation', pricing: 'Freemium' as 'Paid' | 'Free' | 'Freemium' }))
     },
     {
         title: "AI-Powered Design Tools",
         icon: <Sparkles className="w-5 h-5 text-primary"/>,
-        tools: [
-            // Tools will be added here
-        ]
+        tools: [...Array(57)].map((_, i) => ({ name: `AI Design Tool ${i + 1}`, description: `AI-powered tool for design automation #${i + 1}`, url: '#', image: `https://picsum.photos/seed/aidesign${i}/600/400`, dataAiHint: 'ai design', pricing: 'Paid' as 'Paid' | 'Free' | 'Freemium' }))
     }
 ];
 
@@ -824,7 +803,7 @@ export const codingToolData: ToolCategory[] = [
     },
     {
         title: 'API Gateway Tools',
-        icon: <Gateway className="w-5 h-5 text-primary" />,
+        icon: <Router className="w-5 h-5 text-primary"/>,
         tools: [...Array(57)].map((_, i) => ({ name: `API Gateway ${i + 1}`, url: '#', image: `https://picsum.photos/seed/apigateway${i}/300/200`, dataAiHint: 'api gateway' }))
     },
     {
