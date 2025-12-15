@@ -1,4 +1,5 @@
 
+
 'use client';
 
 import React, { useCallback, useMemo, useState, useRef } from 'react';
@@ -536,7 +537,7 @@ function App() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                 <div className="absolute bottom-0 left-0 p-4">
-                  <h5 className="text-white font-bold text-xl">{t(`home.quickTools.categories.${category.name.replace(/ & | /g, '')}`)}</h5>
+                  <h5 className="text-white font-bold text-xl">{t(`home.quickTools.categories.${category.translationKey}`)}</h5>
                 </div>
               </Card>
             </Link>
