@@ -27,7 +27,7 @@ import { useToast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { useUserPreferences } from '@/context/user-preferences-context';
-import { type Tool, type ToolCategory, productivityToolData } from '@/lib/tools-data.tsx';
+import { type Tool, type ToolCategory, productivityToolData } from '@/lib/productivity-tools-data';
 
 export default function ProductivityToolsPage() {
     const { toast } = useToast();
