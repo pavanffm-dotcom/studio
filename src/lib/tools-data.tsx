@@ -1,14 +1,17 @@
 
 
+
 import { 
     Briefcase, DollarSign, UserCog, CreditCard, Users, MessageSquare, Megaphone, BarChart, GitBranch, ListChecks, Lightbulb, Cpu, Code, Filter, TrendingUp, Link2, Server, Layers,
     Paintbrush, Youtube, HelpCircle, Book, Zap, Calendar, Brain, Search, Type, Presentation, Wand2, Mic, File, GraduationCap, Scissors, Film, ImageIcon, Palette, Bot, Mic2, FileText,
     Terminal, Database, CloudCog, Bug, Box, TerminalSquare, PackageCheck, Shield, Smartphone, Gamepad2, TestTube, Gauge,
     LayoutDashboard, BookOpen, Contact, Gem, MonitorPlay, Wallet, Receipt, FileSignature, Folder, Workflow, Clock, Timer, Hourglass, Share, Copy, RotateCw, Cloud, Sparkles, BookCopy, Mail, ShoppingCart, Layout, ImagePlay, Shapes, UserCircle, BrainCircuit, Newspaper, BoxSelect, MousePointerClick, BookCopy as BookCopyIcon, Wallpaper, Car, Store, TowerControl, Truck, SquareParking, PenTool, Feather, Key, Quote, Tv, Building, FileCheck, Scale,
-    Settings, Target, ClipboardCheck, Eye, UploadCloud, Globe, Webhook, HardDrive, Component, GanttChartSquare, FunctionSquare, RefreshCw, Laptop, BarChart3, Router, Video
+    Settings, Target, ClipboardCheck, Eye, UploadCloud, Globe, Webhook, HardDrive, Component, GanttChartSquare, FunctionSquare, RefreshCw, Laptop, Router, BarChart3
 } from 'lucide-react';
 import React from 'react';
 import { businessToolData } from './business-tools-data';
+import { studentToolData } from './student-tools-data';
+import { contentCreationToolData } from './content-creation-data';
 
 // Helper to get the correct icon for packaging since it's not in lucide-react by default
 const Package = (props: React.JSX.IntrinsicAttributes & React.SVGProps<SVGSVGElement>) => (
@@ -440,16 +443,6 @@ export const textToImageTools: Tool[] = [
     { name: 'Vectorspace AI', image: 'https://picsum.photos/seed/vectorspace-t2i/300/200', isTrending: false, category: 'Text to Image', dataAiHint: 'ai data analysis', url: 'https://vectorspace.ai/' },
 ];
 
-export const toolCategories = [
-    { name: 'All', icon: 'LayoutGrid', color: 'bg-primary text-primary-foreground' },
-    { name: 'Img2vid', icon: 'ImageIcon', gradient: 'bg-gradient-to-br from-pink-400 to-rose-400' },
-    { name: 'Txt2vid', icon: 'Video', gradient: 'bg-gradient-to-br from-sky-400 to-blue-400' },
-    { name: 'Text to Speech', icon: 'Text', gradient: 'bg-gradient-to-br from-teal-400 to-emerald-400' },
-    { name: 'Text to Image', icon: 'ImageDown', gradient: 'bg-gradient-to-br from-orange-400 to-amber-400' },
-    { name: 'Voice Cloning', icon: 'Voicemail', gradient: 'bg-gradient-to-br from-purple-400 to-indigo-400' },
-    { name: 'AI Avatar', icon: 'UserSquare', gradient: 'bg-gradient-to-br from-yellow-400 to-amber-400' },
-];
-
 export const graphicDesignToolData: ToolCategory[] = [
     {
         title: "Logo Design & Branding",
@@ -596,13 +589,23 @@ const allData = [
     ...marketingSeoToolData.flatMap(cat => cat.tools),
     ...productivityToolData.flatMap(cat => cat.tools),
     ...writingToolData.flatMap(cat => cat.tools),
-    ...codingToolData.flatMap(cat => cat.tools)
+    ...codingToolData.flatMap(cat => cat.tools),
+    ...contentCreationToolData.flatMap(cat => cat.tools),
+    ...studentToolData.flatMap(cat => cat.tools),
 ];
 
 export const allTools: Tool[] = Array.from(new Set(allData.map(t => t.name))).map(name => {
     return allData.find(t => t.name === name)!
 });
 
-    
+export const toolCategories = [
+    { name: 'All', icon: 'LayoutGrid', color: 'bg-primary text-primary-foreground' },
+    { name: 'Img2vid', icon: 'ImageIcon', gradient: 'bg-gradient-to-br from-pink-400 to-rose-400' },
+    { name: 'Txt2vid', icon: 'Video', gradient: 'bg-gradient-to-br from-sky-400 to-blue-400' },
+    { name: 'Text to Speech', icon: 'Text', gradient: 'bg-gradient-to-br from-teal-400 to-emerald-400' },
+    { name: 'Text to Image', icon: 'ImageDown', gradient: 'bg-gradient-to-br from-orange-400 to-amber-400' },
+    { name: 'Voice Cloning', icon: 'Voicemail', gradient: 'bg-gradient-to-br from-purple-400 to-indigo-400' },
+    { name: 'AI Avatar', icon: 'UserSquare', gradient: 'bg-gradient-to-br from-yellow-400 to-amber-400' },
+];
 
     
