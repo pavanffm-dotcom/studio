@@ -5,7 +5,7 @@ import React, { useCallback, useMemo } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { 
-    ArrowLeft, ExternalLink, Code, Share2, Terminal, Braces, Server, Database, Link2, CloudCog, GitBranch, Bug, Paintbrush, Box, Bot, TerminalSquare, PackageCheck, Shield, Smartphone, Gamepad2, BrainCircuit, Gauge, ChevronRight, Filter, Star
+    ArrowLeft, ExternalLink, Code, Share2, Terminal, Braces, Server, Database, Link2, CloudCog, GitBranch, Bug, Paintbrush, Box, Bot, TerminalSquare, PackageCheck, Shield, Smartphone, Gamepad2, TestTube, Gauge, ChevronRight, Filter, Star
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardTitle } from '@/components/ui/card';
@@ -13,7 +13,7 @@ import { useToast } from '@/hooks/use-toast';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { useUserPreferences } from '@/context/user-preferences-context';
 import { cn } from '@/lib/utils';
-import { type Tool, codingToolData } from '@/lib/tools-data.tsx';
+import { type Tool, codingToolData } from '@/lib/coding-tools-data.tsx';
 
 
 export default function CodingToolsPage() {
@@ -155,7 +155,7 @@ export default function CodingToolsPage() {
                                   <DropdownMenuLabel>Filter by Price</DropdownMenuLabel>
                                   <DropdownMenuSeparator />
                                   <DropdownMenuRadioGroup value={priceFilter} onValueChange={setPriceFilter}>
-                                      <DropdownMenuRadioItem value="All">All (Free & Paid)</DropdownMenuRadioItem>
+                                      <DropdownMenuRadioItem value="All">All (Free &amp; Paid)</DropdownMenuRadioItem>
                                       <DropdownMenuRadioItem value="Free">Free Only</DropdownMenuRadioItem>
                                   </DropdownMenuRadioGroup>
                               </DropdownMenuContent>
