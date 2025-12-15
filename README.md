@@ -6,6 +6,4 @@ git push -u origin main
 This is a NextJS starter in Firebase Studio.
 
 To get started, take a look at src/app/page.tsx.
-git add .
-git commit -m "Initial commit"
-git push -u origin main
+git commit -m "Fix build errors for deployment"
