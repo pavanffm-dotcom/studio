@@ -10,13 +10,13 @@ import {
     MessageCircle, Video, Mail, Briefcase,
     Zap, Workflow, Link2, Code,
     Terminal, GitBranch, UploadCloud, TestTube, MonitorPlay,
-    PenTool, Type, CalendarPlus,
+    PenTool, Type, CalendarPlus, Presentation,
     BellOff, Headphones, Smartphone, BarChart,
     Wallet, Receipt, FileSignature, CreditCard,
     Contact, UserCog, Eye, LayoutDashboard,
     GraduationCap, BookOpen, Brain, Dna,
     MousePointer, Copy, RotateCw, Cloud,
-    Sparkles, Search, BookCopy, Laptop
+    Sparkles, Search, BookCopy, Laptop, Mic, Globe
 } from 'lucide-react';
 
 export type Tool = {
